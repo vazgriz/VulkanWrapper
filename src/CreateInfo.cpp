@@ -1,9 +1,5 @@
 #include "VulkanWrapper/CreateInfo.h"
 
-vk::CreateInfo::CreateInfo() {
-    next = nullptr;
-}
-
 void Align(size_t& size, size_t alignment) {
     size_t unalign = size % alignment;
 

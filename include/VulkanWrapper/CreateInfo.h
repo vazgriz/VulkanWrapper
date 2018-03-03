@@ -4,7 +4,7 @@
 namespace vk {
     class CreateInfo {
     public:
-        CreateInfo();
+        CreateInfo() { }
 
         virtual size_t size() const = 0;
         virtual void write(void* ptr) const = 0;

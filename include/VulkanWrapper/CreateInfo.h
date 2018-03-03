@@ -10,7 +10,7 @@ namespace vk {
         virtual void Write(void* ptr) const = 0;
         static std::vector<char> Marshal(const CreateInfo& info);
 
-        CreateInfo * next;
+        CreateInfo* next;
     };
 
     template<typename T>

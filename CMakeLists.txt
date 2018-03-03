@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 
-find_library(VULKAN_LIB HINTS "${VK_SDK_PATH}/lib")
+find_library(VULKAN_LIB NAMES vulkan-1)
+find_library(GLFW_LIB NAMES glfw3)
 
 add_subdirectory(src)
 add_subdirectory(samples/Test)

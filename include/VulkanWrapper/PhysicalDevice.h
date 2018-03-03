@@ -10,8 +10,7 @@ namespace vk {
     typedef VkPhysicalDeviceSparseProperties PhysicalDeviceSparseProperties;
     typedef VkPhysicalDeviceFeatures PhysicalDeviceFeatures;
 
-    class PhysicalDeviceProperties {
-    public:
+    struct PhysicalDeviceProperties {
         uint32_t apiVersion;
         uint32_t driverVersion;
         uint32_t vendorID;

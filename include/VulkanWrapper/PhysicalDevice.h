@@ -20,6 +20,18 @@ namespace vk {
         uint8_t pipelineCacheUUID[VK_UUID_SIZE];
         PhysicalDeviceLimits limits;
         PhysicalDeviceSparseProperties sparseProperties;
+
+        PhysicalDeviceProperties() { }
+        PhysicalDeviceProperties(VkPhysicalDeviceProperties properties);
+    };
+
+    struct QueueFamilyProperties {
+        QueueFlags queueFlags;
+        uint32_t queueCount;
+        uint32_t timestampValidBits;
+        VkExtent3D minImageTransferGranularity;
+
+        QueueFamilyProperties(VkQueueFamilyProperties);
     };
 
     class PhysicalDevice {

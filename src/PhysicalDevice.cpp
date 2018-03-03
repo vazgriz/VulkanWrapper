@@ -1,6 +1,25 @@
 #include "VulkanWrapper/PhysicalDevice.h"
 #include <cstring>
 
+vk::PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDeviceProperties properties) {
+    apiVersion = properties.apiVersion;
+    driverVersion = properties.driverVersion;
+    vendorID = properties.vendorID;
+    deviceID = properties.deviceID;
+    deviceType = static_cast<PhysicalDeviceType>(properties.deviceType);
+    deviceName = properties.deviceName;
+    std::memcpy(&pipelineCacheUUID[VK_UUID_SIZE], properties.pipelineCacheUUID, VK_UUID_SIZE);
+    limits = properties.limits;
+    sparseProperties = properties.sparseProperties;
+}
+
+vk::QueueFamilyProperties::QueueFamilyProperties(VkQueueFamilyProperties properties) {
+    queueFlags = static_cast<vk::QueueFlags>(properties.queueFlags);
+    queueCount = properties.queueCount;
+    timestampValidBits = properties.timestampValidBits;
+    minImageTransferGranularity = properties.minImageTransferGranularity;
+}
+
 vk::PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
     m_physicalDevice = physicalDevice;
 
@@ -12,15 +31,7 @@ void vk::PhysicalDevice::getProperties() {
     VkPhysicalDeviceProperties properties;
     vkGetPhysicalDeviceProperties(m_physicalDevice, &properties);
 
-    m_properties.apiVersion = properties.apiVersion;
-    m_properties.driverVersion = properties.driverVersion;
-    m_properties.vendorID = properties.vendorID;
-    m_properties.deviceID = properties.deviceID;
-    m_properties.deviceType = static_cast<PhysicalDeviceType>(properties.deviceType);
-    m_properties.deviceName = properties.deviceName;
-    std::memcpy(&m_properties.pipelineCacheUUID[VK_UUID_SIZE], properties.pipelineCacheUUID, VK_UUID_SIZE);
-    m_properties.limits = properties.limits;
-    m_properties.sparseProperties = properties.sparseProperties;
+    m_properties = PhysicalDeviceProperties(properties);
 }
 
 void vk::PhysicalDevice::getFeatures() {

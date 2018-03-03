@@ -8,6 +8,7 @@
 namespace vk {
     typedef VkPhysicalDeviceLimits PhysicalDeviceLimits;
     typedef VkPhysicalDeviceSparseProperties PhysicalDeviceSparseProperties;
+    typedef VkPhysicalDeviceFeatures PhysicalDeviceFeatures;
 
     class PhysicalDeviceProperties {
     public:
@@ -27,9 +28,11 @@ namespace vk {
         PhysicalDevice(VkPhysicalDevice physicalDevice);
 
         const PhysicalDeviceProperties& GetProperties() const { return properties; }
+        const PhysicalDeviceFeatures& GetFeatures() const { return features; }
 
     private:
         VkPhysicalDevice physicalDevice;
         PhysicalDeviceProperties properties;
+        PhysicalDeviceFeatures features;
     };
 }

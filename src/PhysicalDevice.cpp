@@ -16,4 +16,6 @@ vk::PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
     std::memcpy(&this->properties.pipelineCacheUUID[VK_UUID_SIZE], properties.pipelineCacheUUID, VK_UUID_SIZE);
     std::memcpy(&this->properties.limits, &properties.limits, sizeof(PhysicalDeviceLimits));
     std::memcpy(&this->properties.sparseProperties, &properties.sparseProperties, sizeof(PhysicalDeviceSparseProperties));
+
+    vkGetPhysicalDeviceFeatures(physicalDevice, &features);
 }

@@ -2,20 +2,20 @@
 #include <cstring>
 
 vk::PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
-    this->physicalDevice = physicalDevice;
+    this->m_physicalDevice = physicalDevice;
 
     VkPhysicalDeviceProperties properties;
     vkGetPhysicalDeviceProperties(physicalDevice, &properties);
 
-    this->properties.apiVersion = properties.apiVersion;
-    this->properties.driverVersion = properties.driverVersion;
-    this->properties.vendorID = properties.vendorID;
-    this->properties.deviceID = properties.deviceID;
-    this->properties.deviceType = static_cast<PhysicalDeviceType>(properties.deviceType);
-    this->properties.deviceName = properties.deviceName;
-    std::memcpy(&this->properties.pipelineCacheUUID[VK_UUID_SIZE], properties.pipelineCacheUUID, VK_UUID_SIZE);
-    std::memcpy(&this->properties.limits, &properties.limits, sizeof(PhysicalDeviceLimits));
-    std::memcpy(&this->properties.sparseProperties, &properties.sparseProperties, sizeof(PhysicalDeviceSparseProperties));
+    m_properties.apiVersion = properties.apiVersion;
+    m_properties.driverVersion = properties.driverVersion;
+    m_properties.vendorID = properties.vendorID;
+    m_properties.deviceID = properties.deviceID;
+    m_properties.deviceType = static_cast<PhysicalDeviceType>(properties.deviceType);
+    m_properties.deviceName = properties.deviceName;
+    std::memcpy(&m_properties.pipelineCacheUUID[VK_UUID_SIZE], properties.pipelineCacheUUID, VK_UUID_SIZE);
+    m_properties.limits = properties.limits;
+    m_properties.sparseProperties = properties.sparseProperties;
 
-    vkGetPhysicalDeviceFeatures(physicalDevice, &features);
+    vkGetPhysicalDeviceFeatures(physicalDevice, &m_features);
 }

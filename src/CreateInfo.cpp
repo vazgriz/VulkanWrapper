@@ -14,18 +14,18 @@ void Align(size_t& size, size_t alignment) {
     }
 }
 
-std::vector<char> vk::CreateInfo::Marshal(const vk::CreateInfo& info) {
+std::vector<char> vk::CreateInfo::marshal(const vk::CreateInfo& info) {
     size_t totalSize = 0;
-    std::vector<char> buffer(info.GetSize());
+    std::vector<char> buffer(info.size());
 
     const CreateInfo* current = &info;
     while (true) {
         size_t index = totalSize;
-        current->Write(&buffer[index]);
+        current->write(&buffer[index]);
 
         current = current->next;
         if (current != nullptr) {
-            totalSize += current->GetSize();
+            totalSize += current->size();
             Align(totalSize, 16);
             buffer.reserve(totalSize);
         } else {

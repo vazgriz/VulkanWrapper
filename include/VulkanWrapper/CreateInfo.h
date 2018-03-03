@@ -6,17 +6,17 @@ namespace vk {
     public:
         CreateInfo();
 
-        virtual size_t GetSize() const = 0;
-        virtual void Write(void* ptr) const = 0;
-        static std::vector<char> Marshal(const CreateInfo& info);
+        virtual size_t size() const = 0;
+        virtual void write(void* ptr) const = 0;
+        static std::vector<char> marshal(const CreateInfo& info);
 
-        CreateInfo* next;
+        CreateInfo* next = nullptr;
     };
 
     template<typename T>
     class CreateInfo_ : public CreateInfo {
     public:
-        size_t GetSize() const {
+        size_t size() const {
             return sizeof(T);
         }
     };

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-void vk::ApplicationInfo::Write(VkApplicationInfo& info) const {
+void vk::ApplicationInfo::write(VkApplicationInfo& info) const {
     info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     info.pApplicationName = applicationName.c_str();
     info.applicationVersion = applicationVersion;
@@ -12,62 +12,62 @@ void vk::ApplicationInfo::Write(VkApplicationInfo& info) const {
     info.apiVersion = apiVersion;
 }
 
-void vk::InstanceCreateInfo::Write(void* ptr) const {
+void vk::InstanceCreateInfo::write(void* ptr) const {
     VkInstanceCreateInfo& info = *reinterpret_cast<VkInstanceCreateInfo*>(ptr);
     info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     info.flags = static_cast<VkInstanceCreateFlags>(flags);
 
     //copy info to temporary variables
     if (applicationInfo != nullptr) {
-        pApplicationInfo = Marshal(*applicationInfo);
-        info.pApplicationInfo = reinterpret_cast<const VkApplicationInfo*>(pApplicationInfo.data());
+        m_applicationInfo = marshal(*applicationInfo);
+        info.pApplicationInfo = reinterpret_cast<const VkApplicationInfo*>(m_applicationInfo.data());
     } else {
         info.pApplicationInfo = nullptr;
     }
 
     for (auto& str : enabledLayerNames) {
-        ppEnabledLayerNames.push_back(str.c_str());
+        m_enabledLayerNames.push_back(str.c_str());
     }
 
     for (auto& str : enabledExtensionNames) {
-        ppEnabledExtensionNames.push_back(str.c_str());
+        m_enabledExtensionNames.push_back(str.c_str());
     }
 
-    info.enabledLayerCount = static_cast<uint32_t>(ppEnabledLayerNames.size());
-    info.ppEnabledLayerNames = ppEnabledLayerNames.data();
-    info.enabledExtensionCount = static_cast<uint32_t>(ppEnabledExtensionNames.size());
-    info.ppEnabledExtensionNames = ppEnabledExtensionNames.data();
+    info.enabledLayerCount = static_cast<uint32_t>(m_enabledLayerNames.size());
+    info.ppEnabledLayerNames = m_enabledLayerNames.data();
+    info.enabledExtensionCount = static_cast<uint32_t>(m_enabledExtensionNames.size());
+    info.ppEnabledExtensionNames = m_enabledExtensionNames.data();
 }
 
 vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks) {
     if (callbacks != nullptr) {
-        this->callbacks = *callbacks;
-        callbacksPtr = &this->callbacks;
+        this->m_callbacks = *callbacks;
+        m_callbacksPtr = &this->m_callbacks;
     }
 
-    std::vector<char> buffer = vk::CreateInfo::Marshal(info);
+    std::vector<char> buffer = vk::CreateInfo::marshal(info);
 
-    VKW_CHECK(vkCreateInstance(
+    vkCreateInstance(
         reinterpret_cast<VkInstanceCreateInfo*>(buffer.data()),
-        GetCallbacks(),
-        &instance
-    ));
+        this->callbacks(),
+        &m_instance
+    );
 
     EnumeratePhysicalDevices();
 }
 
 void vk::Instance::EnumeratePhysicalDevices() {
     uint32_t count;
-    vkEnumeratePhysicalDevices(instance, &count, nullptr);
+    vkEnumeratePhysicalDevices(m_instance, &count, nullptr);
     std::vector<VkPhysicalDevice> physicalDevices(count);
-    vkEnumeratePhysicalDevices(instance, &count, physicalDevices.data());
+    vkEnumeratePhysicalDevices(m_instance, &count, physicalDevices.data());
 
     for (auto physicalDevice : physicalDevices) {
-        this->physicalDevices.push_back(vk::PhysicalDevice(physicalDevice));
+        this->m_physicalDevices.push_back(vk::PhysicalDevice(physicalDevice));
     }
 }
 
-std::vector<vk::LayerProperties> vk::Instance::GetAvailableLayers() {
+std::vector<vk::LayerProperties> vk::Instance::availableLayers() {
     uint32_t count;
     vkEnumerateInstanceLayerProperties(&count, nullptr);
     std::vector<VkLayerProperties> properties(count);
@@ -82,7 +82,7 @@ std::vector<vk::LayerProperties> vk::Instance::GetAvailableLayers() {
     return result;
 }
 
-std::vector<vk::ExtensionProperties> vk::Instance::GetAvailableExtensions(const char* layerName) {
+std::vector<vk::ExtensionProperties> vk::Instance::availableExtensions(const char* layerName) {
     uint32_t count;
     vkEnumerateInstanceExtensionProperties(layerName, &count, nullptr);
     std::vector<VkExtensionProperties> properties(count);
@@ -98,5 +98,5 @@ std::vector<vk::ExtensionProperties> vk::Instance::GetAvailableExtensions(const 
 }
 
 vk::Instance::~Instance() {
-    vkDestroyInstance(instance, GetCallbacks());
+    vkDestroyInstance(m_instance, callbacks());
 }

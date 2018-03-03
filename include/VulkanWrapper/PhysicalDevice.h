@@ -27,12 +27,12 @@ namespace vk {
     public:
         PhysicalDevice(VkPhysicalDevice physicalDevice);
 
-        const PhysicalDeviceProperties& GetProperties() const { return properties; }
-        const PhysicalDeviceFeatures& GetFeatures() const { return features; }
+        const PhysicalDeviceProperties& properties() const { return m_properties; }
+        const PhysicalDeviceFeatures& features() const { return m_features; }
 
     private:
-        VkPhysicalDevice physicalDevice;
-        PhysicalDeviceProperties properties;
-        PhysicalDeviceFeatures features;
+        VkPhysicalDevice m_physicalDevice;
+        PhysicalDeviceProperties m_properties;
+        PhysicalDeviceFeatures m_features;
     };
 }

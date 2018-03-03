@@ -17,12 +17,12 @@ namespace vk {
         uint32_t engineVersion;
         uint32_t apiVersion;
 
-        void Write(VkApplicationInfo& info) const;
+        void write(VkApplicationInfo& info) const;
     };
 
     class InstanceCreateInfo : public CreateInfo_<VkInstanceCreateInfo> {
     public:
-        void Write(void* ptr) const;
+        void write(void* ptr) const;
 
         vk::InstanceCreateFlags flags = vk::InstanceCreateFlags::None;
         const vk::ApplicationInfo* applicationInfo = nullptr;
@@ -31,9 +31,9 @@ namespace vk {
 
     private:
         //holds temporary variables for the life of the InstanceCreateInfo
-        mutable std::vector<char> pApplicationInfo;	//holds VkApplicationInfo and structure chain
-        mutable std::vector<const char*> ppEnabledLayerNames;
-        mutable std::vector<const char*> ppEnabledExtensionNames;
+        mutable std::vector<char> m_applicationInfo;	//holds VkApplicationInfo and structure chain
+        mutable std::vector<const char*> m_enabledLayerNames;
+        mutable std::vector<const char*> m_enabledExtensionNames;
     };
 
     class Instance {
@@ -41,17 +41,17 @@ namespace vk {
         Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks = nullptr);
         ~Instance();
 
-        const VkAllocationCallbacks* GetCallbacks() const { return callbacksPtr; }
-        const std::vector<PhysicalDevice>& GetPhysicalDevices() const { return physicalDevices; }
+        const VkAllocationCallbacks* callbacks() const { return m_callbacksPtr; }
+        const std::vector<PhysicalDevice>& physicalDevices() const { return m_physicalDevices; }
 
-        static std::vector<LayerProperties> GetAvailableLayers();
-        static std::vector<ExtensionProperties> GetAvailableExtensions(const char* layerName);
+        static std::vector<LayerProperties> availableLayers();
+        static std::vector<ExtensionProperties> availableExtensions(const char* layerName);
     private:
         void EnumeratePhysicalDevices();
 
-        VkInstance instance;
-        VkAllocationCallbacks callbacks;
-        VkAllocationCallbacks* callbacksPtr = nullptr;
-        std::vector<PhysicalDevice> physicalDevices;
+        VkInstance m_instance;
+        VkAllocationCallbacks m_callbacks;
+        VkAllocationCallbacks* m_callbacksPtr = nullptr;
+        std::vector<PhysicalDevice> m_physicalDevices;
     };
 }

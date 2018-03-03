@@ -5,12 +5,12 @@
 #define VKW_CHECK(exp) {\
     VkResult result = exp;\
     if (result < 0) {\
-        throw std::runtime_error(GetResultString(result));\
+        throw std::runtime_error(toString(result));\
     }\
 }
 
 namespace vk {
-    inline const char* GetResultString(VkResult result) {
+    inline const char* toString(VkResult result) {
         switch (result) {
             default: return "Unknown value";
             case 0: return "Success";

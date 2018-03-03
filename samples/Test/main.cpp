@@ -3,8 +3,8 @@
 #include <VulkanWrapper/Instance.h>
 
 int main() {
-    auto layers = vk::Instance::GetAvailableLayers();
-    auto extensions = vk::Instance::GetAvailableExtensions(nullptr);
+    auto layers = vk::Instance::availableLayers();
+    auto extensions = vk::Instance::availableExtensions(nullptr);
 
     std::cout << layers.size() << " available layers\n";
     for (auto& layer : layers) {
@@ -20,11 +20,11 @@ int main() {
     info.enabledLayerNames = { "VK_LAYER_LUNARG_standard_validation" };
 
     vk::Instance instance(info);
-    auto& physicalDevices = instance.GetPhysicalDevices();
+    auto& physicalDevices = instance.physicalDevices();
 
     std::cout << physicalDevices.size() << " physical devices available\n";
     for (auto& physicalDevice : physicalDevices) {
-        std::cout << "    " << physicalDevice.GetProperties().deviceName << "\n";
+        std::cout << "    " << physicalDevice.properties().deviceName << "\n";
     }
 
     std::cin.ignore();

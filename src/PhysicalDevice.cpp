@@ -2,10 +2,15 @@
 #include <cstring>
 
 vk::PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
-    this->m_physicalDevice = physicalDevice;
+    m_physicalDevice = physicalDevice;
 
+    getProperties();
+    getFeatures();
+}
+
+void vk::PhysicalDevice::getProperties() {
     VkPhysicalDeviceProperties properties;
-    vkGetPhysicalDeviceProperties(physicalDevice, &properties);
+    vkGetPhysicalDeviceProperties(m_physicalDevice, &properties);
 
     m_properties.apiVersion = properties.apiVersion;
     m_properties.driverVersion = properties.driverVersion;
@@ -16,6 +21,8 @@ vk::PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
     std::memcpy(&m_properties.pipelineCacheUUID[VK_UUID_SIZE], properties.pipelineCacheUUID, VK_UUID_SIZE);
     m_properties.limits = properties.limits;
     m_properties.sparseProperties = properties.sparseProperties;
+}
 
-    vkGetPhysicalDeviceFeatures(physicalDevice, &m_features);
+void vk::PhysicalDevice::getFeatures() {
+    vkGetPhysicalDeviceFeatures(m_physicalDevice, &m_features);
 }

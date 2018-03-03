@@ -31,6 +31,9 @@ namespace vk {
         const PhysicalDeviceFeatures& features() const { return m_features; }
 
     private:
+        void getProperties();
+        void getFeatures();
+
         VkPhysicalDevice m_physicalDevice;
         PhysicalDeviceProperties m_properties;
         PhysicalDeviceFeatures m_features;

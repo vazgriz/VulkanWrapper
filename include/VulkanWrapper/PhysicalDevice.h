@@ -40,13 +40,16 @@ namespace vk {
 
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
+        const std::vector<QueueFamilyProperties> queueFamilies() const {return m_families; }
 
     private:
         void getProperties();
         void getFeatures();
+        void getQueueFamilies();
 
         VkPhysicalDevice m_physicalDevice;
         PhysicalDeviceProperties m_properties;
         PhysicalDeviceFeatures m_features;
+        std::vector<QueueFamilyProperties> m_families;
     };
 }

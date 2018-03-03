@@ -25,6 +25,7 @@ vk::PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
 
     getProperties();
     getFeatures();
+    getQueueFamilies();
 }
 
 void vk::PhysicalDevice::getProperties() {
@@ -36,4 +37,16 @@ void vk::PhysicalDevice::getProperties() {
 
 void vk::PhysicalDevice::getFeatures() {
     vkGetPhysicalDeviceFeatures(m_physicalDevice, &m_features);
+}
+
+void vk::PhysicalDevice::getQueueFamilies() {
+    uint32_t count;
+    vkGetPhysicalDeviceQueueFamilyProperties(m_physicalDevice, &count, nullptr);
+    std::vector<VkQueueFamilyProperties> properties(count);
+    vkGetPhysicalDeviceQueueFamilyProperties(m_physicalDevice, &count, properties.data());
+
+    m_families.reserve(count);
+    for (auto& prop : properties) {
+        m_families.push_back(QueueFamilyProperties(prop));
+    }
 }

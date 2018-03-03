@@ -3,7 +3,6 @@ project(VulkanWrapper)
 
 add_library(VulkanWrapper
     CreateInfo.cpp
-    Utilities.cpp
     Instance.cpp
     PhysicalDevice.cpp
 )

@@ -70,7 +70,7 @@ void vk::Instance::EnumeratePhysicalDevices() {
     vkEnumeratePhysicalDevices(m_instance, &count, physicalDevices.data());
 
     for (auto physicalDevice : physicalDevices) {
-        this->m_physicalDevices.push_back(vk::PhysicalDevice(physicalDevice));
+        this->m_physicalDevices.emplace_back(physicalDevice);
     }
 }
 
@@ -83,7 +83,7 @@ std::vector<vk::LayerProperties> vk::Instance::availableLayers() {
     std::vector<vk::LayerProperties> result;
     result.reserve(count);
     for (auto& prop : properties) {
-        result.push_back(vk::LayerProperties(prop));
+        result.emplace_back(prop);
     }
 
     return result;
@@ -101,7 +101,7 @@ std::vector<vk::ExtensionProperties> vk::Instance::availableExtensions(const std
     std::vector<vk::ExtensionProperties> result;
     result.reserve(count);
     for (auto& prop : properties) {
-        result.push_back(vk::ExtensionProperties(prop));
+        result.emplace_back(prop);
     }
 
     return result;

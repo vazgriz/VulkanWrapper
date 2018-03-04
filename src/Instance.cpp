@@ -8,7 +8,11 @@ void vk::ApplicationInfo::write(void* ptr) const {
     info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     info.pApplicationName = applicationName.c_str();
     info.applicationVersion = applicationVersion;
-    info.pEngineName = engineName.c_str();
+
+    if (engineName.size() != 0) {
+        info.pEngineName = engineName.c_str();
+    }
+
     info.engineVersion = engineVersion;
     info.apiVersion = apiVersion;
 }

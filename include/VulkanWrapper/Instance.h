@@ -9,7 +9,7 @@
 #include "VulkanWrapper/PhysicalDevice.h"
 
 namespace vk {
-    class ApplicationInfo : public CreateInfo_<VkApplicationInfo> {
+    class ApplicationInfo : public CreateInfo<VkApplicationInfo> {
     public:
         std::string applicationName;
         uint32_t applicationVersion;
@@ -17,12 +17,12 @@ namespace vk {
         uint32_t engineVersion;
         uint32_t apiVersion;
 
-        void write(void* ptr) const;
+        void marshal() const;
     };
 
-    class InstanceCreateInfo : public CreateInfo_<VkInstanceCreateInfo> {
+    class InstanceCreateInfo : public CreateInfo<VkInstanceCreateInfo> {
     public:
-        void write(void* ptr) const;
+        void marshal() const;
 
         vk::InstanceCreateFlags flags = vk::InstanceCreateFlags::None;
         const vk::ApplicationInfo* applicationInfo = nullptr;
@@ -31,7 +31,6 @@ namespace vk {
 
     private:
         //holds temporary variables for the life of the InstanceCreateInfo
-        mutable std::vector<char> m_applicationInfo;	//holds VkApplicationInfo and structure chain
         mutable std::vector<const char*> m_enabledLayerNames;
         mutable std::vector<const char*> m_enabledExtensionNames;
     };

@@ -1,23 +1,22 @@
 #pragma once
 #include <vector>
+#include <queue>
+#include "VulkanWrapper/ArrayProxy.h"
 
 namespace vk {
-    class CreateInfo {
-    public:
-        CreateInfo() { }
-
-        virtual size_t size() const = 0;
-        virtual void write(void* ptr) const = 0;
-        static std::vector<char> marshal(const CreateInfo& info);
-
-        CreateInfo* next = nullptr;
-    };
-
     template<typename T>
-    class CreateInfo_ : public CreateInfo {
+    class CreateInfo {
     public:
         size_t size() const {
             return sizeof(T);
         }
+
+        const T& info() const { return m_info; }
+
+        virtual void marshal() const = 0;
+        CreateInfo* next = nullptr;
+
+    protected:
+        mutable T m_info;
     };
 }

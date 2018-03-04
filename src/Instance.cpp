@@ -3,31 +3,29 @@
 #include <iostream>
 #include <string>
 
-void vk::ApplicationInfo::write(void* ptr) const {
-    VkApplicationInfo& info = *reinterpret_cast<VkApplicationInfo*>(ptr);
-    info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    info.pApplicationName = applicationName.c_str();
-    info.applicationVersion = applicationVersion;
+void vk::ApplicationInfo::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    m_info.pApplicationName = applicationName.c_str();
+    m_info.applicationVersion = applicationVersion;
 
     if (engineName.size() != 0) {
-        info.pEngineName = engineName.c_str();
+        m_info.pEngineName = engineName.c_str();
     }
 
-    info.engineVersion = engineVersion;
-    info.apiVersion = apiVersion;
+    m_info.engineVersion = engineVersion;
+    m_info.apiVersion = apiVersion;
 }
 
-void vk::InstanceCreateInfo::write(void* ptr) const {
-    VkInstanceCreateInfo& info = *reinterpret_cast<VkInstanceCreateInfo*>(ptr);
-    info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-    info.flags = static_cast<VkInstanceCreateFlags>(flags);
+void vk::InstanceCreateInfo::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+    m_info.flags = static_cast<VkInstanceCreateFlags>(flags);
 
     //copy info to temporary variables
     if (applicationInfo != nullptr) {
-        m_applicationInfo = marshal(*applicationInfo);
-        info.pApplicationInfo = reinterpret_cast<const VkApplicationInfo*>(m_applicationInfo.data());
+        applicationInfo->marshal();
+        m_info.pApplicationInfo = &applicationInfo->info();
     } else {
-        info.pApplicationInfo = nullptr;
+        m_info.pApplicationInfo = nullptr;
     }
 
     for (auto& str : enabledLayerNames) {
@@ -38,10 +36,10 @@ void vk::InstanceCreateInfo::write(void* ptr) const {
         m_enabledExtensionNames.push_back(str.c_str());
     }
 
-    info.enabledLayerCount = static_cast<uint32_t>(m_enabledLayerNames.size());
-    info.ppEnabledLayerNames = m_enabledLayerNames.data();
-    info.enabledExtensionCount = static_cast<uint32_t>(m_enabledExtensionNames.size());
-    info.ppEnabledExtensionNames = m_enabledExtensionNames.data();
+    m_info.enabledLayerCount = static_cast<uint32_t>(m_enabledLayerNames.size());
+    m_info.ppEnabledLayerNames = m_enabledLayerNames.data();
+    m_info.enabledExtensionCount = static_cast<uint32_t>(m_enabledExtensionNames.size());
+    m_info.ppEnabledExtensionNames = m_enabledExtensionNames.data();
 }
 
 vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks) {
@@ -50,10 +48,10 @@ vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbac
         m_callbacksPtr = &this->m_callbacks;
     }
 
-    std::vector<char> buffer = vk::CreateInfo::marshal(info);
+    info.marshal();
 
     vkCreateInstance(
-        reinterpret_cast<VkInstanceCreateInfo*>(buffer.data()),
+        &info.info(),
         this->callbacks(),
         &m_instance
     );

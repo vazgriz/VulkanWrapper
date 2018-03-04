@@ -43,6 +43,8 @@ namespace vk {
 
         const VkAllocationCallbacks* callbacks() const { return m_callbacksPtr; }
         const std::vector<PhysicalDevice>& physicalDevices() const { return m_physicalDevices; }
+        const std::vector<std::string>& layers() const{ return m_layers; }
+        const std::vector<std::string>& extensions() const { return m_extensions; }
 
         static std::vector<LayerProperties> availableLayers();
         static std::vector<ExtensionProperties> availableExtensions(const char* layerName);
@@ -53,5 +55,7 @@ namespace vk {
         VkAllocationCallbacks m_callbacks;
         VkAllocationCallbacks* m_callbacksPtr = nullptr;
         std::vector<PhysicalDevice> m_physicalDevices;
+        std::vector<std::string> m_layers;
+        std::vector<std::string> m_extensions;
     };
 }

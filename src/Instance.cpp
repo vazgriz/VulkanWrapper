@@ -59,6 +59,8 @@ vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbac
     );
 
     EnumeratePhysicalDevices();
+    m_layers = info.enabledLayerNames;
+    m_extensions = info.enabledExtensionNames;
 }
 
 void vk::Instance::EnumeratePhysicalDevices() {

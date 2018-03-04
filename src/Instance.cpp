@@ -3,7 +3,8 @@
 #include <iostream>
 #include <string>
 
-void vk::ApplicationInfo::write(VkApplicationInfo& info) const {
+void vk::ApplicationInfo::write(void* ptr) const {
+    VkApplicationInfo& info = *reinterpret_cast<VkApplicationInfo*>(ptr);
     info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     info.pApplicationName = applicationName.c_str();
     info.applicationVersion = applicationVersion;

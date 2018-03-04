@@ -17,7 +17,7 @@ namespace vk {
         uint32_t engineVersion;
         uint32_t apiVersion;
 
-        void write(VkApplicationInfo& info) const;
+        void write(void* ptr) const;
     };
 
     class InstanceCreateInfo : public CreateInfo_<VkInstanceCreateInfo> {

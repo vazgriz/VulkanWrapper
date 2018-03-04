@@ -31,8 +31,8 @@ namespace vk {
 
     private:
         //holds temporary variables for the life of the InstanceCreateInfo
-        mutable std::vector<const char*> m_enabledLayerNames;
-        mutable std::vector<const char*> m_enabledExtensionNames;
+        mutable std::vector<const char*> m_layers;
+        mutable std::vector<const char*> m_extensions;
     };
 
     class Instance {

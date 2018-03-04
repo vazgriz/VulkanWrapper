@@ -29,17 +29,17 @@ void vk::InstanceCreateInfo::marshal() const {
     }
 
     for (auto& str : enabledLayerNames) {
-        m_enabledLayerNames.push_back(str.c_str());
+        m_layers.push_back(str.c_str());
     }
 
     for (auto& str : enabledExtensionNames) {
-        m_enabledExtensionNames.push_back(str.c_str());
+        m_extensions.push_back(str.c_str());
     }
 
-    m_info.enabledLayerCount = static_cast<uint32_t>(m_enabledLayerNames.size());
-    m_info.ppEnabledLayerNames = m_enabledLayerNames.data();
-    m_info.enabledExtensionCount = static_cast<uint32_t>(m_enabledExtensionNames.size());
-    m_info.ppEnabledExtensionNames = m_enabledExtensionNames.data();
+    m_info.enabledLayerCount = static_cast<uint32_t>(m_layers.size());
+    m_info.ppEnabledLayerNames = m_layers.data();
+    m_info.enabledExtensionCount = static_cast<uint32_t>(m_extensions.size());
+    m_info.ppEnabledExtensionNames = m_extensions.data();
 }
 
 vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks) {

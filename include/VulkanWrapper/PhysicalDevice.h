@@ -39,6 +39,7 @@ namespace vk {
     public:
         PhysicalDevice(VkPhysicalDevice physicalDevice);
 
+        VkPhysicalDevice handle() const { return m_physicalDevice; }
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
         const std::vector<QueueFamilyProperties> queueFamilies() const {return m_families; }

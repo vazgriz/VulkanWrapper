@@ -41,6 +41,7 @@ namespace vk {
         Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks = nullptr);
         ~Instance();
 
+        VkInstance handle() const { return m_instance; }
         const VkAllocationCallbacks* callbacks() const { return m_callbacksPtr; }
         const std::vector<PhysicalDevice>& physicalDevices() const { return m_physicalDevices; }
         const std::vector<std::string>& layers() const{ return m_layers; }

@@ -1,4 +1,4 @@
-//auto generated on 03/03/2018 12:05:20 AM
+//auto generated on 03/03/2018 7:08:28 PM
 #pragma once
 
 namespace vk {
@@ -179,6 +179,23 @@ namespace vk {
         return a;
     }
 
+    inline DescriptorSetLayoutCreateFlags operator & (DescriptorSetLayoutCreateFlags a, DescriptorSetLayoutCreateFlags b) {
+        return static_cast<DescriptorSetLayoutCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DescriptorSetLayoutCreateFlags& operator &= (DescriptorSetLayoutCreateFlags& a, DescriptorSetLayoutCreateFlags& b) {
+        a = static_cast<DescriptorSetLayoutCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DescriptorSetLayoutCreateFlags& a, DescriptorSetLayoutCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DescriptorSetLayoutCreateFlags& a, DescriptorSetLayoutCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class BufferViewCreateFlags {
         None = 0,
     };
@@ -207,6 +224,23 @@ namespace vk {
         return a;
     }
 
+    inline BufferCreateFlags operator & (BufferCreateFlags a, BufferCreateFlags b) {
+        return static_cast<BufferCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline BufferCreateFlags& operator &= (BufferCreateFlags& a, BufferCreateFlags& b) {
+        a = static_cast<BufferCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (BufferCreateFlags& a, BufferCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (BufferCreateFlags& a, BufferCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class BufferUsageFlags {
         None = 0,
         TransferSrc = 1,
@@ -229,6 +263,23 @@ namespace vk {
         return a;
     }
 
+    inline BufferUsageFlags operator & (BufferUsageFlags a, BufferUsageFlags b) {
+        return static_cast<BufferUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline BufferUsageFlags& operator &= (BufferUsageFlags& a, BufferUsageFlags& b) {
+        a = static_cast<BufferUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (BufferUsageFlags& a, BufferUsageFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (BufferUsageFlags& a, BufferUsageFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ColorComponentFlags {
         None = 0,
         R = 1,
@@ -244,6 +295,23 @@ namespace vk {
     inline ColorComponentFlags& operator |= (ColorComponentFlags& a, ColorComponentFlags& b) {
         a = static_cast<ColorComponentFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline ColorComponentFlags operator & (ColorComponentFlags a, ColorComponentFlags b) {
+        return static_cast<ColorComponentFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ColorComponentFlags& operator &= (ColorComponentFlags& a, ColorComponentFlags& b) {
+        a = static_cast<ColorComponentFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ColorComponentFlags& a, ColorComponentFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ColorComponentFlags& a, ColorComponentFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ComponentSwizzle {
@@ -271,6 +339,23 @@ namespace vk {
         return a;
     }
 
+    inline CommandPoolCreateFlags operator & (CommandPoolCreateFlags a, CommandPoolCreateFlags b) {
+        return static_cast<CommandPoolCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline CommandPoolCreateFlags& operator &= (CommandPoolCreateFlags& a, CommandPoolCreateFlags& b) {
+        a = static_cast<CommandPoolCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (CommandPoolCreateFlags& a, CommandPoolCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (CommandPoolCreateFlags& a, CommandPoolCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class CommandPoolResetFlags {
         None = 0,
         ReleaseResources = 1,
@@ -285,6 +370,23 @@ namespace vk {
         return a;
     }
 
+    inline CommandPoolResetFlags operator & (CommandPoolResetFlags a, CommandPoolResetFlags b) {
+        return static_cast<CommandPoolResetFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline CommandPoolResetFlags& operator &= (CommandPoolResetFlags& a, CommandPoolResetFlags& b) {
+        a = static_cast<CommandPoolResetFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (CommandPoolResetFlags& a, CommandPoolResetFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (CommandPoolResetFlags& a, CommandPoolResetFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class CommandBufferResetFlags {
         None = 0,
         ReleaseResources = 1,
@@ -297,6 +399,23 @@ namespace vk {
     inline CommandBufferResetFlags& operator |= (CommandBufferResetFlags& a, CommandBufferResetFlags& b) {
         a = static_cast<CommandBufferResetFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline CommandBufferResetFlags operator & (CommandBufferResetFlags a, CommandBufferResetFlags b) {
+        return static_cast<CommandBufferResetFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline CommandBufferResetFlags& operator &= (CommandBufferResetFlags& a, CommandBufferResetFlags& b) {
+        a = static_cast<CommandBufferResetFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (CommandBufferResetFlags& a, CommandBufferResetFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (CommandBufferResetFlags& a, CommandBufferResetFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class CommandBufferLevel {
@@ -318,6 +437,23 @@ namespace vk {
     inline CommandBufferUsageFlags& operator |= (CommandBufferUsageFlags& a, CommandBufferUsageFlags& b) {
         a = static_cast<CommandBufferUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline CommandBufferUsageFlags operator & (CommandBufferUsageFlags a, CommandBufferUsageFlags b) {
+        return static_cast<CommandBufferUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline CommandBufferUsageFlags& operator &= (CommandBufferUsageFlags& a, CommandBufferUsageFlags& b) {
+        a = static_cast<CommandBufferUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (CommandBufferUsageFlags& a, CommandBufferUsageFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (CommandBufferUsageFlags& a, CommandBufferUsageFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class CompareOp {
@@ -345,6 +481,23 @@ namespace vk {
     inline CullModeFlags& operator |= (CullModeFlags& a, CullModeFlags& b) {
         a = static_cast<CullModeFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline CullModeFlags operator & (CullModeFlags a, CullModeFlags b) {
+        return static_cast<CullModeFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline CullModeFlags& operator &= (CullModeFlags& a, CullModeFlags& b) {
+        a = static_cast<CullModeFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (CullModeFlags& a, CullModeFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (CullModeFlags& a, CullModeFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class DescriptorType {
@@ -391,6 +544,23 @@ namespace vk {
     inline FenceCreateFlags& operator |= (FenceCreateFlags& a, FenceCreateFlags& b) {
         a = static_cast<FenceCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline FenceCreateFlags operator & (FenceCreateFlags a, FenceCreateFlags b) {
+        return static_cast<FenceCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline FenceCreateFlags& operator &= (FenceCreateFlags& a, FenceCreateFlags& b) {
+        a = static_cast<FenceCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (FenceCreateFlags& a, FenceCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (FenceCreateFlags& a, FenceCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class PolygonMode {
@@ -622,6 +792,23 @@ namespace vk {
         return a;
     }
 
+    inline FormatFeatureFlags operator & (FormatFeatureFlags a, FormatFeatureFlags b) {
+        return static_cast<FormatFeatureFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline FormatFeatureFlags& operator &= (FormatFeatureFlags& a, FormatFeatureFlags& b) {
+        a = static_cast<FormatFeatureFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (FormatFeatureFlags& a, FormatFeatureFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (FormatFeatureFlags& a, FormatFeatureFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class FrontFace {
         CounterClockwise = 0,
         Clockwise = 1,
@@ -644,6 +831,23 @@ namespace vk {
         return a;
     }
 
+    inline ImageAspectFlags operator & (ImageAspectFlags a, ImageAspectFlags b) {
+        return static_cast<ImageAspectFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ImageAspectFlags& operator &= (ImageAspectFlags& a, ImageAspectFlags& b) {
+        a = static_cast<ImageAspectFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ImageAspectFlags& a, ImageAspectFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ImageAspectFlags& a, ImageAspectFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ImageCreateFlags {
         None = 0,
         SparseBinding = 1,
@@ -660,6 +864,23 @@ namespace vk {
     inline ImageCreateFlags& operator |= (ImageCreateFlags& a, ImageCreateFlags& b) {
         a = static_cast<ImageCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline ImageCreateFlags operator & (ImageCreateFlags a, ImageCreateFlags b) {
+        return static_cast<ImageCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ImageCreateFlags& operator &= (ImageCreateFlags& a, ImageCreateFlags& b) {
+        a = static_cast<ImageCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ImageCreateFlags& a, ImageCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ImageCreateFlags& a, ImageCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ImageLayout {
@@ -706,6 +927,23 @@ namespace vk {
     inline ImageUsageFlags& operator |= (ImageUsageFlags& a, ImageUsageFlags& b) {
         a = static_cast<ImageUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline ImageUsageFlags operator & (ImageUsageFlags a, ImageUsageFlags b) {
+        return static_cast<ImageUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ImageUsageFlags& operator &= (ImageUsageFlags& a, ImageUsageFlags& b) {
+        a = static_cast<ImageUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ImageUsageFlags& a, ImageUsageFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ImageUsageFlags& a, ImageUsageFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ImageViewType {
@@ -761,6 +999,23 @@ namespace vk {
         return a;
     }
 
+    inline MemoryHeapFlags operator & (MemoryHeapFlags a, MemoryHeapFlags b) {
+        return static_cast<MemoryHeapFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline MemoryHeapFlags& operator &= (MemoryHeapFlags& a, MemoryHeapFlags& b) {
+        a = static_cast<MemoryHeapFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (MemoryHeapFlags& a, MemoryHeapFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (MemoryHeapFlags& a, MemoryHeapFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class AccessFlags {
         None = 0,
         IndirectCommandRead = 1,
@@ -791,6 +1046,23 @@ namespace vk {
         return a;
     }
 
+    inline AccessFlags operator & (AccessFlags a, AccessFlags b) {
+        return static_cast<AccessFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline AccessFlags& operator &= (AccessFlags& a, AccessFlags& b) {
+        a = static_cast<AccessFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (AccessFlags& a, AccessFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (AccessFlags& a, AccessFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class MemoryPropertyFlags {
         None = 0,
         DeviceLocal = 1,
@@ -807,6 +1079,23 @@ namespace vk {
     inline MemoryPropertyFlags& operator |= (MemoryPropertyFlags& a, MemoryPropertyFlags& b) {
         a = static_cast<MemoryPropertyFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline MemoryPropertyFlags operator & (MemoryPropertyFlags a, MemoryPropertyFlags b) {
+        return static_cast<MemoryPropertyFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline MemoryPropertyFlags& operator &= (MemoryPropertyFlags& a, MemoryPropertyFlags& b) {
+        a = static_cast<MemoryPropertyFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (MemoryPropertyFlags& a, MemoryPropertyFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (MemoryPropertyFlags& a, MemoryPropertyFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class PhysicalDeviceType {
@@ -838,6 +1127,23 @@ namespace vk {
         return a;
     }
 
+    inline PipelineCreateFlags operator & (PipelineCreateFlags a, PipelineCreateFlags b) {
+        return static_cast<PipelineCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PipelineCreateFlags& operator &= (PipelineCreateFlags& a, PipelineCreateFlags& b) {
+        a = static_cast<PipelineCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PipelineCreateFlags& a, PipelineCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PipelineCreateFlags& a, PipelineCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class PrimitiveTopology {
         PointList = 0,
         LineList = 1,
@@ -866,6 +1172,23 @@ namespace vk {
         return a;
     }
 
+    inline QueryControlFlags operator & (QueryControlFlags a, QueryControlFlags b) {
+        return static_cast<QueryControlFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline QueryControlFlags& operator &= (QueryControlFlags& a, QueryControlFlags& b) {
+        a = static_cast<QueryControlFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (QueryControlFlags& a, QueryControlFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (QueryControlFlags& a, QueryControlFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class QueryPipelineStatisticFlags {
         None = 0,
         InputAssemblyVertices = 1,
@@ -890,6 +1213,23 @@ namespace vk {
         return a;
     }
 
+    inline QueryPipelineStatisticFlags operator & (QueryPipelineStatisticFlags a, QueryPipelineStatisticFlags b) {
+        return static_cast<QueryPipelineStatisticFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline QueryPipelineStatisticFlags& operator &= (QueryPipelineStatisticFlags& a, QueryPipelineStatisticFlags& b) {
+        a = static_cast<QueryPipelineStatisticFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (QueryPipelineStatisticFlags& a, QueryPipelineStatisticFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (QueryPipelineStatisticFlags& a, QueryPipelineStatisticFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class QueryResultFlags {
         None = 0,
         _64 = 1,
@@ -905,6 +1245,23 @@ namespace vk {
     inline QueryResultFlags& operator |= (QueryResultFlags& a, QueryResultFlags& b) {
         a = static_cast<QueryResultFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline QueryResultFlags operator & (QueryResultFlags a, QueryResultFlags b) {
+        return static_cast<QueryResultFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline QueryResultFlags& operator &= (QueryResultFlags& a, QueryResultFlags& b) {
+        a = static_cast<QueryResultFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (QueryResultFlags& a, QueryResultFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (QueryResultFlags& a, QueryResultFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class QueryType {
@@ -928,6 +1285,23 @@ namespace vk {
     inline QueueFlags& operator |= (QueueFlags& a, QueueFlags& b) {
         a = static_cast<QueueFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline QueueFlags operator & (QueueFlags a, QueueFlags b) {
+        return static_cast<QueueFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline QueueFlags& operator &= (QueueFlags& a, QueueFlags& b) {
+        a = static_cast<QueueFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (QueueFlags& a, QueueFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (QueueFlags& a, QueueFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class SubpassContents {
@@ -986,6 +1360,23 @@ namespace vk {
         return a;
     }
 
+    inline ShaderStageFlags operator & (ShaderStageFlags a, ShaderStageFlags b) {
+        return static_cast<ShaderStageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ShaderStageFlags& operator &= (ShaderStageFlags& a, ShaderStageFlags& b) {
+        a = static_cast<ShaderStageFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ShaderStageFlags& a, ShaderStageFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ShaderStageFlags& a, ShaderStageFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class SparseMemoryBindFlags {
         None = 0,
         Metadata = 1,
@@ -998,6 +1389,23 @@ namespace vk {
     inline SparseMemoryBindFlags& operator |= (SparseMemoryBindFlags& a, SparseMemoryBindFlags& b) {
         a = static_cast<SparseMemoryBindFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline SparseMemoryBindFlags operator & (SparseMemoryBindFlags a, SparseMemoryBindFlags b) {
+        return static_cast<SparseMemoryBindFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SparseMemoryBindFlags& operator &= (SparseMemoryBindFlags& a, SparseMemoryBindFlags& b) {
+        a = static_cast<SparseMemoryBindFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SparseMemoryBindFlags& a, SparseMemoryBindFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SparseMemoryBindFlags& a, SparseMemoryBindFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class StencilFaceFlags {
@@ -1014,6 +1422,23 @@ namespace vk {
     inline StencilFaceFlags& operator |= (StencilFaceFlags& a, StencilFaceFlags& b) {
         a = static_cast<StencilFaceFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline StencilFaceFlags operator & (StencilFaceFlags a, StencilFaceFlags b) {
+        return static_cast<StencilFaceFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline StencilFaceFlags& operator &= (StencilFaceFlags& a, StencilFaceFlags& b) {
+        a = static_cast<StencilFaceFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (StencilFaceFlags& a, StencilFaceFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (StencilFaceFlags& a, StencilFaceFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class StencilOp {
@@ -1274,6 +1699,23 @@ namespace vk {
         return a;
     }
 
+    inline PipelineStageFlags operator & (PipelineStageFlags a, PipelineStageFlags b) {
+        return static_cast<PipelineStageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PipelineStageFlags& operator &= (PipelineStageFlags& a, PipelineStageFlags& b) {
+        a = static_cast<PipelineStageFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PipelineStageFlags& a, PipelineStageFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PipelineStageFlags& a, PipelineStageFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class SparseImageFormatFlags {
         None = 0,
         SingleMiptail = 1,
@@ -1288,6 +1730,23 @@ namespace vk {
     inline SparseImageFormatFlags& operator |= (SparseImageFormatFlags& a, SparseImageFormatFlags& b) {
         a = static_cast<SparseImageFormatFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline SparseImageFormatFlags operator & (SparseImageFormatFlags a, SparseImageFormatFlags b) {
+        return static_cast<SparseImageFormatFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SparseImageFormatFlags& operator &= (SparseImageFormatFlags& a, SparseImageFormatFlags& b) {
+        a = static_cast<SparseImageFormatFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SparseImageFormatFlags& a, SparseImageFormatFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SparseImageFormatFlags& a, SparseImageFormatFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class SampleCountFlags {
@@ -1310,6 +1769,23 @@ namespace vk {
         return a;
     }
 
+    inline SampleCountFlags operator & (SampleCountFlags a, SampleCountFlags b) {
+        return static_cast<SampleCountFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SampleCountFlags& operator &= (SampleCountFlags& a, SampleCountFlags& b) {
+        a = static_cast<SampleCountFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SampleCountFlags& a, SampleCountFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SampleCountFlags& a, SampleCountFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class AttachmentDescriptionFlags {
         None = 0,
         MayAlias = 1,
@@ -1322,6 +1798,23 @@ namespace vk {
     inline AttachmentDescriptionFlags& operator |= (AttachmentDescriptionFlags& a, AttachmentDescriptionFlags& b) {
         a = static_cast<AttachmentDescriptionFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline AttachmentDescriptionFlags operator & (AttachmentDescriptionFlags a, AttachmentDescriptionFlags b) {
+        return static_cast<AttachmentDescriptionFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline AttachmentDescriptionFlags& operator &= (AttachmentDescriptionFlags& a, AttachmentDescriptionFlags& b) {
+        a = static_cast<AttachmentDescriptionFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (AttachmentDescriptionFlags& a, AttachmentDescriptionFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (AttachmentDescriptionFlags& a, AttachmentDescriptionFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class DescriptorPoolCreateFlags {
@@ -1338,6 +1831,23 @@ namespace vk {
         return a;
     }
 
+    inline DescriptorPoolCreateFlags operator & (DescriptorPoolCreateFlags a, DescriptorPoolCreateFlags b) {
+        return static_cast<DescriptorPoolCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DescriptorPoolCreateFlags& operator &= (DescriptorPoolCreateFlags& a, DescriptorPoolCreateFlags& b) {
+        a = static_cast<DescriptorPoolCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DescriptorPoolCreateFlags& a, DescriptorPoolCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DescriptorPoolCreateFlags& a, DescriptorPoolCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class DependencyFlags {
         None = 0,
         ByRegion = 1,
@@ -1350,6 +1860,23 @@ namespace vk {
     inline DependencyFlags& operator |= (DependencyFlags& a, DependencyFlags& b) {
         a = static_cast<DependencyFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline DependencyFlags operator & (DependencyFlags a, DependencyFlags b) {
+        return static_cast<DependencyFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DependencyFlags& operator &= (DependencyFlags& a, DependencyFlags& b) {
+        a = static_cast<DependencyFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DependencyFlags& a, DependencyFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DependencyFlags& a, DependencyFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ObjectType {
@@ -1406,6 +1933,23 @@ namespace vk {
         return a;
     }
 
+    inline IndirectCommandsLayoutUsageFlagsNVX operator & (IndirectCommandsLayoutUsageFlagsNVX a, IndirectCommandsLayoutUsageFlagsNVX b) {
+        return static_cast<IndirectCommandsLayoutUsageFlagsNVX>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline IndirectCommandsLayoutUsageFlagsNVX& operator &= (IndirectCommandsLayoutUsageFlagsNVX& a, IndirectCommandsLayoutUsageFlagsNVX& b) {
+        a = static_cast<IndirectCommandsLayoutUsageFlagsNVX>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (IndirectCommandsLayoutUsageFlagsNVX& a, IndirectCommandsLayoutUsageFlagsNVX& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (IndirectCommandsLayoutUsageFlagsNVX& a, IndirectCommandsLayoutUsageFlagsNVX& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class IndirectCommandsTokenTypeNVX {
         Pipeline = 0,
         DescriptorSet = 1,
@@ -1430,6 +1974,23 @@ namespace vk {
     inline ObjectEntryUsageFlagsNVX& operator |= (ObjectEntryUsageFlagsNVX& a, ObjectEntryUsageFlagsNVX& b) {
         a = static_cast<ObjectEntryUsageFlagsNVX>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline ObjectEntryUsageFlagsNVX operator & (ObjectEntryUsageFlagsNVX a, ObjectEntryUsageFlagsNVX b) {
+        return static_cast<ObjectEntryUsageFlagsNVX>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ObjectEntryUsageFlagsNVX& operator &= (ObjectEntryUsageFlagsNVX& a, ObjectEntryUsageFlagsNVX& b) {
+        a = static_cast<ObjectEntryUsageFlagsNVX>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ObjectEntryUsageFlagsNVX& a, ObjectEntryUsageFlagsNVX& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ObjectEntryUsageFlagsNVX& a, ObjectEntryUsageFlagsNVX& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ObjectEntryTypeNVX {
@@ -1474,6 +2035,23 @@ namespace vk {
         return a;
     }
 
+    inline SubpassDescriptionFlags operator & (SubpassDescriptionFlags a, SubpassDescriptionFlags b) {
+        return static_cast<SubpassDescriptionFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SubpassDescriptionFlags& operator &= (SubpassDescriptionFlags& a, SubpassDescriptionFlags& b) {
+        a = static_cast<SubpassDescriptionFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SubpassDescriptionFlags& a, SubpassDescriptionFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SubpassDescriptionFlags& a, SubpassDescriptionFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class CoverageModulationModeNV {
         None = 0,
         Rgb = 1,
@@ -1516,6 +2094,23 @@ namespace vk {
         return a;
     }
 
+    inline CompositeAlphaFlagsKHR operator & (CompositeAlphaFlagsKHR a, CompositeAlphaFlagsKHR b) {
+        return static_cast<CompositeAlphaFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline CompositeAlphaFlagsKHR& operator &= (CompositeAlphaFlagsKHR& a, CompositeAlphaFlagsKHR& b) {
+        a = static_cast<CompositeAlphaFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (CompositeAlphaFlagsKHR& a, CompositeAlphaFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (CompositeAlphaFlagsKHR& a, CompositeAlphaFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class DisplayPlaneAlphaFlagsKHR {
         None = 0,
         Opaque = 1,
@@ -1531,6 +2126,23 @@ namespace vk {
     inline DisplayPlaneAlphaFlagsKHR& operator |= (DisplayPlaneAlphaFlagsKHR& a, DisplayPlaneAlphaFlagsKHR& b) {
         a = static_cast<DisplayPlaneAlphaFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline DisplayPlaneAlphaFlagsKHR operator & (DisplayPlaneAlphaFlagsKHR a, DisplayPlaneAlphaFlagsKHR b) {
+        return static_cast<DisplayPlaneAlphaFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DisplayPlaneAlphaFlagsKHR& operator &= (DisplayPlaneAlphaFlagsKHR& a, DisplayPlaneAlphaFlagsKHR& b) {
+        a = static_cast<DisplayPlaneAlphaFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DisplayPlaneAlphaFlagsKHR& a, DisplayPlaneAlphaFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DisplayPlaneAlphaFlagsKHR& a, DisplayPlaneAlphaFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class PresentModeKHR {
@@ -1564,6 +2176,23 @@ namespace vk {
         return a;
     }
 
+    inline SurfaceTransformFlagsKHR operator & (SurfaceTransformFlagsKHR a, SurfaceTransformFlagsKHR b) {
+        return static_cast<SurfaceTransformFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SurfaceTransformFlagsKHR& operator &= (SurfaceTransformFlagsKHR& a, SurfaceTransformFlagsKHR& b) {
+        a = static_cast<SurfaceTransformFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SurfaceTransformFlagsKHR& a, SurfaceTransformFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SurfaceTransformFlagsKHR& a, SurfaceTransformFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class DebugReportFlagsEXT {
         None = 0,
         Information = 1,
@@ -1580,6 +2209,23 @@ namespace vk {
     inline DebugReportFlagsEXT& operator |= (DebugReportFlagsEXT& a, DebugReportFlagsEXT& b) {
         a = static_cast<DebugReportFlagsEXT>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline DebugReportFlagsEXT operator & (DebugReportFlagsEXT a, DebugReportFlagsEXT b) {
+        return static_cast<DebugReportFlagsEXT>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DebugReportFlagsEXT& operator &= (DebugReportFlagsEXT& a, DebugReportFlagsEXT& b) {
+        a = static_cast<DebugReportFlagsEXT>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DebugReportFlagsEXT& a, DebugReportFlagsEXT& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DebugReportFlagsEXT& a, DebugReportFlagsEXT& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class DebugReportObjectTypeEXT {
@@ -1641,6 +2287,23 @@ namespace vk {
         return a;
     }
 
+    inline ExternalMemoryHandleTypeFlagsNV operator & (ExternalMemoryHandleTypeFlagsNV a, ExternalMemoryHandleTypeFlagsNV b) {
+        return static_cast<ExternalMemoryHandleTypeFlagsNV>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalMemoryHandleTypeFlagsNV& operator &= (ExternalMemoryHandleTypeFlagsNV& a, ExternalMemoryHandleTypeFlagsNV& b) {
+        a = static_cast<ExternalMemoryHandleTypeFlagsNV>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalMemoryHandleTypeFlagsNV& a, ExternalMemoryHandleTypeFlagsNV& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalMemoryHandleTypeFlagsNV& a, ExternalMemoryHandleTypeFlagsNV& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ExternalMemoryFeatureFlagsNV {
         None = 0,
         DedicatedOnly = 1,
@@ -1655,6 +2318,23 @@ namespace vk {
     inline ExternalMemoryFeatureFlagsNV& operator |= (ExternalMemoryFeatureFlagsNV& a, ExternalMemoryFeatureFlagsNV& b) {
         a = static_cast<ExternalMemoryFeatureFlagsNV>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline ExternalMemoryFeatureFlagsNV operator & (ExternalMemoryFeatureFlagsNV a, ExternalMemoryFeatureFlagsNV b) {
+        return static_cast<ExternalMemoryFeatureFlagsNV>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalMemoryFeatureFlagsNV& operator &= (ExternalMemoryFeatureFlagsNV& a, ExternalMemoryFeatureFlagsNV& b) {
+        a = static_cast<ExternalMemoryFeatureFlagsNV>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalMemoryFeatureFlagsNV& a, ExternalMemoryFeatureFlagsNV& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalMemoryFeatureFlagsNV& a, ExternalMemoryFeatureFlagsNV& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ValidationCheckEXT {
@@ -1682,6 +2362,23 @@ namespace vk {
         return a;
     }
 
+    inline ExternalMemoryHandleTypeFlagsKHR operator & (ExternalMemoryHandleTypeFlagsKHR a, ExternalMemoryHandleTypeFlagsKHR b) {
+        return static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalMemoryHandleTypeFlagsKHR& operator &= (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR& b) {
+        a = static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ExternalMemoryFeatureFlagsKHR {
         None = 0,
         DedicatedOnly = 1,
@@ -1696,6 +2393,23 @@ namespace vk {
     inline ExternalMemoryFeatureFlagsKHR& operator |= (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
         a = static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline ExternalMemoryFeatureFlagsKHR operator & (ExternalMemoryFeatureFlagsKHR a, ExternalMemoryFeatureFlagsKHR b) {
+        return static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalMemoryFeatureFlagsKHR& operator &= (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
+        a = static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ExternalSemaphoreHandleTypeFlagsKHR {
@@ -1716,6 +2430,23 @@ namespace vk {
         return a;
     }
 
+    inline ExternalSemaphoreHandleTypeFlagsKHR operator & (ExternalSemaphoreHandleTypeFlagsKHR a, ExternalSemaphoreHandleTypeFlagsKHR b) {
+        return static_cast<ExternalSemaphoreHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalSemaphoreHandleTypeFlagsKHR& operator &= (ExternalSemaphoreHandleTypeFlagsKHR& a, ExternalSemaphoreHandleTypeFlagsKHR& b) {
+        a = static_cast<ExternalSemaphoreHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalSemaphoreHandleTypeFlagsKHR& a, ExternalSemaphoreHandleTypeFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalSemaphoreHandleTypeFlagsKHR& a, ExternalSemaphoreHandleTypeFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ExternalSemaphoreFeatureFlagsKHR {
         None = 0,
         Exportable = 1,
@@ -1731,6 +2462,23 @@ namespace vk {
         return a;
     }
 
+    inline ExternalSemaphoreFeatureFlagsKHR operator & (ExternalSemaphoreFeatureFlagsKHR a, ExternalSemaphoreFeatureFlagsKHR b) {
+        return static_cast<ExternalSemaphoreFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalSemaphoreFeatureFlagsKHR& operator &= (ExternalSemaphoreFeatureFlagsKHR& a, ExternalSemaphoreFeatureFlagsKHR& b) {
+        a = static_cast<ExternalSemaphoreFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalSemaphoreFeatureFlagsKHR& a, ExternalSemaphoreFeatureFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalSemaphoreFeatureFlagsKHR& a, ExternalSemaphoreFeatureFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class SemaphoreImportFlagsKHR {
         None = 0,
         Temporary = 1,
@@ -1743,6 +2491,23 @@ namespace vk {
     inline SemaphoreImportFlagsKHR& operator |= (SemaphoreImportFlagsKHR& a, SemaphoreImportFlagsKHR& b) {
         a = static_cast<SemaphoreImportFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline SemaphoreImportFlagsKHR operator & (SemaphoreImportFlagsKHR a, SemaphoreImportFlagsKHR b) {
+        return static_cast<SemaphoreImportFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SemaphoreImportFlagsKHR& operator &= (SemaphoreImportFlagsKHR& a, SemaphoreImportFlagsKHR& b) {
+        a = static_cast<SemaphoreImportFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SemaphoreImportFlagsKHR& a, SemaphoreImportFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SemaphoreImportFlagsKHR& a, SemaphoreImportFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ExternalFenceHandleTypeFlagsKHR {
@@ -1762,6 +2527,23 @@ namespace vk {
         return a;
     }
 
+    inline ExternalFenceHandleTypeFlagsKHR operator & (ExternalFenceHandleTypeFlagsKHR a, ExternalFenceHandleTypeFlagsKHR b) {
+        return static_cast<ExternalFenceHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalFenceHandleTypeFlagsKHR& operator &= (ExternalFenceHandleTypeFlagsKHR& a, ExternalFenceHandleTypeFlagsKHR& b) {
+        a = static_cast<ExternalFenceHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalFenceHandleTypeFlagsKHR& a, ExternalFenceHandleTypeFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalFenceHandleTypeFlagsKHR& a, ExternalFenceHandleTypeFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ExternalFenceFeatureFlagsKHR {
         None = 0,
         Exportable = 1,
@@ -1775,6 +2557,23 @@ namespace vk {
     inline ExternalFenceFeatureFlagsKHR& operator |= (ExternalFenceFeatureFlagsKHR& a, ExternalFenceFeatureFlagsKHR& b) {
         a = static_cast<ExternalFenceFeatureFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline ExternalFenceFeatureFlagsKHR operator & (ExternalFenceFeatureFlagsKHR a, ExternalFenceFeatureFlagsKHR b) {
+        return static_cast<ExternalFenceFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ExternalFenceFeatureFlagsKHR& operator &= (ExternalFenceFeatureFlagsKHR& a, ExternalFenceFeatureFlagsKHR& b) {
+        a = static_cast<ExternalFenceFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ExternalFenceFeatureFlagsKHR& a, ExternalFenceFeatureFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ExternalFenceFeatureFlagsKHR& a, ExternalFenceFeatureFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class FenceImportFlagsKHR {
@@ -1791,6 +2590,23 @@ namespace vk {
         return a;
     }
 
+    inline FenceImportFlagsKHR operator & (FenceImportFlagsKHR a, FenceImportFlagsKHR b) {
+        return static_cast<FenceImportFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline FenceImportFlagsKHR& operator &= (FenceImportFlagsKHR& a, FenceImportFlagsKHR& b) {
+        a = static_cast<FenceImportFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (FenceImportFlagsKHR& a, FenceImportFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (FenceImportFlagsKHR& a, FenceImportFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class SurfaceCounterFlagsEXT {
         None = 0,
         Vblank = 1,
@@ -1803,6 +2619,23 @@ namespace vk {
     inline SurfaceCounterFlagsEXT& operator |= (SurfaceCounterFlagsEXT& a, SurfaceCounterFlagsEXT& b) {
         a = static_cast<SurfaceCounterFlagsEXT>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline SurfaceCounterFlagsEXT operator & (SurfaceCounterFlagsEXT a, SurfaceCounterFlagsEXT b) {
+        return static_cast<SurfaceCounterFlagsEXT>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SurfaceCounterFlagsEXT& operator &= (SurfaceCounterFlagsEXT& a, SurfaceCounterFlagsEXT& b) {
+        a = static_cast<SurfaceCounterFlagsEXT>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SurfaceCounterFlagsEXT& a, SurfaceCounterFlagsEXT& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SurfaceCounterFlagsEXT& a, SurfaceCounterFlagsEXT& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class DisplayPowerStateEXT {
@@ -1836,6 +2669,23 @@ namespace vk {
         return a;
     }
 
+    inline PeerMemoryFeatureFlagsKHX operator & (PeerMemoryFeatureFlagsKHX a, PeerMemoryFeatureFlagsKHX b) {
+        return static_cast<PeerMemoryFeatureFlagsKHX>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PeerMemoryFeatureFlagsKHX& operator &= (PeerMemoryFeatureFlagsKHX& a, PeerMemoryFeatureFlagsKHX& b) {
+        a = static_cast<PeerMemoryFeatureFlagsKHX>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PeerMemoryFeatureFlagsKHX& a, PeerMemoryFeatureFlagsKHX& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PeerMemoryFeatureFlagsKHX& a, PeerMemoryFeatureFlagsKHX& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class MemoryAllocateFlagsKHX {
         None = 0,
         DeviceMask = 1,
@@ -1848,6 +2698,23 @@ namespace vk {
     inline MemoryAllocateFlagsKHX& operator |= (MemoryAllocateFlagsKHX& a, MemoryAllocateFlagsKHX& b) {
         a = static_cast<MemoryAllocateFlagsKHX>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline MemoryAllocateFlagsKHX operator & (MemoryAllocateFlagsKHX a, MemoryAllocateFlagsKHX b) {
+        return static_cast<MemoryAllocateFlagsKHX>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline MemoryAllocateFlagsKHX& operator &= (MemoryAllocateFlagsKHX& a, MemoryAllocateFlagsKHX& b) {
+        a = static_cast<MemoryAllocateFlagsKHX>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (MemoryAllocateFlagsKHX& a, MemoryAllocateFlagsKHX& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (MemoryAllocateFlagsKHX& a, MemoryAllocateFlagsKHX& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class DeviceGroupPresentModeFlagsKHX {
@@ -1867,6 +2734,23 @@ namespace vk {
         return a;
     }
 
+    inline DeviceGroupPresentModeFlagsKHX operator & (DeviceGroupPresentModeFlagsKHX a, DeviceGroupPresentModeFlagsKHX b) {
+        return static_cast<DeviceGroupPresentModeFlagsKHX>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DeviceGroupPresentModeFlagsKHX& operator &= (DeviceGroupPresentModeFlagsKHX& a, DeviceGroupPresentModeFlagsKHX& b) {
+        a = static_cast<DeviceGroupPresentModeFlagsKHX>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DeviceGroupPresentModeFlagsKHX& a, DeviceGroupPresentModeFlagsKHX& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DeviceGroupPresentModeFlagsKHX& a, DeviceGroupPresentModeFlagsKHX& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class SwapchainCreateFlagsKHR {
         None = 0,
     };
@@ -1878,6 +2762,23 @@ namespace vk {
     inline SwapchainCreateFlagsKHR& operator |= (SwapchainCreateFlagsKHR& a, SwapchainCreateFlagsKHR& b) {
         a = static_cast<SwapchainCreateFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
         return a;
+    }
+
+    inline SwapchainCreateFlagsKHR operator & (SwapchainCreateFlagsKHR a, SwapchainCreateFlagsKHR b) {
+        return static_cast<SwapchainCreateFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SwapchainCreateFlagsKHR& operator &= (SwapchainCreateFlagsKHR& a, SwapchainCreateFlagsKHR& b) {
+        a = static_cast<SwapchainCreateFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SwapchainCreateFlagsKHR& a, SwapchainCreateFlagsKHR& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SwapchainCreateFlagsKHR& a, SwapchainCreateFlagsKHR& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class SamplerReductionModeEXT {

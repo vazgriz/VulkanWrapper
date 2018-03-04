@@ -19,6 +19,7 @@ public:
     std::unique_ptr<vk::Instance> instance;
     const vk::PhysicalDevice* physicalDevice;
     uint32_t graphicsQueueIndex;
+    std::unique_ptr<vk::Device> device;
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
         this->window = window;
@@ -27,6 +28,7 @@ public:
     void run() {
         createInstance();
         pickPhysicalDevice();
+        createDevice();
         mainLoop();
     }
 
@@ -109,6 +111,21 @@ public:
         if (physicalDevice == nullptr) {
             throw std::runtime_error("Failed to find a suitable physical device");
         }
+    }
+
+    void createDevice() {
+        vk::DeviceQueueCreateInfo queueInfo = {};
+        queueInfo.queueFamilyIndex = graphicsQueueIndex;
+        queueInfo.queueCount = 1;
+        queueInfo.queuePriorities = { 1 };
+        
+        vk::PhysicalDeviceFeatures deviceFeatures = {};
+
+        vk::DeviceCreateInfo info = {};
+        info.queueCreateInfos = { queueInfo };
+        info.enabledFeatures = &deviceFeatures;
+
+        device = std::make_unique<vk::Device>(*physicalDevice, info);
     }
 
     void mainLoop() {

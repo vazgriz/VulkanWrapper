@@ -3,6 +3,8 @@
 #include <memory>
 #include <GLFW/glfw3.h>
 #include <VulkanWrapper/Instance.h>
+#include <VulkanWrapper/PhysicalDevice.h>
+#include <VulkanWrapper/Device.h>
 
 const std::vector<std::string> validationLayers = {
     "VK_LAYER_LUNARG_standard_validation"
@@ -15,6 +17,8 @@ public:
     GLFWwindow* window;
 
     std::unique_ptr<vk::Instance> instance;
+    const vk::PhysicalDevice* physicalDevice;
+    uint32_t graphicsQueueIndex;
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
         this->window = window;
@@ -22,6 +26,7 @@ public:
 
     void run() {
         createInstance();
+        pickPhysicalDevice();
         mainLoop();
     }
 
@@ -70,6 +75,40 @@ public:
         }
 
         instance = std::make_unique<vk::Instance>(info);
+    }
+
+    bool isDeviceSuitable(const vk::PhysicalDevice& physicalDevice, uint32_t& graphicsQueueIndex) {
+        bool graphicsFound = false;
+        auto& families = physicalDevice.queueFamilies();
+        for (uint32_t i = 0; i < families.size(); i++) {
+            auto& queueFamily = families[i];
+            if (queueFamily.queueCount > 0 && (queueFamily.queueFlags & vk::QueueFlags::Graphics) != vk::QueueFlags::None) {
+                graphicsFound = true;
+                graphicsQueueIndex = i;
+            }
+
+            if (graphicsFound) break;
+        }
+
+        return graphicsFound;
+    }
+
+    void pickPhysicalDevice() {
+        auto& physicalDevices = instance->physicalDevices();
+        if (physicalDevices.size() == 0) throw std::runtime_error("Failed to find physical devices");
+
+        for (auto& physicalDevice : physicalDevices) {
+            uint32_t graphicsQueueIndex;
+            if (isDeviceSuitable(physicalDevice, graphicsQueueIndex)) {
+                this->physicalDevice = &physicalDevice;
+                this->graphicsQueueIndex = graphicsQueueIndex;
+                break;
+            }
+        }
+
+        if (physicalDevice == nullptr) {
+            throw std::runtime_error("Failed to find a suitable physical device");
+        }
     }
 
     void mainLoop() {

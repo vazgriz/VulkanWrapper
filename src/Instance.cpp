@@ -89,11 +89,14 @@ std::vector<vk::LayerProperties> vk::Instance::availableLayers() {
     return result;
 }
 
-std::vector<vk::ExtensionProperties> vk::Instance::availableExtensions(const char* layerName) {
+std::vector<vk::ExtensionProperties> vk::Instance::availableExtensions(const std::string& layerName) {
+    const char* pLayerName = nullptr;
+    if (layerName.size() > 0) pLayerName = layerName.c_str();
+
     uint32_t count;
-    vkEnumerateInstanceExtensionProperties(layerName, &count, nullptr);
+    vkEnumerateInstanceExtensionProperties(pLayerName, &count, nullptr);
     std::vector<VkExtensionProperties> properties(count);
-    vkEnumerateInstanceExtensionProperties(layerName, &count, properties.data());
+    vkEnumerateInstanceExtensionProperties(pLayerName, &count, properties.data());
 
     std::vector<vk::ExtensionProperties> result;
     result.reserve(count);

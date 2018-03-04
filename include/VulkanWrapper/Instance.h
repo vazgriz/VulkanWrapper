@@ -48,7 +48,7 @@ namespace vk {
         const std::vector<std::string>& extensions() const { return m_extensions; }
 
         static std::vector<LayerProperties> availableLayers();
-        static std::vector<ExtensionProperties> availableExtensions(const char* layerName);
+        static std::vector<ExtensionProperties> availableExtensions(const std::string& layerName = "");
     private:
         void EnumeratePhysicalDevices();
 

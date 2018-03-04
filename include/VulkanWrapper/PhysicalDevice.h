@@ -9,6 +9,7 @@
 #include "VulkanWrapper/ExtensionProperties.h"
 
 namespace vk {
+    class Instance;
     typedef VkPhysicalDeviceLimits PhysicalDeviceLimits;
     typedef VkPhysicalDeviceSparseProperties PhysicalDeviceSparseProperties;
     typedef VkPhysicalDeviceFeatures PhysicalDeviceFeatures;
@@ -40,8 +41,9 @@ namespace vk {
 
     class PhysicalDevice {
     public:
-        PhysicalDevice(VkPhysicalDevice physicalDevice);
+        PhysicalDevice(const Instance& instance, VkPhysicalDevice physicalDevice);
 
+        const Instance& instance() const { return m_instance; }
         VkPhysicalDevice handle() const { return m_physicalDevice; }
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
@@ -57,6 +59,7 @@ namespace vk {
         void getExtensions(const std::string& layerName);
         void getExtensions();
 
+        const Instance& m_instance;
         VkPhysicalDevice m_physicalDevice;
         PhysicalDeviceProperties m_properties;
         PhysicalDeviceFeatures m_features;

@@ -68,7 +68,7 @@ void vk::Instance::EnumeratePhysicalDevices() {
     vkEnumeratePhysicalDevices(m_instance, &count, physicalDevices.data());
 
     for (auto physicalDevice : physicalDevices) {
-        this->m_physicalDevices.emplace_back(physicalDevice);
+        this->m_physicalDevices.emplace_back(*this, physicalDevice);
     }
 }
 

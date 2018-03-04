@@ -21,7 +21,7 @@ vk::QueueFamilyProperties::QueueFamilyProperties(VkQueueFamilyProperties propert
     familyIndex = i;
 }
 
-vk::PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
+vk::PhysicalDevice::PhysicalDevice(const vk::Instance& instance, VkPhysicalDevice physicalDevice) : m_instance(instance) {
     m_physicalDevice = physicalDevice;
 
     getProperties();

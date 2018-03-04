@@ -8,8 +8,6 @@ namespace vk {
         uint32_t implementationVersion;
         std::string description;
 
-        LayerProperties() { }
-
         LayerProperties(VkLayerProperties properties)
             : layerName(properties.layerName)
             , specVersion(properties.specVersion)

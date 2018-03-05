@@ -75,12 +75,10 @@ namespace vk {
         }
 
         const T & front() const {
-            VULKAN_HPP_ASSERT(m_count && m_ptr);
             return *m_ptr;
         }
 
         const T & back() const {
-            VULKAN_HPP_ASSERT(m_count && m_ptr);
             return *(m_ptr + m_count - 1);
         }
 

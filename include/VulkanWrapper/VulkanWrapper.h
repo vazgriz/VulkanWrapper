@@ -9,4 +9,5 @@
 #include "VulkanWrapper/Queue.h"
 #include "VulkanWrapper/structs.h"
 #include "VulkanWrapper/Surface.h"
+#include "VulkanWrapper/Swapchain.h"
 #include "VulkanWrapper/Utilities.h"

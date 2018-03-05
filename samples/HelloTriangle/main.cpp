@@ -28,6 +28,7 @@ public:
     std::unique_ptr<vk::Device> device;
     const vk::Queue* graphicsQueue;
     const vk::Queue* presentQueue;
+    std::unique_ptr<vk::Swapchain> swapchain;
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
         this->window = window;
@@ -38,6 +39,7 @@ public:
         createSurface();
         pickPhysicalDevice();
         createDevice();
+        createSwapchain();
         mainLoop();
     }
 
@@ -95,7 +97,10 @@ public:
             requestedExtensions.erase(extension.extensionName);
         }
 
-        return requestedExtensions.empty();
+        std::vector<vk::SurfaceFormat> formats = surface->getFormats(physicalDevice);
+        std::vector<vk::PresentMode> modes = surface->getPresentModes(physicalDevice);
+
+        return requestedExtensions.empty() && formats.size() > 0 && modes.size() > 0;
     }
 
     bool isDeviceSuitable(const vk::PhysicalDevice& physicalDevice, uint32_t& graphicsQueueIndex, uint32_t& presentQueueIndex) {
@@ -129,6 +134,7 @@ public:
         for (auto& physicalDevice : physicalDevices) {
             uint32_t graphicsQueueIndex;
             uint32_t presentQueueIndex;
+
             if (isDeviceSuitable(physicalDevice, graphicsQueueIndex, presentQueueIndex)) {
                 this->physicalDevice = &physicalDevice;
                 this->graphicsQueueIndex = graphicsQueueIndex;
@@ -165,6 +171,89 @@ public:
 
         graphicsQueue = &device->getQueue(graphicsQueueIndex, 0);
         presentQueue = &device->getQueue(presentQueueIndex, 0);
+    }
+    
+    vk::SurfaceFormat chooseSurfaceFormat(const std::vector<vk::SurfaceFormat>& formats) {
+        if (formats.size() == 1 && formats[0].format == vk::Format::Undefined) {
+            return { vk::Format::R8G8B8A8_Unorm, vk::ColorSpace::SrgbNonlinear };
+        }
+
+        for (auto& format : formats) {
+            if (format.colorSpace == vk::ColorSpace::SrgbNonlinear
+                && (format.format == vk::Format::R8G8B8A8_Unorm || format.format == vk::Format::B8G8R8A8_Unorm)) {
+                return format;
+            }
+        }
+
+        return formats[0];
+    }
+
+    vk::PresentMode choosePresentMode(const std::vector<vk::PresentMode>& modes) {
+        for (auto mode : modes) {
+            if (mode == vk::PresentMode::Fifo) {
+                return mode;
+            }
+        }
+
+        for (auto mode : modes) {
+            if (mode == vk::PresentMode::Immediate) {
+                return mode;
+            }
+        }
+
+        throw std::runtime_error("Failed to find presentation mode");
+    }
+
+    vk::Extent2D chooseExtent(const vk::SurfaceCapabilities& capabilities) {
+        if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
+            return capabilities.currentExtent;
+        } else {
+            VkExtent2D actualExtent = { static_cast<uint32_t>(width), static_cast<uint32_t>(height) };
+
+            actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
+            actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
+
+            return actualExtent;
+        }
+    }
+
+    void createSwapchain() {
+        auto capabilities = surface->getCapabilities(*physicalDevice);
+        auto formats = surface->getFormats(*physicalDevice);
+        auto presentModes = surface->getPresentModes(*physicalDevice);
+
+        auto format = chooseSurfaceFormat(formats);
+        auto presentMode = choosePresentMode(presentModes);
+        auto extent = chooseExtent(capabilities);
+
+        uint32_t imageCount = 2;
+        if (capabilities.maxImageCount > 0 && imageCount > capabilities.maxImageCount) {
+            imageCount = capabilities.maxImageCount;
+        }
+
+        vk::SwapchainCreateInfo info(*surface);
+        info.flags = vk::SwapchainCreateFlags::None;
+        info.minImageCount = imageCount;
+        info.imageFormat = format.format;
+        info.imageColorSpace = format.colorSpace;
+        info.imageExtent = extent;
+        info.imageArrayLayers = 1;
+        info.imageUsage = vk::ImageUsageFlags::ColorAttachment;
+
+        if (graphicsQueue != presentQueue) {
+            info.imageSharingMode = vk::SharingMode::Concurrent;
+            info.queueFamilyIndices = { graphicsQueueIndex, presentQueueIndex };
+        } else {
+            info.imageSharingMode = vk::SharingMode::Exclusive;
+        }
+
+        info.preTransform = capabilities.currentTransform;
+        info.compositeAlpha = vk::CompositeAlphaFlags::Opaque;
+        info.presentMode = presentMode;
+        info.clipped = true;
+        info.oldSwapchain = nullptr;
+
+        swapchain = std::make_unique<vk::Swapchain>(*device, info);
     }
 
     void mainLoop() {

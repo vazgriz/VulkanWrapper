@@ -1,10 +1,5 @@
 #include "VulkanWrapper/VulkanWrapper.h"
 
-vk::SurfaceFormat::SurfaceFormat(VkSurfaceFormatKHR surfaceFormat) {
-    colorSpace = static_cast<ColorSpace>(surfaceFormat.colorSpace);
-    format = static_cast<Format>(surfaceFormat.format);
-}
-
 vk::SurfaceCapabilities::SurfaceCapabilities(VkSurfaceCapabilitiesKHR capabilities) {
    minImageCount = capabilities.minImageCount;
    maxImageCount = capabilities.maxImageCount;
@@ -37,7 +32,7 @@ std::vector<vk::SurfaceFormat> vk::Surface::getFormats(const vk::PhysicalDevice&
     std::vector<SurfaceFormat> result;
     result.reserve(count);
     for (auto& format : formats) {
-        result.emplace_back(format);
+        result.push_back({ static_cast<vk::Format>(format.format), static_cast<vk::ColorSpace>(format.colorSpace) });
     }
 
     return result;

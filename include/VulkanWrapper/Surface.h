@@ -12,8 +12,6 @@ namespace vk {
     struct SurfaceFormat {
         Format format;
         ColorSpace colorSpace;
-
-        SurfaceFormat(VkSurfaceFormatKHR surfaceFormat);
     };
 
     struct SurfaceCapabilities {

@@ -9,8 +9,10 @@ void vk::ApplicationInfo::marshal() const {
     m_info.pApplicationName = applicationName.c_str();
     m_info.applicationVersion = applicationVersion;
 
-    if (engineName.size() != 0) {
+    if (engineName.size() > 0) {
         m_info.pEngineName = engineName.c_str();
+    } else {
+        m_info.pEngineName = nullptr;
     }
 
     m_info.engineVersion = engineVersion;

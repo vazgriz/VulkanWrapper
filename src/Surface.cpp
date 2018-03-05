@@ -1,5 +1,4 @@
-#include "VulkanWrapper/Surface.h"
-#include "VulkanWrapper/PhysicalDevice.h"
+#include "VulkanWrapper/VulkanWrapper.h"
 
 vk::SurfaceFormat::SurfaceFormat(VkSurfaceFormatKHR surfaceFormat) {
     colorSpace = static_cast<ColorSpace>(surfaceFormat.colorSpace);

@@ -1,4 +1,4 @@
-#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/VulkanWrapper.h"
 
 void vk::DeviceQueueCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;

@@ -4,11 +4,7 @@
 #include <set>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-#include <VulkanWrapper/Instance.h>
-#include <VulkanWrapper/PhysicalDevice.h>
-#include <VulkanWrapper/Device.h>
-#include <VulkanWrapper/Surface.h>
-#include <VulkanWrapper/Queue.h>
+#include <VulkanWrapper/VulkanWrapper.h>
 
 const std::vector<std::string> validationLayers = {
     "VK_LAYER_LUNARG_standard_validation"

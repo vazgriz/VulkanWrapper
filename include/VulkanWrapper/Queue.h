@@ -10,11 +10,12 @@ namespace vk {
 
     class Queue {
     public:
-        Queue(const Device& device, VkQueue queue);
+        Queue(Device& device, VkQueue queue);
 
         VkQueue handle() const { return m_queue; }
+        Device& device() const { return m_device; }
     private:
         VkQueue m_queue;
-        const Device& m_device;
+        Device& m_device;
     };
 }

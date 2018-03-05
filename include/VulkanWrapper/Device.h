@@ -41,7 +41,7 @@ namespace vk {
         ~Device();
 
         const VkDevice& handle() const { return m_device; }
-        const Instance& instance() const { return m_instance; }
+        Instance& instance() const { return m_instance; }
 
         const std::vector<std::string>& layers() const { return m_instance.layers(); }
         const std::vector<std::string>& extensions() const { return m_extensions; }
@@ -52,7 +52,7 @@ namespace vk {
         void getQueues(const DeviceCreateInfo& info);
 
         VkDevice m_device;
-        const Instance& m_instance;
+        Instance& m_instance;
         std::vector<std::string> m_extensions;
         std::unordered_map<uint32_t, std::vector<Queue>> m_queueMap;
     };

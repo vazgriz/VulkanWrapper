@@ -59,10 +59,10 @@ namespace vk {
 
     class PhysicalDevice {
     public:
-        PhysicalDevice(const Instance& instance, VkPhysicalDevice physicalDevice);
+        PhysicalDevice(Instance& instance, VkPhysicalDevice physicalDevice);
 
-        const Instance& instance() const { return m_instance; }
         VkPhysicalDevice handle() const { return m_physicalDevice; }
+        Instance& instance() const { return m_instance; }
 
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
@@ -80,7 +80,7 @@ namespace vk {
         void getExtensions();
         void getMemoryProperties();
 
-        const Instance& m_instance;
+        Instance& m_instance;
         VkPhysicalDevice m_physicalDevice;
         PhysicalDeviceProperties m_properties;
         PhysicalDeviceFeatures m_features;

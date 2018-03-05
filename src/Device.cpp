@@ -67,7 +67,7 @@ void vk::Device::getQueues(const DeviceCreateInfo& info) {
         for (uint32_t i = 0; i < queueInfo.queueCount; i++) {
             VkQueue queue;
             vkGetDeviceQueue(m_device, queueInfo.queueFamilyIndex, i, &queue);
-            queues.emplace_back(*this, queue);
+            queues.emplace_back(*this, queue, i);
         }
 
         m_queueMap.emplace(queueInfo.queueFamilyIndex, std::move(queues));

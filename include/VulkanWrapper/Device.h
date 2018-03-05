@@ -42,6 +42,7 @@ namespace vk {
 
         const VkDevice& handle() const { return m_device; }
         Instance& instance() const { return m_instance; }
+        const PhysicalDevice& physicalDevice() { return m_physicalDevice; }
 
         const std::vector<std::string>& layers() const { return m_instance.layers(); }
         const std::vector<std::string>& extensions() const { return m_extensions; }
@@ -53,6 +54,7 @@ namespace vk {
 
         VkDevice m_device;
         Instance& m_instance;
+        const PhysicalDevice& m_physicalDevice;
         std::vector<std::string> m_extensions;
         std::unordered_map<uint32_t, std::vector<Queue>> m_queueMap;
     };

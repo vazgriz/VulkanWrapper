@@ -42,7 +42,7 @@ void vk::DeviceCreateInfo::marshal() const {
     }
 }
 
-vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) : m_instance(physicalDevice.instance()) {
+vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) : m_instance(physicalDevice.instance()), m_physicalDevice(physicalDevice) {
     info.marshal();
 
     VKW_CHECK(vkCreateDevice(physicalDevice.handle(), &info.info(), physicalDevice.instance().callbacks(), &m_device));

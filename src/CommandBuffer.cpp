@@ -2,7 +2,13 @@
 
 void vk::CommandBufferAllocateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    m_info.pNext = next == nullptr ? nullptr : &next->info();
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = &next->info();
+    } else {
+        m_info.pNext == nullptr;
+    }
+
     m_info.commandPool = commandPool.handle();
     m_info.commandBufferCount = commandBufferCount;
 }

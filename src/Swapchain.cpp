@@ -2,7 +2,13 @@
 
 void vk::SwapchainCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-    m_info.pNext = next == nullptr ? nullptr : &next->info();
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = &next->info();
+    } else {
+        m_info.pNext == nullptr;
+    }
+
     m_info.flags = static_cast<VkSwapchainCreateFlagsKHR>(flags);
     m_info.surface = surface.handle();
     m_info.minImageCount = minImageCount;

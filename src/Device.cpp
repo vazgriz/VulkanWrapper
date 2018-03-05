@@ -2,7 +2,13 @@
 
 void vk::DeviceQueueCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-    m_info.pNext = next == nullptr ? nullptr : &next->info();
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = &next->info();
+    } else {
+        m_info.pNext == nullptr;
+    }
+
     m_info.flags = static_cast<VkDeviceQueueCreateFlags>(flags);
     m_info.queueFamilyIndex = queueFamilyIndex;
     m_info.queueCount = queueCount;

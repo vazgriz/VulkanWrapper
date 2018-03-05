@@ -5,7 +5,13 @@
 
 void vk::ApplicationInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    m_info.pNext = next == nullptr ? nullptr : &next->info();
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = &next->info();
+    } else {
+        m_info.pNext == nullptr;
+    }
+
     m_info.pApplicationName = applicationName.c_str();
     m_info.applicationVersion = applicationVersion;
 

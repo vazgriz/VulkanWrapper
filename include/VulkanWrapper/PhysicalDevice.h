@@ -13,6 +13,8 @@ namespace vk {
     typedef VkPhysicalDeviceLimits PhysicalDeviceLimits;
     typedef VkPhysicalDeviceSparseProperties PhysicalDeviceSparseProperties;
     typedef VkPhysicalDeviceFeatures PhysicalDeviceFeatures;
+    typedef VkMemoryType MemoryType;
+    typedef VkMemoryHeap MemoryHeap;
 
     struct PhysicalDeviceProperties {
         uint32_t apiVersion;
@@ -39,6 +41,11 @@ namespace vk {
         QueueFamilyProperties(VkQueueFamilyProperties properties, uint32_t index);
     };
 
+    struct MemoryProperties {
+        std::vector<MemoryType> memoryTypes;
+        std::vector<MemoryHeap> memoryHeaps;
+    };
+
     class PhysicalDevice {
     public:
         PhysicalDevice(const Instance& instance, VkPhysicalDevice physicalDevice);
@@ -50,6 +57,7 @@ namespace vk {
         const std::vector<QueueFamilyProperties> queueFamilies() const { return m_families; }
         const std::vector<LayerProperties> availableLayers() const { return m_layers; }
         const std::vector<ExtensionProperties> availableExtensions(const std::string& layerName = "") { return m_extensionMap[layerName]; }
+        const MemoryProperties& memoryProperties() const { return m_memoryProperties; }
 
     private:
         void getProperties();
@@ -58,6 +66,7 @@ namespace vk {
         void getLayers();
         void getExtensions(const std::string& layerName);
         void getExtensions();
+        void getMemoryProperties();
 
         const Instance& m_instance;
         VkPhysicalDevice m_physicalDevice;
@@ -66,5 +75,6 @@ namespace vk {
         std::vector<QueueFamilyProperties> m_families;
         std::vector<LayerProperties> m_layers;
         std::unordered_map<std::string, std::vector<ExtensionProperties>> m_extensionMap;
+        MemoryProperties m_memoryProperties;
     };
 }

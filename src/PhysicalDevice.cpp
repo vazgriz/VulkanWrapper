@@ -29,6 +29,7 @@ vk::PhysicalDevice::PhysicalDevice(const vk::Instance& instance, VkPhysicalDevic
     getQueueFamilies();
     getLayers();
     getExtensions();
+    getMemoryProperties();
 }
 
 void vk::PhysicalDevice::getProperties() {
@@ -93,5 +94,20 @@ void vk::PhysicalDevice::getExtensions() {
 
     for (auto& layerName : layerNames) {
         getExtensions(layerName);
+    }
+}
+
+void vk::PhysicalDevice::getMemoryProperties() {
+    VkPhysicalDeviceMemoryProperties properties;
+    vkGetPhysicalDeviceMemoryProperties(m_physicalDevice, &properties);
+
+    m_memoryProperties.memoryTypes.reserve(properties.memoryTypeCount);
+    for (uint32_t i = 0; i < properties.memoryTypeCount; i++) {
+        m_memoryProperties.memoryTypes.push_back(properties.memoryTypes[i]);
+    }
+
+    m_memoryProperties.memoryHeaps.reserve(properties.memoryHeapCount);
+    for (uint32_t i = 0; i < properties.memoryHeapCount; i++) {
+        m_memoryProperties.memoryHeaps.push_back(properties.memoryHeaps[i]);
     }
 }

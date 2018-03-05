@@ -7,10 +7,11 @@
 #include "VulkanWrapper/Utilities.h"
 #include "VulkanWrapper/LayerProperties.h"
 #include "VulkanWrapper/ExtensionProperties.h"
-#include "VulkanWrapper/Surface.h"
 
 namespace vk {
     class Instance;
+    class Surface;
+
     typedef VkPhysicalDeviceLimits PhysicalDeviceLimits;
     typedef VkPhysicalDeviceSparseProperties PhysicalDeviceSparseProperties;
     typedef VkPhysicalDeviceFeatures PhysicalDeviceFeatures;

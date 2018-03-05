@@ -7,6 +7,7 @@
 
 namespace vk {
     class Instance;
+    class PhysicalDevice;
 
     class Surface {
     public:

@@ -1,5 +1,6 @@
 #include "VulkanWrapper/PhysicalDevice.h"
 #include <cstring>
+#include "VulkanWrapper/Surface.h"
 
 vk::PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDeviceProperties properties) {
     apiVersion = properties.apiVersion;

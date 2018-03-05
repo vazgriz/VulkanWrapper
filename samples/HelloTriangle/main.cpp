@@ -144,15 +144,21 @@ public:
     }
 
     void createDevice() {
-        vk::DeviceQueueCreateInfo queueInfo = {};
-        queueInfo.queueFamilyIndex = graphicsQueueIndex;
-        queueInfo.queueCount = 1;
-        queueInfo.queuePriorities = { 1 };
+        std::set<uint32_t> indices = { graphicsQueueIndex, presentQueueIndex };
+        std::vector<vk::DeviceQueueCreateInfo> queueInfos;
+
+        for (auto i : indices) {
+            vk::DeviceQueueCreateInfo info = {};
+            info.queueFamilyIndex = i;
+            info.queueCount = 1;
+            info.queuePriorities = { 1 };
+            queueInfos.push_back(info);
+        }
         
         vk::PhysicalDeviceFeatures deviceFeatures = {};
 
         vk::DeviceCreateInfo info = {};
-        info.queueCreateInfos = { queueInfo };
+        info.queueCreateInfos = queueInfos;
         info.enabledFeatures = &deviceFeatures;
 
         device = std::make_unique<vk::Device>(*physicalDevice, info);

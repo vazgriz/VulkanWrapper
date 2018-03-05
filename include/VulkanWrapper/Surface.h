@@ -11,7 +11,7 @@ namespace vk {
 
     struct SurfaceFormat {
         Format format;
-        ColorSpaceKHR colorSpace;
+        ColorSpace colorSpace;
 
         SurfaceFormat(VkSurfaceFormatKHR surfaceFormat);
     };
@@ -23,9 +23,9 @@ namespace vk {
         VkExtent2D minImageExtent;
         VkExtent2D maxImageExtent;
         uint32_t maxImageArrayLayers;
-        SurfaceTransformFlagsKHR supportedTransforms;
-        SurfaceTransformFlagsKHR currentTransform;
-        CompositeAlphaFlagsKHR supportedCompositeAlpha;
+        SurfaceTransformFlags supportedTransforms;
+        SurfaceTransformFlags currentTransform;
+        CompositeAlphaFlags supportedCompositeAlpha;
         ImageUsageFlags supportedUsageFlags;
 
         SurfaceCapabilities(VkSurfaceCapabilitiesKHR capabilities);
@@ -40,7 +40,7 @@ namespace vk {
 
         bool supported(const PhysicalDevice&, uint32_t queueFamilyIndex) const;
         std::vector<SurfaceFormat> getFormats(const PhysicalDevice& physicalDevice) const;
-        std::vector<PresentModeKHR> getPresentModes(const PhysicalDevice& physicalDevice) const;
+        std::vector<PresentMode> getPresentModes(const PhysicalDevice& physicalDevice) const;
         SurfaceCapabilities getCapabilities(const PhysicalDevice& physicalDevice) const;
 
     private:

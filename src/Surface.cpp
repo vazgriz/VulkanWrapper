@@ -2,7 +2,7 @@
 #include "VulkanWrapper/PhysicalDevice.h"
 
 vk::SurfaceFormat::SurfaceFormat(VkSurfaceFormatKHR surfaceFormat) {
-    colorSpace = static_cast<ColorSpaceKHR>(surfaceFormat.colorSpace);
+    colorSpace = static_cast<ColorSpace>(surfaceFormat.colorSpace);
     format = static_cast<Format>(surfaceFormat.format);
 }
 
@@ -13,9 +13,9 @@ vk::SurfaceCapabilities::SurfaceCapabilities(VkSurfaceCapabilitiesKHR capabiliti
    minImageExtent = capabilities.minImageExtent;
    maxImageExtent = capabilities.maxImageExtent;
    maxImageArrayLayers = capabilities.maxImageArrayLayers;
-   supportedTransforms = static_cast<vk::SurfaceTransformFlagsKHR>(capabilities.supportedTransforms);
-   currentTransform = static_cast<vk::SurfaceTransformFlagsKHR>(capabilities.currentTransform);
-   supportedCompositeAlpha = static_cast<vk::CompositeAlphaFlagsKHR>(capabilities.supportedCompositeAlpha);
+   supportedTransforms = static_cast<vk::SurfaceTransformFlags>(capabilities.supportedTransforms);
+   currentTransform = static_cast<vk::SurfaceTransformFlags>(capabilities.currentTransform);
+   supportedCompositeAlpha = static_cast<vk::CompositeAlphaFlags>(capabilities.supportedCompositeAlpha);
    supportedUsageFlags = static_cast<vk::ImageUsageFlags>(capabilities.supportedUsageFlags);
 }
 
@@ -44,15 +44,15 @@ std::vector<vk::SurfaceFormat> vk::Surface::getFormats(const vk::PhysicalDevice&
     return result;
 }
 
-std::vector<vk::PresentModeKHR> vk::Surface::getPresentModes(const vk::PhysicalDevice& physicalDevice) const {
+std::vector<vk::PresentMode> vk::Surface::getPresentModes(const vk::PhysicalDevice& physicalDevice) const {
     uint32_t count;
     vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice.handle(), m_surface, &count, nullptr);
     std::vector<VkPresentModeKHR> modes(count);
     vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice.handle(), m_surface, &count, modes.data());
 
-    std::vector<PresentModeKHR> result;
+    std::vector<PresentMode> result;
     for (auto mode : modes) {
-        result.push_back(static_cast<PresentModeKHR>(mode));
+        result.push_back(static_cast<PresentMode>(mode));
     }
 
     return result;

@@ -15,4 +15,8 @@ namespace vk {
             , description(properties.description) {
         }
     };
+
+    inline bool operator < (const LayerProperties a, const LayerProperties b) {
+        return a.layerName < b.layerName;
+    }
 }

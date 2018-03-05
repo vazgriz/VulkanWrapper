@@ -34,15 +34,11 @@ public:
 
     bool checkValidationSupport() {
         auto available = vk::Instance::availableLayers();
-        std::set<std::string> availableLayers;
+        std::set<vk::LayerProperties> availableLayers(available.begin(), available.end());
         std::set<std::string> requestedLayers(validationLayers.begin(), validationLayers.end());
 
-        for (auto& prop : available) {
-            availableLayers.insert(prop.layerName);
-        }
-
-        for (auto& str : availableLayers) {
-            requestedLayers.erase(str);
+        for (auto& layer : availableLayers) {
+            requestedLayers.erase(layer.layerName);
         }
 
         return requestedLayers.empty();

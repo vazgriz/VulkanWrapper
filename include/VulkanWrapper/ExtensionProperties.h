@@ -11,4 +11,8 @@ namespace vk {
             , specVersion(properties.specVersion) {
         }
     };
+
+    inline bool operator < (const ExtensionProperties a, const ExtensionProperties b) {
+        return a.extensionName < b.extensionName;
+    }
 }

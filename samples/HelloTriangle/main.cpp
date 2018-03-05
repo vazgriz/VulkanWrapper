@@ -163,6 +163,7 @@ public:
         vk::DeviceCreateInfo info = {};
         info.queueCreateInfos = queueInfos;
         info.enabledFeatures = &deviceFeatures;
+        info.enabledExtensionNames = deviceExtensions;
 
         device = std::make_unique<vk::Device>(*physicalDevice, info);
 

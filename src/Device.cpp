@@ -35,7 +35,7 @@ void vk::DeviceCreateInfo::marshal() const {
     m_info.enabledLayerCount = static_cast<uint32_t>(m_layers.size());
     m_info.ppEnabledLayerNames = m_layers.data();
     m_info.enabledExtensionCount = static_cast<uint32_t>(m_extensions.size());
-    m_info.ppEnabledExtensionNames = m_layers.data();
+    m_info.ppEnabledExtensionNames = m_extensions.data();
 
     if (enabledFeatures != nullptr) {
         m_info.pEnabledFeatures = enabledFeatures;

@@ -5,6 +5,7 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/ExtensionProperties.h"
+#include "VulkanWrapper/Fence.h"
 #include "VulkanWrapper/Instance.h"
 #include "VulkanWrapper/LayerProperties.h"
 #include "VulkanWrapper/PhysicalDevice.h"

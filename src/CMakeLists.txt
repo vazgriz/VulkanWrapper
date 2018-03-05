@@ -9,6 +9,7 @@ add_library(VulkanWrapper
     Queue.cpp
     Swapchain.cpp
     Semaphore.cpp
+    Fence.cpp
     CommandBuffer.cpp
     CommandPool.cpp
 )

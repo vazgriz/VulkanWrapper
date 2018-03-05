@@ -29,6 +29,8 @@ public:
     const vk::Queue* graphicsQueue;
     const vk::Queue* presentQueue;
     std::unique_ptr<vk::Swapchain> swapchain;
+    std::unique_ptr<vk::Semaphore> imageAcquireSemaphore;
+    std::unique_ptr<vk::Semaphore> renderSemaphore;
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
         this->window = window;
@@ -40,6 +42,7 @@ public:
         pickPhysicalDevice();
         createDevice();
         createSwapchain();
+        createSemaphores();
         mainLoop();
     }
 
@@ -254,6 +257,12 @@ public:
         info.oldSwapchain = nullptr;
 
         swapchain = std::make_unique<vk::Swapchain>(*device, info);
+    }
+
+    void createSemaphores() {
+        vk::SemaphoreCreateInfo info = {};
+        imageAcquireSemaphore = std::make_unique<vk::Semaphore>(*device, info);
+        renderSemaphore = std::make_unique<vk::Semaphore>(*device, info);
     }
 
     void mainLoop() {

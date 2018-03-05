@@ -5,7 +5,7 @@
 #define VKW_CHECK(exp) {\
     VkResult result = exp;\
     if (result < 0) {\
-        throw std::runtime_error(toString(result));\
+        throw std::runtime_error(::vk::toString(result));\
     }\
 }
 

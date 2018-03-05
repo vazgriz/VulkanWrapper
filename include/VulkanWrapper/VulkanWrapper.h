@@ -1,4 +1,6 @@
 #include "VulkanWrapper/ArrayProxy.h"
+#include "VulkanWrapper/CommandPool.h"
+#include "VulkanWrapper/CommandBuffer.h"
 #include "VulkanWrapper/CreateInfo.h"
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/enums.h"

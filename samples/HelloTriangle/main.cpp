@@ -33,21 +33,19 @@ public:
     }
 
     bool checkValidationSupport() {
-        auto& availableLayers = vk::Instance::availableLayers();
-        for (auto& requested : validationLayers) {
-            bool found = false;
+        auto available = vk::Instance::availableLayers();
+        std::set<std::string> availableLayers;
+        std::set<std::string> requestedLayers(validationLayers.begin(), validationLayers.end());
 
-            for (auto& available : availableLayers) {
-                if (available.layerName == requested) {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) return false;
+        for (auto& prop : available) {
+            availableLayers.insert(prop.layerName);
         }
 
-        return true;
+        for (auto& str : availableLayers) {
+            requestedLayers.erase(str);
+        }
+
+        return requestedLayers.empty();
     }
 
     void createInstance() {

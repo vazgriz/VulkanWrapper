@@ -48,8 +48,28 @@ vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo&
     VKW_CHECK(vkCreateDevice(physicalDevice.handle(), &info.info(), physicalDevice.instance().callbacks(), &m_device));
 
     m_extensions = info.enabledExtensionNames;
+    getQueues(info);
 }
 
 vk::Device::~Device() {
     vkDestroyDevice(m_device, m_instance.callbacks());
+}
+
+const vk::Queue& vk::Device::getQueue(uint32_t familyIndex, uint32_t queueIndex) const {
+    return m_queueMap.at(familyIndex)[queueIndex];
+}
+
+void vk::Device::getQueues(const DeviceCreateInfo& info) {
+    for (auto& queueInfo : info.queueCreateInfos) {
+        std::vector<Queue> queues;
+        queues.reserve(queueInfo.queueCount);
+
+        for (uint32_t i = 0; i < queueInfo.queueCount; i++) {
+            VkQueue queue;
+            vkGetDeviceQueue(m_device, queueInfo.queueFamilyIndex, i, &queue);
+            queues.emplace_back(*this, queue);
+        }
+
+        m_queueMap.emplace(queueInfo.queueFamilyIndex, std::move(queues));
+    }
 }

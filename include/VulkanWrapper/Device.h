@@ -6,6 +6,7 @@
 #include "VulkanWrapper/Utilities.h"
 #include "VulkanWrapper/Instance.h"
 #include "VulkanWrapper/PhysicalDevice.h"
+#include "VulkanWrapper/Queue.h"
 
 namespace vk {
     class DeviceQueueCreateInfo : public CreateInfo<VkDeviceQueueCreateInfo> {
@@ -41,12 +42,18 @@ namespace vk {
 
         const VkDevice& handle() const { return m_device; }
         const Instance& instance() const { return m_instance; }
+
         const std::vector<std::string>& layers() const { return m_instance.layers(); }
         const std::vector<std::string>& extensions() const { return m_extensions; }
 
+        const Queue& getQueue(uint32_t familyIndex, uint32_t queueIndex) const;
+
     private:
+        void getQueues(const DeviceCreateInfo& info);
+
         VkDevice m_device;
         const Instance& m_instance;
         std::vector<std::string> m_extensions;
+        std::unordered_map<uint32_t, std::vector<Queue>> m_queueMap;
     };
 }

@@ -8,6 +8,7 @@
 #include <VulkanWrapper/PhysicalDevice.h>
 #include <VulkanWrapper/Device.h>
 #include <VulkanWrapper/Surface.h>
+#include <VulkanWrapper/Queue.h>
 
 const std::vector<std::string> validationLayers = {
     "VK_LAYER_LUNARG_standard_validation"
@@ -29,6 +30,8 @@ public:
     uint32_t graphicsQueueIndex;
     uint32_t presentQueueIndex;
     std::unique_ptr<vk::Device> device;
+    const vk::Queue* graphicsQueue;
+    const vk::Queue* presentQueue;
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
         this->window = window;
@@ -162,6 +165,9 @@ public:
         info.enabledFeatures = &deviceFeatures;
 
         device = std::make_unique<vk::Device>(*physicalDevice, info);
+
+        graphicsQueue = &device->getQueue(graphicsQueueIndex, 0);
+        presentQueue = &device->getQueue(presentQueueIndex, 0);
     }
 
     void mainLoop() {

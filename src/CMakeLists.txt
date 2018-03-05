@@ -5,5 +5,6 @@ add_library(VulkanWrapper
     Instance.cpp
     PhysicalDevice.cpp
     Device.cpp
+    Surface.cpp
 )
 target_include_directories(VulkanWrapper PUBLIC "$ENV{VK_SDK_PATH}/include" "${CMAKE_SOURCE_DIR}/include")

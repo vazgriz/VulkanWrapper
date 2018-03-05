@@ -7,6 +7,7 @@
 #include "VulkanWrapper/Utilities.h"
 #include "VulkanWrapper/LayerProperties.h"
 #include "VulkanWrapper/ExtensionProperties.h"
+#include "VulkanWrapper/Surface.h"
 
 namespace vk {
     class Instance;
@@ -52,12 +53,15 @@ namespace vk {
 
         const Instance& instance() const { return m_instance; }
         VkPhysicalDevice handle() const { return m_physicalDevice; }
+
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
         const std::vector<QueueFamilyProperties>& queueFamilies() const { return m_families; }
         const std::vector<LayerProperties>& availableLayers() const { return m_layers; }
         const std::vector<ExtensionProperties>& availableExtensions(const std::string& layerName = "") const { return m_extensionMap.at(layerName); }
         const MemoryProperties& memoryProperties() const { return m_memoryProperties; }
+
+        bool supports(const Surface& surface, uint32_t queueFamilyIndex) const;
 
     private:
         void getProperties();

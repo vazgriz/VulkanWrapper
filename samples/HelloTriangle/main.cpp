@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 #include <set>
+#define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <VulkanWrapper/Instance.h>
 #include <VulkanWrapper/PhysicalDevice.h>
@@ -23,8 +24,10 @@ public:
     GLFWwindow* window;
 
     std::unique_ptr<vk::Instance> instance;
+    std::unique_ptr<vk::Surface> surface;
     const vk::PhysicalDevice* physicalDevice;
     uint32_t graphicsQueueIndex;
+    uint32_t presentQueueIndex;
     std::unique_ptr<vk::Device> device;
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
@@ -33,6 +36,7 @@ public:
 
     void run() {
         createInstance();
+        createSurface();
         pickPhysicalDevice();
         createDevice();
         mainLoop();
@@ -78,6 +82,12 @@ public:
         instance = std::make_unique<vk::Instance>(info);
     }
 
+    void createSurface() {
+        VkSurfaceKHR surface;
+        VKW_CHECK(glfwCreateWindowSurface(instance->handle(), window, instance->callbacks(), &surface));
+        this->surface = std::make_unique<vk::Surface>(*instance, surface);
+    }
+
     bool checkSwapchainSupport(const vk::PhysicalDevice& physicalDevice) {
         auto& available = physicalDevice.availableExtensions();
         std::set<std::string> requestedExtensions(deviceExtensions.begin(), deviceExtensions.end());
@@ -89,10 +99,11 @@ public:
         return requestedExtensions.empty();
     }
 
-    bool isDeviceSuitable(const vk::PhysicalDevice& physicalDevice, uint32_t& graphicsQueueIndex) {
+    bool isDeviceSuitable(const vk::PhysicalDevice& physicalDevice, uint32_t& graphicsQueueIndex, uint32_t& presentQueueIndex) {
         if (!checkSwapchainSupport(physicalDevice)) return false;
 
         bool graphicsFound = false;
+        bool presentFound = false;
         auto& families = physicalDevice.queueFamilies();
         for (uint32_t i = 0; i < families.size(); i++) {
             auto& queueFamily = families[i];
@@ -101,7 +112,12 @@ public:
                 graphicsQueueIndex = i;
             }
 
-            if (graphicsFound) break;
+            if (physicalDevice.supports(*surface, i)) {
+                presentFound = true;
+                presentQueueIndex = i;
+            }
+
+            if (graphicsFound && presentFound) break;
         }
 
         return graphicsFound;
@@ -113,9 +129,11 @@ public:
 
         for (auto& physicalDevice : physicalDevices) {
             uint32_t graphicsQueueIndex;
-            if (isDeviceSuitable(physicalDevice, graphicsQueueIndex)) {
+            uint32_t presentQueueIndex;
+            if (isDeviceSuitable(physicalDevice, graphicsQueueIndex, presentQueueIndex)) {
                 this->physicalDevice = &physicalDevice;
                 this->graphicsQueueIndex = graphicsQueueIndex;
+                this->presentQueueIndex = presentQueueIndex;
                 break;
             }
         }

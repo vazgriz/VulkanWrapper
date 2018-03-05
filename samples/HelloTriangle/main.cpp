@@ -243,7 +243,7 @@ public:
         info.imageArrayLayers = 1;
         info.imageUsage = vk::ImageUsageFlags::ColorAttachment;
 
-        if (graphicsQueue != presentQueue) {
+        if (graphicsQueue->familyIndex() != presentQueue->familyIndex()) {
             info.imageSharingMode = vk::SharingMode::Concurrent;
             info.queueFamilyIndices = { graphicsQueueIndex, presentQueueIndex };
         } else {

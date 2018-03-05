@@ -1,4 +1,4 @@
-//auto generated on 03/04/2018 10:14:41 PM
+//auto generated on 03/05/2018 2:46:01 PM
 #pragma once
 
 namespace vk {
@@ -166,7 +166,7 @@ namespace vk {
         None = 0,
     };
 
-    enum class DescriptorSetLayoutCreateFlags {
+    enum class DescriptorSetLayoutCreateFlags : uint32_t {
         None = 0,
     };
 
@@ -208,7 +208,7 @@ namespace vk {
         None = 0,
     };
 
-    enum class BufferCreateFlags {
+    enum class BufferCreateFlags : uint32_t {
         None = 0,
         SparseBinding = 1,
         SparseResidency = 2,
@@ -241,7 +241,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class BufferUsageFlags {
+    enum class BufferUsageFlags : uint32_t {
         None = 0,
         TransferSrc = 1,
         TransferDst = 2,
@@ -280,7 +280,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ColorComponentFlags {
+    enum class ColorComponentFlags : uint32_t {
         None = 0,
         R = 1,
         G = 2,
@@ -324,7 +324,7 @@ namespace vk {
         A = 6,
     };
 
-    enum class CommandPoolCreateFlags {
+    enum class CommandPoolCreateFlags : uint32_t {
         None = 0,
         Transient = 1,
         ResetCommandBuffer = 2,
@@ -356,7 +356,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class CommandPoolResetFlags {
+    enum class CommandPoolResetFlags : uint32_t {
         None = 0,
         ReleaseResources = 1,
     };
@@ -387,7 +387,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class CommandBufferResetFlags {
+    enum class CommandBufferResetFlags : uint32_t {
         None = 0,
         ReleaseResources = 1,
     };
@@ -423,7 +423,7 @@ namespace vk {
         Secondary = 1,
     };
 
-    enum class CommandBufferUsageFlags {
+    enum class CommandBufferUsageFlags : uint32_t {
         None = 0,
         OneTimeSubmit = 1,
         RenderPassContinue = 2,
@@ -467,7 +467,7 @@ namespace vk {
         Always = 7,
     };
 
-    enum class CullModeFlags {
+    enum class CullModeFlags : uint32_t {
         None = 0,
         Front = 1,
         Back = 2,
@@ -532,7 +532,7 @@ namespace vk {
         DiscardRectangleExt = 1000099000,
     };
 
-    enum class FenceCreateFlags {
+    enum class FenceCreateFlags : uint32_t {
         None = 0,
         Signaled = 1,
     };
@@ -766,7 +766,7 @@ namespace vk {
         Pvrtc2_4Bpp_SrgbBlockImg = 1000054007,
     };
 
-    enum class FormatFeatureFlags {
+    enum class FormatFeatureFlags : uint32_t {
         None = 0,
         SampledImage = 1,
         StorageImage = 2,
@@ -814,7 +814,7 @@ namespace vk {
         Clockwise = 1,
     };
 
-    enum class ImageAspectFlags {
+    enum class ImageAspectFlags : uint32_t {
         None = 0,
         Color = 1,
         Depth = 2,
@@ -848,7 +848,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ImageCreateFlags {
+    enum class ImageCreateFlags : uint32_t {
         None = 0,
         SparseBinding = 1,
         SparseResidency = 2,
@@ -908,7 +908,7 @@ namespace vk {
         _3D = 2,
     };
 
-    enum class ImageUsageFlags {
+    enum class ImageUsageFlags : uint32_t {
         None = 0,
         TransferSrc = 1,
         TransferDst = 2,
@@ -985,7 +985,7 @@ namespace vk {
         Set = 15,
     };
 
-    enum class MemoryHeapFlags {
+    enum class MemoryHeapFlags : uint32_t {
         None = 0,
         DeviceLocal = 1,
     };
@@ -1016,7 +1016,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class AccessFlags {
+    enum class AccessFlags : uint32_t {
         None = 0,
         IndirectCommandRead = 1,
         IndexRead = 2,
@@ -1063,7 +1063,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class MemoryPropertyFlags {
+    enum class MemoryPropertyFlags : uint32_t {
         None = 0,
         DeviceLocal = 1,
         HostVisible = 2,
@@ -1111,7 +1111,7 @@ namespace vk {
         Compute = 1,
     };
 
-    enum class PipelineCreateFlags {
+    enum class PipelineCreateFlags : uint32_t {
         None = 0,
         DisableOptimization = 1,
         AllowDerivatives = 2,
@@ -1158,7 +1158,7 @@ namespace vk {
         PatchList = 10,
     };
 
-    enum class QueryControlFlags {
+    enum class QueryControlFlags : uint32_t {
         None = 0,
         Precise = 1,
     };
@@ -1189,7 +1189,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class QueryPipelineStatisticFlags {
+    enum class QueryPipelineStatisticFlags : uint32_t {
         None = 0,
         InputAssemblyVertices = 1,
         InputAssemblyPrimitives = 2,
@@ -1230,7 +1230,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class QueryResultFlags {
+    enum class QueryResultFlags : uint32_t {
         None = 0,
         _64 = 1,
         Wait = 2,
@@ -1270,7 +1270,7 @@ namespace vk {
         Timestamp = 2,
     };
 
-    enum class QueueFlags {
+    enum class QueueFlags : uint32_t {
         None = 0,
         Graphics = 1,
         Compute = 2,
@@ -1339,7 +1339,7 @@ namespace vk {
         ErrorInvalidExternalHandleKhr = -1000072003,
     };
 
-    enum class ShaderStageFlags {
+    enum class ShaderStageFlags : uint32_t {
         None = 0,
         Vertex = 1,
         TessellationControl = 2,
@@ -1377,7 +1377,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class SparseMemoryBindFlags {
+    enum class SparseMemoryBindFlags : uint32_t {
         None = 0,
         Metadata = 1,
     };
@@ -1408,7 +1408,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class StencilFaceFlags {
+    enum class StencilFaceFlags : uint32_t {
         None = 0,
         Front = 1,
         Back = 2,
@@ -1669,7 +1669,7 @@ namespace vk {
         Instance = 1,
     };
 
-    enum class PipelineStageFlags {
+    enum class PipelineStageFlags : uint32_t {
         None = 0,
         TopOfPipe = 1,
         DrawIndirect = 2,
@@ -1716,7 +1716,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class SparseImageFormatFlags {
+    enum class SparseImageFormatFlags : uint32_t {
         None = 0,
         SingleMiptail = 1,
         AlignedMipSize = 2,
@@ -1749,7 +1749,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class SampleCountFlags {
+    enum class SampleCountFlags : uint32_t {
         None = 0,
         _1 = 1,
         _2 = 2,
@@ -1786,7 +1786,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class AttachmentDescriptionFlags {
+    enum class AttachmentDescriptionFlags : uint32_t {
         None = 0,
         MayAlias = 1,
     };
@@ -1817,7 +1817,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class DescriptorPoolCreateFlags {
+    enum class DescriptorPoolCreateFlags : uint32_t {
         None = 0,
         FreeDescriptorSet = 1,
     };
@@ -1848,7 +1848,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class DependencyFlags {
+    enum class DependencyFlags : uint32_t {
         None = 0,
         ByRegion = 1,
     };
@@ -1916,7 +1916,7 @@ namespace vk {
         IndirectCommandsLayoutNvx = 1000086001,
     };
 
-    enum class IndirectCommandsLayoutUsageFlags {
+    enum class IndirectCommandsLayoutUsageFlags : uint32_t {
         None = 0,
         UnorderedSequences = 1,
         SparseSequences = 2,
@@ -1961,7 +1961,7 @@ namespace vk {
         Dispatch = 7,
     };
 
-    enum class ObjectEntryUsageFlags {
+    enum class ObjectEntryUsageFlags : uint32_t {
         None = 0,
         Graphics = 1,
         Compute = 2,
@@ -2022,7 +2022,7 @@ namespace vk {
         Exclusive = 1,
     };
 
-    enum class SubpassDescriptionFlags {
+    enum class SubpassDescriptionFlags : uint32_t {
         None = 0,
     };
 
@@ -2077,7 +2077,7 @@ namespace vk {
         ExtendedSrgbNonlinearExt = 1000104014,
     };
 
-    enum class CompositeAlphaFlags {
+    enum class CompositeAlphaFlags : uint32_t {
         None = 0,
         Opaque = 1,
         PreMultiplied = 2,
@@ -2111,7 +2111,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class DisplayPlaneAlphaFlags {
+    enum class DisplayPlaneAlphaFlags : uint32_t {
         None = 0,
         Opaque = 1,
         Global = 2,
@@ -2154,7 +2154,7 @@ namespace vk {
         SharedContinuousRefresh = 1000111001,
     };
 
-    enum class SurfaceTransformFlags {
+    enum class SurfaceTransformFlags : uint32_t {
         None = 0,
         Identity = 1,
         Rotate_90_ = 2,
@@ -2193,7 +2193,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class DebugReportFlags {
+    enum class DebugReportFlags : uint32_t {
         None = 0,
         Information = 1,
         Warning = 2,
@@ -2270,7 +2270,7 @@ namespace vk {
         Relaxed = 1,
     };
 
-    enum class ExternalMemoryHandleTypeFlagsNV {
+    enum class ExternalMemoryHandleTypeFlagsNV : uint32_t {
         None = 0,
         Opaque_Win32_ = 1,
         Opaque_Win32_Kmt = 2,
@@ -2304,7 +2304,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ExternalMemoryFeatureFlagsNV {
+    enum class ExternalMemoryFeatureFlagsNV : uint32_t {
         None = 0,
         DedicatedOnly = 1,
         Exportable = 2,
@@ -2342,7 +2342,7 @@ namespace vk {
         Shaders = 1,
     };
 
-    enum class ExternalMemoryHandleTypeFlagsKHR {
+    enum class ExternalMemoryHandleTypeFlagsKHR : uint32_t {
         None = 0,
         OpaqueFd = 1,
         Opaque_Win32_ = 2,
@@ -2379,7 +2379,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ExternalMemoryFeatureFlagsKHR {
+    enum class ExternalMemoryFeatureFlagsKHR : uint32_t {
         None = 0,
         DedicatedOnly = 1,
         Exportable = 2,
@@ -2412,7 +2412,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ExternalSemaphoreHandleTypeFlags {
+    enum class ExternalSemaphoreHandleTypeFlags : uint32_t {
         None = 0,
         OpaqueFd = 1,
         Opaque_Win32_ = 2,
@@ -2447,7 +2447,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ExternalSemaphoreFeatureFlags {
+    enum class ExternalSemaphoreFeatureFlags : uint32_t {
         None = 0,
         Exportable = 1,
         Importable = 2,
@@ -2479,7 +2479,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class SemaphoreImportFlags {
+    enum class SemaphoreImportFlags : uint32_t {
         None = 0,
         Temporary = 1,
     };
@@ -2510,7 +2510,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ExternalFenceHandleTypeFlags {
+    enum class ExternalFenceHandleTypeFlags : uint32_t {
         None = 0,
         OpaqueFd = 1,
         Opaque_Win32_ = 2,
@@ -2544,7 +2544,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ExternalFenceFeatureFlags {
+    enum class ExternalFenceFeatureFlags : uint32_t {
         None = 0,
         Exportable = 1,
         Importable = 2,
@@ -2576,7 +2576,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class FenceImportFlags {
+    enum class FenceImportFlags : uint32_t {
         None = 0,
         Temporary = 1,
     };
@@ -2607,7 +2607,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class SurfaceCounterFlags {
+    enum class SurfaceCounterFlags : uint32_t {
         None = 0,
         Vblank = 1,
     };
@@ -2652,7 +2652,7 @@ namespace vk {
         FirstPixelOut = 0,
     };
 
-    enum class PeerMemoryFeatureFlags {
+    enum class PeerMemoryFeatureFlags : uint32_t {
         None = 0,
         CopySrc = 1,
         CopyDst = 2,
@@ -2686,7 +2686,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class MemoryAllocateFlags {
+    enum class MemoryAllocateFlags : uint32_t {
         None = 0,
         DeviceMask = 1,
     };
@@ -2717,7 +2717,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class DeviceGroupPresentModeFlags {
+    enum class DeviceGroupPresentModeFlags : uint32_t {
         None = 0,
         Local = 1,
         Remote = 2,
@@ -2751,7 +2751,7 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class SwapchainCreateFlags {
+    enum class SwapchainCreateFlags : uint32_t {
         None = 0,
     };
 

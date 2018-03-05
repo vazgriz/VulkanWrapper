@@ -115,7 +115,7 @@ public:
                 graphicsQueueIndex = i;
             }
 
-            if (physicalDevice.supports(*surface, i)) {
+            if (surface->supported(physicalDevice, i)) {
                 presentFound = true;
                 presentQueueIndex = i;
             }

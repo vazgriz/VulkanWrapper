@@ -62,8 +62,6 @@ namespace vk {
         const std::vector<ExtensionProperties>& availableExtensions(const std::string& layerName = "") const { return m_extensionMap.at(layerName); }
         const MemoryProperties& memoryProperties() const { return m_memoryProperties; }
 
-        bool supports(const Surface& surface, uint32_t queueFamilyIndex) const;
-
     private:
         void getProperties();
         void getFeatures();

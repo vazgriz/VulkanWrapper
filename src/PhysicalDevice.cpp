@@ -112,9 +112,3 @@ void vk::PhysicalDevice::getMemoryProperties() {
         m_memoryProperties.memoryHeaps.push_back(properties.memoryHeaps[i]);
     }
 }
-
-bool vk::PhysicalDevice::supports(const vk::Surface& surface, uint32_t queueFamilyIndex) const {
-    VkBool32 result;
-    vkGetPhysicalDeviceSurfaceSupportKHR(m_physicalDevice, queueFamilyIndex, surface.handle(), &result);
-    return result == VK_TRUE;
-}

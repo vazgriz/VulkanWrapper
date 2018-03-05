@@ -16,6 +16,8 @@ namespace vk {
         VkSurfaceKHR handle() const { return m_surface; }
         const Instance& instance() const { return m_instance; }
 
+        bool supported(const PhysicalDevice&, uint32_t queueFamilyIndex) const;
+
     private:
         VkSurfaceKHR m_surface;
         const Instance& m_instance;

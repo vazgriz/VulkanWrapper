@@ -6,7 +6,7 @@ void vk::DeviceQueueCreateInfo::marshal() const {
         next->marshal();
         m_info.pNext = &next->info();
     } else {
-        m_info.pNext == nullptr;
+        m_info.pNext = nullptr;
     }
 
     m_info.flags = static_cast<VkDeviceQueueCreateFlags>(flags);

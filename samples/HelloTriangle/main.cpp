@@ -1,13 +1,19 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <set>
 #include <GLFW/glfw3.h>
 #include <VulkanWrapper/Instance.h>
 #include <VulkanWrapper/PhysicalDevice.h>
 #include <VulkanWrapper/Device.h>
+#include <VulkanWrapper/Surface.h>
 
 const std::vector<std::string> validationLayers = {
     "VK_LAYER_LUNARG_standard_validation"
+};
+
+const std::vector<std::string> deviceExtensions = {
+    "VK_KHR_swapchain"
 };
 
 class HelloTriangle {
@@ -72,7 +78,20 @@ public:
         instance = std::make_unique<vk::Instance>(info);
     }
 
+    bool checkSwapchainSupport(const vk::PhysicalDevice& physicalDevice) {
+        auto& available = physicalDevice.availableExtensions();
+        std::set<std::string> requestedExtensions(deviceExtensions.begin(), deviceExtensions.end());
+
+        for (auto& extension : available) {
+            requestedExtensions.erase(extension.extensionName);
+        }
+
+        return requestedExtensions.empty();
+    }
+
     bool isDeviceSuitable(const vk::PhysicalDevice& physicalDevice, uint32_t& graphicsQueueIndex) {
+        if (!checkSwapchainSupport(physicalDevice)) return false;
+
         bool graphicsFound = false;
         auto& families = physicalDevice.queueFamilies();
         for (uint32_t i = 0; i < families.size(); i++) {

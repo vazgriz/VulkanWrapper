@@ -23,12 +23,11 @@ vk::PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDevicePropertie
     sparseProperties = properties.sparseProperties;
 }
 
-vk::QueueFamilyProperties::QueueFamilyProperties(VkQueueFamilyProperties properties, uint32_t i) {
+vk::QueueFamilyProperties::QueueFamilyProperties(VkQueueFamilyProperties properties) {
     queueFlags = static_cast<vk::QueueFlags>(properties.queueFlags);
     queueCount = properties.queueCount;
     timestampValidBits = properties.timestampValidBits;
     minImageTransferGranularity = properties.minImageTransferGranularity;
-    familyIndex = i;
 }
 
 vk::PhysicalDevice::PhysicalDevice(vk::Instance& instance, VkPhysicalDevice physicalDevice) : m_instance(instance) {
@@ -61,7 +60,7 @@ void vk::PhysicalDevice::getQueueFamilies() {
 
     m_families.reserve(count);
     for (uint32_t i = 0; i < count; i++) {
-        m_families.push_back(QueueFamilyProperties(properties[i], i));
+        m_families.emplace_back(properties[i]);
     }
 }
 

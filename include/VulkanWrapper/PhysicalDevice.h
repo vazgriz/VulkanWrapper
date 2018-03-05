@@ -47,9 +47,8 @@ namespace vk {
         uint32_t queueCount;
         uint32_t timestampValidBits;
         VkExtent3D minImageTransferGranularity;
-        uint32_t familyIndex;
 
-        QueueFamilyProperties(VkQueueFamilyProperties properties, uint32_t index);
+        QueueFamilyProperties(VkQueueFamilyProperties properties);
     };
 
     struct MemoryProperties {

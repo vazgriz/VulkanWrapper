@@ -54,9 +54,9 @@ namespace vk {
         VkPhysicalDevice handle() const { return m_physicalDevice; }
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
-        const std::vector<QueueFamilyProperties> queueFamilies() const { return m_families; }
-        const std::vector<LayerProperties> availableLayers() const { return m_layers; }
-        const std::vector<ExtensionProperties> availableExtensions(const std::string& layerName = "") const { return m_extensionMap.at(layerName); }
+        const std::vector<QueueFamilyProperties>& queueFamilies() const { return m_families; }
+        const std::vector<LayerProperties>& availableLayers() const { return m_layers; }
+        const std::vector<ExtensionProperties>& availableExtensions(const std::string& layerName = "") const { return m_extensionMap.at(layerName); }
         const MemoryProperties& memoryProperties() const { return m_memoryProperties; }
 
     private:

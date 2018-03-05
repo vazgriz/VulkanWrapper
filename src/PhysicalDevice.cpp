@@ -2,6 +2,16 @@
 #include <cstring>
 #include "VulkanWrapper/Surface.h"
 
+vk::MemoryType::MemoryType(VkMemoryType type) {
+    propertyFlags = static_cast<MemoryPropertyFlags>(type.propertyFlags);
+    heapIndex = type.heapIndex;
+}
+
+vk::MemoryHeap::MemoryHeap(VkMemoryHeap heap) {
+    size = heap.size;
+    flags = static_cast<MemoryHeapFlags>(heap.flags);
+}
+
 vk::PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDeviceProperties properties) {
     apiVersion = properties.apiVersion;
     driverVersion = properties.driverVersion;

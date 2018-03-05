@@ -4,6 +4,7 @@
 #include "VulkanWrapper/CreateInfo.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
+#include "VulkanWrapper/structs.h"
 #include "VulkanWrapper/Utilities.h"
 #include "VulkanWrapper/LayerProperties.h"
 #include "VulkanWrapper/ExtensionProperties.h"
@@ -12,11 +13,19 @@ namespace vk {
     class Instance;
     class Surface;
 
-    typedef VkPhysicalDeviceLimits PhysicalDeviceLimits;
-    typedef VkPhysicalDeviceSparseProperties PhysicalDeviceSparseProperties;
-    typedef VkPhysicalDeviceFeatures PhysicalDeviceFeatures;
-    typedef VkMemoryType MemoryType;
-    typedef VkMemoryHeap MemoryHeap;
+    struct MemoryType {
+        MemoryPropertyFlags propertyFlags;
+        uint32_t heapIndex;
+
+        MemoryType(VkMemoryType type);
+    };
+
+    struct MemoryHeap {
+        DeviceSize size;
+        MemoryHeapFlags flags;
+
+        MemoryHeap(VkMemoryHeap heap);
+    };
 
     struct PhysicalDeviceProperties {
         uint32_t apiVersion;

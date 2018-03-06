@@ -11,6 +11,7 @@ void vk::CommandBufferAllocateInfo::marshal() const {
 
     m_info.commandPool = commandPool.handle();
     m_info.commandBufferCount = commandBufferCount;
+    m_info.level = static_cast<VkCommandBufferLevel>(level);
 }
 
 vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer) : m_commandPool(commandPool) {

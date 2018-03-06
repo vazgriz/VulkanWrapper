@@ -15,5 +15,6 @@ add_library(VulkanWrapper
     RenderPass.cpp
     Image.cpp
     ImageView.cpp
+    Framebuffer.cpp
 )
 target_include_directories(VulkanWrapper PUBLIC "$ENV{VK_SDK_PATH}/include" "${CMAKE_SOURCE_DIR}/include")

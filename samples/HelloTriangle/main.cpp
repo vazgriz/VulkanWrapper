@@ -31,6 +31,7 @@ public:
     std::unique_ptr<vk::Swapchain> swapchain;
     std::vector<vk::ImageView> imageViews;
     std::unique_ptr<vk::RenderPass> renderPass;
+    std::vector<vk::Framebuffer> framebuffers;
     std::unique_ptr<vk::Semaphore> imageAcquireSemaphore;
     std::unique_ptr<vk::Semaphore> renderSemaphore;
 
@@ -46,6 +47,7 @@ public:
         createSwapchain();
         createImageViews();
         createRenderPass();
+        createFramebuffers();
         createSemaphores();
         mainLoop();
     }
@@ -302,6 +304,19 @@ public:
         info.subpasses = { subpass };
 
         renderPass = std::make_unique<vk::RenderPass>(*device, info);
+    }
+
+    void createFramebuffers() {
+        framebuffers.reserve(swapchain->images().size());
+        for (size_t i = 0; i < swapchain->images().size(); i++) {
+            vk::FramebufferCreateInfo info(*renderPass);
+            info.attachments = { imageViews[i] };
+            info.width = swapchain->extent().width;
+            info.height = swapchain->extent().height;
+            info.layers = 1;
+
+            framebuffers.emplace_back(*device, info);
+        }
     }
 
     void createSemaphores() {

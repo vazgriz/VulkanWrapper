@@ -1,4 +1,4 @@
-//auto generated on 03/05/2018 2:46:01 PM
+//auto generated on 03/05/2018 9:23:20 PM
 #pragma once
 
 namespace vk {
@@ -2794,3 +2794,5 @@ namespace vk {
     };
 
 }
+
+static_assert(sizeof(VkResult) == sizeof(vk::Result), "Enums are not the same size");

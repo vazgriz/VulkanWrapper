@@ -25,7 +25,7 @@ vk::CommandPool::~CommandPool() {
     vkDestroyCommandPool(m_device.handle(), m_commandPool, m_device.instance().callbacks());
 }
 
-std::vector<vk::CommandBuffer> vk::CommandPool::allocate(const vk::CommandBufferAllocateInfo& info) const {
+std::vector<vk::CommandBuffer> vk::CommandPool::allocate(const vk::CommandBufferAllocateInfo& info) {
     info.marshal();
     std::vector<VkCommandBuffer> commandBuffers(info.commandBufferCount);
 
@@ -34,7 +34,7 @@ std::vector<vk::CommandBuffer> vk::CommandPool::allocate(const vk::CommandBuffer
     std::vector<vk::CommandBuffer> result;
     result.reserve(info.commandBufferCount);
     for (auto commandBuffer : commandBuffers) {
-        //result.emplace_back(*this, commandBuffer);
+        result.emplace_back(*this, commandBuffer);
     }
 
     return result;

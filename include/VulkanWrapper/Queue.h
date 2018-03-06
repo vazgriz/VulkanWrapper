@@ -9,6 +9,7 @@ namespace vk {
     class Device;
     class Semaphore;
     class Fence;
+    class Swapchain;
 
     class SubmitInfo : public CreateInfo<VkSubmitInfo> {
     public:
@@ -25,6 +26,22 @@ namespace vk {
         mutable std::vector<VkSemaphore> m_signalSemaphores;
     };
 
+    class PresentInfo : public CreateInfo<VkPresentInfoKHR> {
+    public:
+        std::vector<std::reference_wrapper<vk::Semaphore>> waitSemaphores;
+        std::vector<std::reference_wrapper<vk::Swapchain>> swapchains;
+        std::vector<uint32_t> imageIndices;
+        std::vector<Result> results;
+
+        void marshal() const;
+        void unmarshal();
+
+    private:
+        mutable std::vector<VkSemaphore> m_waitSemaphores;
+        mutable std::vector<VkSwapchainKHR> m_swapchains;
+        mutable std::vector<VkResult> m_results;
+    };
+
     class Queue {
     public:
         Queue(Device& device, VkQueue queue, uint32_t index);
@@ -35,6 +52,7 @@ namespace vk {
         uint32_t familyIndex() const { return m_familyIndex; }
 
         void submit(ArrayProxy<const SubmitInfo> infos, const Fence* fence) const;
+        Result present(PresentInfo& info) const;
 
     private:
         VkQueue m_queue;

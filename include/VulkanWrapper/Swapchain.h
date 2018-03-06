@@ -49,10 +49,13 @@ namespace vk {
         CompositeAlphaFlags compositeAlpha() const { return m_compositeAlpha; }
         PresentMode presentMode() const { return m_presentMode; }
         bool clipped() const { return m_clipped; }
+        const std::vector<Image>& images() const { return m_images; }
 
         uint32_t acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const;
 
     private:
+        void getImages();
+
         VkSwapchainKHR m_swapchain;
         Device& m_device;
         Surface& m_surface;
@@ -67,5 +70,7 @@ namespace vk {
         CompositeAlphaFlags m_compositeAlpha;
         PresentMode m_presentMode;
         bool m_clipped;
+
+        std::vector<Image> m_images;
     };
 }

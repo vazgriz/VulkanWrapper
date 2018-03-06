@@ -49,10 +49,7 @@ vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_de
     m_presentMode = info.presentMode;
     m_clipped = info.clipped;
 
-    uint32_t count;
-    vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, nullptr);
-    std::vector<VkImage> images(count);
-    vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, images.data());
+    getImages();
 }
 
 vk::Swapchain::~Swapchain() {
@@ -66,4 +63,16 @@ uint32_t vk::Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* sema
     VKW_CHECK(vkAcquireNextImageKHR(m_device.handle(), m_swapchain, timeout, vkSemaphore, vkFence, &index));
 
     return index;
+}
+
+void vk::Swapchain::getImages() {
+    uint32_t count;
+    vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, nullptr);
+    std::vector<VkImage> images(count);
+    vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, images.data());
+
+    m_images.reserve(images.size());
+    for (auto image : images) {
+        m_images.emplace_back(m_device, image);
+    }
 }

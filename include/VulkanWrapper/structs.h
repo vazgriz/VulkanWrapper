@@ -24,4 +24,19 @@ namespace vk {
     typedef VkDrawIndexedIndirectCommand DrawIndexedIndirectCommand;
     typedef VkDrawIndirectCommand DrawIndirectCommand;
     typedef VkDisplayModeParametersKHR DisplayModeParameters;
+
+    struct ComponentMapping {
+        ComponentSwizzle r;
+        ComponentSwizzle g;
+        ComponentSwizzle b;
+        ComponentSwizzle a;
+    };
+
+    struct ImageSubresourceRange {
+        ImageAspectFlags aspectMask;
+        uint32_t baseMipLevel;
+        uint32_t levelCount;
+        uint32_t baseArrayLayer;
+        uint32_t layerCount;
+    };
 }

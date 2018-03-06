@@ -29,6 +29,7 @@ public:
     const vk::Queue* graphicsQueue;
     const vk::Queue* presentQueue;
     std::unique_ptr<vk::Swapchain> swapchain;
+    std::vector<vk::ImageView> imageViews;
     std::unique_ptr<vk::RenderPass> renderPass;
     std::unique_ptr<vk::Semaphore> imageAcquireSemaphore;
     std::unique_ptr<vk::Semaphore> renderSemaphore;
@@ -43,6 +44,7 @@ public:
         pickPhysicalDevice();
         createDevice();
         createSwapchain();
+        createImageViews();
         createRenderPass();
         createSemaphores();
         mainLoop();
@@ -259,6 +261,23 @@ public:
         info.oldSwapchain = nullptr;
 
         swapchain = std::make_unique<vk::Swapchain>(*device, info);
+    }
+
+    void createImageViews() {
+        imageViews.reserve(swapchain->images().size());
+        for (auto& image : swapchain->images()) {
+            vk::ImageViewCreateInfo info(image);
+            info.format = swapchain->format();
+            info.viewType = vk::ImageViewType::_2D;
+            info.components = {};
+            info.subresourceRange.aspectMask = vk::ImageAspectFlags::Color;
+            info.subresourceRange.baseArrayLayer = 0;
+            info.subresourceRange.layerCount = 1;
+            info.subresourceRange.baseMipLevel = 0;
+            info.subresourceRange.levelCount = 1;
+
+            imageViews.emplace_back(*device, info);
+        }
     }
 
     void createRenderPass() {

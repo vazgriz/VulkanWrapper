@@ -12,5 +12,6 @@ add_library(VulkanWrapper
     Fence.cpp
     CommandBuffer.cpp
     CommandPool.cpp
+    RenderPass.cpp
 )
 target_include_directories(VulkanWrapper PUBLIC "$ENV{VK_SDK_PATH}/include" "${CMAKE_SOURCE_DIR}/include")

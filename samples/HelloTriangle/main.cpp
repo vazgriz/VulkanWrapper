@@ -29,6 +29,7 @@ public:
     const vk::Queue* graphicsQueue;
     const vk::Queue* presentQueue;
     std::unique_ptr<vk::Swapchain> swapchain;
+    std::unique_ptr<vk::RenderPass> renderPass;
     std::unique_ptr<vk::Semaphore> imageAcquireSemaphore;
     std::unique_ptr<vk::Semaphore> renderSemaphore;
 
@@ -42,6 +43,7 @@ public:
         pickPhysicalDevice();
         createDevice();
         createSwapchain();
+        createRenderPass();
         createSemaphores();
         mainLoop();
     }
@@ -257,6 +259,30 @@ public:
         info.oldSwapchain = nullptr;
 
         swapchain = std::make_unique<vk::Swapchain>(*device, info);
+    }
+
+    void createRenderPass() {
+        vk::AttachmentDescription colorAttachment = {};
+        colorAttachment.format = swapchain->format();
+        colorAttachment.samples = vk::SampleCountFlags::_1;
+        colorAttachment.loadOp = vk::AttachmentLoadOp::Clear;
+        colorAttachment.storeOp = vk::AttachmentStoreOp::Store;
+        colorAttachment.initialLayout = vk::ImageLayout::Undefined;
+        colorAttachment.finalLayout = vk::ImageLayout::PresentSrcKhr;
+
+        vk::AttachmentReference colorAttachmentRef = {};
+        colorAttachmentRef.attachment = 0;
+        colorAttachmentRef.layout = vk::ImageLayout::ColorAttachmentOptimal;
+
+        vk::SubpassDescription subpass = {};
+        subpass.pipelineBindPoint = vk::PipelineBindPoint::Graphics;
+        subpass.colorAttachments = { colorAttachmentRef };
+
+        vk::RenderPassCreateInfo info = {};
+        info.attachments = { colorAttachment };
+        info.subpasses = { subpass };
+
+        renderPass = std::make_unique<vk::RenderPass>(*device, info);
     }
 
     void createSemaphores() {

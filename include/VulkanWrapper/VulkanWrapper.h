@@ -10,6 +10,7 @@
 #include "VulkanWrapper/LayerProperties.h"
 #include "VulkanWrapper/PhysicalDevice.h"
 #include "VulkanWrapper/Queue.h"
+#include "VulkanWrapper/RenderPass.h"
 #include "VulkanWrapper/Semaphore.h"
 #include "VulkanWrapper/structs.h"
 #include "VulkanWrapper/Surface.h"

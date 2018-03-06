@@ -4,6 +4,8 @@
 namespace vk {
     class Device;
     class Swapchain;
+    class Semaphore;
+    class Fence;
 
     class SwapchainCreateInfo : public CreateInfo<VkSwapchainCreateInfoKHR> {
     public:
@@ -47,6 +49,8 @@ namespace vk {
         CompositeAlphaFlags compositeAlpha() const { return m_compositeAlpha; }
         PresentMode presentMode() const { return m_presentMode; }
         bool clipped() const { return m_clipped; }
+
+        uint32_t acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const;
 
     private:
         VkSwapchainKHR m_swapchain;

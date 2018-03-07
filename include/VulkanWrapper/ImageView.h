@@ -7,13 +7,12 @@ namespace vk {
 
     class ImageViewCreateInfo : public CreateInfo<VkImageViewCreateInfo> {
     public:
-        const Image& image;
+        const Image* image;
         ImageViewType viewType;
         Format format;
         ComponentMapping components;
         ImageSubresourceRange subresourceRange;
 
-        ImageViewCreateInfo(const Image& image) : image(image) {}
         void marshal() const;
     };
 

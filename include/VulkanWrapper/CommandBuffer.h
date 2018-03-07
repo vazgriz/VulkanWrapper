@@ -12,24 +12,22 @@ namespace vk {
 
     class CommandBufferAllocateInfo : public CreateInfo<VkCommandBufferAllocateInfo> {
     public:
-        const CommandPool& commandPool;
+        const CommandPool* commandPool;
         CommandBufferLevel level;
         uint32_t commandBufferCount;
 
-        CommandBufferAllocateInfo(const CommandPool& commandPool) : commandPool(commandPool) {}
         void marshal() const;
     };
 
     class CommandBufferInheritanceInfo : public CreateInfo<VkCommandBufferInheritanceInfo> {
     public:
-        const RenderPass& renderPass;
+        const RenderPass* renderPass;
         uint32_t subpass;
-        const Framebuffer& framebuffer;
+        const Framebuffer* framebuffer;
         bool occlusionQueryEnable;
         QueryControlFlags queryFlags;
         QueryPipelineStatisticFlags pipelineStatistics;
 
-        CommandBufferInheritanceInfo(const RenderPass& renderPass, const Framebuffer& framebuffer) : renderPass(renderPass), framebuffer(framebuffer) { }
         void marshal() const;
     };
 

@@ -10,7 +10,7 @@ namespace vk {
     class SwapchainCreateInfo : public CreateInfo<VkSwapchainCreateInfoKHR> {
     public:
         SwapchainCreateFlags flags;
-        Surface& surface;
+        Surface* surface;
         uint32_t minImageCount;
         Format imageFormat;
         ColorSpace imageColorSpace;
@@ -25,7 +25,6 @@ namespace vk {
         bool clipped;
         const Swapchain* oldSwapchain;
 
-        SwapchainCreateInfo(Surface& surface) : surface(surface) {}
         void marshal() const;
     };
 

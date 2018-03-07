@@ -9,13 +9,12 @@ namespace vk {
     class FramebufferCreateInfo : public CreateInfo<VkFramebufferCreateInfo> {
     public:
         FramebufferCreateFlags flags;
-        RenderPass& renderPass;
+        RenderPass* renderPass;
         std::vector<std::reference_wrapper<ImageView>> attachments;
         uint32_t width;
         uint32_t height;
         uint32_t layers;
 
-        FramebufferCreateInfo(RenderPass& renderPass) : renderPass(renderPass) {}
         void marshal() const;
         
     private:

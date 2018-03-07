@@ -9,9 +9,9 @@ void vk::CommandBufferInheritanceInfo::marshal() const {
         m_info.pNext = nullptr;
     }
 
-    m_info.renderPass = renderPass.handle();
+    m_info.renderPass = renderPass->handle();
     m_info.subpass = subpass;
-    m_info.framebuffer = framebuffer.handle();
+    m_info.framebuffer = framebuffer->handle();
     m_info.occlusionQueryEnable = occlusionQueryEnable;
     m_info.queryFlags = static_cast<VkQueryControlFlags>(queryFlags);
     m_info.pipelineStatistics = static_cast<VkQueryPipelineStatisticFlags>(pipelineStatistics);
@@ -44,7 +44,7 @@ void vk::CommandBufferAllocateInfo::marshal() const {
         m_info.pNext = nullptr;
     }
 
-    m_info.commandPool = commandPool.handle();
+    m_info.commandPool = commandPool->handle();
     m_info.commandBufferCount = commandBufferCount;
     m_info.level = static_cast<VkCommandBufferLevel>(level);
 }

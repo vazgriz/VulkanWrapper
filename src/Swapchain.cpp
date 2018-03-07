@@ -10,7 +10,7 @@ void vk::SwapchainCreateInfo::marshal() const {
     }
 
     m_info.flags = static_cast<VkSwapchainCreateFlagsKHR>(flags);
-    m_info.surface = surface.handle();
+    m_info.surface = surface->handle();
     m_info.minImageCount = minImageCount;
     m_info.imageFormat = static_cast<VkFormat>(imageFormat);
     m_info.imageColorSpace = static_cast<VkColorSpaceKHR>(imageColorSpace);
@@ -32,7 +32,7 @@ void vk::SwapchainCreateInfo::marshal() const {
     }
 }
 
-vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_device(device), m_surface(info.surface) {
+vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_device(device), m_surface(*info.surface) {
     info.marshal();
 
     VKW_CHECK(vkCreateSwapchainKHR(device.handle(), &info.info(), device.instance().callbacks(), &m_swapchain));

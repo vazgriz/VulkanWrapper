@@ -10,7 +10,7 @@ void vk::FramebufferCreateInfo::marshal() const {
     }
 
     m_info.flags = 0;
-    m_info.renderPass = renderPass.handle();
+    m_info.renderPass = renderPass->handle();
     
     m_attachments.reserve(attachments.size());
     for (vk::ImageView& attachment : attachments) {

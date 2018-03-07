@@ -245,7 +245,8 @@ public:
             imageCount = capabilities.maxImageCount;
         }
 
-        vk::SwapchainCreateInfo info(*surface);
+        vk::SwapchainCreateInfo info = {};
+        info.surface = surface.get();
         info.flags = vk::SwapchainCreateFlags::None;
         info.minImageCount = imageCount;
         info.imageFormat = format.format;
@@ -273,7 +274,8 @@ public:
     void createImageViews() {
         imageViews.reserve(swapchain->images().size());
         for (auto& image : swapchain->images()) {
-            vk::ImageViewCreateInfo info(image);
+            vk::ImageViewCreateInfo info = {};
+            info.image = &image;
             info.format = swapchain->format();
             info.viewType = vk::ImageViewType::_2D;
             info.components = {};
@@ -314,7 +316,8 @@ public:
     void createFramebuffers() {
         framebuffers.reserve(swapchain->images().size());
         for (size_t i = 0; i < swapchain->images().size(); i++) {
-            vk::FramebufferCreateInfo info(*renderPass);
+            vk::FramebufferCreateInfo info = {};
+            info.renderPass = renderPass.get();
             info.attachments = { imageViews[i] };
             info.width = swapchain->extent().width;
             info.height = swapchain->extent().height;
@@ -330,7 +333,8 @@ public:
 
         commandPool = std::make_unique<vk::CommandPool>(*device, info);
 
-        vk::CommandBufferAllocateInfo allocInfo(*commandPool);
+        vk::CommandBufferAllocateInfo allocInfo = {};
+        allocInfo.commandPool = commandPool.get();
         allocInfo.commandBufferCount = static_cast<uint32_t>(swapchain->images().size());
         allocInfo.level = vk::CommandBufferLevel::Primary;
 

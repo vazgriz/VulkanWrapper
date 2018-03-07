@@ -36,6 +36,7 @@ public:
     std::vector<vk::CommandBuffer> commandBuffers;
     std::unique_ptr<vk::Semaphore> imageAcquireSemaphore;
     std::unique_ptr<vk::Semaphore> renderSemaphore;
+    std::vector<vk::Fence> fences;
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
         this->window = window;
@@ -52,6 +53,7 @@ public:
         createFramebuffers();
         createCommandPool();
         createSemaphores();
+        createFences();
         mainLoop();
     }
 
@@ -350,6 +352,16 @@ public:
         vk::SemaphoreCreateInfo info = {};
         imageAcquireSemaphore = std::make_unique<vk::Semaphore>(*device, info);
         renderSemaphore = std::make_unique<vk::Semaphore>(*device, info);
+    }
+
+    void createFences() {
+        vk::FenceCreateInfo info = {};
+        info.flags = vk::FenceCreateFlags::Signaled;
+
+        fences.reserve(swapchain->images().size());
+        for (size_t i = 0; i < swapchain->images().size(); i++) {
+            fences.emplace_back(*device, info);
+        }
     }
 
     void mainLoop() {

@@ -345,6 +345,15 @@ public:
         vk::CommandBufferBeginInfo beginInfo = {};
         commandBuffer.begin(beginInfo);
 
+        vk::RenderPassBeginInfo info = {};
+        info.renderPass = renderPass.get();
+        info.framebuffer = &framebuffers[index];
+        info.renderArea = { {}, swapchain->extent() };
+        info.clearValues = { {} };
+
+        commandBuffer.beginRenderPass(info, vk::SubpassContents::Inline);
+        commandBuffer.endRenderPass();
+
         commandBuffer.end();
     }
 

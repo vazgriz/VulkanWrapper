@@ -49,6 +49,22 @@ void vk::CommandBufferAllocateInfo::marshal() const {
     m_info.level = static_cast<VkCommandBufferLevel>(level);
 }
 
+void vk::RenderPassBeginInfo::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = &next->info();
+    } else {
+        m_info.pNext = nullptr;
+    }
+
+    m_info.renderPass = renderPass->handle();
+    m_info.framebuffer = framebuffer->handle();
+    m_info.renderArea = renderArea;
+    m_info.clearValueCount = static_cast<uint32_t>(clearValues.size());
+    m_info.pClearValues = clearValues.data();
+}
+
 vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer) : m_commandPool(commandPool) {
     m_commandBuffer = commandBuffer;
 }
@@ -61,4 +77,14 @@ void vk::CommandBuffer::begin(const vk::CommandBufferBeginInfo& info) const {
 
 void vk::CommandBuffer::end() const {
     VKW_CHECK(vkEndCommandBuffer(m_commandBuffer));
+}
+
+void vk::CommandBuffer::beginRenderPass(const vk::RenderPassBeginInfo& info, SubpassContents contents) const {
+    info.marshal();
+
+    vkCmdBeginRenderPass(m_commandBuffer, &info.info(), static_cast<VkSubpassContents>(contents));
+}
+
+void vk::CommandBuffer::endRenderPass() const {
+    vkCmdEndRenderPass(m_commandBuffer);
 }

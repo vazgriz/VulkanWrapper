@@ -4,6 +4,7 @@
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
+#include "VulkanWrapper/structs.h"
 
 namespace vk {
     class RenderPass;
@@ -40,6 +41,16 @@ namespace vk {
         void marshal() const;
     };
 
+    class RenderPassBeginInfo : public CreateInfo<VkRenderPassBeginInfo> {
+    public:
+        const RenderPass* renderPass;
+        const Framebuffer* framebuffer;
+        Rect2D renderArea;
+        std::vector<ClearValue> clearValues;
+
+        void marshal() const;
+    };
+
     class CommandBuffer {
     public:
         CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer);
@@ -49,6 +60,9 @@ namespace vk {
 
         void begin(const CommandBufferBeginInfo& info) const;
         void end() const;
+
+        void beginRenderPass(const RenderPassBeginInfo& info, SubpassContents contents) const;
+        void endRenderPass() const;
 
     private:
         VkCommandBuffer m_commandBuffer;

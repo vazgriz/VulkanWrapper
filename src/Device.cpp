@@ -80,3 +80,7 @@ void vk::Device::getQueues(const DeviceCreateInfo& info) {
         m_queueMap.emplace(queueInfo.queueFamilyIndex, std::move(queues));
     }
 }
+
+void vk::Device::waitIdle() const {
+    vkDeviceWaitIdle(m_device);
+}

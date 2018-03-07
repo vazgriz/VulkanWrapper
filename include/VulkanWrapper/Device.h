@@ -49,6 +49,8 @@ namespace vk {
 
         const Queue& getQueue(uint32_t familyIndex, uint32_t queueIndex) const;
 
+        void waitIdle() const;
+
     private:
         void getQueues(const DeviceCreateInfo& info);
 

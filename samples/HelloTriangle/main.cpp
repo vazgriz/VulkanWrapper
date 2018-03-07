@@ -42,6 +42,10 @@ public:
         this->window = window;
     }
 
+    ~HelloTriangle() {
+        device->waitIdle();
+    }
+
     void run() {
         createInstance();
         createSurface();

@@ -334,7 +334,7 @@ public:
 
         commandBuffers = commandPool->allocate(allocInfo);
 
-        for (size_t i = 0; i < swapchain->images().size(); i++) {
+        for (size_t i = 0; i < commandBuffers.size(); i++) {
             recordCommands(commandBuffers[i], i);
         }
     }

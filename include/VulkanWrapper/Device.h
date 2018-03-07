@@ -38,6 +38,9 @@ namespace vk {
     class Device {
     public:
         Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info);
+        Device(const Device& other) = delete;
+        Device& operator = (const Device& other) = delete;
+        Device(Device&& other) = default;
         ~Device();
 
         const VkDevice& handle() const { return m_device; }

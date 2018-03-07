@@ -52,6 +52,9 @@ namespace vk {
     class CommandBuffer {
     public:
         CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer);
+        CommandBuffer(const CommandBuffer& other) = delete;
+        CommandBuffer& operator = (const CommandBuffer& other) = delete;
+        CommandBuffer(CommandBuffer&& other) = default;
 
         VkCommandBuffer handle() const { return m_commandBuffer; }
         CommandPool& pool() const { return m_commandPool; }

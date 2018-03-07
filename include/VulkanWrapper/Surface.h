@@ -32,6 +32,9 @@ namespace vk {
     class Surface {
     public:
         Surface(const Instance& instance, VkSurfaceKHR surface);
+        Surface(const Surface& other) = delete;
+        Surface& operator = (const Surface& other) = delete;
+        Surface(Surface&& other) = default;
 
         VkSurfaceKHR handle() const { return m_surface; }
         const Instance& instance() const { return m_instance; }

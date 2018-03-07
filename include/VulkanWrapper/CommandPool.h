@@ -21,6 +21,9 @@ namespace vk {
     class CommandPool {
     public:
         CommandPool(Device& device, const CommandPoolCreateInfo& info);
+        CommandPool(const CommandPool& other) = delete;
+        CommandPool& operator = (const CommandPool& other) = delete;
+        CommandPool(CommandPool&& other) = default;
         ~CommandPool();
 
         VkCommandPool handle() const { return m_commandPool; }

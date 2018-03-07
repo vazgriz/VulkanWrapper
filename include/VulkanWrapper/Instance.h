@@ -38,6 +38,9 @@ namespace vk {
     class Instance {
     public:
         Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks = nullptr);
+        Instance(const Instance& other) = delete;
+        Instance& operator = (const Instance& other) = delete;
+        Instance(Instance&& other) = default;
         ~Instance();
 
         VkInstance handle() const { return m_instance; }

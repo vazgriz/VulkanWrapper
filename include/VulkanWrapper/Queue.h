@@ -45,6 +45,9 @@ namespace vk {
     class Queue {
     public:
         Queue(Device& device, VkQueue queue, uint32_t index);
+        Queue(const Queue& other) = delete;
+        Queue& operator = (const Queue& other) = delete;
+        Queue(Queue&& other) = default;
 
         VkQueue handle() const { return m_queue; }
         Device& device() const { return m_device; }

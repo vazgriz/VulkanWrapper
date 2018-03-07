@@ -24,6 +24,9 @@ namespace vk {
     class Framebuffer {
     public:
         Framebuffer(Device& device, const FramebufferCreateInfo& info);
+        Framebuffer(const Framebuffer& other) = delete;
+        Framebuffer& operator = (const Framebuffer& other) = delete;
+        Framebuffer(Framebuffer&& other) = default;
         ~Framebuffer();
 
         VkFramebuffer handle() const { return m_framebuffer; }

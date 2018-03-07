@@ -7,6 +7,9 @@ namespace vk {
     class Image {
     public:
         Image(Device& device, VkImage image);
+        Image(const Image& image) = delete;
+        Image& operator = (const Image& other) = delete;
+        Image(Image&& other) = default;
         ~Image();
 
         VkImage handle() const { return m_image; }

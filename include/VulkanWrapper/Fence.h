@@ -18,6 +18,7 @@ namespace vk {
     class Fence {
     public:
         Fence(Device& device, const FenceCreateInfo& fence);
+        ~Fence();
 
         VkFence handle() const { return m_fence; }
         Device& device() const { return m_device; }

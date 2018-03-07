@@ -32,6 +32,8 @@ public:
     std::vector<vk::ImageView> imageViews;
     std::unique_ptr<vk::RenderPass> renderPass;
     std::vector<vk::Framebuffer> framebuffers;
+    std::unique_ptr<vk::CommandPool> commandPool;
+    std::vector<vk::CommandBuffer> commandBuffers;
     std::unique_ptr<vk::Semaphore> imageAcquireSemaphore;
     std::unique_ptr<vk::Semaphore> renderSemaphore;
 
@@ -48,6 +50,7 @@ public:
         createImageViews();
         createRenderPass();
         createFramebuffers();
+        createCommandPool();
         createSemaphores();
         mainLoop();
     }
@@ -317,6 +320,30 @@ public:
 
             framebuffers.emplace_back(*device, info);
         }
+    }
+
+    void createCommandPool() {
+        vk::CommandPoolCreateInfo info = {};
+        info.queueFamilyIndex = graphicsQueueIndex;
+
+        commandPool = std::make_unique<vk::CommandPool>(*device, info);
+
+        vk::CommandBufferAllocateInfo allocInfo(*commandPool);
+        allocInfo.commandBufferCount = static_cast<uint32_t>(swapchain->images().size());
+        allocInfo.level = vk::CommandBufferLevel::Primary;
+
+        commandBuffers = commandPool->allocate(allocInfo);
+
+        for (size_t i = 0; i < swapchain->images().size(); i++) {
+            recordCommands(commandBuffers[i], i);
+        }
+    }
+
+    void recordCommands(const vk::CommandBuffer& commandBuffer, size_t index) {
+        vk::CommandBufferBeginInfo beginInfo = {};
+        commandBuffer.begin(beginInfo);
+
+        commandBuffer.end();
     }
 
     void createSemaphores() {

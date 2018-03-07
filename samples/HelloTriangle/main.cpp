@@ -376,6 +376,25 @@ public:
     void mainLoop() {
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
+
+            uint32_t index = swapchain->acquireNextImage(~0ull, imageAcquireSemaphore.get(), nullptr);
+
+            vk::SubmitInfo submitInfo = {};
+            submitInfo.commandBuffers = { commandBuffers[index] };
+            submitInfo.waitSemaphores = { *imageAcquireSemaphore };
+            submitInfo.waitDstStageMask = { vk::PipelineStageFlags::TopOfPipe };
+            submitInfo.signalSemaphores = { *renderSemaphore };
+
+            fences[index].wait();
+            fences[index].reset();
+            graphicsQueue->submit({ submitInfo }, &fences[index]);
+
+            vk::PresentInfo presentInfo = {};
+            presentInfo.swapchains = { *swapchain };
+            presentInfo.imageIndices = { index };
+            presentInfo.waitSemaphores = { *renderSemaphore };
+
+            presentQueue->present(presentInfo);
         }
     }
 };

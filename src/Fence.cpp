@@ -32,3 +32,18 @@ VkResult vk::Fence::wait(const Device& device, ArrayProxy<const Fence> fences, b
 
     return vkWaitForFences(device.handle(), static_cast<uint32_t>(vkFences.size()), vkFences.data(), waitAll, timeout);
 }
+
+void vk::Fence::reset() {
+    VKW_CHECK(vkResetFences(m_device.handle(), 1, &m_fence));
+}
+
+void vk::Fence::reset(const Device& device, ArrayProxy<Fence> fences) {
+    std::vector<VkFence> vkFences;
+    vkFences.reserve(fences.size());
+
+    for (const vk::Fence& fence : fences) {
+        vkFences.push_back(fence.handle());
+    }
+
+    VKW_CHECK(vkResetFences(device.handle(), static_cast<uint32_t>(vkFences.size()), vkFences.data()));
+}

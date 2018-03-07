@@ -25,6 +25,9 @@ namespace vk {
         VkResult wait(uint64_t timeout = ~0ull) const;
         static VkResult wait(const Device& device, ArrayProxy<const Fence> fences, bool waitAll, uint64_t timeout = ~0ull);
 
+        void reset();
+        static void reset(const Device& device, ArrayProxy<Fence> fences);
+
     private:
         VkFence m_fence;
         Device& m_device;

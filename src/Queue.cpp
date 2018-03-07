@@ -31,7 +31,7 @@ void vk::SubmitInfo::marshal() const {
         m_signalSemaphores.push_back(semaphore.handle());
     }
 
-    m_info.signalSemaphoreCount = static_cast<uint32_t>(signalSemaphores.size());
+    m_info.signalSemaphoreCount = static_cast<uint32_t>(m_signalSemaphores.size());
     m_info.pSignalSemaphores = m_signalSemaphores.data();
 }
 

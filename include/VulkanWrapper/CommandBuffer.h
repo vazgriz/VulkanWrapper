@@ -9,6 +9,7 @@
 namespace vk {
     class RenderPass;
     class Framebuffer;
+    class CommandPool;
 
     class CommandBufferAllocateInfo : public CreateInfo<VkCommandBufferAllocateInfo> {
     public:

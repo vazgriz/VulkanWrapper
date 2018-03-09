@@ -1,4 +1,9 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/Queue.h"
+#include "VulkanWrapper/Semaphore.h"
+#include "VulkanWrapper/CommandBuffer.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Swapchain.h"
+#include "VulkanWrapper/Fence.h"
 
 void vk::SubmitInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;

@@ -1,7 +1,4 @@
-#include "VulkanWrapper/VulkanWrapper.h"
-#include <cstring>
-#include <iostream>
-#include <string>
+#include "VulkanWrapper/Instance.h"
 
 void vk::ApplicationInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;

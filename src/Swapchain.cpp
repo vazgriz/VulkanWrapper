@@ -1,4 +1,10 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/Swapchain.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
+#include "VulkanWrapper/Surface.h"
+#include "VulkanWrapper/Semaphore.h"
+#include "VulkanWrapper/Fence.h"
+#include "VulkanWrapper/Image.h"
 
 void vk::SwapchainCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;

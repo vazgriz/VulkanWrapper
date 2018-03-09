@@ -1,4 +1,8 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/Framebuffer.h"
+#include "VulkanWrapper/RenderPass.h"
+#include "VulkanWrapper/ImageView.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
 
 void vk::FramebufferCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;

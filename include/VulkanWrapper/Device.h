@@ -1,14 +1,17 @@
 #pragma once
 #include <vulkan/vulkan.h>
+#include <unordered_map>
 #include "VulkanWrapper/CreateInfo.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
-#include "VulkanWrapper/Instance.h"
-#include "VulkanWrapper/PhysicalDevice.h"
-#include "VulkanWrapper/Queue.h"
+#include "VulkanWrapper/structs.h"
 
 namespace vk {
+    class Instance;
+    class PhysicalDevice;
+    class Queue;
+
     class DeviceQueueCreateInfo : public CreateInfo<VkDeviceQueueCreateInfo> {
     public:
         VkDeviceQueueCreateFlags flags;
@@ -47,7 +50,7 @@ namespace vk {
         Instance& instance() const { return m_instance; }
         const PhysicalDevice& physicalDevice() { return m_physicalDevice; }
 
-        const std::vector<std::string>& layers() const { return m_instance.layers(); }
+        const std::vector<std::string>& layers() const;
         const std::vector<std::string>& extensions() const { return m_extensions; }
 
         const Queue& getQueue(uint32_t familyIndex, uint32_t queueIndex) const;

@@ -1,5 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
+#include "VulkanWrapper/enums.h"
 
 namespace vk {
     typedef VkDeviceSize DeviceSize;

@@ -1,5 +1,4 @@
-#include "VulkanWrapper/VulkanWrapper.h"
-#include <cstring>
+#include "VulkanWrapper/PhysicalDevice.h"
 
 vk::MemoryType::MemoryType(VkMemoryType type) {
     propertyFlags = static_cast<MemoryPropertyFlags>(type.propertyFlags);

@@ -1,4 +1,6 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/Fence.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
 
 void vk::FenceCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;

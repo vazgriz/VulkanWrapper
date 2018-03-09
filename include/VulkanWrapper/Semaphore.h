@@ -6,6 +6,8 @@
 #include "VulkanWrapper/Utilities.h"
 
 namespace vk {
+    class Device;
+
     class SemaphoreCreateInfo : public CreateInfo<VkSemaphoreCreateInfo> {
     public:
         void marshal() const;

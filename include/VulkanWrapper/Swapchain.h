@@ -1,11 +1,18 @@
 #pragma once
 #include <vulkan/vulkan.h>
+#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/ArrayProxy.h"
+#include "VulkanWrapper/enums.h"
+#include "VulkanWrapper/Utilities.h"
+#include "VulkanWrapper/structs.h"
 
 namespace vk {
     class Device;
     class Swapchain;
     class Semaphore;
     class Fence;
+    class Surface;
+    class Image;
 
     class SwapchainCreateInfo : public CreateInfo<VkSwapchainCreateInfoKHR> {
     public:

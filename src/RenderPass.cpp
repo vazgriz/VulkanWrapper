@@ -1,4 +1,6 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/RenderPass.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
 
 void vk::SubpassDescription::marshal() const {
     m_info.flags = static_cast<VkSubpassDescriptionFlags>(flags);

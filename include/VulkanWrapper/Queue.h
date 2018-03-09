@@ -7,6 +7,7 @@
 
 namespace vk {
     class Device;
+    class CommandBuffer;
     class Semaphore;
     class Fence;
     class Swapchain;

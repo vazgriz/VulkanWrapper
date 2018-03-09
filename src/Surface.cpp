@@ -1,4 +1,6 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/Surface.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
 
 vk::SurfaceCapabilities::SurfaceCapabilities(VkSurfaceCapabilitiesKHR capabilities) {
    minImageCount = capabilities.minImageCount;

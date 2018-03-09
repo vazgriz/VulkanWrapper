@@ -1,4 +1,8 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
+#include "VulkanWrapper/PhysicalDevice.h"
+#include "VulkanWrapper/Queue.h"
+#include "VulkanWrapper/CommandBuffer.h"
 
 void vk::DeviceQueueCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
@@ -56,6 +60,10 @@ vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo&
 
     m_extensions = info.enabledExtensionNames;
     getQueues(info);
+}
+
+const std::vector<std::string>& vk::Device::layers() const {
+    return m_instance.layers();
 }
 
 vk::Device::~Device() {

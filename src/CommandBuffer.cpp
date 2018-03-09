@@ -1,4 +1,7 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/CommandBuffer.h"
+#include "VulkanWrapper/CommandPool.h"
+#include "VulkanWrapper/RenderPass.h"
+#include "VulkanWrapper/Framebuffer.h"
 
 void vk::CommandBufferInheritanceInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;

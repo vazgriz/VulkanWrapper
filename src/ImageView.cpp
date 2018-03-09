@@ -1,4 +1,7 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/ImageView.h"
+#include "VulkanWrapper/Image.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
 
 void vk::ImageViewCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;

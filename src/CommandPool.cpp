@@ -1,4 +1,7 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/CommandPool.h"
+#include "VulkanWrapper/CommandBuffer.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
 
 void vk::CommandPoolCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;

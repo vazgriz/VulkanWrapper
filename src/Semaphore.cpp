@@ -1,4 +1,6 @@
-#include "VulkanWrapper/VulkanWrapper.h"
+#include "VulkanWrapper/Semaphore.h"
+#include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/Instance.h"
 
 void vk::SemaphoreCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;

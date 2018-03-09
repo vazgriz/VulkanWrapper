@@ -15,6 +15,7 @@
 #include "VulkanWrapper/Queue.h"
 #include "VulkanWrapper/RenderPass.h"
 #include "VulkanWrapper/Semaphore.h"
+#include "VulkanWrapper/ShaderModule.h"
 #include "VulkanWrapper/structs.h"
 #include "VulkanWrapper/Surface.h"
 #include "VulkanWrapper/Swapchain.h"

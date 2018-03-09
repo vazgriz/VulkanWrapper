@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <memory>
 #include <set>
@@ -55,6 +56,7 @@ public:
         createImageViews();
         createRenderPass();
         createFramebuffers();
+        createPipeline();
         createCommandPool();
         createSemaphores();
         createFences();
@@ -329,6 +331,29 @@ public:
 
             framebuffers.emplace_back(*device, info);
         }
+    }
+
+    std::vector<char> readFile(const std::string& fileName) {
+        std::ifstream file(fileName, std::ios::binary | std::ios::ate);
+        if (!file) throw std::runtime_error("Failed to open file");
+
+        std::vector<char> result(file.tellg());
+        file.seekg(0, std::ios::beg);
+        file.read(result.data(), result.size());
+
+        return result;
+    }
+
+    vk::ShaderModule createShader(const std::string& fileName) {
+        vk::ShaderModuleCreateInfo info = {};
+        info.code = readFile(fileName);
+
+        return vk::ShaderModule(*device, info);
+    }
+
+    void createPipeline() {
+        vk::ShaderModule vertShader = createShader("hello.vert.spv");
+        vk::ShaderModule fragShader = createShader("hello.frag.spv");
     }
 
     void createCommandPool() {

@@ -40,4 +40,10 @@ namespace vk {
         uint32_t baseArrayLayer;
         uint32_t layerCount;
     };
+
+    struct PushConstantRange {
+        ShaderStageFlags stageFlags;
+        uint32_t offset;
+        uint32_t size;
+    };
 }

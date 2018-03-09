@@ -13,6 +13,7 @@
 #include "VulkanWrapper/Instance.h"
 #include "VulkanWrapper/LayerProperties.h"
 #include "VulkanWrapper/PhysicalDevice.h"
+#include "VulkanWrapper/PipelineLayout.h"
 #include "VulkanWrapper/Queue.h"
 #include "VulkanWrapper/RenderPass.h"
 #include "VulkanWrapper/Semaphore.h"

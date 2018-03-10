@@ -2,6 +2,7 @@
 #include "VulkanWrapper/CommandPool.h"
 #include "VulkanWrapper/RenderPass.h"
 #include "VulkanWrapper/Framebuffer.h"
+#include "VulkanWrapper/GraphicsPipeline.h"
 
 void vk::CommandBufferInheritanceInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
@@ -90,4 +91,12 @@ void vk::CommandBuffer::beginRenderPass(const vk::RenderPassBeginInfo& info, Sub
 
 void vk::CommandBuffer::endRenderPass() const {
     vkCmdEndRenderPass(m_commandBuffer);
+}
+
+void vk::CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const {
+    vkCmdDraw(m_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
+}
+
+void vk::CommandBuffer::bindPipeline(vk::PipelineBindPoint pipelineBindPoint, const vk::Pipeline& pipeline) const {
+    vkCmdBindPipeline(m_commandBuffer, static_cast<VkPipelineBindPoint>(pipelineBindPoint), pipeline.handle());
 }

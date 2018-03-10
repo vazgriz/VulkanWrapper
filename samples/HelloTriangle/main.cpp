@@ -453,6 +453,10 @@ public:
         info.clearValues = { {} };
 
         commandBuffer.beginRenderPass(info, vk::SubpassContents::Inline);
+
+        commandBuffer.bindPipeline(vk::PipelineBindPoint::Graphics, *pipeline);
+        commandBuffer.draw(3, 1, 0, 0);
+
         commandBuffer.endRenderPass();
 
         commandBuffer.end();

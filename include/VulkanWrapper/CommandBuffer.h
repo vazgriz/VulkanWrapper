@@ -10,6 +10,7 @@ namespace vk {
     class RenderPass;
     class Framebuffer;
     class CommandPool;
+    class Pipeline;
 
     class CommandBufferAllocateInfo : public CreateInfo<VkCommandBufferAllocateInfo> {
     public:
@@ -65,6 +66,9 @@ namespace vk {
 
         void beginRenderPass(const RenderPassBeginInfo& info, SubpassContents contents) const;
         void endRenderPass() const;
+
+        void bindPipeline(PipelineBindPoint pipelineBindPoint, const Pipeline& pipeline) const;
+        void draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
 
     private:
         VkCommandBuffer m_commandBuffer;

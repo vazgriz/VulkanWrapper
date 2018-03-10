@@ -3,7 +3,7 @@
 #include "VulkanWrapper/Instance.h"
 
 void vk::MemoryAllocateInfo::marshal() const {
-    m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+    m_info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     if (next != nullptr) {
         next->marshal();
         m_info.pNext = &next->info();

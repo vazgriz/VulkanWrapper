@@ -4,6 +4,7 @@
 #include "VulkanWrapper/CreateInfo.h"
 #include "VulkanWrapper/DescriptorSetLayout.h"
 #include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/DeviceMemory.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/ExtensionProperties.h"
 #include "VulkanWrapper/Fence.h"

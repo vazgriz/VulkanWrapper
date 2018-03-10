@@ -33,6 +33,8 @@ public:
     std::vector<vk::ImageView> imageViews;
     std::unique_ptr<vk::RenderPass> renderPass;
     std::vector<vk::Framebuffer> framebuffers;
+    std::unique_ptr<vk::PipelineLayout> pipelineLayout;
+    std::unique_ptr<vk::Pipeline> pipeline;
     std::unique_ptr<vk::CommandPool> commandPool;
     std::vector<vk::CommandBuffer> commandBuffers;
     std::unique_ptr<vk::Semaphore> imageAcquireSemaphore;
@@ -56,6 +58,7 @@ public:
         createImageViews();
         createRenderPass();
         createFramebuffers();
+        createPipelineLayout();
         createPipeline();
         createCommandPool();
         createSemaphores();
@@ -351,9 +354,74 @@ public:
         return vk::ShaderModule(*device, info);
     }
 
+    void createPipelineLayout() {
+        vk::PipelineLayoutCreateInfo info = {};
+        
+        pipelineLayout = std::make_unique<vk::PipelineLayout>(*device, info);
+    }
+
     void createPipeline() {
         vk::ShaderModule vertShader = createShader("hello.vert.spv");
         vk::ShaderModule fragShader = createShader("hello.frag.spv");
+
+        vk::PipelineShaderStageCreateInfo vertStage = {};
+        vertStage.stage = vk::ShaderStageFlags::Vertex;
+        vertStage.module = &vertShader;
+        vertStage.name = "main";
+
+        vk::PipelineShaderStageCreateInfo fragStage = {};
+        fragStage.stage = vk::ShaderStageFlags::Fragment;
+        fragStage.module = &fragShader;
+        fragStage.name = "main";
+
+        vk::PipelineVertexInputStateCreateInfo vertexInputInfo = {};
+
+        vk::PipelineInputAssemblyStateCreateInfo inputAssembly = {};
+        inputAssembly.topology = vk::PrimitiveTopology::TriangleList;
+
+        vk::Viewport viewport = {};
+        viewport.width = static_cast<float>(swapchain->extent().width);
+        viewport.height = static_cast<float>(swapchain->extent().height);
+        viewport.minDepth = 0.0f;
+        viewport.maxDepth = 1.0f;
+
+        vk::Rect2D scissor = { {}, swapchain->extent() };
+
+        vk::PipelineViewportStateCreateInfo viewportState = {};
+        viewportState.viewports = { viewport };
+        viewportState.scissors = { scissor };
+
+        vk::PipelineRasterizationStateCreateInfo rasterizer = {};
+        rasterizer.polygonMode = vk::PolygonMode::Fill;
+        rasterizer.lineWidth = 1.0f;
+        rasterizer.cullMode = vk::CullModeFlags::Back;
+        rasterizer.frontFace = vk::FrontFace::Clockwise;
+
+        vk::PipelineMultisampleStateCreateInfo multisampling = {};
+        multisampling.rasterizationSamples = vk::SampleCountFlags::_1;
+
+        vk::PipelineColorBlendAttachmentState colorBlendAttachment = {};
+        colorBlendAttachment.colorWriteMask = vk::ColorComponentFlags::R
+                                            | vk::ColorComponentFlags::G
+                                            | vk::ColorComponentFlags::B
+                                            | vk::ColorComponentFlags::A;
+
+        vk::PipelineColorBlendStateCreateInfo colorBlending = {};
+        colorBlending.attachments = { colorBlendAttachment };
+
+        vk::GraphicsPipelineCreateInfo info = {};
+        info.stages = { vertStage, fragStage };
+        info.vertexInputState = &vertexInputInfo;
+        info.inputAssemblyState = &inputAssembly;
+        info.viewportState = &viewportState;
+        info.rasterizationState = &rasterizer;
+        info.multisampleState = &multisampling;
+        info.colorBlendState = &colorBlending;
+        info.layout = pipelineLayout.get();
+        info.renderPass = renderPass.get();
+        info.subpass = 0;
+
+        pipeline = std::make_unique<vk::GraphicsPipeline>(*device, info);
     }
 
     void createCommandPool() {

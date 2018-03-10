@@ -12,6 +12,7 @@ namespace vk {
     typedef VkOffset3D Offset3D;
     typedef VkSubresourceLayout SubresourceLayout;
     typedef VkSpecializationMapEntry SpecializationMapEntry;
+    typedef VkSpecializationInfo SpecializationInfo;
     typedef VkViewport Viewport;
     typedef VkOffset2D Offset2D;
     typedef VkExtent2D Extent2D;
@@ -25,6 +26,7 @@ namespace vk {
     typedef VkDrawIndexedIndirectCommand DrawIndexedIndirectCommand;
     typedef VkDrawIndirectCommand DrawIndirectCommand;
     typedef VkDisplayModeParametersKHR DisplayModeParameters;
+    typedef VkSampleMask SampleMask;
 
     struct ComponentMapping {
         ComponentSwizzle r;
@@ -45,5 +47,54 @@ namespace vk {
         ShaderStageFlags stageFlags;
         uint32_t offset;
         uint32_t size;
+    };
+
+    struct VertexInputBindingDescription {
+        uint32_t             binding;
+        uint32_t             stride;
+        VertexInputRate    inputRate;
+    };
+
+    struct VertexInputAttributeDescription {
+        uint32_t    location;
+        uint32_t    binding;
+        Format    format;
+        uint32_t    offset;
+    };
+
+    struct StencilOpState {
+        StencilOp failOp;
+        StencilOp passOp;
+        StencilOp depthFailOp;
+        CompareOp compareOp;
+        uint32_t compareMask;
+        uint32_t writeMask;
+        uint32_t reference;
+    };
+
+    struct PipelineColorBlendAttachmentState {
+        bool blendEnable;
+        BlendFactor srcColorBlendFactor;
+        BlendFactor dstColorBlendFactor;
+        BlendOp colorBlendOp;
+        BlendFactor srcAlphaBlendFactor;
+        BlendFactor dstAlphaBlendFactor;
+        BlendOp alphaBlendOp;
+        ColorComponentFlags colorWriteMask;
+
+        const VkPipelineColorBlendAttachmentState& info() const { return m_info; }
+        void marshal() const {
+            m_info.blendEnable = blendEnable;
+            m_info.srcColorBlendFactor = static_cast<VkBlendFactor>(srcColorBlendFactor);
+            m_info.dstColorBlendFactor = static_cast<VkBlendFactor>(dstColorBlendFactor);
+            m_info.colorBlendOp = static_cast<VkBlendOp>(colorBlendOp);
+            m_info.srcAlphaBlendFactor = static_cast<VkBlendFactor>(srcAlphaBlendFactor);
+            m_info.dstAlphaBlendFactor = static_cast<VkBlendFactor>(dstAlphaBlendFactor);
+            m_info.alphaBlendOp = static_cast<VkBlendOp>(alphaBlendOp);
+            m_info.colorWriteMask = static_cast<VkColorComponentFlags>(colorWriteMask);
+        }
+
+    private:
+        mutable VkPipelineColorBlendAttachmentState m_info;
     };
 }

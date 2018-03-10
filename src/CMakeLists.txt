@@ -19,5 +19,7 @@ add_library(VulkanWrapper
     ShaderModule.cpp
     DescriptorSetLayout.cpp
     PipelineLayout.cpp
+    Pipeline.cpp
+    GraphicsPipeline.cpp
 )
 target_include_directories(VulkanWrapper PUBLIC "$ENV{VK_SDK_PATH}/include" "${CMAKE_SOURCE_DIR}/include")

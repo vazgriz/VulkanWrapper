@@ -55,6 +55,7 @@ namespace vk {
 
         uint32_t familyIndex() const { return m_familyIndex; }
 
+        void waitIdle() const;
         void submit(ArrayProxy<const SubmitInfo> infos, const Fence* fence) const;
         Result present(PresentInfo& info) const;
 

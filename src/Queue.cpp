@@ -83,6 +83,10 @@ vk::Queue::Queue(Device& device, VkQueue queue, uint32_t index) : m_device(devic
     m_familyIndex = index;
 }
 
+void vk::Queue::waitIdle() const {
+    vkQueueWaitIdle(m_queue);
+}
+
 void vk::Queue::submit(ArrayProxy<const SubmitInfo> infos, const Fence* fence) const {
     std::vector<VkSubmitInfo> vkInfos;
     vkInfos.reserve(infos.size());

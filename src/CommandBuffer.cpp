@@ -3,6 +3,7 @@
 #include "VulkanWrapper/RenderPass.h"
 #include "VulkanWrapper/Framebuffer.h"
 #include "VulkanWrapper/GraphicsPipeline.h"
+#include "VulkanWrapper/Buffer.h"
 
 void vk::CommandBufferInheritanceInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
@@ -102,6 +103,23 @@ void vk::CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint3
     vkCmdDraw(m_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
+void vk::CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<vk::DeviceSize> offsets) const {
+    std::vector<VkBuffer> vkBuffers;
+    vkBuffers.reserve(buffers.size());
+    for (const vk::Buffer& buffer : buffers) {
+        vkBuffers.push_back(buffer.handle());
+    }
+    vkCmdBindVertexBuffers(m_commandBuffer, firstBinding, static_cast<uint32_t>(vkBuffers.size()), vkBuffers.data(), offsets.data());
+}
+
+void vk::CommandBuffer::bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const {
+    vkCmdBindIndexBuffer(m_commandBuffer, buffer.handle(), offset, static_cast<VkIndexType>(indexType));
+}
+
 void vk::CommandBuffer::bindPipeline(vk::PipelineBindPoint pipelineBindPoint, const vk::Pipeline& pipeline) const {
     vkCmdBindPipeline(m_commandBuffer, static_cast<VkPipelineBindPoint>(pipelineBindPoint), pipeline.handle());
+}
+
+void vk::CommandBuffer::copy(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<vk::BufferCopy> copy) {
+    vkCmdCopyBuffer(m_commandBuffer, src.handle(), dst.handle(), static_cast<uint32_t>(copy.size()), copy.data());
 }

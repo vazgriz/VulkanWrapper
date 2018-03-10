@@ -11,6 +11,7 @@ namespace vk {
     class Framebuffer;
     class CommandPool;
     class Pipeline;
+    class Buffer;
 
     class CommandBufferAllocateInfo : public CreateInfo<VkCommandBufferAllocateInfo> {
     public:
@@ -67,8 +68,12 @@ namespace vk {
         void beginRenderPass(const RenderPassBeginInfo& info, SubpassContents contents) const;
         void endRenderPass() const;
 
+        void bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<vk::DeviceSize> offsets) const;
+        void bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const;
         void bindPipeline(PipelineBindPoint pipelineBindPoint, const Pipeline& pipeline) const;
         void draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
+
+        void copy(Buffer& src, Buffer& dst, ArrayProxy<BufferCopy> copy);
 
     private:
         VkCommandBuffer m_commandBuffer;

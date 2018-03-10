@@ -30,11 +30,19 @@ namespace vk {
 
         size_t size() const { return m_size; }
         uint32_t typeIndex() const { return m_typeIndex; }
+        size_t mappingOffset() const { return m_mappingOffset; }
+        size_t mappingSize() const { return m_mappingSize; }
+
+        void* map(size_t offset, size_t size);
+        void unmap();
 
     private:
         VkDeviceMemory m_deviceMemory;
         Device& m_device;
         size_t m_size;
         uint32_t m_typeIndex;
+        void* m_mapping;
+        size_t m_mappingOffset;
+        size_t m_mappingSize;
     };
 }

@@ -28,13 +28,13 @@ void vk::RenderPassCreateInfo::marshal() const {
     m_info.attachmentCount = static_cast<uint32_t>(attachments.size());
     m_info.pAttachments = reinterpret_cast<const VkAttachmentDescription*>(attachments.data());
 
-    m_subpasses.resize(subpasses.size());
+    m_subpasses.reserve(subpasses.size());
     for (auto& subpass : subpasses) {
         subpass.marshal();
         m_subpasses.push_back(subpass.info());
     }
 
-    m_info.subpassCount = static_cast<uint32_t>(subpasses.size());
+    m_info.subpassCount = static_cast<uint32_t>(m_subpasses.size());
     m_info.pSubpasses = m_subpasses.data();
     m_info.dependencyCount = static_cast<uint32_t>(dependencies.size());
     m_info.pDependencies = reinterpret_cast<const VkSubpassDependency*>(dependencies.data());

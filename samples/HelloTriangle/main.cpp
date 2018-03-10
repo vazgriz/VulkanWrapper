@@ -253,6 +253,7 @@ public:
         info.commandBufferCount = 1;
 
         vk::CommandBuffer commandBuffer(std::move(commandPool->allocate(info)[0]));
+        commandBuffer.setDestructorEnabled(true);
 
         vk::CommandBufferBeginInfo beginInfo = {};
         beginInfo.flags = vk::CommandBufferUsageFlags::OneTimeSubmit;

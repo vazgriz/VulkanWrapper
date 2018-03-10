@@ -58,9 +58,11 @@ namespace vk {
         CommandBuffer(const CommandBuffer& other) = delete;
         CommandBuffer& operator = (const CommandBuffer& other) = delete;
         CommandBuffer(CommandBuffer&& other);
+        ~CommandBuffer();
 
         VkCommandBuffer handle() const { return m_commandBuffer; }
         CommandPool& pool() const { return m_commandPool; }
+        void setDestructorEnabled(bool value) { m_destructorEnabled = value; }
 
         void begin(const CommandBufferBeginInfo& info) const;
         void end() const;
@@ -78,5 +80,6 @@ namespace vk {
     private:
         VkCommandBuffer m_commandBuffer;
         CommandPool& m_commandPool;
+        bool m_destructorEnabled;
     };
 }

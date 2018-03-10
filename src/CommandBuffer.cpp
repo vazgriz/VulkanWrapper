@@ -4,6 +4,7 @@
 #include "VulkanWrapper/Framebuffer.h"
 #include "VulkanWrapper/GraphicsPipeline.h"
 #include "VulkanWrapper/Buffer.h"
+#include "VulkanWrapper/Device.h"
 
 void vk::CommandBufferInheritanceInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
@@ -72,11 +73,17 @@ void vk::RenderPassBeginInfo::marshal() const {
 
 vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer) : m_commandPool(commandPool) {
     m_commandBuffer = commandBuffer;
+    m_destructorEnabled = false;
 }
 
 vk::CommandBuffer::CommandBuffer(CommandBuffer&& other) : m_commandPool(other.pool()) {
     m_commandBuffer = other.m_commandBuffer;
+    m_destructorEnabled = other.m_destructorEnabled;
     other.m_commandBuffer = VK_NULL_HANDLE;
+}
+
+vk::CommandBuffer::~CommandBuffer() {
+    if (m_destructorEnabled) vkFreeCommandBuffers(m_commandPool.device().handle(), m_commandPool.handle(), 1, &m_commandBuffer);
 }
 
 void vk::CommandBuffer::begin(const vk::CommandBufferBeginInfo& info) const {

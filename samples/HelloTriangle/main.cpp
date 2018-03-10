@@ -15,6 +15,50 @@ const std::vector<std::string> deviceExtensions = {
     "VK_KHR_swapchain"
 };
 
+struct Vertex {
+    struct {
+        float x, y, z;
+    } position;
+    struct {
+        float r, g, b;
+    } color;
+
+    static std::vector<vk::VertexInputBindingDescription> getBindingDescription() {
+        vk::VertexInputBindingDescription binding = {};
+        binding.binding = 0;
+        binding.inputRate = vk::VertexInputRate::Vertex;
+        binding.stride = sizeof(Vertex);
+
+        return { binding };
+    }
+
+    static std::vector<vk::VertexInputAttributeDescription> getAttributeDescriptions() {
+        vk::VertexInputAttributeDescription attribute0 = {};
+        attribute0.binding = 0;
+        attribute0.location = 0;
+        attribute0.offset = offsetof(Vertex, position);
+        attribute0.format = vk::Format::R32G32B32_Sfloat;
+
+        vk::VertexInputAttributeDescription attribute1 = {};
+        attribute1.binding = 0;
+        attribute1.location = 1;
+        attribute1.offset = offsetof(Vertex, color);
+        attribute1.format = vk::Format::R32G32B32_Sfloat;
+
+        return { attribute0, attribute1 };
+    }
+};
+
+std::vector<Vertex> vertices = {
+    { {  0.0f, -1.0f }, { 1.0f, 0.0f, 0.0f } },
+    { {  1.0f,  1.0f }, { 0.0f, 1.0f, 0.0f } },
+    { { -1.0f,  1.0f }, { 0.0f, 0.0f, 1.0f } }
+};
+
+std::vector<uint32_t> indices = {
+    0, 1, 2
+};
+
 class HelloTriangle {
 public:
     int width;
@@ -29,6 +73,10 @@ public:
     std::unique_ptr<vk::Device> device;
     const vk::Queue* graphicsQueue;
     const vk::Queue* presentQueue;
+    std::unique_ptr<vk::Buffer> vertexBuffer;
+    std::unique_ptr<vk::DeviceMemory> vertexBufferMemory;
+    std::unique_ptr<vk::Buffer> indexBuffer;
+    std::unique_ptr<vk::DeviceMemory> indexBufferMemory;
     std::unique_ptr<vk::Swapchain> swapchain;
     std::vector<vk::ImageView> imageViews;
     std::unique_ptr<vk::RenderPass> renderPass;
@@ -54,13 +102,16 @@ public:
         createSurface();
         pickPhysicalDevice();
         createDevice();
+        createCommandPool();
+        createVertexBuffer();
+        createIndexBuffer();
         createSwapchain();
         createImageViews();
         createRenderPass();
         createFramebuffers();
         createPipelineLayout();
         createPipeline();
-        createCommandPool();
+        recordCommands();
         createSemaphores();
         createFences();
         mainLoop();
@@ -194,6 +245,100 @@ public:
 
         graphicsQueue = &device->getQueue(graphicsQueueIndex, 0);
         presentQueue = &device->getQueue(presentQueueIndex, 0);
+    }
+
+    vk::CommandBuffer getSingleUseCommandBuffer() {
+        vk::CommandBufferAllocateInfo info = {};
+        info.commandPool = commandPool.get();
+        info.commandBufferCount = 1;
+
+        vk::CommandBuffer commandBuffer(std::move(commandPool->allocate(info)[0]));
+
+        vk::CommandBufferBeginInfo beginInfo = {};
+        beginInfo.flags = vk::CommandBufferUsageFlags::OneTimeSubmit;
+        commandBuffer.begin(beginInfo);
+
+        return commandBuffer;
+    }
+
+    void submitSingleUseCommandBuffer(vk::CommandBuffer& commandBuffer) {
+        commandBuffer.end();
+
+        vk::SubmitInfo info = {};
+        info.commandBuffers = { commandBuffer };
+
+        graphicsQueue->submit(info, nullptr);
+        graphicsQueue->waitIdle();
+    }
+
+    uint32_t findMemoryType(uint32_t memoryBits, vk::MemoryPropertyFlags flags) {
+        const std::vector<vk::MemoryType>& types = physicalDevice->memoryProperties().memoryTypes;
+        for (uint32_t i = 0; i < static_cast<uint32_t>(types.size()); i++) {
+            if ((memoryBits & (1 << i)) && (types[i].propertyFlags & flags) == flags) {
+                return i;
+            }
+        }
+
+        throw std::runtime_error("Failed to find suitable memory type");
+    }
+
+    vk::DeviceMemory allocate(vk::MemoryRequirements& requirements, vk::MemoryPropertyFlags flags) {
+        vk::MemoryAllocateInfo info = {};
+        info.allocationSize = requirements.size;
+        info.memoryTypeIndex = findMemoryType(requirements.memoryTypeBits, flags);
+
+        return vk::DeviceMemory(*device, info);
+    }
+
+    vk::Buffer createBuffer(size_t size, vk::BufferUsageFlags usage) {
+        vk::BufferCreateInfo info = {};
+        info.size = size;
+        info.usage = usage;
+
+        return vk::Buffer(*device, info);
+    }
+
+    void copy(vk::Buffer& dst, void* src, size_t size) {
+        vk::Buffer staging = createBuffer(size, vk::BufferUsageFlags::TransferSrc);
+        vk::DeviceMemory stagingMemory = allocate(staging.requirements(), vk::MemoryPropertyFlags::HostVisible | vk::MemoryPropertyFlags::HostCoherent);
+        staging.bind(stagingMemory, 0);
+        void* ptr = stagingMemory.map(0, stagingMemory.size());
+
+        std::memcpy(ptr, src, size);
+
+        vk::CommandBuffer commandBuffer = getSingleUseCommandBuffer();
+
+        commandBuffer.copy(staging, dst, vk::BufferCopy{ 0, 0, size });
+
+        submitSingleUseCommandBuffer(commandBuffer);
+    }
+
+    void createVertexBuffer() {
+        vertexBuffer = std::make_unique<vk::Buffer>(
+            createBuffer(sizeof(Vertex) * vertices.size(), vk::BufferUsageFlags::VertexBuffer | vk::BufferUsageFlags::TransferDst)
+        );
+
+        vertexBufferMemory = std::make_unique<vk::DeviceMemory>(
+            allocate(vertexBuffer->requirements(), vk::MemoryPropertyFlags::DeviceLocal)
+        );
+
+        vertexBuffer->bind(*vertexBufferMemory, 0);
+
+        copy(*vertexBuffer, vertices.data(), sizeof(Vertex) * vertices.size());
+    }
+
+    void createIndexBuffer() {
+        indexBuffer = std::make_unique<vk::Buffer>(
+            createBuffer(sizeof(uint32_t) * indices.size(), vk::BufferUsageFlags::IndexBuffer | vk::BufferUsageFlags::TransferDst)
+        );
+
+        indexBufferMemory = std::make_unique<vk::DeviceMemory>(
+            allocate(indexBuffer->requirements(), vk::MemoryPropertyFlags::DeviceLocal)
+        );
+
+        indexBuffer->bind(*indexBufferMemory, 0);
+
+        copy(*indexBuffer, indices.data(), sizeof(uint32_t) * indices.size());
     }
     
     vk::SurfaceFormat chooseSurfaceFormat(const std::vector<vk::SurfaceFormat>& formats) {
@@ -375,6 +520,8 @@ public:
         fragStage.name = "main";
 
         vk::PipelineVertexInputStateCreateInfo vertexInputInfo = {};
+        vertexInputInfo.vertexBindingDescriptions = Vertex::getBindingDescription();
+        vertexInputInfo.vertexAttributeDescriptions = Vertex::getAttributeDescriptions();
 
         vk::PipelineInputAssemblyStateCreateInfo inputAssembly = {};
         inputAssembly.topology = vk::PrimitiveTopology::TriangleList;
@@ -429,14 +576,15 @@ public:
         info.queueFamilyIndex = graphicsQueueIndex;
 
         commandPool = std::make_unique<vk::CommandPool>(*device, info);
+    }
 
+    void recordCommands() {
         vk::CommandBufferAllocateInfo allocInfo = {};
         allocInfo.commandPool = commandPool.get();
         allocInfo.commandBufferCount = swapchain->images().size();
         allocInfo.level = vk::CommandBufferLevel::Primary;
 
         commandBuffers = commandPool->allocate(allocInfo);
-
         for (size_t i = 0; i < commandBuffers.size(); i++) {
             recordCommands(commandBuffers[i], i);
         }
@@ -453,7 +601,10 @@ public:
         info.clearValues = { {} };
 
         commandBuffer.beginRenderPass(info, vk::SubpassContents::Inline);
-
+        
+        vk::DeviceSize offset = 0;
+        commandBuffer.bindVertexBuffers(0, { *vertexBuffer }, offset);
+        commandBuffer.bindIndexBuffer(*indexBuffer, 0, vk::IndexType::Uint32);
         commandBuffer.bindPipeline(vk::PipelineBindPoint::Graphics, *pipeline);
         commandBuffer.draw(3, 1, 0, 0);
 

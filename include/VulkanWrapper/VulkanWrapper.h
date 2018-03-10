@@ -1,4 +1,5 @@
 #include "VulkanWrapper/ArrayProxy.h"
+#include "VulkanWrapper/Buffer.h"
 #include "VulkanWrapper/CommandPool.h"
 #include "VulkanWrapper/CommandBuffer.h"
 #include "VulkanWrapper/CreateInfo.h"

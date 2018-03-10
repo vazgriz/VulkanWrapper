@@ -26,7 +26,7 @@ namespace vk {
         PipelineLayout(Device& device, const PipelineLayoutCreateInfo& info);
         PipelineLayout(const PipelineLayout& other) = delete;
         PipelineLayout& operator = (const PipelineLayout& other) = delete;
-        PipelineLayout(PipelineLayout&& other) = default;
+        PipelineLayout(PipelineLayout&& other);
         ~PipelineLayout();
 
         VkPipelineLayout handle() const { return m_pipelineLayout; }

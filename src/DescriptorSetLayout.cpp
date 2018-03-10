@@ -36,6 +36,11 @@ vk::DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSet
     VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), &info.info(), device.instance().callbacks(), &m_descriptorSetLayout));
 }
 
+vk::DescriptorSetLayout::DescriptorSetLayout(vk::DescriptorSetLayout&& other) : m_device(other.device()) {
+    m_descriptorSetLayout = other.m_descriptorSetLayout;
+    other.m_descriptorSetLayout = VK_NULL_HANDLE;
+}
+
 vk::DescriptorSetLayout::~DescriptorSetLayout() {
     vkDestroyDescriptorSetLayout(m_device.handle(), m_descriptorSetLayout, m_device.instance().callbacks());
 }

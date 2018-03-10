@@ -20,7 +20,7 @@ namespace vk {
         ShaderModule(Device& device, const ShaderModuleCreateInfo& info);
         ShaderModule(const ShaderModule& other) = delete;
         ShaderModule& operator = (const ShaderModule& other) = delete;
-        ShaderModule(ShaderModule&& other) = default;
+        ShaderModule(ShaderModule&& other);
         ~ShaderModule();
 
         VkShaderModule handle() const { return m_shaderModule; }

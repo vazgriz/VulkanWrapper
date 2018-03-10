@@ -9,14 +9,14 @@ namespace vk {
         Image(Device& device, VkImage image);
         Image(const Image& image) = delete;
         Image& operator = (const Image& other) = delete;
-        Image(Image&& other) = default;
+        Image(Image&& other);
         ~Image();
 
         VkImage handle() const { return m_image; }
         Device& device() const { return m_device; }
 
     private:
-        bool shouldDestroy;
+        bool m_shouldDestroy;
         VkImage m_image;
         Device& m_device;
     };

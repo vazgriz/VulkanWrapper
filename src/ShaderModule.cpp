@@ -22,6 +22,11 @@ vk::ShaderModule::ShaderModule(vk::Device& device, const vk::ShaderModuleCreateI
     VKW_CHECK(vkCreateShaderModule(device.handle(), &info.info(), device.instance().callbacks(), &m_shaderModule));
 }
 
+vk::ShaderModule::ShaderModule(vk::ShaderModule&& other) : m_device(other.device()) {
+    m_shaderModule = other.m_shaderModule;
+    other.m_shaderModule = VK_NULL_HANDLE;
+}
+
 vk::ShaderModule::~ShaderModule() {
     vkDestroyShaderModule(m_device.handle(), m_shaderModule, m_device.instance().callbacks());
 }

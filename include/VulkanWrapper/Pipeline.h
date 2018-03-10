@@ -17,6 +17,7 @@ namespace vk {
 
     protected:
         Pipeline(Device& device);
+        Pipeline(Pipeline&& other);
 
         VkPipeline m_pipeline;
         Device& m_device;

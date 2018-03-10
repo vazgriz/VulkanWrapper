@@ -27,6 +27,12 @@ vk::Buffer::Buffer(Device& device, const BufferCreateInfo& info) : m_device(devi
     getRequirements();
 }
 
+vk::Buffer::Buffer(vk::Buffer&& other) : m_device(other.device()) {
+    m_buffer = other.m_buffer;
+    m_requirements = other.m_requirements;
+    other.m_buffer = VK_NULL_HANDLE;
+}
+
 vk::Buffer::~Buffer() {
     vkDestroyBuffer(m_device.handle(), m_buffer, m_device.instance().callbacks());
 }

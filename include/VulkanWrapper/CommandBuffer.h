@@ -56,7 +56,7 @@ namespace vk {
         CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer);
         CommandBuffer(const CommandBuffer& other) = delete;
         CommandBuffer& operator = (const CommandBuffer& other) = delete;
-        CommandBuffer(CommandBuffer&& other) = default;
+        CommandBuffer(CommandBuffer&& other);
 
         VkCommandBuffer handle() const { return m_commandBuffer; }
         CommandPool& pool() const { return m_commandPool; }

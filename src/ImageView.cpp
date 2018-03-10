@@ -26,6 +26,11 @@ vk::ImageView::ImageView(Device& device, const vk::ImageViewCreateInfo& info) : 
     VKW_CHECK(vkCreateImageView(device.handle(), &info.info(), device.instance().callbacks(), &m_imageView));
 }
 
+vk::ImageView::ImageView(ImageView&& other) : m_device(other.device()), m_image(other.image()) {
+    m_imageView = other.m_imageView;
+    other.m_imageView = VK_NULL_HANDLE;
+}
+
 vk::ImageView::~ImageView() {
     vkDestroyImageView(m_device.handle(), m_imageView, m_device.instance().callbacks());
 }

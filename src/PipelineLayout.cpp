@@ -29,6 +29,11 @@ vk::PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInf
     VKW_CHECK(vkCreatePipelineLayout(device.handle(), &info.info(), device.instance().callbacks(), &m_pipelineLayout));
 }
 
+vk::PipelineLayout::PipelineLayout(vk::PipelineLayout&& other) : m_device(other.device()) {
+    m_pipelineLayout = other.m_pipelineLayout;
+    other.m_pipelineLayout = VK_NULL_HANDLE;
+}
+
 vk::PipelineLayout::~PipelineLayout() {
     vkDestroyPipelineLayout(m_device.handle(), m_pipelineLayout, m_device.instance().callbacks());
 }

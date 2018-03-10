@@ -70,7 +70,7 @@ namespace vk {
         RenderPass(Device& device, const RenderPassCreateInfo& info);
         RenderPass(const RenderPass& other) = delete;
         RenderPass& operator = (const RenderPass& other) = delete;
-        RenderPass(RenderPass&& other) = default;
+        RenderPass(RenderPass&& other);
         ~RenderPass();
 
         VkRenderPass handle() const { return m_renderPass; }

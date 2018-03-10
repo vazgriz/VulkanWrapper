@@ -26,7 +26,7 @@ namespace vk {
         Buffer(Device& device, const BufferCreateInfo& info);
         Buffer(const Buffer& other) = delete;
         Buffer& operator = (const Buffer& other) = delete;
-        Buffer(Buffer&& other) = default;
+        Buffer(Buffer&& other);
         ~Buffer();
 
         VkBuffer handle() const { return m_buffer; }

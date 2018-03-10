@@ -26,7 +26,7 @@ namespace vk {
         ImageView(Device& device, const ImageViewCreateInfo& info);
         ImageView(const ImageView& other) = delete;
         ImageView& operator = (const ImageView& other) = delete;
-        ImageView(ImageView&& other) = default;
+        ImageView(ImageView&& other);
         ~ImageView();
 
         VkImageView handle() const { return m_imageView; }

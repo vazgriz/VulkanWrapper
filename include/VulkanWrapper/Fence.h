@@ -20,7 +20,7 @@ namespace vk {
         Fence(Device& device, const FenceCreateInfo& fence);
         Fence(const Fence& other) = delete;
         Fence& operator = (const Fence& other) = delete;
-        Fence(Fence&& other) = default;
+        Fence(Fence&& other);
         ~Fence();
 
         VkFence handle() const { return m_fence; }

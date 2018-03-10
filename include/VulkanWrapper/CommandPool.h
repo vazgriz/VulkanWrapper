@@ -23,7 +23,7 @@ namespace vk {
         CommandPool(Device& device, const CommandPoolCreateInfo& info);
         CommandPool(const CommandPool& other) = delete;
         CommandPool& operator = (const CommandPool& other) = delete;
-        CommandPool(CommandPool&& other) = default;
+        CommandPool(CommandPool&& other);
         ~CommandPool();
 
         VkCommandPool handle() const { return m_commandPool; }

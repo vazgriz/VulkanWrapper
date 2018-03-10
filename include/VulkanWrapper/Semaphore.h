@@ -18,7 +18,7 @@ namespace vk {
         Semaphore(Device& device, const SemaphoreCreateInfo& info);
         Semaphore(const Semaphore& other) = delete;
         Semaphore& operator = (const Semaphore& other) = delete;
-        Semaphore(Semaphore&& other) = default;
+        Semaphore(Semaphore&& other);
         ~Semaphore();
 
         VkSemaphore handle() const { return m_sempahore; }

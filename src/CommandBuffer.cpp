@@ -73,6 +73,11 @@ vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer comma
     m_commandBuffer = commandBuffer;
 }
 
+vk::CommandBuffer::CommandBuffer(CommandBuffer&& other) : m_commandPool(other.pool()) {
+    m_commandBuffer = other.m_commandBuffer;
+    other.m_commandBuffer = VK_NULL_HANDLE;
+}
+
 void vk::CommandBuffer::begin(const vk::CommandBufferBeginInfo& info) const {
     info.marshal();
 

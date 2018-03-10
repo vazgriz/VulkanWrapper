@@ -36,7 +36,7 @@ namespace vk {
         DescriptorSetLayout(Device& device, const DescriptorSetLayoutCreateInfo& info);
         DescriptorSetLayout(const DescriptorSetLayout& other) = delete;
         DescriptorSetLayout& operator = (const DescriptorSetLayout& other) = delete;
-        DescriptorSetLayout(DescriptorSetLayout&& other) = default;
+        DescriptorSetLayout(DescriptorSetLayout&& other);
         ~DescriptorSetLayout();
 
         VkDescriptorSetLayout handle() const { return m_descriptorSetLayout; }

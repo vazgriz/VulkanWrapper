@@ -22,7 +22,7 @@ namespace vk {
         DeviceMemory(Device& device, const MemoryAllocateInfo& info);
         DeviceMemory(const DeviceMemory& other) = delete;
         DeviceMemory& operator & (const DeviceMemory& other) = delete;
-        DeviceMemory(DeviceMemory&& other) = default;
+        DeviceMemory(DeviceMemory&& other);
         ~DeviceMemory();
 
         VkDeviceMemory handle() const { return m_deviceMemory; }

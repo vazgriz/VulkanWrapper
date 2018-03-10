@@ -24,6 +24,11 @@ vk::Fence::~Fence() {
     vkDestroyFence(m_device.handle(), m_fence, m_device.instance().callbacks());
 }
 
+vk::Fence::Fence(Fence&& other) : m_device(other.device()) {
+    m_fence = other.m_fence;
+    other.m_fence = VK_NULL_HANDLE;
+}
+
 VkResult vk::Fence::wait(uint64_t timeout) const {
     return vkWaitForFences(m_device.handle(), 1, &m_fence, VK_TRUE, timeout);
 }

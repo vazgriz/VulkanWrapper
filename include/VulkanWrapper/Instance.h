@@ -40,7 +40,7 @@ namespace vk {
         Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks = nullptr);
         Instance(const Instance& other) = delete;
         Instance& operator = (const Instance& other) = delete;
-        Instance(Instance&& other) = default;
+        Instance(Instance&& other);
         ~Instance();
 
         VkInstance handle() const { return m_instance; }

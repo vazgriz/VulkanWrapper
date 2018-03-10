@@ -43,7 +43,7 @@ namespace vk {
         Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info);
         Device(const Device& other) = delete;
         Device& operator = (const Device& other) = delete;
-        Device(Device&& other) = default;
+        Device(Device&& other);
         ~Device();
 
         const VkDevice& handle() const { return m_device; }

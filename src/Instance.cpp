@@ -67,6 +67,16 @@ vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbac
     m_extensions = info.enabledExtensionNames;
 }
 
+vk::Instance::Instance(vk::Instance&& other) {
+    m_instance = other.m_instance;
+    m_callbacks = other.m_callbacks;
+    m_callbacksPtr = other.m_callbacksPtr;
+    m_physicalDevices = std::move(other.m_physicalDevices);
+    m_layers = std::move(other.m_layers);
+    m_extensions = std::move(other.m_extensions);
+    other.m_instance = VK_NULL_HANDLE;
+}
+
 void vk::Instance::EnumeratePhysicalDevices() {
     uint32_t count;
     vkEnumeratePhysicalDevices(m_instance, &count, nullptr);

@@ -46,6 +46,11 @@ vk::RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) : m
     VKW_CHECK(vkCreateRenderPass(device.handle(), &info.info(), device.instance().callbacks(), &m_renderPass));
 }
 
+vk::RenderPass::RenderPass(vk::RenderPass&& other) : m_device(other.device()) {
+    m_renderPass = other.m_renderPass;
+    other.m_renderPass = VK_NULL_HANDLE;
+}
+
 vk::RenderPass::~RenderPass() {
     vkDestroyRenderPass(m_device.handle(), m_renderPass, m_device.instance().callbacks());
 }

@@ -62,6 +62,13 @@ vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo&
     getQueues(info);
 }
 
+vk::Device::Device(Device&& other) : m_instance(other.instance()), m_physicalDevice(other.physicalDevice()) {
+    m_device = other.m_device;
+    m_extensions = std::move(other.m_extensions);
+    m_queueMap = std::move(other.m_queueMap);
+    other.m_device = VK_NULL_HANDLE;
+}
+
 const std::vector<std::string>& vk::Device::layers() const {
     return m_instance.layers();
 }

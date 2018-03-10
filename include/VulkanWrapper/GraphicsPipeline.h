@@ -156,7 +156,7 @@ namespace vk {
         GraphicsPipeline(Device& device, const GraphicsPipelineCreateInfo& info);
         GraphicsPipeline(const GraphicsPipeline& other) = delete;
         GraphicsPipeline& operator = (const GraphicsPipeline& other) = delete;
-        GraphicsPipeline(GraphicsPipeline&& other) = default;
+        GraphicsPipeline(GraphicsPipeline&& other) : Pipeline(std::move(other)) { }
         //no destructor, handled by vk::Pipeline
     };
 }

@@ -40,7 +40,7 @@ namespace vk {
         Swapchain(Device& device, const SwapchainCreateInfo& info);
         Swapchain(const Swapchain& other) = delete;
         Swapchain& operator = (const Swapchain& other) = delete;
-        Swapchain(Swapchain&& other) = default;
+        Swapchain(Swapchain&& other);
         ~Swapchain();
 
         VkSwapchainKHR handle() const { return m_swapchain; }

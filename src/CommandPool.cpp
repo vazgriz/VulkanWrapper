@@ -24,6 +24,12 @@ vk::CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) 
     m_queueFamilyIndex = info.queueFamilyIndex;
 }
 
+vk::CommandPool::CommandPool(vk::CommandPool&& other) : m_device(other.device()) {
+    m_commandPool = other.m_commandPool;
+    m_queueFamilyIndex = other.m_queueFamilyIndex;
+    other.m_commandPool = VK_NULL_HANDLE;
+}
+
 vk::CommandPool::~CommandPool() {
     vkDestroyCommandPool(m_device.handle(), m_commandPool, m_device.instance().callbacks());
 }

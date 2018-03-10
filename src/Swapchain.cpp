@@ -58,6 +58,23 @@ vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_de
     getImages();
 }
 
+vk::Swapchain::Swapchain(vk::Swapchain&& other) : m_device(other.device()), m_surface(other.surface()) {
+    m_swapchain = other.m_swapchain;
+    m_format = other.m_format;
+    m_colorSpace = other.m_colorSpace;
+    m_extent = other.m_extent;
+    m_layers = other.m_layers;
+    m_usage = other.m_usage;
+    m_sharingMode = other.m_sharingMode;
+    m_queueFamilyIndices = std::move(other.m_queueFamilyIndices);
+    m_preTransform = other.m_preTransform;
+    m_compositeAlpha = other.m_compositeAlpha;
+    m_presentMode = other.m_presentMode;
+    m_clipped = other.m_clipped;
+    m_images = std::move(other.m_images);
+    other.m_swapchain = VK_NULL_HANDLE;
+}
+
 vk::Swapchain::~Swapchain() {
     vkDestroySwapchainKHR(m_device.handle(), m_swapchain, m_device.instance().callbacks());
 }

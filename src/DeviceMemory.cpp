@@ -26,6 +26,16 @@ vk::DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) :
     m_mappingSize = 0;
 }
 
+vk::DeviceMemory::DeviceMemory(DeviceMemory&& other) : m_device(other.device()) {
+    m_deviceMemory = other.m_deviceMemory;
+    m_size = other.m_size;
+    m_typeIndex = other.m_typeIndex;
+    m_mapping = other.m_mapping;
+    m_mappingOffset = other.m_mappingOffset;
+    m_mappingSize = other.m_mappingSize;
+    other.m_deviceMemory = VK_NULL_HANDLE;
+}
+
 vk::DeviceMemory::~DeviceMemory() {
     vkFreeMemory(m_device.handle(), m_deviceMemory, m_device.instance().callbacks());
 }

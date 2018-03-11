@@ -61,7 +61,7 @@ namespace vk {
             , m_ptr(data.data()) {
         }
 
-        ArrayProxy(std::initializer_list<T> const& data)
+        ArrayProxy(const std::initializer_list<typename std::remove_const<T>::type>& data)
             : m_count(static_cast<uint32_t>(data.end() - data.begin()))
             , m_ptr(data.begin()) {
         }

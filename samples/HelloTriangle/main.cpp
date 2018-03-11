@@ -323,7 +323,10 @@ public:
 
         vk::CommandBuffer commandBuffer = getSingleUseCommandBuffer();
 
-        commandBuffer.copy(staging, dst, vk::BufferCopy{ 0, 0, size });
+        vk::BufferCopy copy = {};
+        copy.size = size;
+
+        commandBuffer.copy(staging, dst, copy);
 
         submitSingleUseCommandBuffer(commandBuffer);
     }
@@ -630,8 +633,7 @@ public:
 
         commandBuffer.beginRenderPass(info, vk::SubpassContents::Inline);
         
-        vk::DeviceSize offset = 0;
-        commandBuffer.bindVertexBuffers(0, { *vertexBuffer }, offset);
+        commandBuffer.bindVertexBuffers(0, { *vertexBuffer }, 0ull);
         commandBuffer.bindIndexBuffer(*indexBuffer, 0, vk::IndexType::Uint32);
         commandBuffer.bindPipeline(vk::PipelineBindPoint::Graphics, *pipeline);
         commandBuffer.draw(3, 1, 0, 0);

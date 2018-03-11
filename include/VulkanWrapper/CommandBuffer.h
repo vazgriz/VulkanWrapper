@@ -70,12 +70,12 @@ namespace vk {
         void beginRenderPass(const RenderPassBeginInfo& info, SubpassContents contents) const;
         void endRenderPass() const;
 
-        void bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<vk::DeviceSize> offsets) const;
+        void bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<const vk::DeviceSize> offsets) const;
         void bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const;
         void bindPipeline(PipelineBindPoint pipelineBindPoint, const Pipeline& pipeline) const;
         void draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
 
-        void copy(Buffer& src, Buffer& dst, ArrayProxy<BufferCopy> copy);
+        void copy(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy);
 
     private:
         VkCommandBuffer m_commandBuffer;

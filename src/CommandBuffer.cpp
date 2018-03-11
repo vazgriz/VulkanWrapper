@@ -110,7 +110,7 @@ void vk::CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint3
     vkCmdDraw(m_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
-void vk::CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<vk::DeviceSize> offsets) const {
+void vk::CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<const vk::DeviceSize> offsets) const {
     std::vector<VkBuffer> vkBuffers;
     vkBuffers.reserve(buffers.size());
     for (const vk::Buffer& buffer : buffers) {
@@ -127,6 +127,6 @@ void vk::CommandBuffer::bindPipeline(vk::PipelineBindPoint pipelineBindPoint, co
     vkCmdBindPipeline(m_commandBuffer, static_cast<VkPipelineBindPoint>(pipelineBindPoint), pipeline.handle());
 }
 
-void vk::CommandBuffer::copy(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<vk::BufferCopy> copy) {
+void vk::CommandBuffer::copy(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<const vk::BufferCopy> copy) {
     vkCmdCopyBuffer(m_commandBuffer, src.handle(), dst.handle(), static_cast<uint32_t>(copy.size()), copy.data());
 }

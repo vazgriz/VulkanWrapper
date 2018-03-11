@@ -152,9 +152,7 @@ public:
         appInfo.apiVersion = VK_API_VERSION_1_0;
 
         uint32_t glfwExtensionCount = 0;
-        const char** glfwExtensions;
-
-        glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+        const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
         //GLFW already provides the extensions in a format that the Vulkan API can accept
         std::vector<std::string> extensions(glfwExtensionCount);

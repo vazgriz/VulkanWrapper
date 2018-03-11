@@ -64,6 +64,7 @@ public:
     int width;
     int height;
     GLFWwindow* window;
+    bool resizeFlag = false;
 
     std::unique_ptr<vk::Instance> instance;
     std::unique_ptr<vk::Surface> surface;
@@ -98,6 +99,7 @@ public:
     }
 
     void run() {
+        initWindow();
         createInstance();
         createSurface();
         pickPhysicalDevice();
@@ -105,16 +107,26 @@ public:
         createCommandPool();
         createVertexBuffer();
         createIndexBuffer();
-        createSwapchain();
-        createImageViews();
-        createRenderPass();
-        createFramebuffers();
-        createPipelineLayout();
-        createPipeline();
-        recordCommands();
+        recreateSwapchain();
         createSemaphores();
         createFences();
         mainLoop();
+    }
+
+    static void resize_callback(GLFWwindow* window, int width, int height) {
+        HelloTriangle& hello = *reinterpret_cast<HelloTriangle*>(glfwGetWindowUserPointer(window));
+        hello.resize(width, height);
+    }
+
+    void resize(int width, int height) {
+        resizeFlag = true;
+        this->width = width;
+        this->height = height;
+    }
+
+    void initWindow() {
+        glfwSetWindowUserPointer(window, this);
+        glfwSetWindowSizeCallback(window, &resize_callback);
     }
 
     bool checkValidationSupport() {
@@ -386,6 +398,16 @@ public:
         }
     }
 
+    void recreateSwapchain() {
+        createSwapchain();
+        createImageViews();
+        createRenderPass();
+        createFramebuffers();
+        createPipelineLayout();
+        createPipeline();
+        recordCommands();
+    }
+
     void createSwapchain() {
         auto capabilities = surface->getCapabilities(*physicalDevice);
         auto formats = surface->getFormats(*physicalDevice);
@@ -421,12 +443,13 @@ public:
         info.compositeAlpha = vk::CompositeAlphaFlags::Opaque;
         info.presentMode = presentMode;
         info.clipped = true;
-        info.oldSwapchain = nullptr;
+        info.oldSwapchain = swapchain.get();
 
         swapchain = std::make_unique<vk::Swapchain>(*device, info);
     }
 
     void createImageViews() {
+        imageViews.clear();
         imageViews.reserve(swapchain->images().size());
         for (auto& image : swapchain->images()) {
             vk::ImageViewCreateInfo info = {};
@@ -469,6 +492,7 @@ public:
     }
 
     void createFramebuffers() {
+        framebuffers.clear();
         framebuffers.reserve(swapchain->images().size());
         for (size_t i = 0; i < swapchain->images().size(); i++) {
             vk::FramebufferCreateInfo info = {};
@@ -588,6 +612,7 @@ public:
         commandBuffers = commandPool->allocate(allocInfo);
         for (size_t i = 0; i < commandBuffers.size(); i++) {
             recordCommands(commandBuffers[i], i);
+            commandBuffers[i].setDestructorEnabled(true);
         }
     }
 
@@ -633,6 +658,12 @@ public:
     void mainLoop() {
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
+
+            if (resizeFlag) {
+                device->waitIdle();
+                recreateSwapchain();
+                resizeFlag = false;
+            }
 
             uint32_t index = swapchain->acquireNextImage(~0ull, imageAcquireSemaphore.get(), nullptr);
 

@@ -3,6 +3,8 @@
 #include <string>
 #include <memory>
 #include <set>
+#include <time.h>
+#include <sstream>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <VulkanWrapper/VulkanWrapper.h>
@@ -660,6 +662,9 @@ public:
     }
 
     void mainLoop() {
+        clock_t last = clock();
+        size_t frames = 0;
+
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
 
@@ -687,6 +692,20 @@ public:
             presentInfo.waitSemaphores = { *renderSemaphore };
 
             presentQueue->present(presentInfo);
+
+            frames++;
+            clock_t now = clock();
+            clock_t elapsed = now - last;
+            double frameTime = elapsed / static_cast<double>(CLOCKS_PER_SEC);
+            if (frameTime > 0.25f) {
+                std::stringstream title;
+                title.precision(0);
+                title.setf(std::ios::fixed, std::ios::floatfield);
+                title << "Hello Triangle (" << (frames / frameTime) << " fps)";
+                glfwSetWindowTitle(window, title.str().c_str());
+                last = now;
+                frames = 0;
+            }
         }
     }
 };

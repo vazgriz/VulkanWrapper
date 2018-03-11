@@ -92,6 +92,8 @@ public:
 
     HelloTriangle(GLFWwindow* window, int width, int height) {
         this->window = window;
+        this->width = width;
+        this->height = height;
     }
 
     ~HelloTriangle() {
@@ -119,9 +121,11 @@ public:
     }
 
     void resize(int width, int height) {
-        resizeFlag = true;
-        this->width = width;
-        this->height = height;
+        if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 1 && (width != this->width || height != this->height)) {
+            resizeFlag = true;
+            this->width = width;
+            this->height = height;
+        }
     }
 
     void initWindow() {
@@ -691,6 +695,7 @@ int main() {
     glfwInit();
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     GLFWwindow* window = glfwCreateWindow(800, 600, "Hello Triangle", nullptr, nullptr);
+    glfwSetWindowSizeLimits(window, 1, 1, GLFW_DONT_CARE, GLFW_DONT_CARE);
 
     HelloTriangle app(window, 800, 600);
     app.run();

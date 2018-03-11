@@ -24,7 +24,7 @@ namespace vk {
     public:
         void marshal() const;
 
-        vk::InstanceCreateFlags flags = vk::InstanceCreateFlags::None;
+        vk::InstanceCreateFlags flags;
         const vk::ApplicationInfo* applicationInfo = nullptr;
         std::vector<std::string> enabledLayerNames;
         std::vector<std::string> enabledExtensionNames;

@@ -675,7 +675,7 @@ public:
 
             fences[index].wait();
             fences[index].reset();
-            graphicsQueue->submit({ submitInfo }, &fences[index]);
+            graphicsQueue->submit(submitInfo, &fences[index]);
 
             vk::PresentInfo presentInfo = {};
             presentInfo.swapchains = { *swapchain };

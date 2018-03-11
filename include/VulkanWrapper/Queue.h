@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -12,7 +12,7 @@ namespace vk {
     class Fence;
     class Swapchain;
 
-    class SubmitInfo : public CreateInfo<VkSubmitInfo> {
+    class SubmitInfo : public Info<VkSubmitInfo> {
     public:
         std::vector<std::reference_wrapper<Semaphore>> waitSemaphores;
         std::vector<PipelineStageFlags> waitDstStageMask;
@@ -27,7 +27,7 @@ namespace vk {
         mutable std::vector<VkSemaphore> m_signalSemaphores;
     };
 
-    class PresentInfo : public CreateInfo<VkPresentInfoKHR> {
+    class PresentInfo : public Info<VkPresentInfoKHR> {
     public:
         std::vector<std::reference_wrapper<vk::Semaphore>> waitSemaphores;
         std::vector<std::reference_wrapper<vk::Swapchain>> swapchains;

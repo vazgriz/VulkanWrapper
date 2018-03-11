@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -10,7 +10,7 @@ namespace vk {
     class Device;
     class Image;
 
-    class ImageViewCreateInfo : public CreateInfo<VkImageViewCreateInfo> {
+    class ImageViewCreateInfo : public Info<VkImageViewCreateInfo> {
     public:
         const Image* image;
         ImageViewType viewType;

@@ -2,7 +2,7 @@
 #include "VulkanWrapper/Buffer.h"
 #include "VulkanWrapper/CommandPool.h"
 #include "VulkanWrapper/CommandBuffer.h"
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/DescriptorSetLayout.h"
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/DeviceMemory.h"

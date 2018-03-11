@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -10,7 +10,7 @@ namespace vk {
     class ImageView;
     class RenderPass;
 
-    class FramebufferCreateInfo : public CreateInfo<VkFramebufferCreateInfo> {
+    class FramebufferCreateInfo : public Info<VkFramebufferCreateInfo> {
     public:
         FramebufferCreateFlags flags;
         RenderPass* renderPass;

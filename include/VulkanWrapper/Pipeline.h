@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"

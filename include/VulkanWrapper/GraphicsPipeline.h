@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -12,7 +12,7 @@ namespace vk {
     class ShaderModule;
     class PipelineLayout;
 
-    class PipelineShaderStageCreateInfo : public CreateInfo<VkPipelineShaderStageCreateInfo> {
+    class PipelineShaderStageCreateInfo : public Info<VkPipelineShaderStageCreateInfo> {
     public:
         PipelineShaderStageCreateFlags flags;
         ShaderStageFlags stage;
@@ -23,7 +23,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineVertexInputStateCreateInfo : public CreateInfo<VkPipelineVertexInputStateCreateInfo> {
+    class PipelineVertexInputStateCreateInfo : public Info<VkPipelineVertexInputStateCreateInfo> {
     public:
         PipelineVertexInputStateCreateFlags flags;
         std::vector<VertexInputBindingDescription> vertexBindingDescriptions;
@@ -32,7 +32,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineInputAssemblyStateCreateInfo : public CreateInfo<VkPipelineInputAssemblyStateCreateInfo> {
+    class PipelineInputAssemblyStateCreateInfo : public Info<VkPipelineInputAssemblyStateCreateInfo> {
     public:
         PipelineInputAssemblyStateCreateFlags flags;
         PrimitiveTopology topology;
@@ -41,7 +41,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineTessellationStateCreateInfo : public CreateInfo<VkPipelineTessellationStateCreateInfo> {
+    class PipelineTessellationStateCreateInfo : public Info<VkPipelineTessellationStateCreateInfo> {
     public:
         PipelineTessellationStateCreateFlags flags;
         uint32_t patchControlPoints;
@@ -49,7 +49,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineViewportStateCreateInfo : public CreateInfo<VkPipelineViewportStateCreateInfo> {
+    class PipelineViewportStateCreateInfo : public Info<VkPipelineViewportStateCreateInfo> {
     public:
         PipelineViewportStateCreateFlags flags;
         std::vector<Viewport> viewports;
@@ -58,7 +58,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineRasterizationStateCreateInfo : public CreateInfo<VkPipelineRasterizationStateCreateInfo> {
+    class PipelineRasterizationStateCreateInfo : public Info<VkPipelineRasterizationStateCreateInfo> {
     public:
         PipelineRasterizationStateCreateFlags flags;
         bool depthClampEnable;
@@ -75,7 +75,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineMultisampleStateCreateInfo : public CreateInfo<VkPipelineMultisampleStateCreateInfo> {
+    class PipelineMultisampleStateCreateInfo : public Info<VkPipelineMultisampleStateCreateInfo> {
     public:
         PipelineMultisampleStateCreateFlags flags;
         SampleCountFlags rasterizationSamples;
@@ -88,7 +88,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineDepthStencilStateCreateInfo : public CreateInfo<VkPipelineDepthStencilStateCreateInfo> {
+    class PipelineDepthStencilStateCreateInfo : public Info<VkPipelineDepthStencilStateCreateInfo> {
     public:
         PipelineDepthStencilStateCreateFlags flags;
         bool depthTestEnable;
@@ -104,7 +104,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineColorBlendStateCreateInfo : public CreateInfo<VkPipelineColorBlendStateCreateInfo> {
+    class PipelineColorBlendStateCreateInfo : public Info<VkPipelineColorBlendStateCreateInfo> {
     public:
         PipelineColorBlendStateCreateFlags flags;
         bool logicOpEnable;
@@ -118,7 +118,7 @@ namespace vk {
         mutable std::vector<VkPipelineColorBlendAttachmentState> m_attachments;
     };
 
-    class PipelineDynamicStateCreateInfo : public CreateInfo<VkPipelineDynamicStateCreateInfo> {
+    class PipelineDynamicStateCreateInfo : public Info<VkPipelineDynamicStateCreateInfo> {
     public:
         PipelineDynamicStateCreateFlags flags;
         std::vector<DynamicState> dynamicStates;
@@ -126,7 +126,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class GraphicsPipelineCreateInfo : public CreateInfo<VkGraphicsPipelineCreateInfo> {
+    class GraphicsPipelineCreateInfo : public Info<VkGraphicsPipelineCreateInfo> {
     public:
         PipelineCreateFlags flags;
         std::vector<PipelineShaderStageCreateInfo> stages;

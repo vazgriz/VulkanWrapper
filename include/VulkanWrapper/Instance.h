@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -9,7 +9,7 @@
 #include "VulkanWrapper/PhysicalDevice.h"
 
 namespace vk {
-    class ApplicationInfo : public CreateInfo<VkApplicationInfo> {
+    class ApplicationInfo : public Info<VkApplicationInfo> {
     public:
         std::string applicationName;
         uint32_t applicationVersion;
@@ -20,7 +20,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class InstanceCreateInfo : public CreateInfo<VkInstanceCreateInfo> {
+    class InstanceCreateInfo : public Info<VkInstanceCreateInfo> {
     public:
         void marshal() const;
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -14,7 +14,7 @@ namespace vk {
     class Surface;
     class Image;
 
-    class SwapchainCreateInfo : public CreateInfo<VkSwapchainCreateInfoKHR> {
+    class SwapchainCreateInfo : public Info<VkSwapchainCreateInfoKHR> {
     public:
         SwapchainCreateFlags flags;
         Surface* surface;

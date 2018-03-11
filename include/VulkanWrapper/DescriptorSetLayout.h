@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -9,7 +9,7 @@
 namespace vk {
     class Device;
 
-    class DescriptorSetLayoutBinding : public CreateInfo<VkDescriptorSetLayoutBinding> {
+    class DescriptorSetLayoutBinding : public Info<VkDescriptorSetLayoutBinding> {
     public:
         uint32_t binding;
         DescriptorType descriptorType;
@@ -20,7 +20,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class DescriptorSetLayoutCreateInfo : public CreateInfo<VkDescriptorSetLayoutCreateInfo> {
+    class DescriptorSetLayoutCreateInfo : public Info<VkDescriptorSetLayoutCreateInfo> {
     public:
         DescriptorSetLayoutCreateFlags flags;
         std::vector<DescriptorSetLayoutBinding> bindings;

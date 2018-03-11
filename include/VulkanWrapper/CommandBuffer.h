@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -13,7 +13,7 @@ namespace vk {
     class Pipeline;
     class Buffer;
 
-    class CommandBufferAllocateInfo : public CreateInfo<VkCommandBufferAllocateInfo> {
+    class CommandBufferAllocateInfo : public Info<VkCommandBufferAllocateInfo> {
     public:
         const CommandPool* commandPool;
         CommandBufferLevel level;
@@ -22,7 +22,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class CommandBufferInheritanceInfo : public CreateInfo<VkCommandBufferInheritanceInfo> {
+    class CommandBufferInheritanceInfo : public Info<VkCommandBufferInheritanceInfo> {
     public:
         const RenderPass* renderPass;
         uint32_t subpass;
@@ -34,7 +34,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class CommandBufferBeginInfo : public CreateInfo<VkCommandBufferBeginInfo> {
+    class CommandBufferBeginInfo : public Info<VkCommandBufferBeginInfo> {
     public:
         CommandBufferUsageFlags flags;
         const CommandBufferInheritanceInfo* inheritanceInfo;
@@ -42,7 +42,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class RenderPassBeginInfo : public CreateInfo<VkRenderPassBeginInfo> {
+    class RenderPassBeginInfo : public Info<VkRenderPassBeginInfo> {
     public:
         const RenderPass* renderPass;
         const Framebuffer* framebuffer;

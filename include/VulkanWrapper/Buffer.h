@@ -1,6 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -10,7 +10,7 @@ namespace vk {
     class Device;
     class DeviceMemory;
 
-    class BufferCreateInfo : public CreateInfo<VkBufferCreateInfo> {
+    class BufferCreateInfo : public Info<VkBufferCreateInfo> {
     public:
         BufferCreateFlags flags;
         DeviceSize size;

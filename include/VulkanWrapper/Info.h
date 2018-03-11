@@ -5,12 +5,12 @@
 
 namespace vk {
     template<typename T>
-    class CreateInfo {
+    class Info {
     public:
         const T& info() const { return m_info; }
 
         virtual void marshal() const = 0;
-        CreateInfo* next = nullptr;
+        Info* next = nullptr;
 
     protected:
         mutable T m_info;

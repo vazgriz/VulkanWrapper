@@ -1,7 +1,7 @@
 #pragma once
 #include <vulkan/vulkan.h>
 #include <unordered_map>
-#include "VulkanWrapper/CreateInfo.h"
+#include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
@@ -12,7 +12,7 @@ namespace vk {
     class PhysicalDevice;
     class Queue;
 
-    class DeviceQueueCreateInfo : public CreateInfo<VkDeviceQueueCreateInfo> {
+    class DeviceQueueCreateInfo : public Info<VkDeviceQueueCreateInfo> {
     public:
         VkDeviceQueueCreateFlags flags;
         uint32_t queueFamilyIndex;
@@ -22,7 +22,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class DeviceCreateInfo : public CreateInfo<VkDeviceCreateInfo> {
+    class DeviceCreateInfo : public Info<VkDeviceCreateInfo> {
     public:
         DeviceCreateFlags flags;
         std::vector<DeviceQueueCreateInfo> queueCreateInfos;

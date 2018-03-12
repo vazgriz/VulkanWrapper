@@ -96,6 +96,6 @@ void vk::Swapchain::getImages() {
 
     m_images.reserve(images.size());
     for (auto image : images) {
-        m_images.emplace_back(m_device, image);
+        m_images.emplace_back(m_device, image, false);
     }
 }

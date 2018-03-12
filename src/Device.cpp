@@ -28,6 +28,7 @@ void vk::DeviceCreateInfo::marshal() const {
 
     m_queueInfos.reserve(queueCreateInfos.size());
     for (auto& queueCreateInfo : queueCreateInfos) {
+        queueCreateInfo.marshal();
         m_queueInfos.push_back(*queueCreateInfo.getInfo());
     }
 

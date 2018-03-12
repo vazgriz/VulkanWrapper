@@ -4,9 +4,22 @@
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
+#include "VulkanWrapper/structs.h"
 
 namespace vk {
     class Device;
+    class ShaderModule;
+
+    class PipelineShaderStageCreateInfo : public Info<VkPipelineShaderStageCreateInfo> {
+    public:
+        PipelineShaderStageCreateFlags flags;
+        ShaderStageFlags stage;
+        const ShaderModule* module;
+        std::string name;
+        const SpecializationInfo* specializationInfo;
+
+        void marshal() const;
+    };
 
     class Pipeline {
     public:

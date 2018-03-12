@@ -21,6 +21,7 @@ add_library(VulkanWrapper
     PipelineLayout.cpp
     Pipeline.cpp
     GraphicsPipeline.cpp
+    ComputePipeline.cpp
     DeviceMemory.cpp
     Buffer.cpp
     Sampler.cpp

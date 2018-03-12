@@ -12,17 +12,6 @@ namespace vk {
     class ShaderModule;
     class PipelineLayout;
 
-    class PipelineShaderStageCreateInfo : public Info<VkPipelineShaderStageCreateInfo> {
-    public:
-        PipelineShaderStageCreateFlags flags;
-        ShaderStageFlags stage;
-        const ShaderModule* module;
-        std::string name;
-        const SpecializationInfo* specializationInfo;
-
-        void marshal() const;
-    };
-
     class PipelineVertexInputStateCreateInfo : public Info<VkPipelineVertexInputStateCreateInfo> {
     public:
         PipelineVertexInputStateCreateFlags flags;

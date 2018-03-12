@@ -20,6 +20,7 @@
 #include "VulkanWrapper/PipelineLayout.h"
 #include "VulkanWrapper/Queue.h"
 #include "VulkanWrapper/RenderPass.h"
+#include "VulkanWrapper/Sampler.h"
 #include "VulkanWrapper/Semaphore.h"
 #include "VulkanWrapper/ShaderModule.h"
 #include "VulkanWrapper/structs.h"

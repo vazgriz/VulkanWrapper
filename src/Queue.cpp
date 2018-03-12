@@ -9,7 +9,7 @@ void vk::SubmitInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -44,7 +44,7 @@ void vk::PresentInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -93,7 +93,7 @@ void vk::Queue::submit(ArrayProxy<const SubmitInfo> infos, const Fence* fence) c
 
     for (const SubmitInfo& info : infos) {
         info.marshal();
-        vkInfos.push_back(info.info());
+        vkInfos.push_back(*info.getInfo());
     }
 
     VKW_CHECK(vkQueueSubmit(m_queue, static_cast<uint32_t>(vkInfos.size()), vkInfos.data(), fence == nullptr ? VK_NULL_HANDLE : fence->handle()));
@@ -101,7 +101,7 @@ void vk::Queue::submit(ArrayProxy<const SubmitInfo> infos, const Fence* fence) c
 
 vk::Result vk::Queue::present(PresentInfo& info) const {
     info.marshal();
-    VkResult result = vkQueuePresentKHR(m_queue, &info.info());
+    VkResult result = vkQueuePresentKHR(m_queue, info.getInfo());
     if (result < 0) throw std::runtime_error(vk::toString(result));
 
     info.unmarshal();

@@ -6,7 +6,7 @@ void vk::ShaderModuleCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -19,7 +19,7 @@ void vk::ShaderModuleCreateInfo::marshal() const {
 vk::ShaderModule::ShaderModule(vk::Device& device, const vk::ShaderModuleCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateShaderModule(device.handle(), &info.info(), device.instance().callbacks(), &m_shaderModule));
+    VKW_CHECK(vkCreateShaderModule(device.handle(), info.getInfo(), device.instance().callbacks(), &m_shaderModule));
 }
 
 vk::ShaderModule::ShaderModule(vk::ShaderModule&& other) : m_device(other.device()) {

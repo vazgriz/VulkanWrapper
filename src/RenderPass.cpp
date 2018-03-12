@@ -19,7 +19,7 @@ void vk::RenderPassCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -43,7 +43,7 @@ void vk::RenderPassCreateInfo::marshal() const {
 vk::RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateRenderPass(device.handle(), &info.info(), device.instance().callbacks(), &m_renderPass));
+    VKW_CHECK(vkCreateRenderPass(device.handle(), info.getInfo(), device.instance().callbacks(), &m_renderPass));
 }
 
 vk::RenderPass::RenderPass(vk::RenderPass&& other) : m_device(other.device()) {

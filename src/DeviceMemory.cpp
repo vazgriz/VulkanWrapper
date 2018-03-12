@@ -6,7 +6,7 @@ void vk::MemoryAllocateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -18,7 +18,7 @@ void vk::MemoryAllocateInfo::marshal() const {
 vk::DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkAllocateMemory(device.handle(), &info.info(), device.instance().callbacks(), &m_deviceMemory));
+    VKW_CHECK(vkAllocateMemory(device.handle(), info.getInfo(), device.instance().callbacks(), &m_deviceMemory));
 
     m_size = info.allocationSize;
     m_mapping = nullptr;

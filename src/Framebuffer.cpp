@@ -8,7 +8,7 @@ void vk::FramebufferCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -31,7 +31,7 @@ void vk::FramebufferCreateInfo::marshal() const {
 vk::Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateFramebuffer(device.handle(), &info.info(), device.instance().callbacks(), &m_framebuffer));
+    VKW_CHECK(vkCreateFramebuffer(device.handle(), info.getInfo(), device.instance().callbacks(), &m_framebuffer));
 }
 
 vk::Framebuffer::Framebuffer(Framebuffer&& other) : m_device(other.device()) {

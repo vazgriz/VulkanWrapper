@@ -8,7 +8,7 @@ void vk::DeviceQueueCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -29,7 +29,7 @@ void vk::DeviceCreateInfo::marshal() const {
     m_queueInfos.resize(queueCreateInfos.size());
     for (size_t i = 0; i < queueCreateInfos.size(); i++) {
         queueCreateInfos[i].marshal();
-        std::memcpy(&m_queueInfos[i], &queueCreateInfos[i].info(), sizeof(VkDeviceQueueCreateInfo));
+        std::memcpy(&m_queueInfos[i], queueCreateInfos[i].info(), sizeof(VkDeviceQueueCreateInfo));
     }
 
     m_info.queueCreateInfoCount = static_cast<uint32_t>(m_queueInfos.size());
@@ -56,7 +56,7 @@ void vk::DeviceCreateInfo::marshal() const {
 vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) : m_instance(physicalDevice.instance()), m_physicalDevice(physicalDevice) {
     info.marshal();
 
-    VKW_CHECK(vkCreateDevice(physicalDevice.handle(), &info.info(), physicalDevice.instance().callbacks(), &m_device));
+    VKW_CHECK(vkCreateDevice(physicalDevice.handle(), info.getInfo(), physicalDevice.instance().callbacks(), &m_device));
 
     m_extensions = info.enabledExtensionNames;
     getQueues(info);

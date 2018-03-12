@@ -7,7 +7,7 @@ void vk::ImageViewCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -23,7 +23,7 @@ void vk::ImageViewCreateInfo::marshal() const {
 vk::ImageView::ImageView(Device& device, const vk::ImageViewCreateInfo& info) : m_device(device), m_image(*info.image) {
     info.marshal();
 
-    VKW_CHECK(vkCreateImageView(device.handle(), &info.info(), device.instance().callbacks(), &m_imageView));
+    VKW_CHECK(vkCreateImageView(device.handle(), info.getInfo(), device.instance().callbacks(), &m_imageView));
 }
 
 vk::ImageView::ImageView(ImageView&& other) : m_device(other.device()), m_image(other.image()) {

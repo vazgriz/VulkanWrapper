@@ -10,7 +10,7 @@ void vk::CommandBufferInheritanceInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -27,7 +27,7 @@ void vk::CommandBufferBeginInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -35,7 +35,7 @@ void vk::CommandBufferBeginInfo::marshal() const {
     m_info.flags = static_cast<VkCommandBufferUsageFlags>(flags);
     
     if (inheritanceInfo != nullptr) {
-        m_info.pInheritanceInfo = &inheritanceInfo->info();
+        m_info.pInheritanceInfo = inheritanceInfo->getInfo();
     } else {
         m_info.pInheritanceInfo = nullptr;
     }
@@ -45,7 +45,7 @@ void vk::CommandBufferAllocateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -59,7 +59,7 @@ void vk::RenderPassBeginInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -89,7 +89,7 @@ vk::CommandBuffer::~CommandBuffer() {
 void vk::CommandBuffer::begin(const vk::CommandBufferBeginInfo& info) const {
     info.marshal();
 
-    VKW_CHECK(vkBeginCommandBuffer(m_commandBuffer, &info.info()));
+    VKW_CHECK(vkBeginCommandBuffer(m_commandBuffer, info.getInfo()));
 }
 
 void vk::CommandBuffer::end() const {
@@ -99,7 +99,7 @@ void vk::CommandBuffer::end() const {
 void vk::CommandBuffer::beginRenderPass(const vk::RenderPassBeginInfo& info, SubpassContents contents) const {
     info.marshal();
 
-    vkCmdBeginRenderPass(m_commandBuffer, &info.info(), static_cast<VkSubpassContents>(contents));
+    vkCmdBeginRenderPass(m_commandBuffer, info.getInfo(), static_cast<VkSubpassContents>(contents));
 }
 
 void vk::CommandBuffer::endRenderPass() const {

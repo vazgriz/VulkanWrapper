@@ -7,7 +7,7 @@ void vk::CommandPoolCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -19,7 +19,7 @@ void vk::CommandPoolCreateInfo::marshal() const {
 vk::CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateCommandPool(m_device.handle(), &info.info(), m_device.instance().callbacks(), &m_commandPool));
+    VKW_CHECK(vkCreateCommandPool(m_device.handle(), info.getInfo(), m_device.instance().callbacks(), &m_commandPool));
 
     m_queueFamilyIndex = info.queueFamilyIndex;
 }
@@ -38,7 +38,7 @@ std::vector<vk::CommandBuffer> vk::CommandPool::allocate(const vk::CommandBuffer
     info.marshal();
     std::vector<VkCommandBuffer> commandBuffers(info.commandBufferCount);
 
-    VKW_CHECK(vkAllocateCommandBuffers(m_device.handle(), &info.info(), commandBuffers.data()));
+    VKW_CHECK(vkAllocateCommandBuffers(m_device.handle(), info.getInfo(), commandBuffers.data()));
 
     std::vector<vk::CommandBuffer> result;
     result.reserve(info.commandBufferCount);

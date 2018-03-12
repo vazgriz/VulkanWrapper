@@ -6,7 +6,7 @@ void vk::FenceCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -17,7 +17,7 @@ void vk::FenceCreateInfo::marshal() const {
 vk::Fence::Fence(Device& device, const FenceCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateFence(m_device.handle(), &info.info(), m_device.instance().callbacks(), &m_fence));
+    VKW_CHECK(vkCreateFence(m_device.handle(), info.getInfo(), m_device.instance().callbacks(), &m_fence));
 }
 
 vk::Fence::~Fence() {

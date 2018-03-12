@@ -7,7 +7,7 @@ void vk::PipelineLayoutCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -26,7 +26,7 @@ void vk::PipelineLayoutCreateInfo::marshal() const {
 vk::PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreatePipelineLayout(device.handle(), &info.info(), device.instance().callbacks(), &m_pipelineLayout));
+    VKW_CHECK(vkCreatePipelineLayout(device.handle(), info.getInfo(), device.instance().callbacks(), &m_pipelineLayout));
 }
 
 vk::PipelineLayout::PipelineLayout(vk::PipelineLayout&& other) : m_device(other.device()) {

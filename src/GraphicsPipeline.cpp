@@ -9,7 +9,7 @@ void vk::PipelineShaderStageCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -25,7 +25,7 @@ void vk::PipelineVertexInputStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -40,7 +40,7 @@ void vk::PipelineInputAssemblyStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -54,7 +54,7 @@ void vk::PipelineTessellationStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -67,7 +67,7 @@ void vk::PipelineViewportStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -83,7 +83,7 @@ void vk::PipelineRasterizationStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -105,7 +105,7 @@ void vk::PipelineMultisampleStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -122,7 +122,7 @@ void vk::PipelineDepthStencilStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -143,7 +143,7 @@ void vk::PipelineColorBlendStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -167,7 +167,7 @@ void vk::PipelineDynamicStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -181,7 +181,7 @@ void vk::GraphicsPipelineCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -191,7 +191,7 @@ void vk::GraphicsPipelineCreateInfo::marshal() const {
     m_stages.reserve(stages.size());
     for (auto& stage : stages) {
         stage.marshal();
-        m_stages.push_back(stage.info());
+        m_stages.push_back(*stage.getInfo());
     }
 
     m_info.stageCount = static_cast<uint32_t>(m_stages.size());
@@ -207,15 +207,15 @@ void vk::GraphicsPipelineCreateInfo::marshal() const {
     if (colorBlendState != nullptr) colorBlendState->marshal();
     if (dynamicState != nullptr) dynamicState->marshal();
 
-    m_info.pVertexInputState = &vertexInputState->info();
-    m_info.pInputAssemblyState = &inputAssemblyState->info();
-    m_info.pTessellationState = tessellationState != nullptr ? &tessellationState->info() : nullptr;
-    m_info.pViewportState = viewportState!= nullptr ? &viewportState->info() : nullptr;
-    m_info.pRasterizationState = &rasterizationState->info();
-    m_info.pMultisampleState = multisampleState != nullptr ? &multisampleState->info() : nullptr;
-    m_info.pDepthStencilState = depthStencilState != nullptr ? &depthStencilState->info() : nullptr;
-    m_info.pColorBlendState = colorBlendState != nullptr ? &colorBlendState->info() : nullptr;
-    m_info.pDynamicState = dynamicState != nullptr ? &dynamicState->info() : nullptr;
+    m_info.pVertexInputState = vertexInputState->getInfo();
+    m_info.pInputAssemblyState = inputAssemblyState->getInfo();
+    m_info.pTessellationState = tessellationState != nullptr ? tessellationState->getInfo() : nullptr;
+    m_info.pViewportState = viewportState!= nullptr ? viewportState->getInfo() : nullptr;
+    m_info.pRasterizationState = rasterizationState->getInfo();
+    m_info.pMultisampleState = multisampleState != nullptr ? multisampleState->getInfo() : nullptr;
+    m_info.pDepthStencilState = depthStencilState != nullptr ? depthStencilState->getInfo() : nullptr;
+    m_info.pColorBlendState = colorBlendState != nullptr ? colorBlendState->getInfo() : nullptr;
+    m_info.pDynamicState = dynamicState != nullptr ? dynamicState->getInfo() : nullptr;
     m_info.layout = layout->handle();
     m_info.renderPass = renderPass->handle();
     m_info.subpass = subpass;
@@ -226,5 +226,5 @@ void vk::GraphicsPipelineCreateInfo::marshal() const {
 vk::GraphicsPipeline::GraphicsPipeline(Device& device, const GraphicsPipelineCreateInfo& info) : Pipeline(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateGraphicsPipelines(device.handle(), VK_NULL_HANDLE, 1, &info.info(), device.instance().callbacks(), &m_pipeline));
+    VKW_CHECK(vkCreateGraphicsPipelines(device.handle(), VK_NULL_HANDLE, 1, info.getInfo(), device.instance().callbacks(), &m_pipeline));
 }

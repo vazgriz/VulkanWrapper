@@ -6,7 +6,7 @@ void vk::SemaphoreCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -17,7 +17,7 @@ void vk::SemaphoreCreateInfo::marshal() const {
 vk::Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateSemaphore(device.handle(), &info.info(), device.instance().callbacks(), &m_sempahore));
+    VKW_CHECK(vkCreateSemaphore(device.handle(), info.getInfo(), device.instance().callbacks(), &m_sempahore));
 }
 
 vk::Semaphore::Semaphore(vk::Semaphore&& other) : m_device(other.device()) {

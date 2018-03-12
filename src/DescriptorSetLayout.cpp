@@ -18,7 +18,7 @@ void vk::DescriptorSetLayoutCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -28,7 +28,7 @@ void vk::DescriptorSetLayoutCreateInfo::marshal() const {
     m_bindings.reserve(bindings.size());
     for (auto& binding : bindings) {
         binding.marshal();
-        m_bindings.push_back(binding.info());
+        m_bindings.push_back(*binding.getInfo());
     }
 
     m_info.bindingCount = static_cast<uint32_t>(m_bindings.size());
@@ -38,7 +38,7 @@ void vk::DescriptorSetLayoutCreateInfo::marshal() const {
 vk::DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayoutCreateInfo& info) : m_device(device) {
     info.marshal();
 
-    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), &info.info(), device.instance().callbacks(), &m_descriptorSetLayout));
+    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
 }
 
 vk::DescriptorSetLayout::DescriptorSetLayout(vk::DescriptorSetLayout&& other) : m_device(other.device()) {

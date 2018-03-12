@@ -4,14 +4,18 @@
 #include "VulkanWrapper/ArrayProxy.h"
 
 namespace vk {
-    template<typename T>
-    class Info {
+    class Info_ {
     public:
-        const T& info() const { return m_info; }
-
         virtual void marshal() const = 0;
-        Info* next = nullptr;
+        Info_* next = nullptr;
 
+        const void* info() const { return next; }
+    };
+
+    template<typename T>
+    class Info : public Info_ {
+    public:
+        const T* getInfo() const { return &m_info; }
     protected:
         mutable T m_info;
     };

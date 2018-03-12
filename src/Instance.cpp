@@ -4,7 +4,7 @@ void vk::ApplicationInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = &next->info();
+        m_info.pNext = next->info();
     } else {
         m_info.pNext = nullptr;
     }
@@ -29,7 +29,7 @@ void vk::InstanceCreateInfo::marshal() const {
     //copy info to temporary variables
     if (applicationInfo != nullptr) {
         applicationInfo->marshal();
-        m_info.pApplicationInfo = &applicationInfo->info();
+        m_info.pApplicationInfo = applicationInfo->getInfo();
     } else {
         m_info.pApplicationInfo = nullptr;
     }
@@ -57,7 +57,7 @@ vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbac
     info.marshal();
 
     vkCreateInstance(
-        &info.info(),
+        info.getInfo(),
         this->callbacks(),
         &m_instance
     );

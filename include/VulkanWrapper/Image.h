@@ -16,8 +16,8 @@ namespace vk {
         Device& device() const { return m_device; }
 
     private:
-        bool m_shouldDestroy;
         VkImage m_image;
         Device& m_device;
+        bool m_destructorEnabled;
     };
 }

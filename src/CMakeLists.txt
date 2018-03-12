@@ -23,5 +23,6 @@ add_library(VulkanWrapper
     GraphicsPipeline.cpp
     DeviceMemory.cpp
     Buffer.cpp
+    Sampler.cpp
 )
 target_include_directories(VulkanWrapper PUBLIC "$ENV{VK_SDK_PATH}/include" "${CMAKE_SOURCE_DIR}/include")

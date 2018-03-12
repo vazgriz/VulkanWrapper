@@ -1,4 +1,5 @@
 #include "VulkanWrapper/DescriptorSetLayout.h"
+#include "VulkanWrapper/Sampler.h"
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
@@ -6,7 +7,11 @@ void vk::DescriptorSetLayoutBinding::marshal() const {
     m_info.binding = binding;
     m_info.descriptorType = static_cast<VkDescriptorType>(descriptorType);
     m_info.descriptorCount = static_cast<uint32_t>(descriptorCount);
-    m_info.pImmutableSamplers = nullptr;
+
+    m_samplers.reserve(immutableSamplers.size());
+    for (const vk::Sampler& sampler : immutableSamplers) {
+        m_samplers.push_back(sampler.handle());
+    }
 }
 
 void vk::DescriptorSetLayoutCreateInfo::marshal() const {

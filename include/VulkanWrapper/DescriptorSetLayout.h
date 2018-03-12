@@ -8,6 +8,7 @@
 
 namespace vk {
     class Device;
+    class Sampler;
 
     class DescriptorSetLayoutBinding : public Info<VkDescriptorSetLayoutBinding> {
     public:
@@ -15,9 +16,12 @@ namespace vk {
         DescriptorType descriptorType;
         size_t descriptorCount;
         ShaderStageFlags stageFlags;
-        const VkSampler* pImmutableSamplers;
+        std::vector<std::reference_wrapper<Sampler>> immutableSamplers;
 
         void marshal() const;
+
+    private:
+        mutable std::vector<VkSampler> m_samplers;
     };
 
     class DescriptorSetLayoutCreateInfo : public Info<VkDescriptorSetLayoutCreateInfo> {

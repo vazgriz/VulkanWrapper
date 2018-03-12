@@ -119,3 +119,29 @@ void vk::PhysicalDevice::getMemoryProperties() {
         m_memoryProperties.memoryHeaps.push_back(properties.memoryHeaps[i]);
     }
 }
+
+vk::FormatProperties vk::PhysicalDevice::getFormatProperties(vk::Format format) const {
+    vk::FormatProperties result;
+    vkGetPhysicalDeviceFormatProperties(m_physicalDevice, static_cast<VkFormat>(format), reinterpret_cast<VkFormatProperties*>(&result));
+    return result;
+}
+
+vk::ImageFormatProperties vk::PhysicalDevice::getImageFormatProperties(
+    Format format,
+    ImageType type,
+    ImageTiling tiling,
+    ImageUsageFlags usage,
+    ImageCreateFlags flags) const
+{
+    vk::ImageFormatProperties result;
+    vkGetPhysicalDeviceImageFormatProperties(m_physicalDevice,
+        static_cast<VkFormat>(format),
+        static_cast<VkImageType>(type),
+        static_cast<VkImageTiling>(tiling),
+        static_cast<VkImageUsageFlags>(usage),
+        static_cast<VkImageCreateFlags>(flags),
+        reinterpret_cast<VkImageFormatProperties*>(&result)
+    );
+
+    return result;
+}

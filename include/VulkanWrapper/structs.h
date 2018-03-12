@@ -97,4 +97,18 @@ namespace vk {
     private:
         mutable VkPipelineColorBlendAttachmentState m_info;
     };
+
+    struct FormatProperties {
+        FormatFeatureFlags linearTilingFeatures;
+        FormatFeatureFlags optimalTilingFeatures;
+        FormatFeatureFlags bufferFeatures;
+    };
+
+    struct ImageFormatProperties {
+        Extent3D maxExtent;
+        uint32_t maxMipLevels;
+        uint32_t maxArrayLayers;
+        SampleCountFlags sampleCounts;
+        DeviceSize maxResourceSize;
+    };
 }

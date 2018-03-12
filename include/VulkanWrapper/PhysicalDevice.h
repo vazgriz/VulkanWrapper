@@ -73,6 +73,14 @@ namespace vk {
         const std::vector<ExtensionProperties>& availableExtensions(const std::string& layerName = "") const { return m_extensionMap.at(layerName); }
         const MemoryProperties& memoryProperties() const { return m_memoryProperties; }
 
+        FormatProperties getFormatProperties(Format format) const;
+        ImageFormatProperties getImageFormatProperties(
+            Format format,
+            ImageType type,
+            ImageTiling tiling,
+            ImageUsageFlags usage,
+            ImageCreateFlags flags) const;
+
     private:
         void getProperties();
         void getFeatures();

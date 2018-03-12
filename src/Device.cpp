@@ -26,10 +26,9 @@ void vk::DeviceCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     m_info.flags = static_cast<VkDeviceCreateFlags>(flags);
 
-    m_queueInfos.resize(queueCreateInfos.size());
-    for (size_t i = 0; i < queueCreateInfos.size(); i++) {
-        queueCreateInfos[i].marshal();
-        std::memcpy(&m_queueInfos[i], queueCreateInfos[i].info(), sizeof(VkDeviceQueueCreateInfo));
+    m_queueInfos.reserve(queueCreateInfos.size());
+    for (auto& queueCreateInfo : queueCreateInfos) {
+        m_queueInfos.push_back(*queueCreateInfo.getInfo());
     }
 
     m_info.queueCreateInfoCount = static_cast<uint32_t>(m_queueInfos.size());

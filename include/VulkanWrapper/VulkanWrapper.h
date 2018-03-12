@@ -3,6 +3,8 @@
 #include "VulkanWrapper/CommandPool.h"
 #include "VulkanWrapper/CommandBuffer.h"
 #include "VulkanWrapper/Info.h"
+#include "VulkanWrapper/DescriptorPool.h"
+#include "VulkanWrapper/DescriptorSet.h"
 #include "VulkanWrapper/DescriptorSetLayout.h"
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/DeviceMemory.h"

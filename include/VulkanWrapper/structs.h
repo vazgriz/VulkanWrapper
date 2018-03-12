@@ -111,4 +111,9 @@ namespace vk {
         SampleCountFlags sampleCounts;
         DeviceSize maxResourceSize;
     };
+
+    struct DescriptorPoolSize {
+        DescriptorType type;
+        uint32_t descriptorCount;
+    };
 }

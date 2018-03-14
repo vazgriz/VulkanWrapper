@@ -4,6 +4,7 @@ find_library(VULKAN_LIB NAMES vulkan-1)
 find_library(GLFW_LIB NAMES glfw3)
 
 set(GLFW_INCLUDE)
+set(GLSL_COMPILER)
 
 add_subdirectory(src)
 add_subdirectory(samples/Test)

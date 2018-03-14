@@ -23,6 +23,10 @@
         {
           "name": "GLFW_LIB",
           "value": "E:/Code/Libraries/glfw_vk_static/src/Debug/glfw3.lib"
+        },
+        {
+          "name": "GLSL_COMPILER",
+          "value": "${env.VK_SDK_PATH}/bin/glslc"
         }
       ]
     },

@@ -74,6 +74,7 @@ namespace vk {
         void bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const;
         void bindPipeline(PipelineBindPoint pipelineBindPoint, const Pipeline& pipeline) const;
         void draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
+        void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance) const;
 
         void copy(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy);
 

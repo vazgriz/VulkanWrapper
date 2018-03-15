@@ -27,5 +27,6 @@ add_library(VulkanWrapper
     Sampler.cpp
     DescriptorPool.cpp
     DescriptorSet.cpp
+	BufferView.cpp
 )
 target_include_directories(VulkanWrapper PUBLIC "$ENV{VK_SDK_PATH}/include" "${CMAKE_SOURCE_DIR}/include")

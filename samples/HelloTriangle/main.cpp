@@ -638,7 +638,7 @@ public:
         commandBuffer.bindVertexBuffers(0, { *vertexBuffer }, 0ull);
         commandBuffer.bindIndexBuffer(*indexBuffer, 0, vk::IndexType::Uint32);
         commandBuffer.bindPipeline(vk::PipelineBindPoint::Graphics, *pipeline);
-        commandBuffer.draw(3, 1, 0, 0);
+        commandBuffer.drawIndexed(3, 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();
 

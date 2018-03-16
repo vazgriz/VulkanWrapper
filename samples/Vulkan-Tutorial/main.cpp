@@ -3,11 +3,13 @@
 #include <string>
 #include <memory>
 #include <set>
-#include <time.h>
+#include <chrono>
 #include <sstream>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <VulkanWrapper/VulkanWrapper.h>
 
 const std::vector<std::string> validationLayers = {
@@ -16,6 +18,11 @@ const std::vector<std::string> validationLayers = {
 
 const std::vector<std::string> deviceExtensions = {
     "VK_KHR_swapchain"
+};
+
+struct Uniform {
+    glm::mat4 projView;
+    glm::mat4 model;
 };
 
 struct Vertex {
@@ -78,6 +85,12 @@ public:
     std::unique_ptr<vk::DeviceMemory> vertexBufferMemory;
     std::unique_ptr<vk::Buffer> indexBuffer;
     std::unique_ptr<vk::DeviceMemory> indexBufferMemory;
+    std::unique_ptr<vk::Buffer> uniformBuffer;
+    std::unique_ptr<vk::DeviceMemory> uniformBufferMemory;
+    void* uniformMapping;
+    std::unique_ptr<vk::DescriptorSetLayout> descriptorSetLayout;
+    std::unique_ptr<vk::DescriptorPool> descriptorPool;
+    std::unique_ptr<vk::DescriptorSet> descriptorSet;
     std::unique_ptr<vk::Swapchain> swapchain;
     std::vector<vk::ImageView> imageViews;
     std::unique_ptr<vk::RenderPass> renderPass;
@@ -109,6 +122,11 @@ public:
         createCommandPool();
         createVertexBuffer();
         createIndexBuffer();
+        createUniformBuffer();
+        createDescriptorSetLayout();
+        createDescriptorPool();
+        createDescriptorSet();
+        createPipelineLayout();
         recreateSwapchain();
         createSemaphores();
         createFences();
@@ -358,6 +376,72 @@ public:
 
         copy(*indexBuffer, indices.data(), sizeof(uint32_t) * indices.size());
     }
+
+    void createUniformBuffer() {
+        uniformBuffer = std::make_unique<vk::Buffer>(
+            createBuffer(sizeof(Uniform), vk::BufferUsageFlags::UniformBuffer)
+        );
+
+        uniformBufferMemory = std::make_unique<vk::DeviceMemory>(
+            allocate(uniformBuffer->requirements(), vk::MemoryPropertyFlags::HostVisible | vk::MemoryPropertyFlags::HostCoherent)
+        );
+
+        uniformBuffer->bind(*uniformBufferMemory, 0);
+
+        uniformMapping = uniformBufferMemory->map(0, sizeof(Uniform));
+    }
+
+    void createDescriptorSetLayout() {
+        vk::DescriptorSetLayoutBinding binding = {};
+        binding.binding = 0;
+        binding.descriptorType = vk::DescriptorType::UniformBuffer;
+        binding.descriptorCount = 1;
+        binding.stageFlags = vk::ShaderStageFlags::Vertex;
+
+        vk::DescriptorSetLayoutCreateInfo info = {};
+        info.bindings = { binding };
+
+        descriptorSetLayout = std::make_unique<vk::DescriptorSetLayout>(*device, info);
+    }
+
+    void createDescriptorPool() {
+        vk::DescriptorPoolSize poolSize = {};
+        poolSize.type = vk::DescriptorType::UniformBuffer;
+        poolSize.descriptorCount = 1;
+
+        vk::DescriptorPoolCreateInfo info = {};
+        info.poolSizes = { poolSize };
+        info.maxSets = 1;
+
+        descriptorPool = std::make_unique<vk::DescriptorPool>(*device, info);
+    }
+
+    void createDescriptorSet() {
+        vk::DescriptorSetAllocateInfo info = {};
+        info.descriptorPool = descriptorPool.get();
+        info.setLayouts = { *descriptorSetLayout };
+        
+        descriptorSet = std::make_unique<vk::DescriptorSet>(std::move(descriptorPool->allocate(info)[0]));
+
+        vk::DescriptorBufferInfo bufferInfo = {};
+        bufferInfo.buffer = uniformBuffer.get();
+        bufferInfo.range = sizeof(Uniform);
+
+        vk::WriteDescriptorSet write = {};
+        write.dstSet = descriptorSet.get();
+        write.descriptorType = vk::DescriptorType::UniformBuffer;
+        write.dstBinding = 0;
+        write.bufferInfo = { bufferInfo };
+
+        vk::DescriptorSet::update(*device, { write }, {});
+    }
+
+    void createPipelineLayout() {
+        vk::PipelineLayoutCreateInfo info = {};
+        info.setLayouts = { *descriptorSetLayout };
+
+        pipelineLayout = std::make_unique<vk::PipelineLayout>(*device, info);
+    }
     
     vk::SurfaceFormat chooseSurfaceFormat(const std::vector<vk::SurfaceFormat>& formats) {
         if (formats.size() == 1 && formats[0].format == vk::Format::Undefined) {
@@ -408,7 +492,6 @@ public:
         createImageViews();
         createRenderPass();
         createFramebuffers();
-        createPipelineLayout();
         createPipeline();
         recordCommands();
     }
@@ -529,12 +612,6 @@ public:
         return vk::ShaderModule(*device, info);
     }
 
-    void createPipelineLayout() {
-        vk::PipelineLayoutCreateInfo info = {};
-        
-        pipelineLayout = std::make_unique<vk::PipelineLayout>(*device, info);
-    }
-
     void createPipeline() {
         vk::ShaderModule vertShader = createShader("shader.vert.spv");
         vk::ShaderModule fragShader = createShader("shader.frag.spv");
@@ -572,7 +649,7 @@ public:
         rasterizer.polygonMode = vk::PolygonMode::Fill;
         rasterizer.lineWidth = 1.0f;
         rasterizer.cullMode = vk::CullModeFlags::Back;
-        rasterizer.frontFace = vk::FrontFace::Clockwise;
+        rasterizer.frontFace = vk::FrontFace::CounterClockwise;
 
         vk::PipelineMultisampleStateCreateInfo multisampling = {};
         multisampling.rasterizationSamples = vk::SampleCountFlags::_1;
@@ -636,6 +713,7 @@ public:
         commandBuffer.bindVertexBuffers(0, { *vertexBuffer }, 0ull);
         commandBuffer.bindIndexBuffer(*indexBuffer, 0, vk::IndexType::Uint32);
         commandBuffer.bindPipeline(vk::PipelineBindPoint::Graphics, *pipeline);
+        commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::Graphics, *pipelineLayout, 0, { *descriptorSet }, {});
         commandBuffer.drawIndexed(static_cast<uint32_t>(indices.size()), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();
@@ -659,8 +737,18 @@ public:
         }
     }
 
+    void updateUniform(float time) {
+        Uniform& uniform = *reinterpret_cast<Uniform*>(uniformMapping);
+        glm::mat4 proj = glm::perspective(glm::radians(45.0f), static_cast<float>(swapchain->extent().width) / static_cast<float>(swapchain->extent().height), 0.1f, 10.0f);
+        proj[1][1] *= -1;
+        glm::mat4 view = glm::lookAt(glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        uniform.projView = proj * view;
+        uniform.model = glm::rotate(glm::mat4(1.0f), time * glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    }
+
     void mainLoop() {
-        clock_t last = clock();
+        auto startTime = std::chrono::high_resolution_clock::now();
+        auto last = startTime;
         size_t frames = 0;
 
         while (!glfwWindowShouldClose(window)) {
@@ -671,6 +759,11 @@ public:
                 recreateSwapchain();
                 resizeFlag = false;
             }
+
+            auto now = std::chrono::high_resolution_clock::now();
+            float elapsed = std::chrono::duration<float, std::chrono::seconds::period>(now - last).count();
+            float totalElapsed = std::chrono::duration<float, std::chrono::seconds::period>(now - startTime).count();
+            updateUniform(totalElapsed);
 
             uint32_t index = swapchain->acquireNextImage(~0ull, imageAcquireSemaphore.get(), nullptr);
 
@@ -692,14 +785,11 @@ public:
             presentQueue->present(presentInfo);
 
             frames++;
-            clock_t now = clock();
-            clock_t elapsed = now - last;
-            double frameTime = elapsed / static_cast<double>(CLOCKS_PER_SEC);
-            if (frameTime > 0.25f) {
+            if (elapsed > 0.25f) {
                 std::stringstream title;
                 title.precision(0);
                 title.setf(std::ios::fixed, std::ios::floatfield);
-                title << "Hello Triangle (" << (frames / frameTime) << " fps)";
+                title << "Hello Triangle (" << (frames / elapsed) << " fps)";
                 glfwSetWindowTitle(window, title.str().c_str());
                 last = now;
                 frames = 0;

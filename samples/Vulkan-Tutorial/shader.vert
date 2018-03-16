@@ -10,7 +10,12 @@ out gl_PerVertex {
 
 layout(location = 0) out vec3 fragColor;
 
+layout(binding = 0) uniform Uniform {
+    mat4 projView;
+    mat4 model;
+} uniforms;
+
 void main() {
-    gl_Position = vec4(inPosition, 1.0);
+    gl_Position = uniforms.projView * uniforms.model * vec4(inPosition, 1.0);
     fragColor = inColor;
 }

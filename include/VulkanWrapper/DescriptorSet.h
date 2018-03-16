@@ -62,6 +62,11 @@ namespace vk {
         std::vector<std::reference_wrapper<const BufferView>> texelBufferView;
 
         void marshal() const;
+
+    private:
+        mutable std::vector<VkDescriptorImageInfo> m_imageInfo;
+        mutable std::vector<VkDescriptorBufferInfo> m_bufferInfo;
+        mutable std::vector<VkBufferView> m_texelBufferView;
     };
     
     class CopyDescriptorSet : public Info<VkCopyDescriptorSet> {
@@ -91,7 +96,7 @@ namespace vk {
 
         void setDestructorEnabled(bool value) { m_destructorEnabled = value; }
 
-        static void update(const Device& device, ArrayProxy<WriteDescriptorSet> writes, ArrayProxy<CopyDescriptorSet> copies);
+        static void update(const Device& device, ArrayProxy<const WriteDescriptorSet> writes, ArrayProxy<const CopyDescriptorSet> copies);
 
     private:
         VkDescriptorSet m_descriptorSet;

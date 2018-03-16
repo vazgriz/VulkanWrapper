@@ -36,7 +36,7 @@ vk::DescriptorPool::~DescriptorPool() {
 std::vector<vk::DescriptorSet> vk::DescriptorPool::allocate(const vk::DescriptorSetAllocateInfo& info) {
     info.marshal();
     std::vector<VkDescriptorSet> sets;
-    sets.reserve(info.setLayouts.size());
+    sets.resize(info.setLayouts.size());
 
     VKW_CHECK(vkAllocateDescriptorSets(m_device.handle(), info.getInfo(), sets.data()));
 

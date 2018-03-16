@@ -7,7 +7,7 @@ add_custom_command(OUTPUT hello.frag
 
 add_custom_command(OUTPUT hello.vert
 	COMMAND ${GLSL_COMPILER} ${PROJECT_SOURCE_DIR}/hello.vert -o ${PROJECT_BINARY_DIR}/hello.vert.spv
-	DEPENDS hello.frag)
+	DEPENDS hello.vert)
 
 add_custom_target(HelloTriangle_CompileShaders ALL
 	DEPENDS hello.frag hello.vert)

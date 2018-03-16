@@ -7,7 +7,7 @@ add_custom_command(OUTPUT shader.frag
 
 add_custom_command(OUTPUT shader.vert
 	COMMAND ${GLSL_COMPILER} ${PROJECT_SOURCE_DIR}/shader.vert -o ${PROJECT_BINARY_DIR}/shader.vert.spv
-	DEPENDS shader.frag)
+	DEPENDS shader.vert)
 
 add_custom_target(Vulkan_Tutorial_CompileShaders ALL
 	DEPENDS shader.frag shader.vert)

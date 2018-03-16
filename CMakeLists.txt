@@ -7,6 +7,4 @@ set(GLFW_INCLUDE)
 set(GLSL_COMPILER)
 
 add_subdirectory(src)
-add_subdirectory(samples/Test)
-add_subdirectory(samples/HelloTriangle)
-add_subdirectory(samples/Vulkan-Tutorial)
+add_subdirectory(samples)

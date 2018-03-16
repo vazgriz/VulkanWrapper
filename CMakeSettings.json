@@ -27,6 +27,10 @@
         {
           "name": "GLSL_COMPILER",
           "value": "${env.VK_SDK_PATH}/bin/glslc"
+        },
+        {
+          "name": "GLM_INCLUDE",
+          "value": "E:/Code/Projects/glm"
         }
       ]
     },

@@ -7,6 +7,7 @@
 #include <sstream>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include <VulkanWrapper/VulkanWrapper.h>
 
 const std::vector<std::string> validationLayers = {
@@ -18,12 +19,8 @@ const std::vector<std::string> deviceExtensions = {
 };
 
 struct Vertex {
-    struct {
-        float x, y, z;
-    } position;
-    struct {
-        float r, g, b;
-    } color;
+    glm::vec3 position;
+    glm::vec3 color;
 
     static std::vector<vk::VertexInputBindingDescription> getBindingDescription() {
         vk::VertexInputBindingDescription binding = {};
@@ -52,9 +49,9 @@ struct Vertex {
 };
 
 std::vector<Vertex> vertices = {
-    { {  0.0f, -1.0f }, { 1.0f, 0.0f, 0.0f } },
-    { {  1.0f,  1.0f }, { 0.0f, 1.0f, 0.0f } },
-    { { -1.0f,  1.0f }, { 0.0f, 0.0f, 1.0f } }
+    { {  0.0f, -1.0f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
+    { {  1.0f,  1.0f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
+    { { -1.0f,  1.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } }
 };
 
 std::vector<uint32_t> indices = {

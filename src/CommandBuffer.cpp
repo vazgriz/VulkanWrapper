@@ -5,6 +5,8 @@
 #include "VulkanWrapper/GraphicsPipeline.h"
 #include "VulkanWrapper/Buffer.h"
 #include "VulkanWrapper/Device.h"
+#include "VulkanWrapper/PipelineLayout.h"
+#include "VulkanWrapper/DescriptorSet.h"
 
 void vk::CommandBufferInheritanceInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
@@ -129,6 +131,29 @@ void vk::CommandBuffer::bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offse
 
 void vk::CommandBuffer::bindPipeline(vk::PipelineBindPoint pipelineBindPoint, const vk::Pipeline& pipeline) const {
     vkCmdBindPipeline(m_commandBuffer, static_cast<VkPipelineBindPoint>(pipelineBindPoint), pipeline.handle());
+}
+
+void vk::CommandBuffer::bindDescriptorSets(
+    vk::PipelineBindPoint pipelineBindPoint,
+    const vk::PipelineLayout& pipelineLayout,
+    uint32_t firstSet,
+    vk::ArrayProxy<const std::reference_wrapper<vk::DescriptorSet>> descriptorSets,
+    vk::ArrayProxy<const uint32_t> dynamicOffsets) const
+{
+    std::vector<VkDescriptorSet> vkSets;
+    vkSets.reserve(descriptorSets.size());
+    for (const vk::DescriptorSet& set : descriptorSets) {
+        vkSets.push_back(set.handle());
+    }
+    vkCmdBindDescriptorSets(m_commandBuffer,
+        static_cast<VkPipelineBindPoint>(pipelineBindPoint),
+        pipelineLayout.handle(),
+        firstSet,
+        static_cast<uint32_t>(vkSets.size()),
+        vkSets.data(),
+        dynamicOffsets.size(),
+        dynamicOffsets.data()
+    );
 }
 
 void vk::CommandBuffer::copy(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<const vk::BufferCopy> copy) {

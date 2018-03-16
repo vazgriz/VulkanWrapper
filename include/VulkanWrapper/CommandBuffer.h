@@ -12,6 +12,8 @@ namespace vk {
     class CommandPool;
     class Pipeline;
     class Buffer;
+    class PipelineLayout;
+    class DescriptorSet;
 
     class CommandBufferAllocateInfo : public Info<VkCommandBufferAllocateInfo> {
     public:
@@ -73,6 +75,12 @@ namespace vk {
         void bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<const vk::DeviceSize> offsets) const;
         void bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const;
         void bindPipeline(PipelineBindPoint pipelineBindPoint, const Pipeline& pipeline) const;
+        void bindDescriptorSets(
+            vk::PipelineBindPoint pipelineBindPoint,
+            const vk::PipelineLayout& pipelineLayout,
+            uint32_t firstSet,
+            vk::ArrayProxy<const std::reference_wrapper<vk::DescriptorSet>> descriptorSets,
+            vk::ArrayProxy<const uint32_t> dynamicOffsets) const;
         void draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
         void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance) const;
 

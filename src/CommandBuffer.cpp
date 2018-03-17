@@ -207,7 +207,7 @@ void vk::CommandBuffer::bindDescriptorSets(
     );
 }
 
-void vk::CommandBuffer::copy(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<const vk::BufferCopy> copy) {
+void vk::CommandBuffer::copyBuffer(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<const vk::BufferCopy> copy) {
     vkCmdCopyBuffer(m_commandBuffer, src.handle(), dst.handle(), static_cast<uint32_t>(copy.size()), copy.data());
 }
 

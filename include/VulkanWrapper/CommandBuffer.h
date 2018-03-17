@@ -120,7 +120,7 @@ namespace vk {
         void draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
         void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance) const;
 
-        void copy(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy);
+        void copyBuffer(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy);
         void copyBufferToImage(Buffer& src, Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies);
 
         void pipelineBarrier(

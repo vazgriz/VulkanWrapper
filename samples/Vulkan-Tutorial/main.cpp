@@ -344,7 +344,7 @@ public:
         vk::BufferCopy copy = {};
         copy.size = size;
 
-        commandBuffer.copy(staging, dst, copy);
+        commandBuffer.copyBuffer(staging, dst, copy);
 
         submitSingleUseCommandBuffer(commandBuffer);
     }

@@ -12,7 +12,14 @@ add_custom_command(OUTPUT shader.vert
 add_custom_target(Vulkan_Tutorial_CompileShaders ALL
 	DEPENDS shader.frag shader.vert)
 
+add_custom_command(OUTPUT texture.jpg
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/texture.jpg ${PROJECT_BINARY_DIR}/texture.jpg
+	DEPENDS texture.jpg)
+
+add_custom_target(Vulkan_Tutorial_Texture ALL
+	DEPENDS texture.jpg)
+
 add_executable(Vulkan_Tutorial main.cpp)
 target_include_directories(Vulkan_Tutorial PUBLIC VulkanWrapper ${GLFW_INCLUDE} ${GLM_INCLUDE})
 target_link_libraries(Vulkan_Tutorial VulkanWrapper ${VULKAN_LIB} ${GLFW_LIB})
-add_dependencies(Vulkan_Tutorial Vulkan_Tutorial_CompileShaders)
+add_dependencies(Vulkan_Tutorial Vulkan_Tutorial_CompileShaders Vulkan_Tutorial_Texture)

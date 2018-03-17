@@ -11,6 +11,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <VulkanWrapper/VulkanWrapper.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 const std::vector<std::string> validationLayers = {
     "VK_LAYER_LUNARG_standard_validation"
@@ -28,6 +30,7 @@ struct Uniform {
 struct Vertex {
     glm::vec3 position;
     glm::vec3 color;
+    glm::vec2 uv;
 
     static std::vector<vk::VertexInputBindingDescription> getBindingDescription() {
         vk::VertexInputBindingDescription binding = {};
@@ -51,15 +54,21 @@ struct Vertex {
         attribute1.offset = offsetof(Vertex, color);
         attribute1.format = vk::Format::R32G32B32_Sfloat;
 
-        return { attribute0, attribute1 };
+        vk::VertexInputAttributeDescription attribute2 = {};
+        attribute2.binding = 0;
+        attribute2.location = 2;
+        attribute2.offset = offsetof(Vertex, uv);
+        attribute2.format = vk::Format::R32G32_Sfloat;
+
+        return { attribute0, attribute1, attribute2 };
     }
 };
 
 std::vector<Vertex> vertices = {
-    { { -0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
-    { {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
-    { {  0.5f,  0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
-    { { -0.5f,  0.5f, 0.0f }, { 1.0f, 1.0f, 1.0f } }
+    { { -0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } },
+    { {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f } },
+    { {  0.5f,  0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
+    { { -0.5f,  0.5f, 0.0f }, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } }
 };
 
 std::vector<uint32_t> indices = {
@@ -88,6 +97,10 @@ public:
     std::unique_ptr<vk::Buffer> uniformBuffer;
     std::unique_ptr<vk::DeviceMemory> uniformBufferMemory;
     void* uniformMapping;
+    std::unique_ptr<vk::Image> texture;
+    std::unique_ptr<vk::DeviceMemory> textureMemory;
+    std::unique_ptr<vk::ImageView> textureImageView;
+    std::unique_ptr<vk::Sampler> sampler;
     std::unique_ptr<vk::DescriptorSetLayout> descriptorSetLayout;
     std::unique_ptr<vk::DescriptorPool> descriptorPool;
     std::unique_ptr<vk::DescriptorSet> descriptorSet;
@@ -123,6 +136,9 @@ public:
         createVertexBuffer();
         createIndexBuffer();
         createUniformBuffer();
+        createTexture();
+        createTextureImageView();
+        createSampler();
         createDescriptorSetLayout();
         createDescriptorPool();
         createDescriptorSet();
@@ -391,6 +407,71 @@ public:
         uniformMapping = uniformBufferMemory->map(0, sizeof(Uniform));
     }
 
+    vk::Image createImage(vk::Extent3D extent, vk::Format format, vk::ImageUsageFlags usage) {
+        vk::ImageCreateInfo info = {};
+        info.imageType = vk::ImageType::_2D;
+        info.extent = extent;
+        info.mipLevels = 1;
+        info.arrayLayers = 1;
+        info.format = format;
+        info.tiling = vk::ImageTiling::Optimal;
+        info.initialLayout = vk::ImageLayout::Undefined;
+        info.usage = usage;
+        info.samples = vk::SampleCountFlags::_1;
+
+        return vk::Image(*device, info);
+    }
+
+    void copy(vk::Image& dst, void* src, vk::Extent3D extent) {
+        size_t size = extent.width * extent.height * 4;
+        vk::Buffer staging = createBuffer(size, vk::BufferUsageFlags::TransferSrc);
+        vk::DeviceMemory stagingMemory = allocate(staging.requirements(), vk::MemoryPropertyFlags::HostVisible | vk::MemoryPropertyFlags::HostCoherent);
+        staging.bind(stagingMemory, 0);
+        void* ptr = stagingMemory.map(0, stagingMemory.size());
+
+        std::memcpy(ptr, src, size);
+
+        vk::CommandBuffer commandBuffer = getSingleUseCommandBuffer();
+
+        vk::ImageMemoryBarrier barrier = {};
+        barrier.srcAccessMask = vk::AccessFlags::None;
+        barrier.dstAccessMask = vk::AccessFlags::TransferWrite;
+        barrier.oldLayout = vk::ImageLayout::Undefined;
+        barrier.newLayout = vk::ImageLayout::TransferDstOptimal;
+        barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.image = texture.get();
+        barrier.subresourceRange.aspectMask = vk::ImageAspectFlags::Color;
+        barrier.subresourceRange.baseMipLevel = 0;
+        barrier.subresourceRange.levelCount = 1;
+        barrier.subresourceRange.baseArrayLayer = 0;
+        barrier.subresourceRange.layerCount = 1;
+
+        commandBuffer.pipelineBarrier(
+            vk::PipelineStageFlags::TopOfPipe, vk::PipelineStageFlags::Transfer, vk::DependencyFlags::None,
+            {}, {}, { barrier });
+
+        vk::BufferImageCopy copy = {};
+        copy.imageSubresource.aspectMask = vk::ImageAspectFlags::Color;
+        copy.imageSubresource.mipLevel = 0;
+        copy.imageSubresource.baseArrayLayer = 0;
+        copy.imageSubresource.layerCount = 1;
+        copy.imageExtent = extent;
+
+        commandBuffer.copyBufferToImage(staging, dst, vk::ImageLayout::TransferDstOptimal, copy);
+
+        barrier.srcAccessMask = vk::AccessFlags::TransferWrite;
+        barrier.dstAccessMask = vk::AccessFlags::ShaderRead;
+        barrier.oldLayout = vk::ImageLayout::TransferDstOptimal;
+        barrier.newLayout = vk::ImageLayout::ShaderReadOnlyOptimal;
+
+        commandBuffer.pipelineBarrier(
+            vk::PipelineStageFlags::Transfer, vk::PipelineStageFlags::FragmentShader, vk::DependencyFlags::None,
+            {}, {}, { barrier });
+
+        submitSingleUseCommandBuffer(commandBuffer);
+    }
+
     vk::ImageView createImageView(const vk::Image& image, vk::Format format) {
         vk::ImageViewCreateInfo info = {};
         info.image = &image;
@@ -405,26 +486,74 @@ public:
         return vk::ImageView(*device, info);
     }
 
+    void createTexture() {
+        int width;
+        int height;
+        int components;
+        stbi_uc* data = stbi_load("texture.jpg", &width, &height, &components, 4);
+        vk::Extent3D extent = { static_cast<uint32_t>(width), static_cast<uint32_t>(height), 1 };
+
+        texture = std::make_unique<vk::Image>(
+            createImage(extent, vk::Format::R8G8B8A8_Unorm, vk::ImageUsageFlags::Sampled | vk::ImageUsageFlags::TransferDst)
+        );
+
+        textureMemory = std::make_unique<vk::DeviceMemory>(
+            allocate(texture->requirements(), vk::MemoryPropertyFlags::DeviceLocal)
+        );
+
+        texture->bind(*textureMemory, 0);
+        copy(*texture, data, extent);
+
+        stbi_image_free(data);
+    }
+
+    void createTextureImageView() {
+        textureImageView = std::make_unique<vk::ImageView>(createImageView(*texture, vk::Format::R8G8B8A8_Unorm));
+    }
+
+    void createSampler() {
+        vk::SamplerCreateInfo info = {};
+        info.magFilter = vk::Filter::Nearest;
+        info.minFilter = vk::Filter::Nearest;
+        info.mipmapMode = vk::SamplerMipmapMode::Nearest;
+        info.addressModeU = vk::SamplerAddressMode::ClampToEdge;
+        info.addressModeV = vk::SamplerAddressMode::ClampToEdge;
+        info.addressModeW = vk::SamplerAddressMode::ClampToEdge;
+        info.maxAnisotropy = 1.0f;
+
+        sampler = std::make_unique < vk::Sampler>(*device, info);
+    }
+
     void createDescriptorSetLayout() {
-        vk::DescriptorSetLayoutBinding binding = {};
-        binding.binding = 0;
-        binding.descriptorType = vk::DescriptorType::UniformBuffer;
-        binding.descriptorCount = 1;
-        binding.stageFlags = vk::ShaderStageFlags::Vertex;
+        vk::DescriptorSetLayoutBinding binding0 = {};
+        binding0.binding = 0;
+        binding0.descriptorType = vk::DescriptorType::UniformBuffer;
+        binding0.descriptorCount = 1;
+        binding0.stageFlags = vk::ShaderStageFlags::Vertex;
+
+        vk::DescriptorSetLayoutBinding binding1 = {};
+        binding1.binding = 1;
+        binding1.descriptorType = vk::DescriptorType::CombinedImageSampler;
+        binding1.descriptorCount = 1;
+        binding1.stageFlags = vk::ShaderStageFlags::Fragment;
 
         vk::DescriptorSetLayoutCreateInfo info = {};
-        info.bindings = { binding };
+        info.bindings = { binding0, binding1 };
 
         descriptorSetLayout = std::make_unique<vk::DescriptorSetLayout>(*device, info);
     }
 
     void createDescriptorPool() {
-        vk::DescriptorPoolSize poolSize = {};
-        poolSize.type = vk::DescriptorType::UniformBuffer;
-        poolSize.descriptorCount = 1;
+        vk::DescriptorPoolSize poolSize0 = {};
+        poolSize0.type = vk::DescriptorType::UniformBuffer;
+        poolSize0.descriptorCount = 1;
+
+        vk::DescriptorPoolSize poolSize1 = {};
+        poolSize1.type = vk::DescriptorType::CombinedImageSampler;
+        poolSize1.descriptorCount = 1;
 
         vk::DescriptorPoolCreateInfo info = {};
-        info.poolSizes = { poolSize };
+        info.poolSizes = { poolSize0, poolSize1 };
         info.maxSets = 1;
 
         descriptorPool = std::make_unique<vk::DescriptorPool>(*device, info);
@@ -441,13 +570,24 @@ public:
         bufferInfo.buffer = uniformBuffer.get();
         bufferInfo.range = sizeof(Uniform);
 
-        vk::WriteDescriptorSet write = {};
-        write.dstSet = descriptorSet.get();
-        write.descriptorType = vk::DescriptorType::UniformBuffer;
-        write.dstBinding = 0;
-        write.bufferInfo = { bufferInfo };
+        vk::WriteDescriptorSet write0 = {};
+        write0.dstSet = descriptorSet.get();
+        write0.descriptorType = vk::DescriptorType::UniformBuffer;
+        write0.dstBinding = 0;
+        write0.bufferInfo = { bufferInfo };
 
-        vk::DescriptorSet::update(*device, { write }, {});
+        vk::DescriptorImageInfo imageInfo = {};
+        imageInfo.imageLayout = vk::ImageLayout::ShaderReadOnlyOptimal;
+        imageInfo.imageView = textureImageView.get();
+        imageInfo.sampler = sampler.get();
+
+        vk::WriteDescriptorSet write1 = {};
+        write1.dstSet = descriptorSet.get();
+        write1.descriptorType = vk::DescriptorType::CombinedImageSampler;
+        write1.dstBinding = 1;
+        write1.imageInfo = { imageInfo };
+
+        vk::DescriptorSet::update(*device, { write0, write1 }, {});
     }
 
     void createPipelineLayout() {

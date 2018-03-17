@@ -391,6 +391,20 @@ public:
         uniformMapping = uniformBufferMemory->map(0, sizeof(Uniform));
     }
 
+    vk::ImageView createImageView(const vk::Image& image, vk::Format format) {
+        vk::ImageViewCreateInfo info = {};
+        info.image = &image;
+        info.viewType = vk::ImageViewType::_2D;
+        info.format = format;
+        info.subresourceRange.aspectMask = vk::ImageAspectFlags::Color;
+        info.subresourceRange.baseMipLevel = 0;
+        info.subresourceRange.levelCount = 1;
+        info.subresourceRange.baseArrayLayer = 0;
+        info.subresourceRange.layerCount = 1;
+
+        return vk::ImageView(*device, info);
+    }
+
     void createDescriptorSetLayout() {
         vk::DescriptorSetLayoutBinding binding = {};
         binding.binding = 0;
@@ -540,18 +554,8 @@ public:
         imageViews.clear();
         imageViews.reserve(swapchain->images().size());
         for (auto& image : swapchain->images()) {
-            vk::ImageViewCreateInfo info = {};
-            info.image = &image;
-            info.format = swapchain->format();
-            info.viewType = vk::ImageViewType::_2D;
-            info.components = {};
-            info.subresourceRange.aspectMask = vk::ImageAspectFlags::Color;
-            info.subresourceRange.baseArrayLayer = 0;
-            info.subresourceRange.layerCount = 1;
-            info.subresourceRange.baseMipLevel = 0;
-            info.subresourceRange.levelCount = 1;
 
-            imageViews.emplace_back(*device, info);
+            imageViews.emplace_back(createImageView(image, swapchain->format()));
         }
     }
 

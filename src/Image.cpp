@@ -1,6 +1,7 @@
 #include "VulkanWrapper/Image.h"
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
+#include "VulkanWrapper/DeviceMemory.h"
 
 void vk::ImageCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -49,6 +50,10 @@ vk::Image::Image(Image&& other) : m_device(other.device()) {
     m_destructorEnabled = other.m_destructorEnabled;
     m_requirements = other.m_requirements;
     other.m_image = VK_NULL_HANDLE;
+}
+
+void vk::Image::bind(vk::DeviceMemory& memory, size_t offset) {
+    vkBindImageMemory(m_device.handle(), m_image, memory.handle(), offset);
 }
 
 void vk::Image::getRequirements() {

@@ -8,6 +8,7 @@
 
 namespace vk {
     class Device;
+    class DeviceMemory;
 
     class ImageCreateInfo : public Info<VkImageCreateInfo> {
     public:
@@ -38,6 +39,8 @@ namespace vk {
 
         VkImage handle() const { return m_image; }
         Device& device() const { return m_device; }
+
+        void bind(DeviceMemory& memory, size_t offset);
 
         MemoryRequirements requirements() const { return m_requirements; }
 

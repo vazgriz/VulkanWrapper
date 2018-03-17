@@ -116,4 +116,20 @@ namespace vk {
         DescriptorType type;
         uint32_t descriptorCount;
     };
+
+    struct ImageSubresourceLayers {
+        ImageAspectFlags aspectMask;
+        uint32_t mipLevel;
+        uint32_t baseArrayLayer;
+        uint32_t layerCount;
+    };
+
+    struct BufferImageCopy {
+        DeviceSize bufferOffset;
+        uint32_t bufferRowLength;
+        uint32_t bufferImageHeight;
+        ImageSubresourceLayers imageSubresource;
+        Offset3D imageOffset;
+        Extent3D imageExtent;
+    };
 }

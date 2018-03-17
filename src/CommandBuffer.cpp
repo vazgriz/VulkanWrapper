@@ -4,6 +4,7 @@
 #include "VulkanWrapper/Framebuffer.h"
 #include "VulkanWrapper/GraphicsPipeline.h"
 #include "VulkanWrapper/Buffer.h"
+#include "VulkanWrapper/Image.h"
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/PipelineLayout.h"
 #include "VulkanWrapper/DescriptorSet.h"
@@ -71,6 +72,56 @@ void vk::RenderPassBeginInfo::marshal() const {
     m_info.renderArea = renderArea;
     m_info.clearValueCount = static_cast<uint32_t>(clearValues.size());
     m_info.pClearValues = clearValues.data();
+}
+
+void vk::MemoryBarrier::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_MEMORY_BARRIER;
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = next->info();
+    } else {
+        m_info.pNext = nullptr;
+    }
+
+    m_info.srcAccessMask = static_cast<VkAccessFlags>(srcAccessMask);
+    m_info.dstAccessMask = static_cast<VkAccessFlags>(dstAccessMask);
+}
+
+void vk::BufferMemoryBarrier::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = next->info();
+    } else {
+        m_info.pNext = nullptr;
+    }
+
+    m_info.srcAccessMask = static_cast<VkAccessFlags>(srcAccessMask);
+    m_info.dstAccessMask = static_cast<VkAccessFlags>(dstAccessMask);
+    m_info.srcQueueFamilyIndex = srcQueueFamilyIndex;
+    m_info.dstQueueFamilyIndex = dstQueueFamilyIndex;
+    m_info.buffer = buffer->handle();
+    m_info.offset = offset;
+    m_info.size = size;
+}
+
+void vk::ImageMemoryBarrier::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = next->info();
+    } else {
+        m_info.pNext = nullptr;
+    }
+
+    m_info.srcAccessMask = static_cast<VkAccessFlags>(srcAccessMask);
+    m_info.dstAccessMask = static_cast<VkAccessFlags>(dstAccessMask);
+    m_info.oldLayout = static_cast<VkImageLayout>(oldLayout);
+    m_info.newLayout = static_cast<VkImageLayout>(newLayout);
+    m_info.srcQueueFamilyIndex = srcQueueFamilyIndex;
+    m_info.dstQueueFamilyIndex = dstQueueFamilyIndex;
+    m_info.image = image->handle();
+    m_info.subresourceRange = *reinterpret_cast<const VkImageSubresourceRange*>(&subresourceRange);
 }
 
 vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer) : m_commandPool(commandPool) {
@@ -158,4 +209,44 @@ void vk::CommandBuffer::bindDescriptorSets(
 
 void vk::CommandBuffer::copy(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<const vk::BufferCopy> copy) {
     vkCmdCopyBuffer(m_commandBuffer, src.handle(), dst.handle(), static_cast<uint32_t>(copy.size()), copy.data());
+}
+
+void vk::CommandBuffer::copyBufferToImage(vk::Buffer& src, vk::Image& dst, ImageLayout dstLayout, vk::ArrayProxy<const vk::BufferImageCopy> copies) {
+    vkCmdCopyBufferToImage(m_commandBuffer, src.handle(), dst.handle(), static_cast<VkImageLayout>(dstLayout), copies.size(), reinterpret_cast<const VkBufferImageCopy*>(copies.data()));
+}
+
+void vk::CommandBuffer::pipelineBarrier(
+    vk::PipelineStageFlags srcStageMask,
+    vk::PipelineStageFlags dstStageMask,
+    vk::DependencyFlags dependencyFlags,
+    vk::ArrayProxy<const vk::MemoryBarrier> memoryBarriers,
+    vk::ArrayProxy<const vk::BufferMemoryBarrier> bufferMemoryBarriers,
+    vk::ArrayProxy<const vk::ImageMemoryBarrier> imageMemoryBarriers)
+{
+    std::vector<VkMemoryBarrier> vkMemoryBarriers;
+    vkMemoryBarriers.reserve(memoryBarriers.size());
+    std::vector<VkBufferMemoryBarrier> vkBufferMemoryBarriers;
+    vkBufferMemoryBarriers.reserve(bufferMemoryBarriers.size());
+    std::vector<VkImageMemoryBarrier> vkImageMemoryBarriers;
+    vkImageMemoryBarriers.reserve(imageMemoryBarriers.size());
+
+    for (auto& memoryBarrier : memoryBarriers) {
+        memoryBarrier.marshal();
+        vkMemoryBarriers.push_back(*memoryBarrier.getInfo());
+    }
+
+    for (auto& bufferMemoryBarrier : bufferMemoryBarriers) {
+        bufferMemoryBarrier.marshal();
+        vkBufferMemoryBarriers.push_back(*bufferMemoryBarrier.getInfo());
+    }
+
+    for (auto& imageMemoryBarrier : imageMemoryBarriers) {
+        imageMemoryBarrier.marshal();
+        vkImageMemoryBarriers.push_back(*imageMemoryBarrier.getInfo());
+    }
+
+    vkCmdPipelineBarrier(m_commandBuffer, static_cast<VkPipelineStageFlags>(srcStageMask), static_cast<VkPipelineStageFlags>(dstStageMask), static_cast<VkDependencyFlags>(dependencyFlags),
+        memoryBarriers.size(), vkMemoryBarriers.data(),
+        bufferMemoryBarriers.size(), vkBufferMemoryBarriers.data(),
+        imageMemoryBarriers.size(), vkImageMemoryBarriers.data());
 }

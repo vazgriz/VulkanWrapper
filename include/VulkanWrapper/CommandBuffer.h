@@ -12,6 +12,7 @@ namespace vk {
     class CommandPool;
     class Pipeline;
     class Buffer;
+    class Image;
     class PipelineLayout;
     class DescriptorSet;
 
@@ -54,6 +55,41 @@ namespace vk {
         void marshal() const;
     };
 
+    class MemoryBarrier : public Info<VkMemoryBarrier> {
+    public:
+        AccessFlags srcAccessMask;
+        AccessFlags dstAccessMask;
+
+        void marshal() const;
+    };
+
+    class BufferMemoryBarrier : public Info<VkBufferMemoryBarrier> {
+    public:
+        AccessFlags srcAccessMask;
+        AccessFlags dstAccessMask;
+        uint32_t srcQueueFamilyIndex;
+        uint32_t dstQueueFamilyIndex;
+        const Buffer* buffer;
+        DeviceSize offset;
+        DeviceSize size;
+
+        void marshal() const;
+    };
+
+    class ImageMemoryBarrier : public Info<VkImageMemoryBarrier> {
+    public:
+        AccessFlags srcAccessMask;
+        AccessFlags dstAccessMask;
+        ImageLayout oldLayout;
+        ImageLayout newLayout;
+        uint32_t srcQueueFamilyIndex;
+        uint32_t dstQueueFamilyIndex;
+        const Image* image;
+        ImageSubresourceRange subresourceRange;
+
+        void marshal() const;
+    };
+
     class CommandBuffer {
     public:
         CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer);
@@ -85,6 +121,15 @@ namespace vk {
         void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance) const;
 
         void copy(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy);
+        void copyBufferToImage(Buffer& src, Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies);
+
+        void pipelineBarrier(
+            PipelineStageFlags srcStageMask,
+            PipelineStageFlags dstStageMask,
+            DependencyFlags dependencyFlags,
+            ArrayProxy<const MemoryBarrier> memoryBarriers,
+            ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
+            ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers);
 
     private:
         VkCommandBuffer m_commandBuffer;

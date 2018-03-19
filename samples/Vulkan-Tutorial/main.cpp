@@ -65,14 +65,20 @@ struct Vertex {
 };
 
 std::vector<Vertex> vertices = {
-    { { -0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } },
-    { {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f } },
-    { {  0.5f,  0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
-    { { -0.5f,  0.5f, 0.0f }, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } }
+    { { -0.5f, -0.5f,  0.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } },
+    { {  0.5f, -0.5f,  0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f } },
+    { {  0.5f,  0.5f,  0.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
+    { { -0.5f,  0.5f,  0.0f }, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+    
+    { { -0.5f, -0.5f, -0.5f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } },
+    { {  0.5f, -0.5f, -0.5f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f } },
+    { {  0.5f,  0.5f, -0.5f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
+    { { -0.5f,  0.5f, -0.5f }, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } }
 };
 
 std::vector<uint32_t> indices = {
-    0, 1, 2, 2, 3, 0
+    0, 1, 2, 2, 3, 0,
+    4, 5, 6, 6, 7, 4
 };
 
 class HelloTriangle {
@@ -106,6 +112,10 @@ public:
     std::unique_ptr<vk::DescriptorSet> descriptorSet;
     std::unique_ptr<vk::Swapchain> swapchain;
     std::vector<vk::ImageView> imageViews;
+    vk::Format depthFormat;
+    std::unique_ptr<vk::Image> depthImage;
+    std::unique_ptr<vk::DeviceMemory> depthImageMemory;
+    std::unique_ptr<vk::ImageView> depthImageView;
     std::unique_ptr<vk::RenderPass> renderPass;
     std::vector<vk::Framebuffer> framebuffers;
     std::unique_ptr<vk::PipelineLayout> pipelineLayout;
@@ -477,7 +487,14 @@ public:
         info.image = &image;
         info.viewType = vk::ImageViewType::_2D;
         info.format = format;
-        info.subresourceRange.aspectMask = vk::ImageAspectFlags::Color;
+        if (format == vk::Format::D32_Sfloat || format == vk::Format::D32_Sfloat_S8_Uint || format == vk::Format::D24_Unorm_S8_Uint) {
+            info.subresourceRange.aspectMask = vk::ImageAspectFlags::Depth;
+            if (hasStencilComponent(format)) {
+                info.subresourceRange.aspectMask |= vk::ImageAspectFlags::Stencil;
+            }
+        } else {
+            info.subresourceRange.aspectMask = vk::ImageAspectFlags::Color;
+        }
         info.subresourceRange.baseMipLevel = 0;
         info.subresourceRange.levelCount = 1;
         info.subresourceRange.baseArrayLayer = 0;
@@ -644,6 +661,7 @@ public:
     void recreateSwapchain() {
         createSwapchain();
         createImageViews();
+        createDepthBuffer();
         createRenderPass();
         createFramebuffers();
         createPipeline();
@@ -699,6 +717,72 @@ public:
         }
     }
 
+    vk::Format findDepthFormat() {
+        vk::Format formats[] = { vk::Format::D32_Sfloat, vk::Format::D32_Sfloat_S8_Uint, vk::Format::D24_Unorm_S8_Uint };
+        for (auto format : formats) {
+            auto properties = physicalDevice->getFormatProperties(format);
+            if ((properties.optimalTilingFeatures & vk::FormatFeatureFlags::DepthStencilAttachment) == vk::FormatFeatureFlags::DepthStencilAttachment) {
+                return format;
+            }
+        }
+
+        throw std::runtime_error("Failed to find depth buffer format");
+    }
+
+    bool hasStencilComponent(vk::Format format) {
+        return format == vk::Format::D32_Sfloat_S8_Uint || format == vk::Format::D24_Unorm_S8_Uint;
+    }
+
+    void createDepthBuffer() {
+        vk::Format format = findDepthFormat();
+        vk::Extent3D extent = {};
+        extent.width = swapchain->extent().width;
+        extent.height = swapchain->extent().height;
+        extent.depth = 1;
+
+        depthImage = std::make_unique<vk::Image>(
+            createImage(extent, format, vk::ImageUsageFlags::DepthStencilAttachment)
+            );
+
+        depthImageMemory = std::make_unique<vk::DeviceMemory>(
+            allocate(depthImage->requirements(), vk::MemoryPropertyFlags::DeviceLocal)
+            );
+
+        depthImage->bind(*depthImageMemory, 0);
+
+        depthImageView = std::make_unique<vk::ImageView>(
+            createImageView(*depthImage, format)
+            );
+
+        depthFormat = format;
+        initDepthBuffer();
+    }
+
+    void initDepthBuffer() {
+        auto commandBuffer = getSingleUseCommandBuffer();
+
+        vk::ImageMemoryBarrier barrier = {};
+        barrier.image = depthImage.get();
+        barrier.oldLayout = vk::ImageLayout::Undefined;
+        barrier.newLayout = vk::ImageLayout::DepthStencilAttachmentOptimal;
+        barrier.srcAccessMask = vk::AccessFlags::None;
+        barrier.dstAccessMask = vk::AccessFlags::DepthStencilAttachmentRead | vk::AccessFlags::DepthStencilAttachmentWrite;
+        barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.subresourceRange.aspectMask = vk::ImageAspectFlags::Depth;
+        if (hasStencilComponent(depthFormat)) barrier.subresourceRange.aspectMask |= vk::ImageAspectFlags::Stencil;
+        barrier.subresourceRange.baseMipLevel = 0;
+        barrier.subresourceRange.levelCount = 1;
+        barrier.subresourceRange.baseArrayLayer = 0;
+        barrier.subresourceRange.layerCount = 1;
+
+        commandBuffer.pipelineBarrier(
+            vk::PipelineStageFlags::TopOfPipe, vk::PipelineStageFlags::EarlyFragmentTests, vk::DependencyFlags::None,
+            {}, {}, { barrier });
+
+        submitSingleUseCommandBuffer(commandBuffer);
+    }
+
     void createRenderPass() {
         vk::AttachmentDescription colorAttachment = {};
         colorAttachment.format = swapchain->format();
@@ -708,16 +792,31 @@ public:
         colorAttachment.initialLayout = vk::ImageLayout::Undefined;
         colorAttachment.finalLayout = vk::ImageLayout::PresentSrcKhr;
 
+        vk::AttachmentDescription depthAttachment = {};
+        depthAttachment.format = depthFormat;
+        depthAttachment.samples = vk::SampleCountFlags::_1;
+        depthAttachment.loadOp = vk::AttachmentLoadOp::Clear;
+        depthAttachment.storeOp = vk::AttachmentStoreOp::Store;
+        depthAttachment.stencilLoadOp = vk::AttachmentLoadOp::DontCare;
+        depthAttachment.stencilStoreOp = vk::AttachmentStoreOp::DontCare;
+        depthAttachment.initialLayout = vk::ImageLayout::DepthStencilAttachmentOptimal;
+        depthAttachment.finalLayout = vk::ImageLayout::DepthStencilAttachmentOptimal;
+
         vk::AttachmentReference colorAttachmentRef = {};
         colorAttachmentRef.attachment = 0;
         colorAttachmentRef.layout = vk::ImageLayout::ColorAttachmentOptimal;
 
+        vk::AttachmentReference depthAttachmentRef = {};
+        depthAttachmentRef.attachment = 1;
+        depthAttachmentRef.layout = vk::ImageLayout::DepthStencilAttachmentOptimal;
+
         vk::SubpassDescription subpass = {};
         subpass.pipelineBindPoint = vk::PipelineBindPoint::Graphics;
         subpass.colorAttachments = { colorAttachmentRef };
+        subpass.depthStencilAttachments = { depthAttachmentRef };
 
         vk::RenderPassCreateInfo info = {};
-        info.attachments = { colorAttachment };
+        info.attachments = { colorAttachment, depthAttachment };
         info.subpasses = { subpass };
 
         renderPass = std::make_unique<vk::RenderPass>(*device, info);
@@ -729,7 +828,7 @@ public:
         for (size_t i = 0; i < swapchain->images().size(); i++) {
             vk::FramebufferCreateInfo info = {};
             info.renderPass = renderPass.get();
-            info.attachments = { imageViews[i] };
+            info.attachments = { imageViews[i], *depthImageView };
             info.width = swapchain->extent().width;
             info.height = swapchain->extent().height;
             info.layers = 1;
@@ -807,6 +906,11 @@ public:
         vk::PipelineColorBlendStateCreateInfo colorBlending = {};
         colorBlending.attachments = { colorBlendAttachment };
 
+        vk::PipelineDepthStencilStateCreateInfo depth = {};
+        depth.depthTestEnable = true;
+        depth.depthWriteEnable = true;
+        depth.depthCompareOp = vk::CompareOp::Less;
+
         vk::GraphicsPipelineCreateInfo info = {};
         info.stages = { vertStage, fragStage };
         info.vertexInputState = &vertexInputInfo;
@@ -815,6 +919,7 @@ public:
         info.rasterizationState = &rasterizer;
         info.multisampleState = &multisampling;
         info.colorBlendState = &colorBlending;
+        info.depthStencilState = &depth;
         info.layout = pipelineLayout.get();
         info.renderPass = renderPass.get();
         info.subpass = 0;
@@ -850,7 +955,8 @@ public:
         info.renderPass = renderPass.get();
         info.framebuffer = &framebuffers[index];
         info.renderArea = { {}, swapchain->extent() };
-        info.clearValues = { {} };
+        info.clearValues = { {}, {} };
+        info.clearValues[1].depthStencil = { 1.0f, 0 };
 
         commandBuffer.beginRenderPass(info, vk::SubpassContents::Inline);
         

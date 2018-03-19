@@ -54,7 +54,7 @@ void vk::CommandBufferAllocateInfo::marshal() const {
     }
 
     m_info.commandPool = commandPool->handle();
-    m_info.commandBufferCount = static_cast<uint32_t>(commandBufferCount);
+    m_info.commandBufferCount = commandBufferCount;
     m_info.level = static_cast<VkCommandBufferLevel>(level);
 }
 

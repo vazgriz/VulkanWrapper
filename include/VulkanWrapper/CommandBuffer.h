@@ -20,7 +20,7 @@ namespace vk {
     public:
         const CommandPool* commandPool;
         CommandBufferLevel level;
-        size_t commandBufferCount;
+        uint32_t commandBufferCount;
 
         void marshal() const;
     };

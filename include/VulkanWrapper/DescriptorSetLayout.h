@@ -14,7 +14,7 @@ namespace vk {
     public:
         uint32_t binding;
         DescriptorType descriptorType;
-        size_t descriptorCount;
+        uint32_t descriptorCount;
         ShaderStageFlags stageFlags;
         std::vector<std::reference_wrapper<Sampler>> immutableSamplers;
 

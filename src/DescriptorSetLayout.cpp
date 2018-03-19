@@ -6,7 +6,7 @@
 void vk::DescriptorSetLayoutBinding::marshal() const {
     m_info.binding = binding;
     m_info.descriptorType = static_cast<VkDescriptorType>(descriptorType);
-    m_info.descriptorCount = static_cast<uint32_t>(descriptorCount);
+    m_info.descriptorCount = descriptorCount;
     m_info.stageFlags = static_cast<VkShaderStageFlags>(stageFlags);
 
     m_samplers.reserve(immutableSamplers.size());

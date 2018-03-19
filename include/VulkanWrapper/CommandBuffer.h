@@ -16,15 +16,6 @@ namespace vk {
     class PipelineLayout;
     class DescriptorSet;
 
-    class CommandBufferAllocateInfo : public Info<VkCommandBufferAllocateInfo> {
-    public:
-        CommandPool* commandPool;
-        CommandBufferLevel level;
-        uint32_t commandBufferCount;
-
-        void marshal() const;
-    };
-
     class CommandBufferInheritanceInfo : public Info<VkCommandBufferInheritanceInfo> {
     public:
         const RenderPass* renderPass;

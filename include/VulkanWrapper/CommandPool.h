@@ -7,8 +7,17 @@
 
 namespace vk {
     class Device;
-    class CommandBufferAllocateInfo;
     class CommandBuffer;
+    class CommandPool;
+
+    class CommandBufferAllocateInfo : public Info<VkCommandBufferAllocateInfo> {
+    public:
+        CommandPool* commandPool;
+        CommandBufferLevel level;
+        uint32_t commandBufferCount;
+
+        void marshal() const;
+    };
 
     class CommandPoolCreateInfo : public Info<VkCommandPoolCreateInfo> {
     public:

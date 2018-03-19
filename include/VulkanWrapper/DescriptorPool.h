@@ -10,6 +10,19 @@ namespace vk {
     class Device;
     class DescriptorSetAllocateInfo;
     class DescriptorSet;
+    class DescriptorSetLayout;
+    class DescriptorPool;
+
+    class DescriptorSetAllocateInfo : public Info<VkDescriptorSetAllocateInfo> {
+    public:
+        const DescriptorPool* descriptorPool;
+        std::vector<std::reference_wrapper<DescriptorSetLayout>> setLayouts;
+
+        void marshal() const;
+
+    private:
+        mutable std::vector<VkDescriptorSetLayout> m_layouts;
+    };
 
     class DescriptorPoolCreateInfo : public Info<VkDescriptorPoolCreateInfo> {
     public:

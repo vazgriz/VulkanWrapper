@@ -9,23 +9,11 @@
 namespace vk {
     class Device;
     class DescriptorPool;
-    class DescriptorSetLayout;
     class DescriptorSet;
     class Sampler;
     class ImageView;
     class BufferView;
     class Buffer;
-
-    class DescriptorSetAllocateInfo : public Info<VkDescriptorSetAllocateInfo> {
-    public:
-        const DescriptorPool* descriptorPool;
-        std::vector<std::reference_wrapper<DescriptorSetLayout>> setLayouts;
-
-        void marshal() const;
-
-    private:
-        mutable std::vector<VkDescriptorSetLayout> m_layouts;
-    };
 
     struct DescriptorImageInfo {
         const Sampler* sampler;

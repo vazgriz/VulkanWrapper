@@ -31,6 +31,10 @@
         {
           "name": "GLM_INCLUDE",
           "value": "E:/Code/Projects/glm"
+        },
+        {
+          "name": "TINYOBJ_INCLUDE",
+          "value": "E:/Code/Projects/tinyobjloader"
         }
       ]
     },
@@ -64,6 +68,10 @@
         {
           "name": "GLM_INCLUDE",
           "value": "E:/Code/Projects/glm"
+        },
+        {
+          "name": "TINYOBJ_INCLUDE",
+          "value": "E:/Code/Projects/tinyobjloader"
         }
       ]
     }

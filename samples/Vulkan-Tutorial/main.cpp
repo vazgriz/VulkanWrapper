@@ -1046,6 +1046,7 @@ public:
         auto startTime = std::chrono::high_resolution_clock::now();
         auto last = startTime;
         size_t frames = 0;
+        glfwShowWindow(window);
 
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
@@ -1097,6 +1098,7 @@ public:
 int main() {
     glfwInit();
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_VISIBLE, 0);
     GLFWwindow* window = glfwCreateWindow(800, 600, "Hello Triangle", nullptr, nullptr);
     glfwSetWindowSizeLimits(window, 1, 1, GLFW_DONT_CARE, GLFW_DONT_CARE);
 

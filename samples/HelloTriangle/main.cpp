@@ -613,7 +613,7 @@ public:
         allocInfo.commandBufferCount = swapchain->images().size();
         allocInfo.level = vk::CommandBufferLevel::Primary;
 
-        commandBuffers = commandPool->allocate(allocInfo);
+        commandBuffers = vk::CommandPool::allocate(allocInfo);
         for (size_t i = 0; i < commandBuffers.size(); i++) {
             recordCommands(commandBuffers[i], i);
             commandBuffers[i].setDestructorEnabled(true);

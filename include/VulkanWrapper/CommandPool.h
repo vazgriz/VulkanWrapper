@@ -29,7 +29,7 @@ namespace vk {
         VkCommandPool handle() const { return m_commandPool; }
         Device& device() const { return m_device; }
 
-        std::vector<CommandBuffer> allocate(const CommandBufferAllocateInfo& info);
+        static std::vector<CommandBuffer> allocate(const CommandBufferAllocateInfo& info);
 
     private:
         VkCommandPool m_commandPool;

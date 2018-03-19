@@ -18,7 +18,7 @@ namespace vk {
 
     class CommandBufferAllocateInfo : public Info<VkCommandBufferAllocateInfo> {
     public:
-        const CommandPool* commandPool;
+        CommandPool* commandPool;
         CommandBufferLevel level;
         uint32_t commandBufferCount;
 

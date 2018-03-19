@@ -38,12 +38,12 @@ std::vector<vk::CommandBuffer> vk::CommandPool::allocate(const vk::CommandBuffer
     info.marshal();
     std::vector<VkCommandBuffer> commandBuffers(info.commandBufferCount);
 
-    VKW_CHECK(vkAllocateCommandBuffers(m_device.handle(), info.getInfo(), commandBuffers.data()));
+    VKW_CHECK(vkAllocateCommandBuffers(info.commandPool->device().handle(), info.getInfo(), commandBuffers.data()));
 
     std::vector<vk::CommandBuffer> result;
     result.reserve(info.commandBufferCount);
     for (auto commandBuffer : commandBuffers) {
-        result.emplace_back(*this, commandBuffer);
+        result.emplace_back(*info.commandPool, commandBuffer);
     }
 
     return result;

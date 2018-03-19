@@ -1,4 +1,4 @@
-//auto generated on 03/05/2018 9:23:20 PM
+//auto generated on 03/18/2018 9:15:50 PM
 #pragma once
 
 namespace vk {
@@ -174,7 +174,7 @@ namespace vk {
         return static_cast<DescriptorSetLayoutCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline DescriptorSetLayoutCreateFlags& operator |= (DescriptorSetLayoutCreateFlags& a, DescriptorSetLayoutCreateFlags& b) {
+    inline DescriptorSetLayoutCreateFlags& operator |= (DescriptorSetLayoutCreateFlags& a, DescriptorSetLayoutCreateFlags b) {
         a = static_cast<DescriptorSetLayoutCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -219,7 +219,7 @@ namespace vk {
         return static_cast<BufferCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline BufferCreateFlags& operator |= (BufferCreateFlags& a, BufferCreateFlags& b) {
+    inline BufferCreateFlags& operator |= (BufferCreateFlags& a, BufferCreateFlags b) {
         a = static_cast<BufferCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -258,7 +258,7 @@ namespace vk {
         return static_cast<BufferUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline BufferUsageFlags& operator |= (BufferUsageFlags& a, BufferUsageFlags& b) {
+    inline BufferUsageFlags& operator |= (BufferUsageFlags& a, BufferUsageFlags b) {
         a = static_cast<BufferUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -292,7 +292,7 @@ namespace vk {
         return static_cast<ColorComponentFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ColorComponentFlags& operator |= (ColorComponentFlags& a, ColorComponentFlags& b) {
+    inline ColorComponentFlags& operator |= (ColorComponentFlags& a, ColorComponentFlags b) {
         a = static_cast<ColorComponentFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -334,7 +334,7 @@ namespace vk {
         return static_cast<CommandPoolCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline CommandPoolCreateFlags& operator |= (CommandPoolCreateFlags& a, CommandPoolCreateFlags& b) {
+    inline CommandPoolCreateFlags& operator |= (CommandPoolCreateFlags& a, CommandPoolCreateFlags b) {
         a = static_cast<CommandPoolCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -365,7 +365,7 @@ namespace vk {
         return static_cast<CommandPoolResetFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline CommandPoolResetFlags& operator |= (CommandPoolResetFlags& a, CommandPoolResetFlags& b) {
+    inline CommandPoolResetFlags& operator |= (CommandPoolResetFlags& a, CommandPoolResetFlags b) {
         a = static_cast<CommandPoolResetFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -396,7 +396,7 @@ namespace vk {
         return static_cast<CommandBufferResetFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline CommandBufferResetFlags& operator |= (CommandBufferResetFlags& a, CommandBufferResetFlags& b) {
+    inline CommandBufferResetFlags& operator |= (CommandBufferResetFlags& a, CommandBufferResetFlags b) {
         a = static_cast<CommandBufferResetFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -434,7 +434,7 @@ namespace vk {
         return static_cast<CommandBufferUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline CommandBufferUsageFlags& operator |= (CommandBufferUsageFlags& a, CommandBufferUsageFlags& b) {
+    inline CommandBufferUsageFlags& operator |= (CommandBufferUsageFlags& a, CommandBufferUsageFlags b) {
         a = static_cast<CommandBufferUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -478,7 +478,7 @@ namespace vk {
         return static_cast<CullModeFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline CullModeFlags& operator |= (CullModeFlags& a, CullModeFlags& b) {
+    inline CullModeFlags& operator |= (CullModeFlags& a, CullModeFlags b) {
         a = static_cast<CullModeFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -541,7 +541,7 @@ namespace vk {
         return static_cast<FenceCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline FenceCreateFlags& operator |= (FenceCreateFlags& a, FenceCreateFlags& b) {
+    inline FenceCreateFlags& operator |= (FenceCreateFlags& a, FenceCreateFlags b) {
         a = static_cast<FenceCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -787,7 +787,7 @@ namespace vk {
         return static_cast<FormatFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline FormatFeatureFlags& operator |= (FormatFeatureFlags& a, FormatFeatureFlags& b) {
+    inline FormatFeatureFlags& operator |= (FormatFeatureFlags& a, FormatFeatureFlags b) {
         a = static_cast<FormatFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -826,7 +826,7 @@ namespace vk {
         return static_cast<ImageAspectFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ImageAspectFlags& operator |= (ImageAspectFlags& a, ImageAspectFlags& b) {
+    inline ImageAspectFlags& operator |= (ImageAspectFlags& a, ImageAspectFlags b) {
         a = static_cast<ImageAspectFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -861,7 +861,7 @@ namespace vk {
         return static_cast<ImageCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ImageCreateFlags& operator |= (ImageCreateFlags& a, ImageCreateFlags& b) {
+    inline ImageCreateFlags& operator |= (ImageCreateFlags& a, ImageCreateFlags b) {
         a = static_cast<ImageCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -924,7 +924,7 @@ namespace vk {
         return static_cast<ImageUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ImageUsageFlags& operator |= (ImageUsageFlags& a, ImageUsageFlags& b) {
+    inline ImageUsageFlags& operator |= (ImageUsageFlags& a, ImageUsageFlags b) {
         a = static_cast<ImageUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -994,7 +994,7 @@ namespace vk {
         return static_cast<MemoryHeapFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline MemoryHeapFlags& operator |= (MemoryHeapFlags& a, MemoryHeapFlags& b) {
+    inline MemoryHeapFlags& operator |= (MemoryHeapFlags& a, MemoryHeapFlags b) {
         a = static_cast<MemoryHeapFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1041,7 +1041,7 @@ namespace vk {
         return static_cast<AccessFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline AccessFlags& operator |= (AccessFlags& a, AccessFlags& b) {
+    inline AccessFlags& operator |= (AccessFlags& a, AccessFlags b) {
         a = static_cast<AccessFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1076,7 +1076,7 @@ namespace vk {
         return static_cast<MemoryPropertyFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline MemoryPropertyFlags& operator |= (MemoryPropertyFlags& a, MemoryPropertyFlags& b) {
+    inline MemoryPropertyFlags& operator |= (MemoryPropertyFlags& a, MemoryPropertyFlags b) {
         a = static_cast<MemoryPropertyFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1122,7 +1122,7 @@ namespace vk {
         return static_cast<PipelineCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline PipelineCreateFlags& operator |= (PipelineCreateFlags& a, PipelineCreateFlags& b) {
+    inline PipelineCreateFlags& operator |= (PipelineCreateFlags& a, PipelineCreateFlags b) {
         a = static_cast<PipelineCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1167,7 +1167,7 @@ namespace vk {
         return static_cast<QueryControlFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline QueryControlFlags& operator |= (QueryControlFlags& a, QueryControlFlags& b) {
+    inline QueryControlFlags& operator |= (QueryControlFlags& a, QueryControlFlags b) {
         a = static_cast<QueryControlFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1208,7 +1208,7 @@ namespace vk {
         return static_cast<QueryPipelineStatisticFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline QueryPipelineStatisticFlags& operator |= (QueryPipelineStatisticFlags& a, QueryPipelineStatisticFlags& b) {
+    inline QueryPipelineStatisticFlags& operator |= (QueryPipelineStatisticFlags& a, QueryPipelineStatisticFlags b) {
         a = static_cast<QueryPipelineStatisticFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1242,7 +1242,7 @@ namespace vk {
         return static_cast<QueryResultFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline QueryResultFlags& operator |= (QueryResultFlags& a, QueryResultFlags& b) {
+    inline QueryResultFlags& operator |= (QueryResultFlags& a, QueryResultFlags b) {
         a = static_cast<QueryResultFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1282,7 +1282,7 @@ namespace vk {
         return static_cast<QueueFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline QueueFlags& operator |= (QueueFlags& a, QueueFlags& b) {
+    inline QueueFlags& operator |= (QueueFlags& a, QueueFlags b) {
         a = static_cast<QueueFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1355,7 +1355,7 @@ namespace vk {
         return static_cast<ShaderStageFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ShaderStageFlags& operator |= (ShaderStageFlags& a, ShaderStageFlags& b) {
+    inline ShaderStageFlags& operator |= (ShaderStageFlags& a, ShaderStageFlags b) {
         a = static_cast<ShaderStageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1386,7 +1386,7 @@ namespace vk {
         return static_cast<SparseMemoryBindFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SparseMemoryBindFlags& operator |= (SparseMemoryBindFlags& a, SparseMemoryBindFlags& b) {
+    inline SparseMemoryBindFlags& operator |= (SparseMemoryBindFlags& a, SparseMemoryBindFlags b) {
         a = static_cast<SparseMemoryBindFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1419,7 +1419,7 @@ namespace vk {
         return static_cast<StencilFaceFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline StencilFaceFlags& operator |= (StencilFaceFlags& a, StencilFaceFlags& b) {
+    inline StencilFaceFlags& operator |= (StencilFaceFlags& a, StencilFaceFlags b) {
         a = static_cast<StencilFaceFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1694,7 +1694,7 @@ namespace vk {
         return static_cast<PipelineStageFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline PipelineStageFlags& operator |= (PipelineStageFlags& a, PipelineStageFlags& b) {
+    inline PipelineStageFlags& operator |= (PipelineStageFlags& a, PipelineStageFlags b) {
         a = static_cast<PipelineStageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1727,7 +1727,7 @@ namespace vk {
         return static_cast<SparseImageFormatFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SparseImageFormatFlags& operator |= (SparseImageFormatFlags& a, SparseImageFormatFlags& b) {
+    inline SparseImageFormatFlags& operator |= (SparseImageFormatFlags& a, SparseImageFormatFlags b) {
         a = static_cast<SparseImageFormatFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1764,7 +1764,7 @@ namespace vk {
         return static_cast<SampleCountFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SampleCountFlags& operator |= (SampleCountFlags& a, SampleCountFlags& b) {
+    inline SampleCountFlags& operator |= (SampleCountFlags& a, SampleCountFlags b) {
         a = static_cast<SampleCountFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1795,7 +1795,7 @@ namespace vk {
         return static_cast<AttachmentDescriptionFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline AttachmentDescriptionFlags& operator |= (AttachmentDescriptionFlags& a, AttachmentDescriptionFlags& b) {
+    inline AttachmentDescriptionFlags& operator |= (AttachmentDescriptionFlags& a, AttachmentDescriptionFlags b) {
         a = static_cast<AttachmentDescriptionFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1826,7 +1826,7 @@ namespace vk {
         return static_cast<DescriptorPoolCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline DescriptorPoolCreateFlags& operator |= (DescriptorPoolCreateFlags& a, DescriptorPoolCreateFlags& b) {
+    inline DescriptorPoolCreateFlags& operator |= (DescriptorPoolCreateFlags& a, DescriptorPoolCreateFlags b) {
         a = static_cast<DescriptorPoolCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1857,7 +1857,7 @@ namespace vk {
         return static_cast<DependencyFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline DependencyFlags& operator |= (DependencyFlags& a, DependencyFlags& b) {
+    inline DependencyFlags& operator |= (DependencyFlags& a, DependencyFlags b) {
         a = static_cast<DependencyFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1928,7 +1928,7 @@ namespace vk {
         return static_cast<IndirectCommandsLayoutUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline IndirectCommandsLayoutUsageFlags& operator |= (IndirectCommandsLayoutUsageFlags& a, IndirectCommandsLayoutUsageFlags& b) {
+    inline IndirectCommandsLayoutUsageFlags& operator |= (IndirectCommandsLayoutUsageFlags& a, IndirectCommandsLayoutUsageFlags b) {
         a = static_cast<IndirectCommandsLayoutUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -1971,7 +1971,7 @@ namespace vk {
         return static_cast<ObjectEntryUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ObjectEntryUsageFlags& operator |= (ObjectEntryUsageFlags& a, ObjectEntryUsageFlags& b) {
+    inline ObjectEntryUsageFlags& operator |= (ObjectEntryUsageFlags& a, ObjectEntryUsageFlags b) {
         a = static_cast<ObjectEntryUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2030,7 +2030,7 @@ namespace vk {
         return static_cast<SubpassDescriptionFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SubpassDescriptionFlags& operator |= (SubpassDescriptionFlags& a, SubpassDescriptionFlags& b) {
+    inline SubpassDescriptionFlags& operator |= (SubpassDescriptionFlags& a, SubpassDescriptionFlags b) {
         a = static_cast<SubpassDescriptionFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2089,7 +2089,7 @@ namespace vk {
         return static_cast<CompositeAlphaFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline CompositeAlphaFlags& operator |= (CompositeAlphaFlags& a, CompositeAlphaFlags& b) {
+    inline CompositeAlphaFlags& operator |= (CompositeAlphaFlags& a, CompositeAlphaFlags b) {
         a = static_cast<CompositeAlphaFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2123,7 +2123,7 @@ namespace vk {
         return static_cast<DisplayPlaneAlphaFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline DisplayPlaneAlphaFlags& operator |= (DisplayPlaneAlphaFlags& a, DisplayPlaneAlphaFlags& b) {
+    inline DisplayPlaneAlphaFlags& operator |= (DisplayPlaneAlphaFlags& a, DisplayPlaneAlphaFlags b) {
         a = static_cast<DisplayPlaneAlphaFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2171,7 +2171,7 @@ namespace vk {
         return static_cast<SurfaceTransformFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SurfaceTransformFlags& operator |= (SurfaceTransformFlags& a, SurfaceTransformFlags& b) {
+    inline SurfaceTransformFlags& operator |= (SurfaceTransformFlags& a, SurfaceTransformFlags b) {
         a = static_cast<SurfaceTransformFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2206,7 +2206,7 @@ namespace vk {
         return static_cast<DebugReportFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline DebugReportFlags& operator |= (DebugReportFlags& a, DebugReportFlags& b) {
+    inline DebugReportFlags& operator |= (DebugReportFlags& a, DebugReportFlags b) {
         a = static_cast<DebugReportFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2282,7 +2282,7 @@ namespace vk {
         return static_cast<ExternalMemoryHandleTypeFlagsNV>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalMemoryHandleTypeFlagsNV& operator |= (ExternalMemoryHandleTypeFlagsNV& a, ExternalMemoryHandleTypeFlagsNV& b) {
+    inline ExternalMemoryHandleTypeFlagsNV& operator |= (ExternalMemoryHandleTypeFlagsNV& a, ExternalMemoryHandleTypeFlagsNV b) {
         a = static_cast<ExternalMemoryHandleTypeFlagsNV>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2315,7 +2315,7 @@ namespace vk {
         return static_cast<ExternalMemoryFeatureFlagsNV>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalMemoryFeatureFlagsNV& operator |= (ExternalMemoryFeatureFlagsNV& a, ExternalMemoryFeatureFlagsNV& b) {
+    inline ExternalMemoryFeatureFlagsNV& operator |= (ExternalMemoryFeatureFlagsNV& a, ExternalMemoryFeatureFlagsNV b) {
         a = static_cast<ExternalMemoryFeatureFlagsNV>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2357,7 +2357,7 @@ namespace vk {
         return static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalMemoryHandleTypeFlagsKHR& operator |= (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR& b) {
+    inline ExternalMemoryHandleTypeFlagsKHR& operator |= (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR b) {
         a = static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2390,7 +2390,7 @@ namespace vk {
         return static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalMemoryFeatureFlagsKHR& operator |= (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
+    inline ExternalMemoryFeatureFlagsKHR& operator |= (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR b) {
         a = static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2425,7 +2425,7 @@ namespace vk {
         return static_cast<ExternalSemaphoreHandleTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalSemaphoreHandleTypeFlags& operator |= (ExternalSemaphoreHandleTypeFlags& a, ExternalSemaphoreHandleTypeFlags& b) {
+    inline ExternalSemaphoreHandleTypeFlags& operator |= (ExternalSemaphoreHandleTypeFlags& a, ExternalSemaphoreHandleTypeFlags b) {
         a = static_cast<ExternalSemaphoreHandleTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2457,7 +2457,7 @@ namespace vk {
         return static_cast<ExternalSemaphoreFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalSemaphoreFeatureFlags& operator |= (ExternalSemaphoreFeatureFlags& a, ExternalSemaphoreFeatureFlags& b) {
+    inline ExternalSemaphoreFeatureFlags& operator |= (ExternalSemaphoreFeatureFlags& a, ExternalSemaphoreFeatureFlags b) {
         a = static_cast<ExternalSemaphoreFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2488,7 +2488,7 @@ namespace vk {
         return static_cast<SemaphoreImportFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SemaphoreImportFlags& operator |= (SemaphoreImportFlags& a, SemaphoreImportFlags& b) {
+    inline SemaphoreImportFlags& operator |= (SemaphoreImportFlags& a, SemaphoreImportFlags b) {
         a = static_cast<SemaphoreImportFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2522,7 +2522,7 @@ namespace vk {
         return static_cast<ExternalFenceHandleTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalFenceHandleTypeFlags& operator |= (ExternalFenceHandleTypeFlags& a, ExternalFenceHandleTypeFlags& b) {
+    inline ExternalFenceHandleTypeFlags& operator |= (ExternalFenceHandleTypeFlags& a, ExternalFenceHandleTypeFlags b) {
         a = static_cast<ExternalFenceHandleTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2554,7 +2554,7 @@ namespace vk {
         return static_cast<ExternalFenceFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalFenceFeatureFlags& operator |= (ExternalFenceFeatureFlags& a, ExternalFenceFeatureFlags& b) {
+    inline ExternalFenceFeatureFlags& operator |= (ExternalFenceFeatureFlags& a, ExternalFenceFeatureFlags b) {
         a = static_cast<ExternalFenceFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2585,7 +2585,7 @@ namespace vk {
         return static_cast<FenceImportFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline FenceImportFlags& operator |= (FenceImportFlags& a, FenceImportFlags& b) {
+    inline FenceImportFlags& operator |= (FenceImportFlags& a, FenceImportFlags b) {
         a = static_cast<FenceImportFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2616,7 +2616,7 @@ namespace vk {
         return static_cast<SurfaceCounterFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SurfaceCounterFlags& operator |= (SurfaceCounterFlags& a, SurfaceCounterFlags& b) {
+    inline SurfaceCounterFlags& operator |= (SurfaceCounterFlags& a, SurfaceCounterFlags b) {
         a = static_cast<SurfaceCounterFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2664,7 +2664,7 @@ namespace vk {
         return static_cast<PeerMemoryFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline PeerMemoryFeatureFlags& operator |= (PeerMemoryFeatureFlags& a, PeerMemoryFeatureFlags& b) {
+    inline PeerMemoryFeatureFlags& operator |= (PeerMemoryFeatureFlags& a, PeerMemoryFeatureFlags b) {
         a = static_cast<PeerMemoryFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2695,7 +2695,7 @@ namespace vk {
         return static_cast<MemoryAllocateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline MemoryAllocateFlags& operator |= (MemoryAllocateFlags& a, MemoryAllocateFlags& b) {
+    inline MemoryAllocateFlags& operator |= (MemoryAllocateFlags& a, MemoryAllocateFlags b) {
         a = static_cast<MemoryAllocateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2729,7 +2729,7 @@ namespace vk {
         return static_cast<DeviceGroupPresentModeFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline DeviceGroupPresentModeFlags& operator |= (DeviceGroupPresentModeFlags& a, DeviceGroupPresentModeFlags& b) {
+    inline DeviceGroupPresentModeFlags& operator |= (DeviceGroupPresentModeFlags& a, DeviceGroupPresentModeFlags b) {
         a = static_cast<DeviceGroupPresentModeFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
@@ -2759,7 +2759,7 @@ namespace vk {
         return static_cast<SwapchainCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline SwapchainCreateFlags& operator |= (SwapchainCreateFlags& a, SwapchainCreateFlags& b) {
+    inline SwapchainCreateFlags& operator |= (SwapchainCreateFlags& a, SwapchainCreateFlags b) {
         a = static_cast<SwapchainCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }

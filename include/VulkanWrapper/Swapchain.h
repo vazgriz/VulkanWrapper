@@ -58,7 +58,7 @@ namespace vk {
         CompositeAlphaFlags compositeAlpha() const { return m_compositeAlpha; }
         PresentMode presentMode() const { return m_presentMode; }
         bool clipped() const { return m_clipped; }
-        const std::vector<Image>& images() const { return m_images; }
+        std::vector<Image>& images() { return m_images; }
 
         uint32_t acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const;
 

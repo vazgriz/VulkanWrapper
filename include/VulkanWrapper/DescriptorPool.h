@@ -44,10 +44,16 @@ namespace vk {
         VkDescriptorPool handle() const { return m_descriptorPool; }
         Device& device() const { return m_device; }
 
+        DescriptorPoolCreateFlags flags() const { return m_info.flags; }
+        uint32_t maxSets() const { return m_info.maxSets; }
+        const std::vector<DescriptorPoolSize>& poolSizes() const { return m_info.poolSizes; }
+
         std::vector<vk::DescriptorSet> allocate(const DescriptorSetAllocateInfo& info);
 
     private:
         VkDescriptorPool m_descriptorPool;
         Device& m_device;
+
+        DescriptorPoolCreateInfo m_info;
     };
 }

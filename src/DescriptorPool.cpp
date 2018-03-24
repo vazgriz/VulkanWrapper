@@ -40,13 +40,15 @@ void vk::DescriptorPoolCreateInfo::marshal() const {
 }
 
 vk::DescriptorPool::DescriptorPool(Device& device, const DescriptorPoolCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateDescriptorPool(device.handle(), info.getInfo(), device.instance().callbacks(), &m_descriptorPool));
+    VKW_CHECK(vkCreateDescriptorPool(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorPool));
 }
 
 vk::DescriptorPool::DescriptorPool(vk::DescriptorPool&& other) : m_device(other.device()) {
     m_descriptorPool = other.m_descriptorPool;
+    m_info = std::move(other.m_info);
     other.m_descriptorPool = VK_NULL_HANDLE;
 }
 
@@ -55,16 +57,27 @@ vk::DescriptorPool::~DescriptorPool() {
 }
 
 std::vector<vk::DescriptorSet> vk::DescriptorPool::allocate(const vk::DescriptorSetAllocateInfo& info) {
-    info.marshal();
-    std::vector<VkDescriptorSet> sets;
-    sets.resize(info.setLayouts.size());
+    auto l_info = info;
+    std::vector<vk::DescriptorSetLayoutCreateInfo> layoutInfos;
+    layoutInfos.reserve(l_info.setLayouts.size());
 
-    VKW_CHECK(vkAllocateDescriptorSets(m_device.handle(), info.getInfo(), sets.data()));
+    for (vk::DescriptorSetLayout& layout : l_info.setLayouts) {
+        vk::DescriptorSetLayoutCreateInfo layoutInfo = {};
+        layoutInfo.flags = layout.flags();
+        layoutInfo.bindings = layout.bindings();
+        layoutInfos.emplace_back(layoutInfo);
+    }
+
+    l_info.marshal();
+    std::vector<VkDescriptorSet> sets;
+    sets.resize(l_info.setLayouts.size());
+
+    VKW_CHECK(vkAllocateDescriptorSets(m_device.handle(), l_info.getInfo(), sets.data()));
 
     std::vector<vk::DescriptorSet> result;
     result.reserve(sets.size());
     for (auto set : sets) {
-        result.emplace_back(m_device, *this, set);
+        result.emplace_back(m_device, *this, set, layoutInfos);
     }
 
     return result;

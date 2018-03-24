@@ -19,9 +19,9 @@ void vk::PipelineShaderStageCreateInfo::marshal() const {
     m_info.pSpecializationInfo = specializationInfo;
 }
 
-vk::Pipeline::Pipeline(Device& device) : m_device(device) { }
+vk::Pipeline::Pipeline(Device& device, const PipelineLayout& pipelineLayout) : m_device(device), m_layoutInfo(pipelineLayout) { }
 
-vk::Pipeline::Pipeline(vk::Pipeline&& other) : m_device(other.device()) {
+vk::Pipeline::Pipeline(vk::Pipeline&& other) : m_device(other.device()), m_layoutInfo(std::move(other.m_layoutInfo)) {
     m_pipeline = other.m_pipeline;
     other.m_pipeline = VK_NULL_HANDLE;
 }

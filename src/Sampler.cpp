@@ -30,13 +30,15 @@ void vk::SamplerCreateInfo::marshal() const {
 }
 
 vk::Sampler::Sampler(Device& device, const vk::SamplerCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateSampler(device.handle(), info.getInfo(), device.instance().callbacks(), &m_sampler));
+    VKW_CHECK(vkCreateSampler(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sampler));
 }
 
 vk::Sampler::Sampler(Sampler&& other) :m_device(other.m_device) {
     m_sampler = other.m_sampler;
+    m_info = std::move(other.m_info);
     other.m_sampler = VK_NULL_HANDLE;
 }
 

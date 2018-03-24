@@ -10,6 +10,7 @@ namespace vk {
     class RenderPass;
     class Framebuffer;
     class CommandPool;
+    class CommandBufferAllocateInfo;
     class Pipeline;
     class Buffer;
     class Image;
@@ -83,7 +84,7 @@ namespace vk {
 
     class CommandBuffer {
     public:
-        CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer);
+        CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer, const CommandBufferAllocateInfo& info);
         CommandBuffer(const CommandBuffer& other) = delete;
         CommandBuffer& operator = (const CommandBuffer& other) = delete;
         CommandBuffer(CommandBuffer&& other);
@@ -126,5 +127,7 @@ namespace vk {
         VkCommandBuffer m_commandBuffer;
         CommandPool& m_commandPool;
         bool m_destructorEnabled;
+
+        CommandBufferLevel m_level;
     };
 }

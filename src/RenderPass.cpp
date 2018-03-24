@@ -41,13 +41,15 @@ void vk::RenderPassCreateInfo::marshal() const {
 }
 
 vk::RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateRenderPass(device.handle(), info.getInfo(), device.instance().callbacks(), &m_renderPass));
+    VKW_CHECK(vkCreateRenderPass(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_renderPass));
 }
 
 vk::RenderPass::RenderPass(vk::RenderPass&& other) : m_device(other.device()) {
     m_renderPass = other.m_renderPass;
+    m_info = std::move(other.m_info);
     other.m_renderPass = VK_NULL_HANDLE;
 }
 

@@ -12,7 +12,7 @@ namespace vk {
 
     class ImageViewCreateInfo : public Info<VkImageViewCreateInfo> {
     public:
-        const Image* image;
+        Image* image;
         ImageViewType viewType;
         Format format;
         ComponentMapping components;
@@ -31,11 +31,17 @@ namespace vk {
 
         VkImageView handle() const { return m_imageView; }
         Device& device() const { return m_device; }
-        const Image& image() const { return m_image; }
+
+        Image& image() const { return *m_info.image; }
+        ImageViewType imageType() const { return m_info.viewType; }
+        Format format() const { return m_info.format; }
+        ComponentMapping components() const { return m_info.components; }
+        ImageSubresourceRange subresourceRange() const { return m_info.subresourceRange; }
 
     private:
         VkImageView m_imageView;
         Device& m_device;
-        const Image& m_image;
+
+        ImageViewCreateInfo m_info;
     };
 }

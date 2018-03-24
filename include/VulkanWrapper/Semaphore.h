@@ -27,5 +27,7 @@ namespace vk {
     private:
         VkSemaphore m_sempahore;
         Device& m_device;
+
+        SemaphoreCreateInfo m_info;
     };
 }

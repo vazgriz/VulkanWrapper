@@ -31,16 +31,15 @@ void vk::CommandPoolCreateInfo::marshal() const {
 }
 
 vk::CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateCommandPool(m_device.handle(), info.getInfo(), m_device.instance().callbacks(), &m_commandPool));
-
-    m_queueFamilyIndex = info.queueFamilyIndex;
+    VKW_CHECK(vkCreateCommandPool(m_device.handle(), m_info.getInfo(), m_device.instance().callbacks(), &m_commandPool));
 }
 
 vk::CommandPool::CommandPool(vk::CommandPool&& other) : m_device(other.device()) {
     m_commandPool = other.m_commandPool;
-    m_queueFamilyIndex = other.m_queueFamilyIndex;
+    m_info = std::move(other.m_info);
     other.m_commandPool = VK_NULL_HANDLE;
 }
 
@@ -57,7 +56,7 @@ std::vector<vk::CommandBuffer> vk::CommandPool::allocate(const vk::CommandBuffer
     std::vector<vk::CommandBuffer> result;
     result.reserve(info.commandBufferCount);
     for (auto commandBuffer : commandBuffers) {
-        result.emplace_back(*info.commandPool, commandBuffer);
+        result.emplace_back(*info.commandPool, commandBuffer, info);
     }
 
     return result;

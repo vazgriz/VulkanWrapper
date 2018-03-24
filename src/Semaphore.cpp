@@ -15,13 +15,15 @@ void vk::SemaphoreCreateInfo::marshal() const {
 }
 
 vk::Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateSemaphore(device.handle(), info.getInfo(), device.instance().callbacks(), &m_sempahore));
+    VKW_CHECK(vkCreateSemaphore(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sempahore));
 }
 
 vk::Semaphore::Semaphore(vk::Semaphore&& other) : m_device(other.device()) {
     m_sempahore = other.m_sempahore;
+    m_info = std::move(other.m_info);
     other.m_sempahore = VK_NULL_HANDLE;
 }
 

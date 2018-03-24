@@ -76,8 +76,15 @@ namespace vk {
         VkRenderPass handle() const { return m_renderPass; }
         Device& device() const { return m_device; }
 
+        RenderPassCreateFlags flags() const { return m_info.flags; }
+        const std::vector<AttachmentDescription> attachments() const { return m_info.attachments; }
+        const std::vector<SubpassDescription> subpasses() const { return m_info.subpasses; }
+        const std::vector<SubpassDependency> dependencies() const { return m_info.dependencies; }
+
     private:
         VkRenderPass m_renderPass;
         Device& m_device;
+
+        RenderPassCreateInfo m_info;
     };
 }

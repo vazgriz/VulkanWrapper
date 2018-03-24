@@ -15,9 +15,10 @@ void vk::FenceCreateInfo::marshal() const {
 }
 
 vk::Fence::Fence(Device& device, const FenceCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateFence(m_device.handle(), info.getInfo(), m_device.instance().callbacks(), &m_fence));
+    VKW_CHECK(vkCreateFence(m_device.handle(), m_info.getInfo(), m_device.instance().callbacks(), &m_fence));
 }
 
 vk::Fence::~Fence() {
@@ -26,6 +27,7 @@ vk::Fence::~Fence() {
 
 vk::Fence::Fence(Fence&& other) : m_device(other.device()) {
     m_fence = other.m_fence;
+    m_info = std::move(other.m_info);
     other.m_fence = VK_NULL_HANDLE;
 }
 

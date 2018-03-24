@@ -20,9 +20,10 @@ void vk::BufferCreateInfo::marshal() const {
 }
 
 vk::Buffer::Buffer(Device& device, const BufferCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateBuffer(device.handle(), info.getInfo(), device.instance().callbacks(), &m_buffer));
+    VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_buffer));
 
     getRequirements();
 }
@@ -30,6 +31,7 @@ vk::Buffer::Buffer(Device& device, const BufferCreateInfo& info) : m_device(devi
 vk::Buffer::Buffer(vk::Buffer&& other) : m_device(other.device()) {
     m_buffer = other.m_buffer;
     m_requirements = other.m_requirements;
+    m_info = std::move(other.m_info);
     other.m_buffer = VK_NULL_HANDLE;
 }
 

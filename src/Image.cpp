@@ -28,15 +28,17 @@ void vk::ImageCreateInfo::marshal() const {
 }
 
 vk::Image::Image(Device& device, const ImageCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateImage(device.handle(), info.getInfo(), device.instance().callbacks(), &m_image));
+    VKW_CHECK(vkCreateImage(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_image));
 
     m_destructorEnabled = true;
     getRequirements();
 }
 
-vk::Image::Image(Device& device, VkImage image, bool enableDestructor) : m_device(device) {
+vk::Image::Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor) : m_device(device) {
+    m_info = info;
     m_image = image;
     m_destructorEnabled = enableDestructor;
 }

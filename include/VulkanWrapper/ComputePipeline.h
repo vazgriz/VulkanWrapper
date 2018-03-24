@@ -9,7 +9,6 @@
 
 namespace vk {
     class Device;
-    class PipelineLayout;
 
     class ComputePipelineCreateInfo : public Info<VkComputePipelineCreateInfo> {
     public:
@@ -26,7 +25,12 @@ namespace vk {
         ComputePipeline(Device& device, const ComputePipelineCreateInfo& info);
         ComputePipeline(const ComputePipeline& other) = delete;
         ComputePipeline& operator = (const ComputePipeline& other) = delete;
-        ComputePipeline(ComputePipeline&& other);
+        ComputePipeline(ComputePipeline&& other) = default;
         //no destructor, handled by vk::Pipeline
+
+        PipelineCreateFlags flags() const { return m_info.flags; }
+
+    private:
+        ComputePipelineCreateInfo m_info;
     };
 }

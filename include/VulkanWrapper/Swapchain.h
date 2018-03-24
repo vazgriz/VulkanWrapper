@@ -45,19 +45,19 @@ namespace vk {
 
         VkSwapchainKHR handle() const { return m_swapchain; }
         Device& device() const { return m_device; }
-        Surface& surface() const { return m_surface; }
+        Surface& surface() const { return *m_info.surface; }
 
-        Format format() const { return m_format; }
-        ColorSpace colorSpace() const { return m_colorSpace; }
-        Extent2D extent() const { return m_extent; }
-        uint32_t arrayLayers() const { return m_layers; }
-        ImageUsageFlags usage() const { return m_usage; }
-        SharingMode sharingMode() const { return m_sharingMode; }
-        const std::vector<uint32_t>& queueFamilyIndices() const { return m_queueFamilyIndices; }
-        SurfaceTransformFlags surfaceTransform() const { return m_preTransform; }
-        CompositeAlphaFlags compositeAlpha() const { return m_compositeAlpha; }
-        PresentMode presentMode() const { return m_presentMode; }
-        bool clipped() const { return m_clipped; }
+        Format format() const { return m_info.imageFormat; }
+        ColorSpace colorSpace() const { return m_info.imageColorSpace; }
+        Extent2D extent() const { return m_info.imageExtent; }
+        uint32_t arrayLayers() const { return m_info.imageArrayLayers; }
+        ImageUsageFlags usage() const { return m_info.imageUsage; }
+        SharingMode sharingMode() const { return m_info.imageSharingMode; }
+        const std::vector<uint32_t>& queueFamilyIndices() const { return m_info.queueFamilyIndices; }
+        SurfaceTransformFlags surfaceTransform() const { return m_info.preTransform; }
+        CompositeAlphaFlags compositeAlpha() const { return m_info.compositeAlpha; }
+        PresentMode presentMode() const { return m_info.presentMode; }
+        bool clipped() const { return m_info.clipped; }
         std::vector<Image>& images() { return m_images; }
 
         uint32_t acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const;
@@ -67,18 +67,8 @@ namespace vk {
 
         VkSwapchainKHR m_swapchain;
         Device& m_device;
-        Surface& m_surface;
-        Format m_format;
-        ColorSpace m_colorSpace;
-        Extent2D m_extent;
-        uint32_t m_layers;
-        ImageUsageFlags m_usage;
-        SharingMode m_sharingMode;
-        std::vector<uint32_t> m_queueFamilyIndices;
-        SurfaceTransformFlags m_preTransform;
-        CompositeAlphaFlags m_compositeAlpha;
-        PresentMode m_presentMode;
-        bool m_clipped;
+
+        SwapchainCreateInfo m_info;
 
         std::vector<Image> m_images;
     };

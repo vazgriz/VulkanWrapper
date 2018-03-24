@@ -16,11 +16,11 @@ void vk::MemoryAllocateInfo::marshal() const {
 }
 
 vk::DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkAllocateMemory(device.handle(), info.getInfo(), device.instance().callbacks(), &m_deviceMemory));
+    VKW_CHECK(vkAllocateMemory(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_deviceMemory));
 
-    m_size = info.allocationSize;
     m_mapping = nullptr;
     m_mappingOffset = 0;
     m_mappingSize = 0;
@@ -28,8 +28,7 @@ vk::DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) :
 
 vk::DeviceMemory::DeviceMemory(DeviceMemory&& other) : m_device(other.device()) {
     m_deviceMemory = other.m_deviceMemory;
-    m_size = other.m_size;
-    m_typeIndex = other.m_typeIndex;
+    m_info = std::move(other.m_info);
     m_mapping = other.m_mapping;
     m_mappingOffset = other.m_mappingOffset;
     m_mappingSize = other.m_mappingSize;

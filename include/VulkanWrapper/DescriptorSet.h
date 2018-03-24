@@ -5,6 +5,7 @@
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
 #include "VulkanWrapper/structs.h"
+#include "VulkanWrapper/DescriptorSetLayout.h"
 
 namespace vk {
     class Device;
@@ -56,7 +57,7 @@ namespace vk {
         mutable std::vector<VkDescriptorBufferInfo> m_bufferInfo;
         mutable std::vector<VkBufferView> m_texelBufferView;
     };
-    
+
     class CopyDescriptorSet : public Info<VkCopyDescriptorSet> {
     public:
         const DescriptorSet* srcSet;
@@ -72,7 +73,7 @@ namespace vk {
 
     class DescriptorSet {
     public:
-        DescriptorSet(Device& device, vk::DescriptorPool& pool, VkDescriptorSet descriptorSet);
+        DescriptorSet(Device& device, vk::DescriptorPool& pool, VkDescriptorSet descriptorSet, std::vector<DescriptorSetLayoutCreateInfo> layoutInfos);
         DescriptorSet(const DescriptorSet& other) = delete;
         DescriptorSet& operator = (const DescriptorSet& other) = delete;
         DescriptorSet(DescriptorSet&& other);
@@ -84,12 +85,16 @@ namespace vk {
 
         void setDestructorEnabled(bool value) { m_destructorEnabled = value; }
 
+        std::vector<DescriptorSetLayoutCreateInfo> layoutInfos() const { return m_layoutInfos; }
+
         static void update(const Device& device, ArrayProxy<const WriteDescriptorSet> writes, ArrayProxy<const CopyDescriptorSet> copies);
 
     private:
         VkDescriptorSet m_descriptorSet;
         Device& m_device;
         DescriptorPool& m_pool;
+
         bool m_destructorEnabled;
+        std::vector<DescriptorSetLayoutCreateInfo> m_layoutInfos;
     };
 }

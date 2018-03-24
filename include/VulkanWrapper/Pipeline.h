@@ -5,6 +5,7 @@
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
 #include "VulkanWrapper/structs.h"
+#include "VulkanWrapper/PipelineLayout.h"
 
 namespace vk {
     class Device;
@@ -28,11 +29,14 @@ namespace vk {
         VkPipeline handle() const { return m_pipeline; }
         Device& device() const { return m_device; }
 
+        const PipelineLayoutInfo& layoutInfo() { return m_layoutInfo; }
+
     protected:
-        Pipeline(Device& device);
+        Pipeline(Device& device, const PipelineLayout& pipelineLayout);
         Pipeline(Pipeline&& other);
 
         VkPipeline m_pipeline;
         Device& m_device;
+        PipelineLayoutInfo m_layoutInfo;
     };
 }

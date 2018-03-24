@@ -26,8 +26,9 @@ void vk::ComputePipelineCreateInfo::marshal() const {
     m_info.basePipelineIndex = basePipelineIndex;
 }
 
-vk::ComputePipeline::ComputePipeline(Device& device, const ComputePipelineCreateInfo& info) : Pipeline(device) {
-    info.marshal();
+vk::ComputePipeline::ComputePipeline(Device& device, const ComputePipelineCreateInfo& info) : Pipeline(device, *info.layout) {
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateComputePipelines(device.handle(), VK_NULL_HANDLE, 1, info.getInfo(), device.instance().callbacks(), &m_pipeline));
+    VKW_CHECK(vkCreateComputePipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo(), device.instance().callbacks(), &m_pipeline));
 }

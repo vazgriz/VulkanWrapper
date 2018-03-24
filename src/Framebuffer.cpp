@@ -15,7 +15,7 @@ void vk::FramebufferCreateInfo::marshal() const {
 
     m_info.flags = 0;
     m_info.renderPass = renderPass->handle();
-    
+
     m_attachments.reserve(attachments.size());
     for (vk::ImageView& attachment : attachments) {
         m_attachments.push_back(attachment.handle());
@@ -29,13 +29,15 @@ void vk::FramebufferCreateInfo::marshal() const {
 }
 
 vk::Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateFramebuffer(device.handle(), info.getInfo(), device.instance().callbacks(), &m_framebuffer));
+    VKW_CHECK(vkCreateFramebuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_framebuffer));
 }
 
 vk::Framebuffer::Framebuffer(Framebuffer&& other) : m_device(other.device()) {
     m_framebuffer = other.m_framebuffer;
+    m_info = std::move(other.m_info);
     other.m_framebuffer = VK_NULL_HANDLE;
 }
 

@@ -28,8 +28,9 @@ namespace vk {
         VkDeviceMemory handle() const { return m_deviceMemory; }
         Device& device() const { return m_device; }
 
-        size_t size() const { return m_size; }
-        uint32_t typeIndex() const { return m_typeIndex; }
+        size_t size() const { return m_info.allocationSize; }
+        uint32_t typeIndex() const { return m_info.memoryTypeIndex; }
+        void* mapping() const { return m_mapping; }
         size_t mappingOffset() const { return m_mappingOffset; }
         size_t mappingSize() const { return m_mappingSize; }
 
@@ -39,8 +40,7 @@ namespace vk {
     private:
         VkDeviceMemory m_deviceMemory;
         Device& m_device;
-        size_t m_size;
-        uint32_t m_typeIndex;
+        MemoryAllocateInfo m_info;
         void* m_mapping;
         size_t m_mappingOffset;
         size_t m_mappingSize;

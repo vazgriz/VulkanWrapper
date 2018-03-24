@@ -194,7 +194,7 @@ void vk::GraphicsPipelineCreateInfo::marshal() const {
     m_info.pVertexInputState = vertexInputState->getInfo();
     m_info.pInputAssemblyState = inputAssemblyState->getInfo();
     m_info.pTessellationState = tessellationState != nullptr ? tessellationState->getInfo() : nullptr;
-    m_info.pViewportState = viewportState!= nullptr ? viewportState->getInfo() : nullptr;
+    m_info.pViewportState = viewportState != nullptr ? viewportState->getInfo() : nullptr;
     m_info.pRasterizationState = rasterizationState->getInfo();
     m_info.pMultisampleState = multisampleState != nullptr ? multisampleState->getInfo() : nullptr;
     m_info.pDepthStencilState = depthStencilState != nullptr ? depthStencilState->getInfo() : nullptr;
@@ -207,8 +207,9 @@ void vk::GraphicsPipelineCreateInfo::marshal() const {
     m_info.basePipelineIndex = basePipelineIndex;
 }
 
-vk::GraphicsPipeline::GraphicsPipeline(Device& device, const GraphicsPipelineCreateInfo& info) : Pipeline(device) {
-    info.marshal();
+vk::GraphicsPipeline::GraphicsPipeline(Device& device, const GraphicsPipelineCreateInfo& info) : Pipeline(device, *info.layout) {
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateGraphicsPipelines(device.handle(), VK_NULL_HANDLE, 1, info.getInfo(), device.instance().callbacks(), &m_pipeline));
+    VKW_CHECK(vkCreateGraphicsPipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo(), device.instance().callbacks(), &m_pipeline));
 }

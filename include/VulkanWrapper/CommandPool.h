@@ -12,7 +12,7 @@ namespace vk {
 
     class CommandBufferAllocateInfo : public Info<VkCommandBufferAllocateInfo> {
     public:
-        CommandPool* commandPool;
+        CommandPool * commandPool;
         CommandBufferLevel level;
         uint32_t commandBufferCount;
 
@@ -38,11 +38,15 @@ namespace vk {
         VkCommandPool handle() const { return m_commandPool; }
         Device& device() const { return m_device; }
 
+        CommandPoolCreateFlags flags() const { return m_info.flags; }
+        uint32_t queueFamilyIndex() const { return m_info.queueFamilyIndex; }
+
         static std::vector<CommandBuffer> allocate(const CommandBufferAllocateInfo& info);
 
     private:
         VkCommandPool m_commandPool;
         Device& m_device;
-        uint32_t m_queueFamilyIndex;
+
+        CommandPoolCreateInfo m_info;
     };
 }

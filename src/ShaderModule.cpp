@@ -17,6 +17,7 @@ void vk::ShaderModuleCreateInfo::marshal() const {
 }
 
 vk::ShaderModule::ShaderModule(vk::Device& device, const vk::ShaderModuleCreateInfo& info) : m_device(device) {
+    //don't copy to avoid expensive vector copy
     info.marshal();
 
     VKW_CHECK(vkCreateShaderModule(device.handle(), info.getInfo(), device.instance().callbacks(), &m_shaderModule));

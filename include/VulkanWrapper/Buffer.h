@@ -36,12 +36,19 @@ namespace vk {
 
         MemoryRequirements requirements() const { return m_requirements; }
 
+        BufferCreateFlags flags() const { return m_info.flags; }
+        size_t size() const { return m_info.size; }
+        BufferUsageFlags usage() const { return m_info.usage; }
+        SharingMode sharingMode() const { return m_info.sharingMode; }
+        const std::vector<uint32_t>& queueFamilyIndices() const { return m_info.queueFamilyIndices; }
+
     private:
         void getRequirements();
 
         VkBuffer m_buffer;
         Device& m_device;
 
+        BufferCreateInfo m_info;
         MemoryRequirements m_requirements;
     };
 }

@@ -37,13 +37,15 @@ void vk::DescriptorSetLayoutCreateInfo::marshal() const {
 }
 
 vk::DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayoutCreateInfo& info) : m_device(device) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
+    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
 }
 
 vk::DescriptorSetLayout::DescriptorSetLayout(vk::DescriptorSetLayout&& other) : m_device(other.device()) {
     m_descriptorSetLayout = other.m_descriptorSetLayout;
+    m_info = other.m_info;
     other.m_descriptorSetLayout = VK_NULL_HANDLE;
 }
 

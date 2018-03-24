@@ -54,17 +54,22 @@ void vk::DeviceCreateInfo::marshal() const {
 }
 
 vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) : m_instance(physicalDevice.instance()), m_physicalDevice(physicalDevice) {
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateDevice(physicalDevice.handle(), info.getInfo(), physicalDevice.instance().callbacks(), &m_device));
+    VKW_CHECK(vkCreateDevice(physicalDevice.handle(), m_info.getInfo(), physicalDevice.instance().callbacks(), &m_device));
 
-    m_extensions = info.enabledExtensionNames;
     getQueues(info);
+    if (m_info.enabledFeatures != nullptr) {
+        m_features = *m_info.enabledFeatures;
+    } else {
+        m_features = {};
+    }
 }
 
 vk::Device::Device(Device&& other) : m_instance(other.instance()), m_physicalDevice(other.physicalDevice()) {
     m_device = other.m_device;
-    m_extensions = std::move(other.m_extensions);
+    m_info = std::move(other.m_info);
     m_queueMap = std::move(other.m_queueMap);
     other.m_device = VK_NULL_HANDLE;
 }

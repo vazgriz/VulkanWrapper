@@ -38,39 +38,18 @@ void vk::SwapchainCreateInfo::marshal() const {
     }
 }
 
-vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_device(device), m_surface(*info.surface) {
-    info.marshal();
+vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_device(device) {
+    m_info = info;
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateSwapchainKHR(device.handle(), info.getInfo(), device.instance().callbacks(), &m_swapchain));
-
-    m_format = info.imageFormat;
-    m_colorSpace = info.imageColorSpace;
-    m_extent = info.imageExtent;
-    m_layers = info.imageArrayLayers;
-    m_usage = info.imageUsage;
-    m_sharingMode = info.imageSharingMode;
-    m_queueFamilyIndices = info.queueFamilyIndices;
-    m_preTransform = info.preTransform;
-    m_compositeAlpha = info.compositeAlpha;
-    m_presentMode = info.presentMode;
-    m_clipped = info.clipped;
+    VKW_CHECK(vkCreateSwapchainKHR(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_swapchain));
 
     getImages();
 }
 
-vk::Swapchain::Swapchain(vk::Swapchain&& other) : m_device(other.device()), m_surface(other.surface()) {
+vk::Swapchain::Swapchain(vk::Swapchain&& other) : m_device(other.device()) {
     m_swapchain = other.m_swapchain;
-    m_format = other.m_format;
-    m_colorSpace = other.m_colorSpace;
-    m_extent = other.m_extent;
-    m_layers = other.m_layers;
-    m_usage = other.m_usage;
-    m_sharingMode = other.m_sharingMode;
-    m_queueFamilyIndices = std::move(other.m_queueFamilyIndices);
-    m_preTransform = other.m_preTransform;
-    m_compositeAlpha = other.m_compositeAlpha;
-    m_presentMode = other.m_presentMode;
-    m_clipped = other.m_clipped;
+    m_info = std::move(other.m_info);
     m_images = std::move(other.m_images);
     other.m_swapchain = VK_NULL_HANDLE;
 }
@@ -93,9 +72,22 @@ void vk::Swapchain::getImages() {
     vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, nullptr);
     std::vector<VkImage> images(count);
     vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, images.data());
+    
+    vk::ImageCreateInfo info = {};
+    info.format = format();
+    info.extent = { extent().width, extent().height };
+    info.arrayLayers = arrayLayers();
+    info.usage = usage();
+    info.sharingMode = sharingMode();
+    info.queueFamilyIndices = queueFamilyIndices();
+    info.imageType = vk::ImageType::_2D;
+    info.mipLevels = 1;
+    info.samples = vk::SampleCountFlags::_1;
+    info.tiling = vk::ImageTiling::Optimal;
 
     m_images.reserve(images.size());
     for (auto image : images) {
-        m_images.emplace_back(m_device, image, false);
+
+        m_images.emplace_back(m_device, image, info, false);
     }
 }

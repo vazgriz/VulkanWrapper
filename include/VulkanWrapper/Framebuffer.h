@@ -20,10 +20,10 @@ namespace vk {
         uint32_t layers;
 
         void marshal() const;
-        
+
     private:
         mutable std::vector<VkImageView> m_attachments;
-    };   
+    };
 
     class Framebuffer {
     public:
@@ -36,8 +36,17 @@ namespace vk {
         VkFramebuffer handle() const { return m_framebuffer; }
         Device& device() const { return m_device; }
 
+        FramebufferCreateFlags flags() const { return m_info.flags; }
+        RenderPass& renderPass() const { return *m_info.renderPass; }
+        const std::vector<std::reference_wrapper<ImageView>> attachments() const { return m_info.attachments; }
+        uint32_t width() const { return m_info.width; }
+        uint32_t height() const { return m_info.height; }
+        uint32_t layers() const { return m_info.layers; }
+
     private:
         VkFramebuffer m_framebuffer;
         Device& m_device;
+
+        FramebufferCreateInfo m_info;
     };
 }

@@ -528,7 +528,7 @@ public:
         submitSingleUseCommandBuffer(commandBuffer);
     }
 
-    vk::ImageView createImageView(const vk::Image& image, vk::Format format) {
+    vk::ImageView createImageView(vk::Image& image, vk::Format format) {
         vk::ImageViewCreateInfo info = {};
         info.image = &image;
         info.viewType = vk::ImageViewType::_2D;

@@ -36,7 +36,7 @@ void vk::CommandBufferBeginInfo::marshal() const {
     }
 
     m_info.flags = static_cast<VkCommandBufferUsageFlags>(flags);
-    
+
     if (inheritanceInfo != nullptr) {
         m_info.pInheritanceInfo = inheritanceInfo->getInfo();
     } else {
@@ -110,14 +110,16 @@ void vk::ImageMemoryBarrier::marshal() const {
     m_info.subresourceRange = *reinterpret_cast<const VkImageSubresourceRange*>(&subresourceRange);
 }
 
-vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer) : m_commandPool(commandPool) {
+vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer, const CommandBufferAllocateInfo& info) : m_commandPool(commandPool) {
     m_commandBuffer = commandBuffer;
     m_destructorEnabled = false;
+    m_level = info.level;
 }
 
 vk::CommandBuffer::CommandBuffer(CommandBuffer&& other) : m_commandPool(other.pool()) {
     m_commandBuffer = other.m_commandBuffer;
     m_destructorEnabled = other.m_destructorEnabled;
+    m_level = other.m_level;
     other.m_commandBuffer = VK_NULL_HANDLE;
 }
 

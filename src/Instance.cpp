@@ -54,17 +54,16 @@ vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbac
         m_callbacksPtr = &this->m_callbacks;
     }
 
-    info.marshal();
+    m_info = info;
+    m_info.marshal();
 
-    vkCreateInstance(
-        info.getInfo(),
-        this->callbacks(),
-        &m_instance
-    );
+    vkCreateInstance(m_info.getInfo(), this->callbacks(), &m_instance);
 
     EnumeratePhysicalDevices();
-    m_layers = info.enabledLayerNames;
-    m_extensions = info.enabledExtensionNames;
+    if (m_info.applicationInfo != nullptr) {
+        m_appInfo = *m_info.applicationInfo;
+        m_info.applicationInfo = &m_appInfo;
+    }
 }
 
 vk::Instance::Instance(vk::Instance&& other) {
@@ -72,8 +71,11 @@ vk::Instance::Instance(vk::Instance&& other) {
     m_callbacks = other.m_callbacks;
     m_callbacksPtr = other.m_callbacksPtr;
     m_physicalDevices = std::move(other.m_physicalDevices);
-    m_layers = std::move(other.m_layers);
-    m_extensions = std::move(other.m_extensions);
+    m_info = std::move(other.m_info);
+    if (m_info.applicationInfo != nullptr) {
+        m_appInfo = std::move(other.m_appInfo);
+        m_info.applicationInfo = &m_appInfo;
+    }
     other.m_instance = VK_NULL_HANDLE;
 }
 

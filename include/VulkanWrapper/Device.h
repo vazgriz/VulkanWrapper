@@ -14,7 +14,7 @@ namespace vk {
 
     class DeviceQueueCreateInfo : public Info<VkDeviceQueueCreateInfo> {
     public:
-        VkDeviceQueueCreateFlags flags;
+        DeviceQueueCreateFlags flags;
         uint32_t queueFamilyIndex;
         uint32_t queueCount;
         std::vector<float> queuePriorities;

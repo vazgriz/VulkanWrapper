@@ -40,6 +40,8 @@ PhysicalDevice::PhysicalDevice(Instance& instance, VkPhysicalDevice physicalDevi
     getLayers();
     getExtensions();
     getMemoryProperties();
+
+    m_ref = std::make_unique<const PhysicalDevice*>(this);
 }
 
 void PhysicalDevice::getProperties() {

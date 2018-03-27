@@ -1,5 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
+#include <memory>
 #include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
@@ -44,6 +45,8 @@ namespace vk {
         ~Instance();
 
         VkInstance handle() const { return m_instance; }
+        Instance** ref() const { return m_ref.get(); }
+
         const VkAllocationCallbacks* callbacks() const { return m_callbacksPtr; }
         const std::vector<PhysicalDevice>& physicalDevices() const { return m_physicalDevices; }
         const std::vector<std::string>& layers() const { return m_info.enabledLayerNames; }
@@ -61,5 +64,7 @@ namespace vk {
 
         ApplicationInfo m_appInfo;
         InstanceCreateInfo m_info;
+
+        std::unique_ptr<Instance*> m_ref;
     };
 }

@@ -61,6 +61,8 @@ Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* 
 
     vkCreateInstance(m_info.getInfo(), this->callbacks(), &m_instance);
 
+    m_ref = std::make_unique<Instance*>(this);
+
     EnumeratePhysicalDevices();
     if (m_info.applicationInfo != nullptr) {
         m_appInfo = *m_info.applicationInfo;

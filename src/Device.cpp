@@ -55,11 +55,15 @@ void DeviceCreateInfo::marshal() const {
     }
 }
 
-Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) : m_instance(physicalDevice.instance()), m_physicalDevice(physicalDevice) {
+Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateDevice(physicalDevice.handle(), m_info.getInfo(), physicalDevice.instance().callbacks(), &m_device));
+    m_instance = physicalDevice.instance().handle();
+    m_instanceRef = physicalDevice.instance().ref();
+    m_physicalDevice = physicalDevice.handle();
+    m_physicalDeviceRef = physicalDevice.ref();
 
     getQueues(info);
 
@@ -72,7 +76,11 @@ Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& inf
     m_ref = std::make_unique<Device*>(this);
 }
 
-Device::Device(Device&& other) : m_instance(other.instance()), m_physicalDevice(other.physicalDevice()) {
+Device::Device(Device&& other) {
+    m_instance = other.m_instance;
+    m_instanceRef = other.m_instanceRef;
+    m_physicalDevice = other.m_physicalDevice;
+    m_physicalDeviceRef = other.m_physicalDeviceRef;
     m_device = other.m_device;
     m_info = std::move(other.m_info);
     m_queueMap = std::move(other.m_queueMap);
@@ -81,11 +89,11 @@ Device::Device(Device&& other) : m_instance(other.instance()), m_physicalDevice(
 }
 
 const std::vector<std::string>& Device::layers() const {
-    return m_instance.layers();
+    return instance().layers();
 }
 
 Device::~Device() {
-    vkDestroyDevice(m_device, m_instance.callbacks());
+    vkDestroyDevice(m_device, instance().callbacks());
 }
 
 const Queue& Device::getQueue(uint32_t familyIndex, uint32_t queueIndex) const {

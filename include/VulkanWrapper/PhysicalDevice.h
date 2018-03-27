@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include <vulkan/vulkan.h>
+#include <memory>
 #include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
@@ -65,6 +66,7 @@ namespace vk {
 
         VkPhysicalDevice handle() const { return m_physicalDevice; }
         Instance& instance() const { return m_instance; }
+        const PhysicalDevice** ref() const { return m_ref.get(); }
 
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
@@ -98,5 +100,7 @@ namespace vk {
         std::vector<LayerProperties> m_layers;
         std::unordered_map<std::string, std::vector<ExtensionProperties>> m_extensionMap;
         MemoryProperties m_memoryProperties;
+
+        std::unique_ptr<const PhysicalDevice*> m_ref;
     };
 }

@@ -39,6 +39,7 @@ namespace vk {
 
         VkImage handle() const { return m_image; }
         Device& device() const { return m_device; }
+
         ImageCreateFlags flags() const { return m_info.flags; }
         ImageType imageType() const { return m_info.imageType; }
         Format format() const { return m_info.format; }

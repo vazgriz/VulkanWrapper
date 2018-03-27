@@ -22,19 +22,23 @@ void ImageViewCreateInfo::marshal() const {
     m_info.subresourceRange = *reinterpret_cast<const VkImageSubresourceRange*>(&subresourceRange);
 }
 
-ImageView::ImageView(Device& device, const ImageViewCreateInfo& info) : m_device(device) {
+ImageView::ImageView(Device& device, const ImageViewCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateImageView(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_imageView));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 }
 
-ImageView::ImageView(ImageView&& other) : m_device(other.device()) {
+ImageView::ImageView(ImageView&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_imageView = other.m_imageView;
     m_info = std::move(other.m_info);
     other.m_imageView = VK_NULL_HANDLE;
 }
 
 ImageView::~ImageView() {
-    vkDestroyImageView(m_device.handle(), m_imageView, m_device.instance().callbacks());
+    vkDestroyImageView(m_device, m_imageView, device().instance().callbacks());
 }

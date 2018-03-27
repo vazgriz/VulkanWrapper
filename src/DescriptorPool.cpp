@@ -41,21 +41,25 @@ void DescriptorPoolCreateInfo::marshal() const {
     m_info.pPoolSizes = reinterpret_cast<const VkDescriptorPoolSize*>(poolSizes.data());
 }
 
-DescriptorPool::DescriptorPool(Device& device, const DescriptorPoolCreateInfo& info) : m_device(device) {
+DescriptorPool::DescriptorPool(Device& device, const DescriptorPoolCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateDescriptorPool(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorPool));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 }
 
-DescriptorPool::DescriptorPool(DescriptorPool&& other) : m_device(other.device()) {
+DescriptorPool::DescriptorPool(DescriptorPool&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_descriptorPool = other.m_descriptorPool;
     m_info = std::move(other.m_info);
     other.m_descriptorPool = VK_NULL_HANDLE;
 }
 
 DescriptorPool::~DescriptorPool() {
-    vkDestroyDescriptorPool(m_device.handle(), m_descriptorPool, m_device.instance().callbacks());
+    vkDestroyDescriptorPool(m_device, m_descriptorPool, device().instance().callbacks());
 }
 
 std::vector<DescriptorSet> DescriptorPool::allocate(const DescriptorSetAllocateInfo& info) {
@@ -74,12 +78,12 @@ std::vector<DescriptorSet> DescriptorPool::allocate(const DescriptorSetAllocateI
     std::vector<VkDescriptorSet> sets;
     sets.resize(l_info.setLayouts.size());
 
-    VKW_CHECK(vkAllocateDescriptorSets(m_device.handle(), l_info.getInfo(), sets.data()));
+    VKW_CHECK(vkAllocateDescriptorSets(m_device, l_info.getInfo(), sets.data()));
 
     std::vector<DescriptorSet> result;
     result.reserve(sets.size());
     for (auto set : sets) {
-        result.emplace_back(m_device, *this, set, layoutInfos);
+        result.emplace_back(device(), *this, set, layoutInfos);
     }
 
     return result;

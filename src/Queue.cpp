@@ -80,7 +80,9 @@ void PresentInfo::unmarshal() {
     }
 }
 
-Queue::Queue(Device& device, VkQueue queue, uint32_t index) : m_device(device) {
+Queue::Queue(Device& device, VkQueue queue, uint32_t index) {
+    m_device = device.handle();
+    m_deviceRef = device.ref();
     m_queue = queue;
     m_familyIndex = index;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <vulkan/vulkan.h>
 #include <unordered_map>
+#include <memory>
 #include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
@@ -49,6 +50,7 @@ namespace vk {
         const VkDevice& handle() const { return m_device; }
         Instance& instance() const { return m_instance; }
         const PhysicalDevice& physicalDevice() { return m_physicalDevice; }
+        Device** ref() const { return m_ref.get(); }
 
         DeviceCreateFlags flags() const { return m_info.flags; }
         const std::vector<DeviceQueueCreateInfo> queueCreateInfos() const { return m_info.queueCreateInfos; }
@@ -70,5 +72,6 @@ namespace vk {
 
         std::unordered_map<uint32_t, std::vector<Queue>> m_queueMap;
         PhysicalDeviceFeatures m_features;
+        std::unique_ptr<Device*> m_ref;
     };
 }

@@ -40,16 +40,20 @@ void SwapchainCreateInfo::marshal() const {
     }
 }
 
-Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_device(device) {
+Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateSwapchainKHR(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_swapchain));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 
     getImages();
 }
 
-Swapchain::Swapchain(Swapchain&& other) : m_device(other.device()) {
+Swapchain::Swapchain(Swapchain&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_swapchain = other.m_swapchain;
     m_info = std::move(other.m_info);
     m_images = std::move(other.m_images);
@@ -57,23 +61,23 @@ Swapchain::Swapchain(Swapchain&& other) : m_device(other.device()) {
 }
 
 Swapchain::~Swapchain() {
-    vkDestroySwapchainKHR(m_device.handle(), m_swapchain, m_device.instance().callbacks());
+    vkDestroySwapchainKHR(m_device, m_swapchain, device().instance().callbacks());
 }
 
 uint32_t Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const {
     uint32_t index;
     VkSemaphore vkSemaphore = semaphore == nullptr ? VK_NULL_HANDLE : semaphore->handle();
     VkFence vkFence = fence == nullptr ? VK_NULL_HANDLE : fence->handle();
-    VKW_CHECK(vkAcquireNextImageKHR(m_device.handle(), m_swapchain, timeout, vkSemaphore, vkFence, &index));
+    VKW_CHECK(vkAcquireNextImageKHR(m_device, m_swapchain, timeout, vkSemaphore, vkFence, &index));
 
     return index;
 }
 
 void Swapchain::getImages() {
     uint32_t count;
-    vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, nullptr);
+    vkGetSwapchainImagesKHR(m_device, m_swapchain, &count, nullptr);
     std::vector<VkImage> images(count);
-    vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, images.data());
+    vkGetSwapchainImagesKHR(m_device, m_swapchain, &count, images.data());
     
     ImageCreateInfo info = {};
     info.format = format();
@@ -90,6 +94,6 @@ void Swapchain::getImages() {
     m_images.reserve(images.size());
     for (auto image : images) {
 
-        m_images.emplace_back(m_device, image, info, false);
+        m_images.emplace_back(device(), image, info, false);
     }
 }

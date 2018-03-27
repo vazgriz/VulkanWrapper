@@ -34,7 +34,7 @@ namespace vk {
         ~Framebuffer();
 
         VkFramebuffer handle() const { return m_framebuffer; }
-        Device& device() const { return m_device; }
+        Device& device() const { return **m_deviceRef; }
 
         FramebufferCreateFlags flags() const { return m_info.flags; }
         RenderPass& renderPass() const { return *m_info.renderPass; }
@@ -45,7 +45,8 @@ namespace vk {
 
     private:
         VkFramebuffer m_framebuffer;
-        Device& m_device;
+        VkDevice m_device;
+        Device** m_deviceRef;
 
         FramebufferCreateInfo m_info;
     };

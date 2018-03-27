@@ -31,19 +31,23 @@ void SamplerCreateInfo::marshal() const {
     m_info.unnormalizedCoordinates = unnormalizedCoordinates;
 }
 
-Sampler::Sampler(Device& device, const SamplerCreateInfo& info) : m_device(device) {
+Sampler::Sampler(Device& device, const SamplerCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateSampler(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sampler));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 }
 
-Sampler::Sampler(Sampler&& other) :m_device(other.m_device) {
+Sampler::Sampler(Sampler&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_sampler = other.m_sampler;
     m_info = std::move(other.m_info);
     other.m_sampler = VK_NULL_HANDLE;
 }
 
 Sampler::~Sampler() {
-    vkDestroySampler(m_device.handle(), m_sampler, m_device.instance().callbacks());
+    vkDestroySampler(m_device, m_sampler, device().instance().callbacks());
 }

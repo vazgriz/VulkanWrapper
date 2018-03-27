@@ -21,13 +21,18 @@ void PipelineShaderStageCreateInfo::marshal() const {
     m_info.pSpecializationInfo = specializationInfo;
 }
 
-Pipeline::Pipeline(Device& device, const PipelineLayout& pipelineLayout) : m_device(device), m_layoutInfo(pipelineLayout) { }
+Pipeline::Pipeline(Device& device, const PipelineLayout& pipelineLayout) : m_layoutInfo(pipelineLayout) {
+    m_device = device.handle();
+    m_deviceRef = device.ref();
+}
 
-Pipeline::Pipeline(Pipeline&& other) : m_device(other.device()), m_layoutInfo(std::move(other.m_layoutInfo)) {
+Pipeline::Pipeline(Pipeline&& other) :  m_layoutInfo(std::move(other.m_layoutInfo)) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_pipeline = other.m_pipeline;
     other.m_pipeline = VK_NULL_HANDLE;
 }
 
 Pipeline::~Pipeline() {
-    vkDestroyPipeline(m_device.handle(), m_pipeline, m_device.instance().callbacks());
+    vkDestroyPipeline(m_device, m_pipeline, device().instance().callbacks());
 }

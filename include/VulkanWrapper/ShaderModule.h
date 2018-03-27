@@ -24,10 +24,11 @@ namespace vk {
         ~ShaderModule();
 
         VkShaderModule handle() const { return m_shaderModule; }
-        Device& device() const { return m_device; }
+        Device& device() const { return **m_deviceRef; }
 
     private:
         VkShaderModule m_shaderModule;
-        Device& m_device;
+        VkDevice m_device;
+        Device** m_deviceRef;
     };
 }

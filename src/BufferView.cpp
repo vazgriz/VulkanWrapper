@@ -21,19 +21,23 @@ void BufferViewCreateInfo::marshal() const {
     m_info.range = range;
 }
 
-BufferView::BufferView(Device& device, const BufferViewCreateInfo& info) : m_device(device) {
+BufferView::BufferView(Device& device, const BufferViewCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateBufferView(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_bufferView));
+    m_deviceRef = device.ref();
+    m_device = device.handle();
 }
 
-BufferView::BufferView(BufferView&& other) : m_device(other.device()) {
+BufferView::BufferView(BufferView&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_bufferView = other.m_bufferView;
     m_info = std::move(other.m_info);
     other.m_bufferView = VK_NULL_HANDLE;
 }
 
 BufferView::~BufferView() {
-    vkDestroyBufferView(m_device.handle(), m_bufferView, m_device.instance().callbacks());
+    vkDestroyBufferView(m_device, m_bufferView, device().instance().callbacks());
 }

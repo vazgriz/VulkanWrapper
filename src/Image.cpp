@@ -29,27 +29,33 @@ void ImageCreateInfo::marshal() const {
     m_info.initialLayout = static_cast<VkImageLayout>(initialLayout);
 }
 
-Image::Image(Device& device, const ImageCreateInfo& info) : m_device(device) {
+Image::Image(Device& device, const ImageCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateImage(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_image));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 
     m_destructorEnabled = true;
     getRequirements();
 }
 
-Image::Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor) : m_device(device) {
+Image::Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor) {
+    m_device = device.handle();
+    m_deviceRef = device.ref();
     m_info = info;
     m_image = image;
     m_destructorEnabled = enableDestructor;
 }
 
 Image::~Image() {
-    if (m_destructorEnabled) vkDestroyImage(m_device.handle(), m_image, m_device.instance().callbacks());
+    if (m_destructorEnabled) vkDestroyImage(m_device, m_image, device().instance().callbacks());
 }
 
-Image::Image(Image&& other) : m_device(other.device()) {
+Image::Image(Image&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_image = other.m_image;
     m_destructorEnabled = other.m_destructorEnabled;
     m_requirements = other.m_requirements;
@@ -57,9 +63,9 @@ Image::Image(Image&& other) : m_device(other.device()) {
 }
 
 void Image::bind(DeviceMemory& memory, size_t offset) {
-    vkBindImageMemory(m_device.handle(), m_image, memory.handle(), offset);
+    vkBindImageMemory(m_device, m_image, memory.handle(), offset);
 }
 
 void Image::getRequirements() {
-    vkGetImageMemoryRequirements(m_device.handle(), m_image, &m_requirements);
+    vkGetImageMemoryRequirements(m_device, m_image, &m_requirements);
 }

@@ -30,11 +30,13 @@ void PipelineLayoutCreateInfo::marshal() const {
     m_info.pPushConstantRanges = reinterpret_cast<const VkPushConstantRange*>(pushConstantRanges.data());
 }
 
-PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& info) : m_device(device) {
+PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreatePipelineLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_pipelineLayout));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 
     m_layoutInfos.reserve(m_info.setLayouts.size());
     for (DescriptorSetLayout& layout : m_info.setLayouts) {
@@ -45,7 +47,9 @@ PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& i
     }
 }
 
-PipelineLayout::PipelineLayout(PipelineLayout&& other) : m_device(other.device()) {
+PipelineLayout::PipelineLayout(PipelineLayout&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_pipelineLayout = other.m_pipelineLayout;
     m_info = std::move(other.m_info);
     m_layoutInfos = std::move(other.m_layoutInfos);
@@ -53,5 +57,5 @@ PipelineLayout::PipelineLayout(PipelineLayout&& other) : m_device(other.device()
 }
 
 PipelineLayout::~PipelineLayout() {
-    vkDestroyPipelineLayout(m_device.handle(), m_pipelineLayout, m_device.instance().callbacks());
+    vkDestroyPipelineLayout(m_device, m_pipelineLayout, device().instance().callbacks());
 }

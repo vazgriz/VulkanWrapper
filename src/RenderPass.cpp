@@ -42,19 +42,23 @@ void RenderPassCreateInfo::marshal() const {
     m_info.pDependencies = reinterpret_cast<const VkSubpassDependency*>(dependencies.data());
 }
 
-RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) : m_device(device) {
+RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateRenderPass(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_renderPass));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 }
 
-RenderPass::RenderPass(RenderPass&& other) : m_device(other.device()) {
+RenderPass::RenderPass(RenderPass&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_renderPass = other.m_renderPass;
     m_info = std::move(other.m_info);
     other.m_renderPass = VK_NULL_HANDLE;
 }
 
 RenderPass::~RenderPass() {
-    vkDestroyRenderPass(m_device.handle(), m_renderPass, m_device.instance().callbacks());
+    vkDestroyRenderPass(m_device, m_renderPass, device().instance().callbacks());
 }

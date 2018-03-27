@@ -51,7 +51,7 @@ namespace vk {
         Queue(Queue&& other) = default;
 
         VkQueue handle() const { return m_queue; }
-        Device& device() const { return m_device; }
+        Device& device() const { return **m_deviceRef; }
 
         uint32_t familyIndex() const { return m_familyIndex; }
 
@@ -61,7 +61,8 @@ namespace vk {
 
     private:
         VkQueue m_queue;
-        Device& m_device;
+        VkDevice m_device;
+        Device** m_deviceRef;
         uint32_t m_familyIndex;
     };
 }

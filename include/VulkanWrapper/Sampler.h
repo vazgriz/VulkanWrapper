@@ -40,7 +40,7 @@ namespace vk {
         ~Sampler();
 
         VkSampler handle() const { return m_sampler; }
-        Device& device() const { return m_device; }
+        Device& device() const { return **m_deviceRef; }
 
         SamplerCreateFlags flags() const { return m_info.flags; }
         Filter magFilter() const { return m_info.magFilter; }
@@ -61,7 +61,8 @@ namespace vk {
 
     private:
         VkSampler m_sampler;
-        Device& m_device;
+        VkDevice m_device;
+        Device** m_deviceRef;
 
         SamplerCreateInfo m_info;
     };

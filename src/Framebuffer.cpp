@@ -30,19 +30,23 @@ void FramebufferCreateInfo::marshal() const {
     m_info.layers = layers;
 }
 
-Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) : m_device(device) {
+Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateFramebuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_framebuffer));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 }
 
-Framebuffer::Framebuffer(Framebuffer&& other) : m_device(other.device()) {
+Framebuffer::Framebuffer(Framebuffer&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_framebuffer = other.m_framebuffer;
     m_info = std::move(other.m_info);
     other.m_framebuffer = VK_NULL_HANDLE;
 }
 
 Framebuffer::~Framebuffer() {
-    vkDestroyFramebuffer(m_device.handle(), m_framebuffer, m_device.instance().callbacks());
+    vkDestroyFramebuffer(m_device, m_framebuffer, device().instance().callbacks());
 }

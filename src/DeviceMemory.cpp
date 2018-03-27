@@ -17,18 +17,22 @@ void MemoryAllocateInfo::marshal() const {
     m_info.memoryTypeIndex = memoryTypeIndex;
 }
 
-DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) : m_device(device) {
+DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkAllocateMemory(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_deviceMemory));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 
     m_mapping = nullptr;
     m_mappingOffset = 0;
     m_mappingSize = 0;
 }
 
-DeviceMemory::DeviceMemory(DeviceMemory&& other) : m_device(other.device()) {
+DeviceMemory::DeviceMemory(DeviceMemory&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_deviceMemory = other.m_deviceMemory;
     m_info = std::move(other.m_info);
     m_mapping = other.m_mapping;
@@ -38,18 +42,18 @@ DeviceMemory::DeviceMemory(DeviceMemory&& other) : m_device(other.device()) {
 }
 
 DeviceMemory::~DeviceMemory() {
-    vkFreeMemory(m_device.handle(), m_deviceMemory, m_device.instance().callbacks());
+    vkFreeMemory(m_device, m_deviceMemory, device().instance().callbacks());
 }
 
 void* DeviceMemory::map(size_t offset, size_t size) {
     m_mappingOffset = offset;
     m_mappingSize = size;
-    vkMapMemory(m_device.handle(), m_deviceMemory, offset, size, 0, &m_mapping);
+    vkMapMemory(m_device, m_deviceMemory, offset, size, 0, &m_mapping);
     return m_mapping;
 }
 
 void DeviceMemory::unmap() {
-    vkUnmapMemory(m_device.handle(), m_deviceMemory);
+    vkUnmapMemory(m_device, m_deviceMemory);
     m_mapping = nullptr;
     m_mappingOffset = 0;
     m_mappingSize = 0;

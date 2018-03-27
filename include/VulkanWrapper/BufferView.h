@@ -9,6 +9,7 @@
 namespace vk {
     class Buffer;
     class Device;
+    struct DeviceRef;
 
     class BufferViewCreateInfo : public Info<VkBufferViewCreateInfo> {
     public:
@@ -30,7 +31,7 @@ namespace vk {
         ~BufferView();
 
         VkBufferView handle() const { return m_bufferView; }
-        Device& device() const { return m_device; }
+        Device& device() const { return **m_deviceRef; }
 
         BufferViewCreateFlags flags() const { return m_info.flags; }
         Buffer& buffer() const { return *m_info.buffer; }
@@ -40,7 +41,8 @@ namespace vk {
 
     private:
         VkBufferView m_bufferView;
-        Device& m_device;
+        VkDevice m_device;
+        Device** m_deviceRef;
 
         BufferViewCreateInfo m_info;
     };

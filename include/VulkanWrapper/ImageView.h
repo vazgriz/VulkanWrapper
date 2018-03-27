@@ -30,7 +30,7 @@ namespace vk {
         ~ImageView();
 
         VkImageView handle() const { return m_imageView; }
-        Device& device() const { return m_device; }
+        Device& device() const { return **m_deviceRef; }
 
         Image& image() const { return *m_info.image; }
         ImageViewType imageType() const { return m_info.viewType; }
@@ -40,7 +40,8 @@ namespace vk {
 
     private:
         VkImageView m_imageView;
-        Device& m_device;
+        VkDevice m_device;
+        Device** m_deviceRef;
 
         ImageViewCreateInfo m_info;
     };

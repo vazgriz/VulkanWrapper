@@ -38,7 +38,7 @@ namespace vk {
         ~Image();
 
         VkImage handle() const { return m_image; }
-        Device& device() const { return m_device; }
+        Device& device() const { return **m_deviceRef; }
 
         ImageCreateFlags flags() const { return m_info.flags; }
         ImageType imageType() const { return m_info.imageType; }
@@ -60,7 +60,8 @@ namespace vk {
         void getRequirements();
 
         VkImage m_image;
-        Device& m_device;
+        VkDevice m_device;
+        Device** m_deviceRef;
         bool m_destructorEnabled;
 
         ImageCreateInfo m_info;

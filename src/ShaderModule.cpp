@@ -18,18 +18,22 @@ void ShaderModuleCreateInfo::marshal() const {
     m_info.pCode = reinterpret_cast<const uint32_t*>(code.data());
 }
 
-ShaderModule::ShaderModule(Device& device, const ShaderModuleCreateInfo& info) : m_device(device) {
+ShaderModule::ShaderModule(Device& device, const ShaderModuleCreateInfo& info) {
     //don't copy to avoid expensive vector copy
     info.marshal();
 
     VKW_CHECK(vkCreateShaderModule(device.handle(), info.getInfo(), device.instance().callbacks(), &m_shaderModule));
+    m_device = device.handle();
+    m_deviceRef = device.ref();
 }
 
-ShaderModule::ShaderModule(ShaderModule&& other) : m_device(other.device()) {
+ShaderModule::ShaderModule(ShaderModule&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_shaderModule = other.m_shaderModule;
     other.m_shaderModule = VK_NULL_HANDLE;
 }
 
 ShaderModule::~ShaderModule() {
-    vkDestroyShaderModule(m_device.handle(), m_shaderModule, m_device.instance().callbacks());
+    vkDestroyShaderModule(m_device, m_shaderModule, device().instance().callbacks());
 }

@@ -3,12 +3,14 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-vk::PipelineLayoutInfo::PipelineLayoutInfo(const vk::PipelineLayout& pipelineLayout) {
+using namespace vk;
+
+PipelineLayoutInfo::PipelineLayoutInfo(const PipelineLayout& pipelineLayout) {
     descriptorSetLayouts = pipelineLayout.layoutInfos();
     pushConstantRanges = pipelineLayout.pushConstantRanges();
 }
 
-void vk::PipelineLayoutCreateInfo::marshal() const {
+void PipelineLayoutCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -28,7 +30,7 @@ void vk::PipelineLayoutCreateInfo::marshal() const {
     m_info.pPushConstantRanges = reinterpret_cast<const VkPushConstantRange*>(pushConstantRanges.data());
 }
 
-vk::PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& info) : m_device(device) {
+PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
@@ -43,13 +45,13 @@ vk::PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInf
     }
 }
 
-vk::PipelineLayout::PipelineLayout(vk::PipelineLayout&& other) : m_device(other.device()) {
+PipelineLayout::PipelineLayout(PipelineLayout&& other) : m_device(other.device()) {
     m_pipelineLayout = other.m_pipelineLayout;
     m_info = std::move(other.m_info);
     m_layoutInfos = std::move(other.m_layoutInfos);
     other.m_pipelineLayout = VK_NULL_HANDLE;
 }
 
-vk::PipelineLayout::~PipelineLayout() {
+PipelineLayout::~PipelineLayout() {
     vkDestroyPipelineLayout(m_device.handle(), m_pipelineLayout, m_device.instance().callbacks());
 }

@@ -2,35 +2,37 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-vk::SurfaceCapabilities::SurfaceCapabilities(VkSurfaceCapabilitiesKHR capabilities) {
+using namespace vk;
+
+SurfaceCapabilities::SurfaceCapabilities(VkSurfaceCapabilitiesKHR capabilities) {
    minImageCount = capabilities.minImageCount;
    maxImageCount = capabilities.maxImageCount;
    currentExtent = capabilities.currentExtent;
    minImageExtent = capabilities.minImageExtent;
    maxImageExtent = capabilities.maxImageExtent;
    maxImageArrayLayers = capabilities.maxImageArrayLayers;
-   supportedTransforms = static_cast<vk::SurfaceTransformFlags>(capabilities.supportedTransforms);
-   currentTransform = static_cast<vk::SurfaceTransformFlags>(capabilities.currentTransform);
-   supportedCompositeAlpha = static_cast<vk::CompositeAlphaFlags>(capabilities.supportedCompositeAlpha);
-   supportedUsageFlags = static_cast<vk::ImageUsageFlags>(capabilities.supportedUsageFlags);
+   supportedTransforms = static_cast<SurfaceTransformFlags>(capabilities.supportedTransforms);
+   currentTransform = static_cast<SurfaceTransformFlags>(capabilities.currentTransform);
+   supportedCompositeAlpha = static_cast<CompositeAlphaFlags>(capabilities.supportedCompositeAlpha);
+   supportedUsageFlags = static_cast<ImageUsageFlags>(capabilities.supportedUsageFlags);
 }
 
-vk::Surface::Surface(const vk::Instance& instance, VkSurfaceKHR surface) : m_instance(instance) {
+Surface::Surface(const Instance& instance, VkSurfaceKHR surface) : m_instance(instance) {
     m_surface = surface;
 }
 
-vk::Surface::Surface(vk::Surface&& other) : m_instance(other.instance()) {
+Surface::Surface(Surface&& other) : m_instance(other.instance()) {
     m_surface = other.m_surface;
     other.m_surface = VK_NULL_HANDLE;
 }
 
-bool vk::Surface::supported(const vk::PhysicalDevice& physicalDevice, uint32_t queueFamilyIndex) const {
+bool Surface::supported(const PhysicalDevice& physicalDevice, uint32_t queueFamilyIndex) const {
     VkBool32 result;
     vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.handle(), queueFamilyIndex, m_surface, &result);
     return result == VK_TRUE;
 }
 
-std::vector<vk::SurfaceFormat> vk::Surface::getFormats(const vk::PhysicalDevice& physicalDevice) const {
+std::vector<SurfaceFormat> Surface::getFormats(const PhysicalDevice& physicalDevice) const {
     uint32_t count;
     vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice.handle(), m_surface, &count, nullptr);
     std::vector<VkSurfaceFormatKHR> formats(count);
@@ -39,13 +41,13 @@ std::vector<vk::SurfaceFormat> vk::Surface::getFormats(const vk::PhysicalDevice&
     std::vector<SurfaceFormat> result;
     result.reserve(count);
     for (auto& format : formats) {
-        result.push_back({ static_cast<vk::Format>(format.format), static_cast<vk::ColorSpace>(format.colorSpace) });
+        result.push_back({ static_cast<Format>(format.format), static_cast<ColorSpace>(format.colorSpace) });
     }
 
     return result;
 }
 
-std::vector<vk::PresentMode> vk::Surface::getPresentModes(const vk::PhysicalDevice& physicalDevice) const {
+std::vector<PresentMode> Surface::getPresentModes(const PhysicalDevice& physicalDevice) const {
     uint32_t count;
     vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice.handle(), m_surface, &count, nullptr);
     std::vector<VkPresentModeKHR> modes(count);
@@ -59,9 +61,9 @@ std::vector<vk::PresentMode> vk::Surface::getPresentModes(const vk::PhysicalDevi
     return result;
 }
 
-vk::SurfaceCapabilities vk::Surface::getCapabilities(const vk::PhysicalDevice& physicalDevice) const {
+SurfaceCapabilities Surface::getCapabilities(const PhysicalDevice& physicalDevice) const {
     VkSurfaceCapabilitiesKHR capabilities;
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice.handle(), m_surface, &capabilities);
 
-    return vk::SurfaceCapabilities(capabilities);
+    return SurfaceCapabilities(capabilities);
 }

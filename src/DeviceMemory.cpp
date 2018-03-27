@@ -2,7 +2,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::MemoryAllocateInfo::marshal() const {
+using namespace vk;
+
+void MemoryAllocateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -15,7 +17,7 @@ void vk::MemoryAllocateInfo::marshal() const {
     m_info.memoryTypeIndex = memoryTypeIndex;
 }
 
-vk::DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) : m_device(device) {
+DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
@@ -26,7 +28,7 @@ vk::DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) :
     m_mappingSize = 0;
 }
 
-vk::DeviceMemory::DeviceMemory(DeviceMemory&& other) : m_device(other.device()) {
+DeviceMemory::DeviceMemory(DeviceMemory&& other) : m_device(other.device()) {
     m_deviceMemory = other.m_deviceMemory;
     m_info = std::move(other.m_info);
     m_mapping = other.m_mapping;
@@ -35,18 +37,18 @@ vk::DeviceMemory::DeviceMemory(DeviceMemory&& other) : m_device(other.device()) 
     other.m_deviceMemory = VK_NULL_HANDLE;
 }
 
-vk::DeviceMemory::~DeviceMemory() {
+DeviceMemory::~DeviceMemory() {
     vkFreeMemory(m_device.handle(), m_deviceMemory, m_device.instance().callbacks());
 }
 
-void* vk::DeviceMemory::map(size_t offset, size_t size) {
+void* DeviceMemory::map(size_t offset, size_t size) {
     m_mappingOffset = offset;
     m_mappingSize = size;
     vkMapMemory(m_device.handle(), m_deviceMemory, offset, size, 0, &m_mapping);
     return m_mapping;
 }
 
-void vk::DeviceMemory::unmap() {
+void DeviceMemory::unmap() {
     vkUnmapMemory(m_device.handle(), m_deviceMemory);
     m_mapping = nullptr;
     m_mappingOffset = 0;

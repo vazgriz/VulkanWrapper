@@ -3,7 +3,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::ImageViewCreateInfo::marshal() const {
+using namespace vk;
+
+void ImageViewCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -20,19 +22,19 @@ void vk::ImageViewCreateInfo::marshal() const {
     m_info.subresourceRange = *reinterpret_cast<const VkImageSubresourceRange*>(&subresourceRange);
 }
 
-vk::ImageView::ImageView(Device& device, const vk::ImageViewCreateInfo& info) : m_device(device) {
+ImageView::ImageView(Device& device, const ImageViewCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateImageView(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_imageView));
 }
 
-vk::ImageView::ImageView(ImageView&& other) : m_device(other.device()) {
+ImageView::ImageView(ImageView&& other) : m_device(other.device()) {
     m_imageView = other.m_imageView;
     m_info = std::move(other.m_info);
     other.m_imageView = VK_NULL_HANDLE;
 }
 
-vk::ImageView::~ImageView() {
+ImageView::~ImageView() {
     vkDestroyImageView(m_device.handle(), m_imageView, m_device.instance().callbacks());
 }

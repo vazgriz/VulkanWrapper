@@ -4,7 +4,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::FramebufferCreateInfo::marshal() const {
+using namespace vk;
+
+void FramebufferCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -17,7 +19,7 @@ void vk::FramebufferCreateInfo::marshal() const {
     m_info.renderPass = renderPass->handle();
 
     m_attachments.reserve(attachments.size());
-    for (vk::ImageView& attachment : attachments) {
+    for (ImageView& attachment : attachments) {
         m_attachments.push_back(attachment.handle());
     }
 
@@ -28,19 +30,19 @@ void vk::FramebufferCreateInfo::marshal() const {
     m_info.layers = layers;
 }
 
-vk::Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) : m_device(device) {
+Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateFramebuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_framebuffer));
 }
 
-vk::Framebuffer::Framebuffer(Framebuffer&& other) : m_device(other.device()) {
+Framebuffer::Framebuffer(Framebuffer&& other) : m_device(other.device()) {
     m_framebuffer = other.m_framebuffer;
     m_info = std::move(other.m_info);
     other.m_framebuffer = VK_NULL_HANDLE;
 }
 
-vk::Framebuffer::~Framebuffer() {
+Framebuffer::~Framebuffer() {
     vkDestroyFramebuffer(m_device.handle(), m_framebuffer, m_device.instance().callbacks());
 }

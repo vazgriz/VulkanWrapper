@@ -9,7 +9,9 @@
 #include "VulkanWrapper/PipelineLayout.h"
 #include "VulkanWrapper/DescriptorSet.h"
 
-void vk::CommandBufferInheritanceInfo::marshal() const {
+using namespace vk;
+
+void CommandBufferInheritanceInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -26,7 +28,7 @@ void vk::CommandBufferInheritanceInfo::marshal() const {
     m_info.pipelineStatistics = static_cast<VkQueryPipelineStatisticFlags>(pipelineStatistics);
 }
 
-void vk::CommandBufferBeginInfo::marshal() const {
+void CommandBufferBeginInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -44,7 +46,7 @@ void vk::CommandBufferBeginInfo::marshal() const {
     }
 }
 
-void vk::RenderPassBeginInfo::marshal() const {
+void RenderPassBeginInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -60,7 +62,7 @@ void vk::RenderPassBeginInfo::marshal() const {
     m_info.pClearValues = clearValues.data();
 }
 
-void vk::MemoryBarrier::marshal() const {
+void MemoryBarrier::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_MEMORY_BARRIER;
     if (next != nullptr) {
         next->marshal();
@@ -73,7 +75,7 @@ void vk::MemoryBarrier::marshal() const {
     m_info.dstAccessMask = static_cast<VkAccessFlags>(dstAccessMask);
 }
 
-void vk::BufferMemoryBarrier::marshal() const {
+void BufferMemoryBarrier::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
     if (next != nullptr) {
         next->marshal();
@@ -91,7 +93,7 @@ void vk::BufferMemoryBarrier::marshal() const {
     m_info.size = size;
 }
 
-void vk::ImageMemoryBarrier::marshal() const {
+void ImageMemoryBarrier::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     if (next != nullptr) {
         next->marshal();
@@ -110,78 +112,78 @@ void vk::ImageMemoryBarrier::marshal() const {
     m_info.subresourceRange = *reinterpret_cast<const VkImageSubresourceRange*>(&subresourceRange);
 }
 
-vk::CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer, const CommandBufferAllocateInfo& info) : m_commandPool(commandPool) {
+CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer, const CommandBufferAllocateInfo& info) : m_commandPool(commandPool) {
     m_commandBuffer = commandBuffer;
     m_destructorEnabled = false;
     m_level = info.level;
 }
 
-vk::CommandBuffer::CommandBuffer(CommandBuffer&& other) : m_commandPool(other.pool()) {
+CommandBuffer::CommandBuffer(CommandBuffer&& other) : m_commandPool(other.pool()) {
     m_commandBuffer = other.m_commandBuffer;
     m_destructorEnabled = other.m_destructorEnabled;
     m_level = other.m_level;
     other.m_commandBuffer = VK_NULL_HANDLE;
 }
 
-vk::CommandBuffer::~CommandBuffer() {
+CommandBuffer::~CommandBuffer() {
     if (m_destructorEnabled) vkFreeCommandBuffers(m_commandPool.device().handle(), m_commandPool.handle(), 1, &m_commandBuffer);
 }
 
-void vk::CommandBuffer::begin(const vk::CommandBufferBeginInfo& info) const {
+void CommandBuffer::begin(const CommandBufferBeginInfo& info) const {
     info.marshal();
 
     VKW_CHECK(vkBeginCommandBuffer(m_commandBuffer, info.getInfo()));
 }
 
-void vk::CommandBuffer::end() const {
+void CommandBuffer::end() const {
     VKW_CHECK(vkEndCommandBuffer(m_commandBuffer));
 }
 
-void vk::CommandBuffer::beginRenderPass(const vk::RenderPassBeginInfo& info, SubpassContents contents) const {
+void CommandBuffer::beginRenderPass(const RenderPassBeginInfo& info, SubpassContents contents) const {
     info.marshal();
 
     vkCmdBeginRenderPass(m_commandBuffer, info.getInfo(), static_cast<VkSubpassContents>(contents));
 }
 
-void vk::CommandBuffer::endRenderPass() const {
+void CommandBuffer::endRenderPass() const {
     vkCmdEndRenderPass(m_commandBuffer);
 }
 
-void vk::CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const {
+void CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const {
     vkCmdDraw(m_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
-void vk::CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance) const {
+void CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance) const {
     vkCmdDrawIndexed(m_commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
 }
 
-void vk::CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<vk::Buffer>> buffers, ArrayProxy<const vk::DeviceSize> offsets) const {
+void CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<Buffer>> buffers, ArrayProxy<const DeviceSize> offsets) const {
     std::vector<VkBuffer> vkBuffers;
     vkBuffers.reserve(buffers.size());
-    for (const vk::Buffer& buffer : buffers) {
+    for (const Buffer& buffer : buffers) {
         vkBuffers.push_back(buffer.handle());
     }
     vkCmdBindVertexBuffers(m_commandBuffer, firstBinding, static_cast<uint32_t>(vkBuffers.size()), vkBuffers.data(), offsets.data());
 }
 
-void vk::CommandBuffer::bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const {
+void CommandBuffer::bindIndexBuffer(Buffer& buffer, DeviceSize offset, IndexType indexType) const {
     vkCmdBindIndexBuffer(m_commandBuffer, buffer.handle(), offset, static_cast<VkIndexType>(indexType));
 }
 
-void vk::CommandBuffer::bindPipeline(vk::PipelineBindPoint pipelineBindPoint, const vk::Pipeline& pipeline) const {
+void CommandBuffer::bindPipeline(PipelineBindPoint pipelineBindPoint, const Pipeline& pipeline) const {
     vkCmdBindPipeline(m_commandBuffer, static_cast<VkPipelineBindPoint>(pipelineBindPoint), pipeline.handle());
 }
 
-void vk::CommandBuffer::bindDescriptorSets(
-    vk::PipelineBindPoint pipelineBindPoint,
-    const vk::PipelineLayout& pipelineLayout,
+void CommandBuffer::bindDescriptorSets(
+    PipelineBindPoint pipelineBindPoint,
+    const PipelineLayout& pipelineLayout,
     uint32_t firstSet,
-    vk::ArrayProxy<const std::reference_wrapper<vk::DescriptorSet>> descriptorSets,
-    vk::ArrayProxy<const uint32_t> dynamicOffsets) const
+    ArrayProxy<const std::reference_wrapper<DescriptorSet>> descriptorSets,
+    ArrayProxy<const uint32_t> dynamicOffsets) const
 {
     std::vector<VkDescriptorSet> vkSets;
     vkSets.reserve(descriptorSets.size());
-    for (const vk::DescriptorSet& set : descriptorSets) {
+    for (const DescriptorSet& set : descriptorSets) {
         vkSets.push_back(set.handle());
     }
     vkCmdBindDescriptorSets(m_commandBuffer,
@@ -195,21 +197,21 @@ void vk::CommandBuffer::bindDescriptorSets(
     );
 }
 
-void vk::CommandBuffer::copyBuffer(vk::Buffer& src, vk::Buffer& dst, ArrayProxy<const vk::BufferCopy> copy) {
+void CommandBuffer::copyBuffer(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy) {
     vkCmdCopyBuffer(m_commandBuffer, src.handle(), dst.handle(), static_cast<uint32_t>(copy.size()), copy.data());
 }
 
-void vk::CommandBuffer::copyBufferToImage(vk::Buffer& src, vk::Image& dst, ImageLayout dstLayout, vk::ArrayProxy<const vk::BufferImageCopy> copies) {
+void CommandBuffer::copyBufferToImage(Buffer& src, Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies) {
     vkCmdCopyBufferToImage(m_commandBuffer, src.handle(), dst.handle(), static_cast<VkImageLayout>(dstLayout), copies.size(), reinterpret_cast<const VkBufferImageCopy*>(copies.data()));
 }
 
-void vk::CommandBuffer::pipelineBarrier(
-    vk::PipelineStageFlags srcStageMask,
-    vk::PipelineStageFlags dstStageMask,
-    vk::DependencyFlags dependencyFlags,
-    vk::ArrayProxy<const vk::MemoryBarrier> memoryBarriers,
-    vk::ArrayProxy<const vk::BufferMemoryBarrier> bufferMemoryBarriers,
-    vk::ArrayProxy<const vk::ImageMemoryBarrier> imageMemoryBarriers)
+void CommandBuffer::pipelineBarrier(
+    PipelineStageFlags srcStageMask,
+    PipelineStageFlags dstStageMask,
+    DependencyFlags dependencyFlags,
+    ArrayProxy<const MemoryBarrier> memoryBarriers,
+    ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
+    ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers)
 {
     std::vector<VkMemoryBarrier> vkMemoryBarriers;
     vkMemoryBarriers.reserve(memoryBarriers.size());

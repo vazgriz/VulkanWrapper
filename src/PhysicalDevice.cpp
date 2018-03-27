@@ -1,16 +1,18 @@
 #include "VulkanWrapper/PhysicalDevice.h"
 
-vk::MemoryType::MemoryType(VkMemoryType type) {
+using namespace vk;
+
+MemoryType::MemoryType(VkMemoryType type) {
     propertyFlags = static_cast<MemoryPropertyFlags>(type.propertyFlags);
     heapIndex = type.heapIndex;
 }
 
-vk::MemoryHeap::MemoryHeap(VkMemoryHeap heap) {
+MemoryHeap::MemoryHeap(VkMemoryHeap heap) {
     size = heap.size;
     flags = static_cast<MemoryHeapFlags>(heap.flags);
 }
 
-vk::PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDeviceProperties properties) {
+PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDeviceProperties properties) {
     apiVersion = properties.apiVersion;
     driverVersion = properties.driverVersion;
     vendorID = properties.vendorID;
@@ -22,14 +24,14 @@ vk::PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDevicePropertie
     sparseProperties = properties.sparseProperties;
 }
 
-vk::QueueFamilyProperties::QueueFamilyProperties(VkQueueFamilyProperties properties) {
-    queueFlags = static_cast<vk::QueueFlags>(properties.queueFlags);
+QueueFamilyProperties::QueueFamilyProperties(VkQueueFamilyProperties properties) {
+    queueFlags = static_cast<QueueFlags>(properties.queueFlags);
     queueCount = properties.queueCount;
     timestampValidBits = properties.timestampValidBits;
     minImageTransferGranularity = properties.minImageTransferGranularity;
 }
 
-vk::PhysicalDevice::PhysicalDevice(vk::Instance& instance, VkPhysicalDevice physicalDevice) : m_instance(instance) {
+PhysicalDevice::PhysicalDevice(Instance& instance, VkPhysicalDevice physicalDevice) : m_instance(instance) {
     m_physicalDevice = physicalDevice;
 
     getProperties();
@@ -40,18 +42,18 @@ vk::PhysicalDevice::PhysicalDevice(vk::Instance& instance, VkPhysicalDevice phys
     getMemoryProperties();
 }
 
-void vk::PhysicalDevice::getProperties() {
+void PhysicalDevice::getProperties() {
     VkPhysicalDeviceProperties properties;
     vkGetPhysicalDeviceProperties(m_physicalDevice, &properties);
 
     m_properties = PhysicalDeviceProperties(properties);
 }
 
-void vk::PhysicalDevice::getFeatures() {
+void PhysicalDevice::getFeatures() {
     vkGetPhysicalDeviceFeatures(m_physicalDevice, &m_features);
 }
 
-void vk::PhysicalDevice::getQueueFamilies() {
+void PhysicalDevice::getQueueFamilies() {
     uint32_t count;
     vkGetPhysicalDeviceQueueFamilyProperties(m_physicalDevice, &count, nullptr);
     std::vector<VkQueueFamilyProperties> properties(count);
@@ -63,7 +65,7 @@ void vk::PhysicalDevice::getQueueFamilies() {
     }
 }
 
-void vk::PhysicalDevice::getLayers() {
+void PhysicalDevice::getLayers() {
     uint32_t count;
     vkEnumerateDeviceLayerProperties(m_physicalDevice, &count, nullptr);
     std::vector<VkLayerProperties> properties(count);
@@ -75,7 +77,7 @@ void vk::PhysicalDevice::getLayers() {
     }
 }
 
-void vk::PhysicalDevice::getExtensions(const std::string& layerName) {
+void PhysicalDevice::getExtensions(const std::string& layerName) {
     const char* pLayerName = nullptr;
     if (layerName.size() > 0) pLayerName = layerName.c_str();
 
@@ -93,7 +95,7 @@ void vk::PhysicalDevice::getExtensions(const std::string& layerName) {
     m_extensionMap.emplace(layerName, std::move(result));
 }
 
-void vk::PhysicalDevice::getExtensions() {
+void PhysicalDevice::getExtensions() {
     std::vector<std::string> layerNames = { "" };   //start with empty string
 
     for (auto& layer : m_layers) {
@@ -105,7 +107,7 @@ void vk::PhysicalDevice::getExtensions() {
     }
 }
 
-void vk::PhysicalDevice::getMemoryProperties() {
+void PhysicalDevice::getMemoryProperties() {
     VkPhysicalDeviceMemoryProperties properties;
     vkGetPhysicalDeviceMemoryProperties(m_physicalDevice, &properties);
 
@@ -120,20 +122,20 @@ void vk::PhysicalDevice::getMemoryProperties() {
     }
 }
 
-vk::FormatProperties vk::PhysicalDevice::getFormatProperties(vk::Format format) const {
-    vk::FormatProperties result;
+FormatProperties PhysicalDevice::getFormatProperties(Format format) const {
+    FormatProperties result;
     vkGetPhysicalDeviceFormatProperties(m_physicalDevice, static_cast<VkFormat>(format), reinterpret_cast<VkFormatProperties*>(&result));
     return result;
 }
 
-vk::ImageFormatProperties vk::PhysicalDevice::getImageFormatProperties(
+ImageFormatProperties PhysicalDevice::getImageFormatProperties(
     Format format,
     ImageType type,
     ImageTiling tiling,
     ImageUsageFlags usage,
     ImageCreateFlags flags) const
 {
-    vk::ImageFormatProperties result;
+    ImageFormatProperties result;
     vkGetPhysicalDeviceImageFormatProperties(m_physicalDevice,
         static_cast<VkFormat>(format),
         static_cast<VkImageType>(type),

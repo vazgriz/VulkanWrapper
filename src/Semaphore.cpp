@@ -2,7 +2,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::SemaphoreCreateInfo::marshal() const {
+using namespace vk;
+
+void SemaphoreCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -14,19 +16,19 @@ void vk::SemaphoreCreateInfo::marshal() const {
     m_info.flags = 0;
 }
 
-vk::Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) : m_device(device) {
+Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateSemaphore(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sempahore));
 }
 
-vk::Semaphore::Semaphore(vk::Semaphore&& other) : m_device(other.device()) {
+Semaphore::Semaphore(Semaphore&& other) : m_device(other.device()) {
     m_sempahore = other.m_sempahore;
     m_info = std::move(other.m_info);
     other.m_sempahore = VK_NULL_HANDLE;
 }
 
-vk::Semaphore::~Semaphore() {
+Semaphore::~Semaphore() {
     vkDestroySemaphore(m_device.handle(), m_sempahore, m_device.instance().callbacks());
 }

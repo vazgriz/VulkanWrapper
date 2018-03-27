@@ -2,7 +2,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::SamplerCreateInfo::marshal() const {
+using namespace vk;
+
+void SamplerCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -29,19 +31,19 @@ void vk::SamplerCreateInfo::marshal() const {
     m_info.unnormalizedCoordinates = unnormalizedCoordinates;
 }
 
-vk::Sampler::Sampler(Device& device, const vk::SamplerCreateInfo& info) : m_device(device) {
+Sampler::Sampler(Device& device, const SamplerCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateSampler(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sampler));
 }
 
-vk::Sampler::Sampler(Sampler&& other) :m_device(other.m_device) {
+Sampler::Sampler(Sampler&& other) :m_device(other.m_device) {
     m_sampler = other.m_sampler;
     m_info = std::move(other.m_info);
     other.m_sampler = VK_NULL_HANDLE;
 }
 
-vk::Sampler::~Sampler() {
+Sampler::~Sampler() {
     vkDestroySampler(m_device.handle(), m_sampler, m_device.instance().callbacks());
 }

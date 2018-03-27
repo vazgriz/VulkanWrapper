@@ -3,19 +3,21 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::DescriptorSetLayoutBinding::marshal() const {
+using namespace vk;
+
+void DescriptorSetLayoutBinding::marshal() const {
     m_info.binding = binding;
     m_info.descriptorType = static_cast<VkDescriptorType>(descriptorType);
     m_info.descriptorCount = descriptorCount;
     m_info.stageFlags = static_cast<VkShaderStageFlags>(stageFlags);
 
     m_samplers.reserve(immutableSamplers.size());
-    for (const vk::Sampler& sampler : immutableSamplers) {
+    for (const Sampler& sampler : immutableSamplers) {
         m_samplers.push_back(sampler.handle());
     }
 }
 
-void vk::DescriptorSetLayoutCreateInfo::marshal() const {
+void DescriptorSetLayoutCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -36,19 +38,19 @@ void vk::DescriptorSetLayoutCreateInfo::marshal() const {
     m_info.pBindings = m_bindings.data();
 }
 
-vk::DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayoutCreateInfo& info) : m_device(device) {
+DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayoutCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
 }
 
-vk::DescriptorSetLayout::DescriptorSetLayout(vk::DescriptorSetLayout&& other) : m_device(other.device()) {
+DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) : m_device(other.device()) {
     m_descriptorSetLayout = other.m_descriptorSetLayout;
     m_info = other.m_info;
     other.m_descriptorSetLayout = VK_NULL_HANDLE;
 }
 
-vk::DescriptorSetLayout::~DescriptorSetLayout() {
+DescriptorSetLayout::~DescriptorSetLayout() {
     vkDestroyDescriptorSetLayout(m_device.handle(), m_descriptorSetLayout, m_device.instance().callbacks());
 }

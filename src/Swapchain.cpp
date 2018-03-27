@@ -6,7 +6,9 @@
 #include "VulkanWrapper/Fence.h"
 #include "VulkanWrapper/Image.h"
 
-void vk::SwapchainCreateInfo::marshal() const {
+using namespace vk;
+
+void SwapchainCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
     if (next != nullptr) {
         next->marshal();
@@ -38,7 +40,7 @@ void vk::SwapchainCreateInfo::marshal() const {
     }
 }
 
-vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_device(device) {
+Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
@@ -47,18 +49,18 @@ vk::Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) : m_de
     getImages();
 }
 
-vk::Swapchain::Swapchain(vk::Swapchain&& other) : m_device(other.device()) {
+Swapchain::Swapchain(Swapchain&& other) : m_device(other.device()) {
     m_swapchain = other.m_swapchain;
     m_info = std::move(other.m_info);
     m_images = std::move(other.m_images);
     other.m_swapchain = VK_NULL_HANDLE;
 }
 
-vk::Swapchain::~Swapchain() {
+Swapchain::~Swapchain() {
     vkDestroySwapchainKHR(m_device.handle(), m_swapchain, m_device.instance().callbacks());
 }
 
-uint32_t vk::Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const {
+uint32_t Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const {
     uint32_t index;
     VkSemaphore vkSemaphore = semaphore == nullptr ? VK_NULL_HANDLE : semaphore->handle();
     VkFence vkFence = fence == nullptr ? VK_NULL_HANDLE : fence->handle();
@@ -67,23 +69,23 @@ uint32_t vk::Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* sema
     return index;
 }
 
-void vk::Swapchain::getImages() {
+void Swapchain::getImages() {
     uint32_t count;
     vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, nullptr);
     std::vector<VkImage> images(count);
     vkGetSwapchainImagesKHR(m_device.handle(), m_swapchain, &count, images.data());
     
-    vk::ImageCreateInfo info = {};
+    ImageCreateInfo info = {};
     info.format = format();
     info.extent = { extent().width, extent().height };
     info.arrayLayers = arrayLayers();
     info.usage = usage();
     info.sharingMode = sharingMode();
     info.queueFamilyIndices = queueFamilyIndices();
-    info.imageType = vk::ImageType::_2D;
+    info.imageType = ImageType::_2D;
     info.mipLevels = 1;
-    info.samples = vk::SampleCountFlags::_1;
-    info.tiling = vk::ImageTiling::Optimal;
+    info.samples = SampleCountFlags::_1;
+    info.tiling = ImageTiling::Optimal;
 
     m_images.reserve(images.size());
     for (auto image : images) {

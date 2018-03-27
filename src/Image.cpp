@@ -3,7 +3,9 @@
 #include "VulkanWrapper/Instance.h"
 #include "VulkanWrapper/DeviceMemory.h"
 
-void vk::ImageCreateInfo::marshal() const {
+using namespace vk;
+
+void ImageCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -27,7 +29,7 @@ void vk::ImageCreateInfo::marshal() const {
     m_info.initialLayout = static_cast<VkImageLayout>(initialLayout);
 }
 
-vk::Image::Image(Device& device, const ImageCreateInfo& info) : m_device(device) {
+Image::Image(Device& device, const ImageCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
@@ -37,27 +39,27 @@ vk::Image::Image(Device& device, const ImageCreateInfo& info) : m_device(device)
     getRequirements();
 }
 
-vk::Image::Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor) : m_device(device) {
+Image::Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor) : m_device(device) {
     m_info = info;
     m_image = image;
     m_destructorEnabled = enableDestructor;
 }
 
-vk::Image::~Image() {
+Image::~Image() {
     if (m_destructorEnabled) vkDestroyImage(m_device.handle(), m_image, m_device.instance().callbacks());
 }
 
-vk::Image::Image(Image&& other) : m_device(other.device()) {
+Image::Image(Image&& other) : m_device(other.device()) {
     m_image = other.m_image;
     m_destructorEnabled = other.m_destructorEnabled;
     m_requirements = other.m_requirements;
     other.m_image = VK_NULL_HANDLE;
 }
 
-void vk::Image::bind(vk::DeviceMemory& memory, size_t offset) {
+void Image::bind(DeviceMemory& memory, size_t offset) {
     vkBindImageMemory(m_device.handle(), m_image, memory.handle(), offset);
 }
 
-void vk::Image::getRequirements() {
+void Image::getRequirements() {
     vkGetImageMemoryRequirements(m_device.handle(), m_image, &m_requirements);
 }

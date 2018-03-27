@@ -6,19 +6,21 @@
 #include "VulkanWrapper/ImageView.h"
 #include "VulkanWrapper/Device.h"
 
-void vk::DescriptorImageInfo::marshal() const {
+using namespace vk;
+
+void DescriptorImageInfo::marshal() const {
     m_info.sampler = sampler->handle();
     m_info.imageView = imageView->handle();
     m_info.imageLayout = static_cast<VkImageLayout>(imageLayout);
 }
 
-void vk::DescriptorBufferInfo::marshal() const {
+void DescriptorBufferInfo::marshal() const {
     m_info.buffer = buffer->handle();
     m_info.offset = offset;
     m_info.range = range;
 }
 
-void vk::WriteDescriptorSet::marshal() const {
+void WriteDescriptorSet::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     if (next != nullptr) {
         next->marshal();
@@ -32,11 +34,11 @@ void vk::WriteDescriptorSet::marshal() const {
     m_info.dstArrayElement = dstArrayElement;
     m_info.descriptorType = static_cast<VkDescriptorType>(descriptorType);
     switch (descriptorType) {
-    case vk::DescriptorType::Sampler:
-    case vk::DescriptorType::CombinedImageSampler:
-    case vk::DescriptorType::SampledImage:
-    case vk::DescriptorType::StorageImage:
-    case vk::DescriptorType::InputAttachment:
+    case DescriptorType::Sampler:
+    case DescriptorType::CombinedImageSampler:
+    case DescriptorType::SampledImage:
+    case DescriptorType::StorageImage:
+    case DescriptorType::InputAttachment:
     {
         m_info.descriptorCount = static_cast<uint32_t>(imageInfo.size());
 
@@ -49,23 +51,23 @@ void vk::WriteDescriptorSet::marshal() const {
         m_info.pImageInfo = m_imageInfo.data();
         break;
     }
-    case vk::DescriptorType::UniformTexelBuffer:
-    case vk::DescriptorType::StorageTexelBuffer:
+    case DescriptorType::UniformTexelBuffer:
+    case DescriptorType::StorageTexelBuffer:
     {
         m_info.descriptorCount = static_cast<uint32_t>(texelBufferView.size());
 
         m_texelBufferView.reserve(texelBufferView.size());
-        for (const vk::BufferView& info : texelBufferView) {
+        for (const BufferView& info : texelBufferView) {
             m_texelBufferView.push_back(info.handle());
         }
 
         m_info.pTexelBufferView = m_texelBufferView.data();
         break;
     }
-    case vk::DescriptorType::UniformBuffer:
-    case vk::DescriptorType::StorageBuffer:
-    case vk::DescriptorType::UniformBufferDynamic:
-    case vk::DescriptorType::StorageBufferDynamic:
+    case DescriptorType::UniformBuffer:
+    case DescriptorType::StorageBuffer:
+    case DescriptorType::UniformBufferDynamic:
+    case DescriptorType::StorageBufferDynamic:
     {
         m_info.descriptorCount = static_cast<uint32_t>(bufferInfo.size());
 
@@ -81,7 +83,7 @@ void vk::WriteDescriptorSet::marshal() const {
     }
 }
 
-void vk::CopyDescriptorSet::marshal() const {
+void CopyDescriptorSet::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET;
     if (next != nullptr) {
         next->marshal();
@@ -99,24 +101,24 @@ void vk::CopyDescriptorSet::marshal() const {
     m_info.descriptorCount = descriptorCount;
 }
 
-vk::DescriptorSet::DescriptorSet(Device& device, vk::DescriptorPool& pool, VkDescriptorSet descriptorSet, std::vector<DescriptorSetLayoutCreateInfo> layoutInfos) : m_device(device), m_pool(pool) {
+DescriptorSet::DescriptorSet(Device& device, DescriptorPool& pool, VkDescriptorSet descriptorSet, std::vector<DescriptorSetLayoutCreateInfo> layoutInfos) : m_device(device), m_pool(pool) {
     m_descriptorSet = descriptorSet;
     m_destructorEnabled = false;
     m_layoutInfos = layoutInfos;
 }
 
-vk::DescriptorSet::DescriptorSet(vk::DescriptorSet&& other) : m_device(other.device()), m_pool(other.pool()) {
+DescriptorSet::DescriptorSet(DescriptorSet&& other) : m_device(other.device()), m_pool(other.pool()) {
     m_descriptorSet = other.m_descriptorSet;
     m_destructorEnabled = other.m_destructorEnabled;
     m_layoutInfos = std::move(other.m_layoutInfos);
     other.m_descriptorSet = VK_NULL_HANDLE;
 }
 
-vk::DescriptorSet::~DescriptorSet() {
+DescriptorSet::~DescriptorSet() {
     if (m_destructorEnabled) vkFreeDescriptorSets(m_device.handle(), m_pool.handle(), 1, &m_descriptorSet);
 }
 
-void vk::DescriptorSet::update(const Device& device, vk::ArrayProxy<const WriteDescriptorSet> writes, vk::ArrayProxy<const CopyDescriptorSet> copies) {
+void DescriptorSet::update(const Device& device, ArrayProxy<const WriteDescriptorSet> writes, ArrayProxy<const CopyDescriptorSet> copies) {
     std::vector<VkWriteDescriptorSet> vkWrites;
     vkWrites.reserve(writes.size());
     for (auto& write : writes) {

@@ -1,6 +1,8 @@
 #include "VulkanWrapper/Instance.h"
 
-void vk::ApplicationInfo::marshal() const {
+using namespace vk;
+
+void ApplicationInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -22,7 +24,7 @@ void vk::ApplicationInfo::marshal() const {
     m_info.apiVersion = apiVersion;
 }
 
-void vk::InstanceCreateInfo::marshal() const {
+void InstanceCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     m_info.flags = static_cast<VkInstanceCreateFlags>(flags);
 
@@ -48,7 +50,7 @@ void vk::InstanceCreateInfo::marshal() const {
     m_info.ppEnabledExtensionNames = m_extensions.data();
 }
 
-vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks) {
+Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* callbacks) {
     if (callbacks != nullptr) {
         this->m_callbacks = *callbacks;
         m_callbacksPtr = &this->m_callbacks;
@@ -66,7 +68,7 @@ vk::Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbac
     }
 }
 
-vk::Instance::Instance(vk::Instance&& other) {
+Instance::Instance(Instance&& other) {
     m_instance = other.m_instance;
     m_callbacks = other.m_callbacks;
     m_callbacksPtr = other.m_callbacksPtr;
@@ -79,7 +81,7 @@ vk::Instance::Instance(vk::Instance&& other) {
     other.m_instance = VK_NULL_HANDLE;
 }
 
-void vk::Instance::EnumeratePhysicalDevices() {
+void Instance::EnumeratePhysicalDevices() {
     uint32_t count;
     vkEnumeratePhysicalDevices(m_instance, &count, nullptr);
     std::vector<VkPhysicalDevice> physicalDevices(count);
@@ -90,13 +92,13 @@ void vk::Instance::EnumeratePhysicalDevices() {
     }
 }
 
-std::vector<vk::LayerProperties> vk::Instance::availableLayers() {
+std::vector<LayerProperties> Instance::availableLayers() {
     uint32_t count;
     vkEnumerateInstanceLayerProperties(&count, nullptr);
     std::vector<VkLayerProperties> properties(count);
     vkEnumerateInstanceLayerProperties(&count, properties.data());
 
-    std::vector<vk::LayerProperties> result;
+    std::vector<LayerProperties> result;
     result.reserve(count);
     for (auto& prop : properties) {
         result.emplace_back(prop);
@@ -105,7 +107,7 @@ std::vector<vk::LayerProperties> vk::Instance::availableLayers() {
     return result;
 }
 
-std::vector<vk::ExtensionProperties> vk::Instance::availableExtensions(const std::string& layerName) {
+std::vector<ExtensionProperties> Instance::availableExtensions(const std::string& layerName) {
     const char* pLayerName = nullptr;
     if (layerName.size() > 0) pLayerName = layerName.c_str();
 
@@ -114,7 +116,7 @@ std::vector<vk::ExtensionProperties> vk::Instance::availableExtensions(const std
     std::vector<VkExtensionProperties> properties(count);
     vkEnumerateInstanceExtensionProperties(pLayerName, &count, properties.data());
 
-    std::vector<vk::ExtensionProperties> result;
+    std::vector<ExtensionProperties> result;
     result.reserve(count);
     for (auto& prop : properties) {
         result.emplace_back(prop);
@@ -123,6 +125,6 @@ std::vector<vk::ExtensionProperties> vk::Instance::availableExtensions(const std
     return result;
 }
 
-vk::Instance::~Instance() {
+Instance::~Instance() {
     vkDestroyInstance(m_instance, callbacks());
 }

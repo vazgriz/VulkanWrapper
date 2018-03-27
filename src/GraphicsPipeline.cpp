@@ -5,7 +5,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::PipelineVertexInputStateCreateInfo::marshal() const {
+using namespace vk;
+
+void PipelineVertexInputStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -20,7 +22,7 @@ void vk::PipelineVertexInputStateCreateInfo::marshal() const {
     m_info.pVertexAttributeDescriptions = reinterpret_cast<const VkVertexInputAttributeDescription*>(vertexAttributeDescriptions.data());
 }
 
-void vk::PipelineInputAssemblyStateCreateInfo::marshal() const {
+void PipelineInputAssemblyStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -34,7 +36,7 @@ void vk::PipelineInputAssemblyStateCreateInfo::marshal() const {
     m_info.primitiveRestartEnable = primitiveRestartEnable;
 }
 
-void vk::PipelineTessellationStateCreateInfo::marshal() const {
+void PipelineTessellationStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -47,7 +49,7 @@ void vk::PipelineTessellationStateCreateInfo::marshal() const {
     m_info.patchControlPoints = patchControlPoints;
 }
 
-void vk::PipelineViewportStateCreateInfo::marshal() const {
+void PipelineViewportStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -63,7 +65,7 @@ void vk::PipelineViewportStateCreateInfo::marshal() const {
     m_info.pScissors = scissors.data();
 }
 
-void vk::PipelineRasterizationStateCreateInfo::marshal() const {
+void PipelineRasterizationStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -85,7 +87,7 @@ void vk::PipelineRasterizationStateCreateInfo::marshal() const {
     m_info.lineWidth = lineWidth;
 }
 
-void vk::PipelineMultisampleStateCreateInfo::marshal() const {
+void PipelineMultisampleStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -102,7 +104,7 @@ void vk::PipelineMultisampleStateCreateInfo::marshal() const {
     m_info.alphaToOneEnable = alphaToOneEnable;
 }
 
-void vk::PipelineDepthStencilStateCreateInfo::marshal() const {
+void PipelineDepthStencilStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -123,7 +125,7 @@ void vk::PipelineDepthStencilStateCreateInfo::marshal() const {
     m_info.maxDepthBounds = maxDepthBounds;
 }
 
-void vk::PipelineColorBlendStateCreateInfo::marshal() const {
+void PipelineColorBlendStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -147,7 +149,7 @@ void vk::PipelineColorBlendStateCreateInfo::marshal() const {
     std::memcpy(m_info.blendConstants, blendConstants, sizeof(blendConstants));
 }
 
-void vk::PipelineDynamicStateCreateInfo::marshal() const {
+void PipelineDynamicStateCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -161,7 +163,7 @@ void vk::PipelineDynamicStateCreateInfo::marshal() const {
     m_info.pDynamicStates = reinterpret_cast<const VkDynamicState*>(dynamicStates.data());
 }
 
-void vk::GraphicsPipelineCreateInfo::marshal() const {
+void GraphicsPipelineCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -207,7 +209,7 @@ void vk::GraphicsPipelineCreateInfo::marshal() const {
     m_info.basePipelineIndex = basePipelineIndex;
 }
 
-vk::GraphicsPipeline::GraphicsPipeline(Device& device, const GraphicsPipelineCreateInfo& info) : Pipeline(device, *info.layout) {
+GraphicsPipeline::GraphicsPipeline(Device& device, const GraphicsPipelineCreateInfo& info) : Pipeline(device, *info.layout) {
     m_info = info;
     m_info.marshal();
 

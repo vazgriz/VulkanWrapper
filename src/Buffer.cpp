@@ -3,7 +3,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::BufferCreateInfo::marshal() const {
+using namespace vk;
+
+void BufferCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -19,7 +21,7 @@ void vk::BufferCreateInfo::marshal() const {
     m_info.pQueueFamilyIndices = queueFamilyIndices.data();
 }
 
-vk::Buffer::Buffer(Device& device, const BufferCreateInfo& info) : m_device(device) {
+Buffer::Buffer(Device& device, const BufferCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
@@ -28,21 +30,21 @@ vk::Buffer::Buffer(Device& device, const BufferCreateInfo& info) : m_device(devi
     getRequirements();
 }
 
-vk::Buffer::Buffer(vk::Buffer&& other) : m_device(other.device()) {
+Buffer::Buffer(Buffer&& other) : m_device(other.device()) {
     m_buffer = other.m_buffer;
     m_requirements = other.m_requirements;
     m_info = std::move(other.m_info);
     other.m_buffer = VK_NULL_HANDLE;
 }
 
-vk::Buffer::~Buffer() {
+Buffer::~Buffer() {
     vkDestroyBuffer(m_device.handle(), m_buffer, m_device.instance().callbacks());
 }
 
-void vk::Buffer::getRequirements() {
+void Buffer::getRequirements() {
     vkGetBufferMemoryRequirements(m_device.handle(), m_buffer, &m_requirements);
 }
 
-void vk::Buffer::bind(DeviceMemory& memory, size_t offset) {
+void Buffer::bind(DeviceMemory& memory, size_t offset) {
     vkBindBufferMemory(m_device.handle(), m_buffer, memory.handle(), offset);
 }

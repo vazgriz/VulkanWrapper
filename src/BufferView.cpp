@@ -3,7 +3,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::BufferViewCreateInfo::marshal() const {
+using namespace vk;
+
+void BufferViewCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -19,19 +21,19 @@ void vk::BufferViewCreateInfo::marshal() const {
     m_info.range = range;
 }
 
-vk::BufferView::BufferView(Device& device, const BufferViewCreateInfo& info) : m_device(device) {
+BufferView::BufferView(Device& device, const BufferViewCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateBufferView(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_bufferView));
 }
 
-vk::BufferView::BufferView(BufferView&& other) : m_device(other.device()) {
+BufferView::BufferView(BufferView&& other) : m_device(other.device()) {
     m_bufferView = other.m_bufferView;
     m_info = std::move(other.m_info);
     other.m_bufferView = VK_NULL_HANDLE;
 }
 
-vk::BufferView::~BufferView() {
+BufferView::~BufferView() {
     vkDestroyBufferView(m_device.handle(), m_bufferView, m_device.instance().callbacks());
 }

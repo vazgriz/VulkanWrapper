@@ -4,7 +4,9 @@
 #include "VulkanWrapper/Queue.h"
 #include "VulkanWrapper/CommandBuffer.h"
 
-void vk::DeviceQueueCreateInfo::marshal() const {
+using namespace vk;
+
+void DeviceQueueCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -22,7 +24,7 @@ void vk::DeviceQueueCreateInfo::marshal() const {
     }
 }
 
-void vk::DeviceCreateInfo::marshal() const {
+void DeviceCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     m_info.flags = static_cast<VkDeviceCreateFlags>(flags);
 
@@ -53,7 +55,7 @@ void vk::DeviceCreateInfo::marshal() const {
     }
 }
 
-vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) : m_instance(physicalDevice.instance()), m_physicalDevice(physicalDevice) {
+Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) : m_instance(physicalDevice.instance()), m_physicalDevice(physicalDevice) {
     m_info = info;
     m_info.marshal();
 
@@ -67,26 +69,26 @@ vk::Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo&
     }
 }
 
-vk::Device::Device(Device&& other) : m_instance(other.instance()), m_physicalDevice(other.physicalDevice()) {
+Device::Device(Device&& other) : m_instance(other.instance()), m_physicalDevice(other.physicalDevice()) {
     m_device = other.m_device;
     m_info = std::move(other.m_info);
     m_queueMap = std::move(other.m_queueMap);
     other.m_device = VK_NULL_HANDLE;
 }
 
-const std::vector<std::string>& vk::Device::layers() const {
+const std::vector<std::string>& Device::layers() const {
     return m_instance.layers();
 }
 
-vk::Device::~Device() {
+Device::~Device() {
     vkDestroyDevice(m_device, m_instance.callbacks());
 }
 
-const vk::Queue& vk::Device::getQueue(uint32_t familyIndex, uint32_t queueIndex) const {
+const Queue& Device::getQueue(uint32_t familyIndex, uint32_t queueIndex) const {
     return m_queueMap.at(familyIndex)[queueIndex];
 }
 
-void vk::Device::getQueues(const DeviceCreateInfo& info) {
+void Device::getQueues(const DeviceCreateInfo& info) {
     for (auto& queueInfo : info.queueCreateInfos) {
         std::vector<Queue> queues;
         queues.reserve(queueInfo.queueCount);
@@ -101,6 +103,6 @@ void vk::Device::getQueues(const DeviceCreateInfo& info) {
     }
 }
 
-void vk::Device::waitIdle() const {
+void Device::waitIdle() const {
     vkDeviceWaitIdle(m_device);
 }

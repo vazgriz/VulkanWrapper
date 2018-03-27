@@ -3,7 +3,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::ComputePipelineCreateInfo::marshal() const {
+using namespace vk;
+
+void ComputePipelineCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -26,7 +28,7 @@ void vk::ComputePipelineCreateInfo::marshal() const {
     m_info.basePipelineIndex = basePipelineIndex;
 }
 
-vk::ComputePipeline::ComputePipeline(Device& device, const ComputePipelineCreateInfo& info) : Pipeline(device, *info.layout) {
+ComputePipeline::ComputePipeline(Device& device, const ComputePipelineCreateInfo& info) : Pipeline(device, *info.layout) {
     m_info = info;
     m_info.marshal();
 

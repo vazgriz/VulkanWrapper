@@ -2,7 +2,9 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/Instance.h"
 
-void vk::SubpassDescription::marshal() const {
+using namespace vk;
+
+void SubpassDescription::marshal() const {
     m_info.flags = static_cast<VkSubpassDescriptionFlags>(flags);
     m_info.pipelineBindPoint = static_cast<VkPipelineBindPoint>(pipelineBindPoint);
     m_info.inputAttachmentCount = static_cast<uint32_t>(inputAttachments.size());
@@ -15,7 +17,7 @@ void vk::SubpassDescription::marshal() const {
     m_info.pPreserveAttachments = preserveAttachments.data();
 }
 
-void vk::RenderPassCreateInfo::marshal() const {
+void RenderPassCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
@@ -40,19 +42,19 @@ void vk::RenderPassCreateInfo::marshal() const {
     m_info.pDependencies = reinterpret_cast<const VkSubpassDependency*>(dependencies.data());
 }
 
-vk::RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) : m_device(device) {
+RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) : m_device(device) {
     m_info = info;
     m_info.marshal();
 
     VKW_CHECK(vkCreateRenderPass(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_renderPass));
 }
 
-vk::RenderPass::RenderPass(vk::RenderPass&& other) : m_device(other.device()) {
+RenderPass::RenderPass(RenderPass&& other) : m_device(other.device()) {
     m_renderPass = other.m_renderPass;
     m_info = std::move(other.m_info);
     other.m_renderPass = VK_NULL_HANDLE;
 }
 
-vk::RenderPass::~RenderPass() {
+RenderPass::~RenderPass() {
     vkDestroyRenderPass(m_device.handle(), m_renderPass, m_device.instance().callbacks());
 }

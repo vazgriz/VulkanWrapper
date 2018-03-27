@@ -1,5 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
+#include <memory>
 #include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
@@ -43,6 +44,7 @@ namespace vk {
 
         VkDescriptorPool handle() const { return m_descriptorPool; }
         Device& device() const { return **m_deviceRef; }
+        DescriptorPool** ref() const { return m_ref.get(); }
 
         DescriptorPoolCreateFlags flags() const { return m_info.flags; }
         uint32_t maxSets() const { return m_info.maxSets; }
@@ -56,5 +58,6 @@ namespace vk {
         Device** m_deviceRef;
 
         DescriptorPoolCreateInfo m_info;
+        std::unique_ptr<DescriptorPool*> m_ref;
     };
 }

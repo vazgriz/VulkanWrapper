@@ -48,6 +48,8 @@ DescriptorPool::DescriptorPool(Device& device, const DescriptorPoolCreateInfo& i
     VKW_CHECK(vkCreateDescriptorPool(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorPool));
     m_device = device.handle();
     m_deviceRef = device.ref();
+
+    m_ref = std::make_unique<DescriptorPool*>(this);
 }
 
 DescriptorPool::DescriptorPool(DescriptorPool&& other) {
@@ -55,6 +57,7 @@ DescriptorPool::DescriptorPool(DescriptorPool&& other) {
     m_deviceRef = other.m_deviceRef;
     m_descriptorPool = other.m_descriptorPool;
     m_info = std::move(other.m_info);
+    m_ref = std::move(other.m_ref);
     other.m_descriptorPool = VK_NULL_HANDLE;
 }
 

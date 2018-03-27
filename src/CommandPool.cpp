@@ -39,6 +39,8 @@ CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) {
     VKW_CHECK(vkCreateCommandPool(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_commandPool));
     m_device = device.handle();
     m_deviceRef = device.ref();
+
+    m_ref = std::make_unique<CommandPool*>(this);
 }
 
 CommandPool::CommandPool(CommandPool&& other) {
@@ -46,6 +48,7 @@ CommandPool::CommandPool(CommandPool&& other) {
     m_deviceRef = other.m_deviceRef;
     m_commandPool = other.m_commandPool;
     m_info = std::move(other.m_info);
+    m_ref = std::move(other.m_ref);
     other.m_commandPool = VK_NULL_HANDLE;
 }
 

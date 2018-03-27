@@ -1,5 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
+#include <memory>
 #include "VulkanWrapper/Info.h"
 #include "VulkanWrapper/ArrayProxy.h"
 #include "VulkanWrapper/enums.h"
@@ -37,6 +38,7 @@ namespace vk {
 
         VkCommandPool handle() const { return m_commandPool; }
         Device& device() const { return **m_deviceRef; }
+        CommandPool** ref() const { return m_ref.get(); }
 
         CommandPoolCreateFlags flags() const { return m_info.flags; }
         uint32_t queueFamilyIndex() const { return m_info.queueFamilyIndex; }
@@ -49,5 +51,6 @@ namespace vk {
         Device** m_deviceRef;
 
         CommandPoolCreateInfo m_info;
+        std::unique_ptr<CommandPool*> m_ref;
     };
 }

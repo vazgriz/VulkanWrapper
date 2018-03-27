@@ -81,7 +81,7 @@ namespace vk {
 
         VkDescriptorSet handle() const { return m_descriptorSet; }
         Device& device() const { return **m_deviceRef; }
-        DescriptorPool& pool() const { return m_pool; }
+        DescriptorPool& pool() const { return **m_poolRef; }
 
         void setDestructorEnabled(bool value) { m_destructorEnabled = value; }
 
@@ -93,7 +93,8 @@ namespace vk {
         VkDescriptorSet m_descriptorSet;
         VkDevice m_device;
         Device** m_deviceRef;
-        DescriptorPool& m_pool;
+        VkDescriptorPool m_pool;
+        DescriptorPool** m_poolRef;
 
         bool m_destructorEnabled;
         std::vector<DescriptorSetLayoutCreateInfo> m_layoutInfos;

@@ -143,6 +143,10 @@ void CommandBuffer::end() const {
     VKW_CHECK(vkEndCommandBuffer(m_commandBuffer));
 }
 
+void CommandBuffer::reset(vk::CommandBufferResetFlags flags) const {
+    VKW_CHECK(vkResetCommandBuffer(m_commandBuffer, static_cast<VkCommandBufferResetFlags>(flags)));
+}
+
 void CommandBuffer::beginRenderPass(const RenderPassBeginInfo& info, SubpassContents contents) const {
     info.marshal();
 

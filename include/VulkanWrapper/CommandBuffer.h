@@ -96,6 +96,7 @@ namespace vk {
 
         void begin(const CommandBufferBeginInfo& info) const;
         void end() const;
+        void reset(vk::CommandBufferResetFlags flags) const;
 
         void beginRenderPass(const RenderPassBeginInfo& info, SubpassContents contents) const;
         void endRenderPass() const;

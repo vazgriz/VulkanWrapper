@@ -70,7 +70,7 @@ std::vector<DescriptorSet> DescriptorPool::allocate(const DescriptorSetAllocateI
     std::vector<DescriptorSetLayoutCreateInfo> layoutInfos;
     layoutInfos.reserve(l_info.setLayouts.size());
 
-    for (DescriptorSetLayout& layout : l_info.setLayouts) {
+    for (const DescriptorSetLayout& layout : l_info.setLayouts) {
         DescriptorSetLayoutCreateInfo layoutInfo = {};
         layoutInfo.flags = layout.flags();
         layoutInfo.bindings = layout.bindings();

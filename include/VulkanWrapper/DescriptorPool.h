@@ -17,7 +17,7 @@ namespace vk {
     class DescriptorSetAllocateInfo : public Info<VkDescriptorSetAllocateInfo> {
     public:
         const DescriptorPool* descriptorPool;
-        std::vector<std::reference_wrapper<DescriptorSetLayout>> setLayouts;
+        std::vector<std::reference_wrapper<const DescriptorSetLayout>> setLayouts;
 
         void marshal() const;
 

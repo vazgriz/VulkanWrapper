@@ -14,7 +14,7 @@ namespace vk {
     public:
         FramebufferCreateFlags flags;
         RenderPass* renderPass;
-        std::vector<std::reference_wrapper<ImageView>> attachments;
+        std::vector<std::reference_wrapper<const ImageView>> attachments;
         uint32_t width;
         uint32_t height;
         uint32_t layers;
@@ -38,7 +38,7 @@ namespace vk {
 
         FramebufferCreateFlags flags() const { return m_info.flags; }
         RenderPass& renderPass() const { return *m_info.renderPass; }
-        const std::vector<std::reference_wrapper<ImageView>> attachments() const { return m_info.attachments; }
+        const std::vector<std::reference_wrapper<const ImageView>> attachments() const { return m_info.attachments; }
         uint32_t width() const { return m_info.width; }
         uint32_t height() const { return m_info.height; }
         uint32_t layers() const { return m_info.layers; }

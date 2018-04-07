@@ -30,7 +30,7 @@ void SubmitInfo::marshal() const {
     m_info.pWaitDstStageMask = reinterpret_cast<const VkPipelineStageFlags*>(waitDstStageMask.data());
 
     m_commandBuffers.reserve(commandBuffers.size());
-    for (CommandBuffer& commandBuffer : commandBuffers) {
+    for (const CommandBuffer& commandBuffer : commandBuffers) {
         m_commandBuffers.push_back(commandBuffer.handle());
     }
 
@@ -38,7 +38,7 @@ void SubmitInfo::marshal() const {
     m_info.pCommandBuffers = m_commandBuffers.data();
 
     m_signalSemaphores.reserve(signalSemaphores.size());
-    for (Semaphore& semaphore : signalSemaphores) {
+    for (const Semaphore& semaphore : signalSemaphores) {
         m_signalSemaphores.push_back(semaphore.handle());
     }
 

@@ -41,7 +41,7 @@ PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& i
     m_deviceRef = device.ref();
 
     m_layoutInfos.reserve(m_info.setLayouts.size());
-    for (DescriptorSetLayout& layout : m_info.setLayouts) {
+    for (const DescriptorSetLayout& layout : m_info.setLayouts) {
         DescriptorSetLayoutCreateInfo layoutInfo = {};
         layoutInfo.bindings = layout.bindings();
         layoutInfo.flags = layout.flags();

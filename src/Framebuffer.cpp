@@ -21,7 +21,7 @@ void FramebufferCreateInfo::marshal() const {
     m_info.renderPass = renderPass->handle();
 
     m_attachments.reserve(attachments.size());
-    for (ImageView& attachment : attachments) {
+    for (const ImageView& attachment : attachments) {
         m_attachments.push_back(attachment.handle());
     }
 

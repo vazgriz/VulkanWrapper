@@ -19,7 +19,7 @@ namespace vk {
 
     class PipelineLayoutCreateInfo : public Info<VkPipelineLayoutCreateInfo> {
     public:
-        std::vector<std::reference_wrapper<DescriptorSetLayout>> setLayouts;
+        std::vector<std::reference_wrapper<const DescriptorSetLayout>> setLayouts;
         std::vector<PushConstantRange> pushConstantRanges;
 
         void marshal() const;

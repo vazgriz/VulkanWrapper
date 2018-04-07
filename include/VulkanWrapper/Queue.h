@@ -16,8 +16,8 @@ namespace vk {
     public:
         std::vector<std::reference_wrapper<Semaphore>> waitSemaphores;
         std::vector<PipelineStageFlags> waitDstStageMask;
-        std::vector<std::reference_wrapper<CommandBuffer>> commandBuffers;
-        std::vector<std::reference_wrapper<Semaphore>> signalSemaphores;
+        std::vector<std::reference_wrapper<const CommandBuffer>> commandBuffers;
+        std::vector<std::reference_wrapper<const Semaphore>> signalSemaphores;
 
         void marshal() const;
 

@@ -16,7 +16,7 @@ namespace vk {
         DescriptorType descriptorType;
         uint32_t descriptorCount;
         ShaderStageFlags stageFlags;
-        std::vector<std::reference_wrapper<Sampler>> immutableSamplers;
+        std::vector<std::reference_wrapper<const Sampler>> immutableSamplers;
 
         void marshal() const;
 

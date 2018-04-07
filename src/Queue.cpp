@@ -8,6 +8,10 @@
 using namespace vk;
 
 void SubmitInfo::marshal() const {
+    m_waitSemaphores.clear();
+    m_commandBuffers.clear();
+    m_signalSemaphores.clear();
+
     m_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     if (next != nullptr) {
         next->marshal();

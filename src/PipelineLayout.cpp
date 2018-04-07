@@ -11,6 +11,8 @@ PipelineLayoutInfo::PipelineLayoutInfo(const PipelineLayout& pipelineLayout) {
 }
 
 void PipelineLayoutCreateInfo::marshal() const {
+    m_setLayouts.clear();
+
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();

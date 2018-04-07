@@ -21,6 +21,10 @@ void DescriptorBufferInfo::marshal() const {
 }
 
 void WriteDescriptorSet::marshal() const {
+    m_imageInfo.clear();
+    m_bufferInfo.clear();
+    m_texelBufferView.clear();
+
     m_info.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     if (next != nullptr) {
         next->marshal();

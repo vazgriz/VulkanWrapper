@@ -25,6 +25,10 @@ void DeviceQueueCreateInfo::marshal() const {
 }
 
 void DeviceCreateInfo::marshal() const {
+    m_queueInfos.clear();
+    m_layers.clear();
+    m_extensions.clear();
+
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     m_info.flags = static_cast<VkDeviceCreateFlags>(flags);
 

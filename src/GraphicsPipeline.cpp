@@ -126,6 +126,8 @@ void PipelineDepthStencilStateCreateInfo::marshal() const {
 }
 
 void PipelineColorBlendStateCreateInfo::marshal() const {
+    m_attachments.clear();
+
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();

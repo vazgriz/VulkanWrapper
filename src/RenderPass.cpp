@@ -18,6 +18,8 @@ void SubpassDescription::marshal() const {
 }
 
 void RenderPassCreateInfo::marshal() const {
+    m_subpasses.clear();
+
     m_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();

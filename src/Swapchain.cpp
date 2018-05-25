@@ -46,7 +46,7 @@ Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) {
 
     VKW_CHECK(vkCreateSwapchainKHR(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_swapchain));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 
     getImages();
 }

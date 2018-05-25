@@ -31,8 +31,9 @@ QueueFamilyProperties::QueueFamilyProperties(VkQueueFamilyProperties properties)
     minImageTransferGranularity = properties.minImageTransferGranularity;
 }
 
-PhysicalDevice::PhysicalDevice(Instance& instance, VkPhysicalDevice physicalDevice) : m_instance(instance) {
+PhysicalDevice::PhysicalDevice(Instance& instance, VkPhysicalDevice physicalDevice) {
     m_physicalDevice = physicalDevice;
+    m_instanceRef = &instance;
 
     getProperties();
     getFeatures();
@@ -40,8 +41,6 @@ PhysicalDevice::PhysicalDevice(Instance& instance, VkPhysicalDevice physicalDevi
     getLayers();
     getExtensions();
     getMemoryProperties();
-
-    m_ref = std::make_unique<const PhysicalDevice*>(this);
 }
 
 void PhysicalDevice::getProperties() {

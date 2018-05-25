@@ -43,8 +43,7 @@ namespace vk {
         ~DescriptorPool();
 
         VkDescriptorPool handle() const { return m_descriptorPool; }
-        Device& device() const { return **m_deviceRef; }
-        DescriptorPool** ref() const { return m_ref.get(); }
+        Device& device() const { return *m_deviceRef; }
 
         DescriptorPoolCreateFlags flags() const { return m_info.flags; }
         uint32_t maxSets() const { return m_info.maxSets; }
@@ -55,9 +54,8 @@ namespace vk {
     private:
         VkDescriptorPool m_descriptorPool;
         VkDevice m_device;
-        Device** m_deviceRef;
+        Device* m_deviceRef;
 
         DescriptorPoolCreateInfo m_info;
-        std::unique_ptr<DescriptorPool*> m_ref;
     };
 }

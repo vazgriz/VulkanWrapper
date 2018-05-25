@@ -48,9 +48,8 @@ namespace vk {
         ~Device();
 
         const VkDevice& handle() const { return m_device; }
-        Instance& instance() const { return **m_instanceRef; }
-        const PhysicalDevice& physicalDevice() { return **m_physicalDeviceRef; }
-        Device** ref() const { return m_ref.get(); }
+        Instance& instance() const { return *m_instanceRef; }
+        const PhysicalDevice& physicalDevice() { return *m_physicalDeviceRef; }
 
         DeviceCreateFlags flags() const { return m_info.flags; }
         const std::vector<DeviceQueueCreateInfo> queueCreateInfos() const { return m_info.queueCreateInfos; }
@@ -67,13 +66,12 @@ namespace vk {
 
         VkDevice m_device;
         VkInstance m_instance;
-        Instance** m_instanceRef;
+        Instance* m_instanceRef;
         VkPhysicalDevice m_physicalDevice;
-        const PhysicalDevice** m_physicalDeviceRef;
+        const PhysicalDevice* m_physicalDeviceRef;
         DeviceCreateInfo m_info;
 
         std::unordered_map<uint32_t, std::vector<Queue>> m_queueMap;
         PhysicalDeviceFeatures m_features;
-        std::unique_ptr<Device*> m_ref;
     };
 }

@@ -45,7 +45,6 @@ namespace vk {
         ~Instance();
 
         VkInstance handle() const { return m_instance; }
-        Instance** ref() const { return m_ref.get(); }
 
         const VkAllocationCallbacks* callbacks() const { return m_callbacksPtr; }
         const std::vector<PhysicalDevice>& physicalDevices() const { return m_physicalDevices; }
@@ -64,7 +63,5 @@ namespace vk {
 
         ApplicationInfo m_appInfo;
         InstanceCreateInfo m_info;
-
-        std::unique_ptr<Instance*> m_ref;
     };
 }

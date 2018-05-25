@@ -24,7 +24,7 @@ namespace vk {
         ~Fence();
 
         VkFence handle() const { return m_fence; }
-        Device& device() const { return **m_deviceRef; }
+        Device& device() const { return *m_deviceRef; }
 
         FenceCreateFlags flags() const { return m_info.flags; }
 
@@ -37,7 +37,7 @@ namespace vk {
     private:
         VkFence m_fence;
         VkDevice m_device;
-        Device** m_deviceRef;
+        Device* m_deviceRef;
 
         FenceCreateInfo m_info;
     };

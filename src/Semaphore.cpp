@@ -22,7 +22,7 @@ Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) {
 
     VKW_CHECK(vkCreateSemaphore(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sempahore));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 }
 
 Semaphore::Semaphore(Semaphore&& other) {

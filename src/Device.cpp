@@ -65,9 +65,9 @@ Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& inf
 
     VKW_CHECK(vkCreateDevice(physicalDevice.handle(), m_info.getInfo(), physicalDevice.instance().callbacks(), &m_device));
     m_instance = physicalDevice.instance().handle();
-    m_instanceRef = physicalDevice.instance().ref();
+    m_instanceRef = &physicalDevice.instance();
     m_physicalDevice = physicalDevice.handle();
-    m_physicalDeviceRef = physicalDevice.ref();
+    m_physicalDeviceRef = &physicalDevice;
 
     getQueues(info);
 
@@ -76,8 +76,6 @@ Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& inf
     } else {
         m_features = {};
     }
-
-    m_ref = std::make_unique<Device*>(this);
 }
 
 Device::Device(Device&& other) {
@@ -88,7 +86,6 @@ Device::Device(Device&& other) {
     m_device = other.m_device;
     m_info = std::move(other.m_info);
     m_queueMap = std::move(other.m_queueMap);
-    m_ref = std::move(other.m_ref);
     other.m_device = VK_NULL_HANDLE;
 }
 

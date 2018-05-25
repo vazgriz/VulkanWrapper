@@ -22,7 +22,7 @@ Fence::Fence(Device& device, const FenceCreateInfo& info) {
 
     VKW_CHECK(vkCreateFence(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_fence));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 }
 
 Fence::~Fence() {

@@ -27,7 +27,7 @@ Buffer::Buffer(Device& device, const BufferCreateInfo& info) {
 
     VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_buffer));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 
     getRequirements();
 }

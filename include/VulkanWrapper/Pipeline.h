@@ -27,7 +27,7 @@ namespace vk {
         virtual ~Pipeline();
 
         VkPipeline handle() const { return m_pipeline; }
-        Device& device() const { return **m_deviceRef; }
+        Device& device() const { return *m_deviceRef; }
 
         const PipelineLayoutInfo& layoutInfo() { return m_layoutInfo; }
 
@@ -37,7 +37,7 @@ namespace vk {
 
         VkPipeline m_pipeline;
         VkDevice m_device;
-        Device** m_deviceRef;
+        Device* m_deviceRef;
         PipelineLayoutInfo m_layoutInfo;
     };
 }

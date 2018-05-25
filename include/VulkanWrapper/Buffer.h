@@ -30,7 +30,7 @@ namespace vk {
         ~Buffer();
 
         VkBuffer handle() const { return m_buffer; }
-        Device& device() const { return **m_deviceRef; }
+        Device& device() const { return *m_deviceRef; }
 
         void bind(DeviceMemory& memory, size_t offset);
 
@@ -47,7 +47,7 @@ namespace vk {
 
         VkBuffer m_buffer;
         VkDevice m_device;
-        Device** m_deviceRef;
+        Device* m_deviceRef;
 
         BufferCreateInfo m_info;
         MemoryRequirements m_requirements;

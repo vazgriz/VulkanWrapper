@@ -38,7 +38,7 @@ Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) {
 
     VKW_CHECK(vkCreateFramebuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_framebuffer));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 }
 
 Framebuffer::Framebuffer(Framebuffer&& other) {

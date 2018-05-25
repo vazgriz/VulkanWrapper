@@ -44,7 +44,7 @@ DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayo
 
     VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 }
 
 DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) {

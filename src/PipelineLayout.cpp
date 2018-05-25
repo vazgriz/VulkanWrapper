@@ -38,7 +38,7 @@ PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& i
 
     VKW_CHECK(vkCreatePipelineLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_pipelineLayout));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 
     m_layoutInfos.reserve(m_info.setLayouts.size());
     for (const DescriptorSetLayout& layout : m_info.setLayouts) {

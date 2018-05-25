@@ -65,8 +65,7 @@ namespace vk {
         PhysicalDevice(PhysicalDevice&& other) = default;
 
         VkPhysicalDevice handle() const { return m_physicalDevice; }
-        Instance& instance() const { return m_instance; }
-        const PhysicalDevice** ref() const { return m_ref.get(); }
+        Instance& instance() const { return *m_instanceRef; }
 
         const PhysicalDeviceProperties& properties() const { return m_properties; }
         const PhysicalDeviceFeatures& features() const { return m_features; }
@@ -92,7 +91,7 @@ namespace vk {
         void getExtensions();
         void getMemoryProperties();
 
-        Instance& m_instance;
+        Instance* m_instanceRef;
         VkPhysicalDevice m_physicalDevice;
         PhysicalDeviceProperties m_properties;
         PhysicalDeviceFeatures m_features;
@@ -100,7 +99,5 @@ namespace vk {
         std::vector<LayerProperties> m_layers;
         std::unordered_map<std::string, std::vector<ExtensionProperties>> m_extensionMap;
         MemoryProperties m_memoryProperties;
-
-        std::unique_ptr<const PhysicalDevice*> m_ref;
     };
 }

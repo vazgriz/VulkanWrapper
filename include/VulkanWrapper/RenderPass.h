@@ -74,7 +74,7 @@ namespace vk {
         ~RenderPass();
 
         VkRenderPass handle() const { return m_renderPass; }
-        Device& device() const { return **m_deviceRef; }
+        Device& device() const { return *m_deviceRef; }
 
         RenderPassCreateFlags flags() const { return m_info.flags; }
         const std::vector<AttachmentDescription> attachments() const { return m_info.attachments; }
@@ -84,7 +84,7 @@ namespace vk {
     private:
         VkRenderPass m_renderPass;
         VkDevice m_device;
-        Device** m_deviceRef;
+        Device* m_deviceRef;
 
         RenderPassCreateInfo m_info;
     };

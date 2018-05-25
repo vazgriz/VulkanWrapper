@@ -107,9 +107,9 @@ void CopyDescriptorSet::marshal() const {
 
 DescriptorSet::DescriptorSet(Device& device, DescriptorPool& pool, VkDescriptorSet descriptorSet, std::vector<DescriptorSetLayoutCreateInfo> layoutInfos) {
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
     m_pool = pool.handle();
-    m_poolRef = pool.ref();
+    m_poolRef = &pool;
     m_descriptorSet = descriptorSet;
     m_destructorEnabled = false;
     m_layoutInfos = layoutInfos;

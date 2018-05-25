@@ -23,7 +23,7 @@ void PipelineShaderStageCreateInfo::marshal() const {
 
 Pipeline::Pipeline(Device& device, const PipelineLayout& pipelineLayout) : m_layoutInfo(pipelineLayout) {
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 }
 
 Pipeline::Pipeline(Pipeline&& other) :  m_layoutInfo(std::move(other.m_layoutInfo)) {

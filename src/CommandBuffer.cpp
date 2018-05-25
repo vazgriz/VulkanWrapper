@@ -115,7 +115,7 @@ void ImageMemoryBarrier::marshal() const {
 CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer, const CommandBufferAllocateInfo& info) {
     m_commandBuffer = commandBuffer;
     m_pool = commandPool.handle();
-    m_poolRef = commandPool.ref();
+    m_poolRef = &commandPool;
     m_destructorEnabled = false;
     m_level = info.level;
 }

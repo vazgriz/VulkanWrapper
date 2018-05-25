@@ -35,7 +35,7 @@ Image::Image(Device& device, const ImageCreateInfo& info) {
 
     VKW_CHECK(vkCreateImage(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_image));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 
     m_destructorEnabled = true;
     getRequirements();
@@ -43,7 +43,7 @@ Image::Image(Device& device, const ImageCreateInfo& info) {
 
 Image::Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor) {
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
     m_info = info;
     m_image = image;
     m_destructorEnabled = enableDestructor;

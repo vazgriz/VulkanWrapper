@@ -26,7 +26,7 @@ BufferView::BufferView(Device& device, const BufferViewCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateBufferView(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_bufferView));
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
     m_device = device.handle();
 }
 

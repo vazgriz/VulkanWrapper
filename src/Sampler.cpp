@@ -37,7 +37,7 @@ Sampler::Sampler(Device& device, const SamplerCreateInfo& info) {
 
     VKW_CHECK(vkCreateSampler(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sampler));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 }
 
 Sampler::Sampler(Sampler&& other) {

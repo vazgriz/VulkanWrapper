@@ -18,12 +18,12 @@ add_custom_command(OUTPUT chalet.jpg
 	COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/chalet.jpg ${PROJECT_BINARY_DIR}/chalet.jpg
 	DEPENDS chalet.jpg)
 
-add_custom_command(OUTPUT chalet.obj
+add_custom_command(OUTPUT chalet_obj
 	COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/chalet.obj ${PROJECT_BINARY_DIR}/chalet.obj
 	DEPENDS chalet.obj)
 
 add_custom_target(Vulkan_Tutorial_Resources ALL
-	DEPENDS chalet.jpg chalet.obj)
+	DEPENDS chalet.jpg chalet_obj)
 
 add_executable(Vulkan_Tutorial main.cpp)
 target_include_directories(Vulkan_Tutorial PUBLIC VulkanWrapper ${GLFW_INCLUDE} ${GLM_INCLUDE} ${TINYOBJ_INCLUDE})

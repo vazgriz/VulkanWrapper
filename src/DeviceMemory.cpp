@@ -23,7 +23,7 @@ DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) {
 
     VKW_CHECK(vkAllocateMemory(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_deviceMemory));
     m_device = device.handle();
-    m_deviceRef = device.ref();
+    m_deviceRef = &device;
 
     m_mapping = nullptr;
     m_mappingOffset = 0;

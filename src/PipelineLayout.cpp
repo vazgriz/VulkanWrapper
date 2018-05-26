@@ -10,6 +10,16 @@ PipelineLayoutInfo::PipelineLayoutInfo(const PipelineLayout& pipelineLayout) {
     pushConstantRanges = pipelineLayout.pushConstantRanges();
 }
 
+PipelineLayoutInfo::PipelineLayoutInfo(PipelineLayoutInfo&& other) {
+    *this = std::move(other);
+}
+
+PipelineLayoutInfo& PipelineLayoutInfo::operator = (PipelineLayoutInfo&& other) {
+    descriptorSetLayouts = std::move(other.descriptorSetLayouts);
+    pushConstantRanges = std::move(other.pushConstantRanges);
+    return *this;
+}
+
 void PipelineLayoutCreateInfo::marshal() const {
     m_setLayouts.clear();
 

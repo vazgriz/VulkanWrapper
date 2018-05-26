@@ -12,7 +12,10 @@ namespace vk {
     class PipelineLayout;
 
     struct PipelineLayoutInfo {
+        PipelineLayoutInfo() = default;
         PipelineLayoutInfo(const PipelineLayout& pipelineLayout);
+        PipelineLayoutInfo(PipelineLayoutInfo&& other);
+        PipelineLayoutInfo& operator = (PipelineLayoutInfo&& other);
         std::vector<DescriptorSetLayoutCreateInfo> descriptorSetLayouts;
         std::vector<PushConstantRange> pushConstantRanges;
     };

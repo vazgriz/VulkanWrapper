@@ -31,14 +31,14 @@ namespace vk {
 
     class Surface {
     public:
-        Surface(const Instance& instance, VkSurfaceKHR surface);
+        Surface(Instance& instance, VkSurfaceKHR surface);
         Surface(const Surface& other) = delete;
         Surface& operator = (const Surface& other) = delete;
         Surface(Surface&& other);
         ~Surface();
 
         VkSurfaceKHR handle() const { return m_surface; }
-        const Instance& instance() const { return m_instance; }
+        Instance& instance() const { return *m_instance; }
 
         bool supported(const PhysicalDevice&, uint32_t queueFamilyIndex) const;
         std::vector<SurfaceFormat> getFormats(const PhysicalDevice& physicalDevice) const;
@@ -47,6 +47,6 @@ namespace vk {
 
     private:
         VkSurfaceKHR m_surface;
-        const Instance& m_instance;
+        Instance* m_instance;
     };
 }

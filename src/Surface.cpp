@@ -17,17 +17,19 @@ SurfaceCapabilities::SurfaceCapabilities(VkSurfaceCapabilitiesKHR capabilities) 
    supportedUsageFlags = static_cast<ImageUsageFlags>(capabilities.supportedUsageFlags);
 }
 
-Surface::Surface(const Instance& instance, VkSurfaceKHR surface) : m_instance(instance) {
+Surface::Surface(Instance& instance, VkSurfaceKHR surface) {
     m_surface = surface;
+    m_instance = &instance;
 }
 
-Surface::Surface(Surface&& other) : m_instance(other.instance()) {
+Surface::Surface(Surface&& other) {
     m_surface = other.m_surface;
+    m_instance = other.m_instance;
     other.m_surface = VK_NULL_HANDLE;
 }
 
 Surface::~Surface() {
-    vkDestroySurfaceKHR(m_instance.handle(), m_surface, m_instance.callbacks());
+    vkDestroySurfaceKHR(m_instance->handle(), m_surface, m_instance->callbacks());
 }
 
 bool Surface::supported(const PhysicalDevice& physicalDevice, uint32_t queueFamilyIndex) const {

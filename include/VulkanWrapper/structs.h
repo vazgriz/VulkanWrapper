@@ -27,6 +27,7 @@ namespace vk {
     typedef VkDrawIndirectCommand DrawIndirectCommand;
     typedef VkDisplayModeParametersKHR DisplayModeParameters;
     typedef VkSampleMask SampleMask;
+    typedef VkImageBlit ImageBlit;
 
     struct ComponentMapping {
         ComponentSwizzle r;

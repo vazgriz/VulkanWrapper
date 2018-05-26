@@ -218,6 +218,10 @@ void CommandBuffer::copyBufferToImage(Buffer& src, Image& dst, ImageLayout dstLa
     vkCmdCopyBufferToImage(m_commandBuffer, src.handle(), dst.handle(), static_cast<VkImageLayout>(dstLayout), copies.size(), reinterpret_cast<const VkBufferImageCopy*>(copies.data()));
 }
 
+void CommandBuffer::blitImage(Image& srcImage, vk::ImageLayout srcImageLayout, Image& dstImage, vk::ImageLayout dstImageLayout, ArrayProxy<const ImageBlit> regions, vk::Filter filter) {
+    vkCmdBlitImage(m_commandBuffer, srcImage.handle(), static_cast<VkImageLayout>(srcImageLayout), dstImage.handle(), static_cast<VkImageLayout>(dstImageLayout), regions.size(), regions.data(), static_cast<VkFilter>(filter));
+}
+
 void CommandBuffer::pipelineBarrier(
     PipelineStageFlags srcStageMask,
     PipelineStageFlags dstStageMask,

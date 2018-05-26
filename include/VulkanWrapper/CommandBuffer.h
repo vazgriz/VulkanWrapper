@@ -116,6 +116,7 @@ namespace vk {
 
         void copyBuffer(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy);
         void copyBufferToImage(Buffer& src, Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies);
+        void blitImage(Image& srcImage, vk::ImageLayout srcImageLayout, Image& dstImage, vk::ImageLayout dstImageLayout, ArrayProxy<const ImageBlit> regions, vk::Filter filter);
 
         void pipelineBarrier(
             PipelineStageFlags srcStageMask,

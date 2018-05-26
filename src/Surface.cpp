@@ -26,6 +26,10 @@ Surface::Surface(Surface&& other) : m_instance(other.instance()) {
     other.m_surface = VK_NULL_HANDLE;
 }
 
+Surface::~Surface() {
+    vkDestroySurfaceKHR(m_instance.handle(), m_surface, m_instance.callbacks());
+}
+
 bool Surface::supported(const PhysicalDevice& physicalDevice, uint32_t queueFamilyIndex) const {
     VkBool32 result;
     vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.handle(), queueFamilyIndex, m_surface, &result);

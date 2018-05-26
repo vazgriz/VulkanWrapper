@@ -35,6 +35,7 @@ namespace vk {
         Surface(const Surface& other) = delete;
         Surface& operator = (const Surface& other) = delete;
         Surface(Surface&& other);
+        ~Surface();
 
         VkSurfaceKHR handle() const { return m_surface; }
         const Instance& instance() const { return m_instance; }

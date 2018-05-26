@@ -60,9 +60,7 @@ namespace vk {
     class PhysicalDevice {
     public:
         PhysicalDevice(Instance& instance, VkPhysicalDevice physicalDevice);
-        PhysicalDevice(const PhysicalDevice& other) = delete;
         PhysicalDevice& operator = (const PhysicalDevice& other) = delete;
-        PhysicalDevice(PhysicalDevice&& other) = default;
 
         VkPhysicalDevice handle() const { return m_physicalDevice; }
         Instance& instance() const { return *m_instanceRef; }

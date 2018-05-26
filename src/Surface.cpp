@@ -23,9 +23,14 @@ Surface::Surface(Instance& instance, VkSurfaceKHR surface) {
 }
 
 Surface::Surface(Surface&& other) {
+    *this = std::move(other);
+}
+
+Surface& Surface::operator = (Surface&& other) {
     m_surface = other.m_surface;
     m_instance = other.m_instance;
     other.m_surface = VK_NULL_HANDLE;
+    return *this;
 }
 
 Surface::~Surface() {

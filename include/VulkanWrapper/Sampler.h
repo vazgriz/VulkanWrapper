@@ -37,6 +37,7 @@ namespace vk {
         Sampler(const Sampler& other) = delete;
         Sampler& operator = (const Sampler& other) = delete;
         Sampler(Sampler&& other);
+        Sampler& operator = (Sampler&& other);
         ~Sampler();
 
         VkSampler handle() const { return m_sampler; }

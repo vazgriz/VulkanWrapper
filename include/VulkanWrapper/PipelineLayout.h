@@ -37,6 +37,7 @@ namespace vk {
         PipelineLayout(const PipelineLayout& other) = delete;
         PipelineLayout& operator = (const PipelineLayout& other) = delete;
         PipelineLayout(PipelineLayout&& other);
+        PipelineLayout& operator = (PipelineLayout&& other);
         ~PipelineLayout();
 
         VkPipelineLayout handle() const { return m_pipelineLayout; }

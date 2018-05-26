@@ -32,11 +32,16 @@ ImageView::ImageView(Device& device, const ImageViewCreateInfo& info) {
 }
 
 ImageView::ImageView(ImageView&& other) {
+    *this = std::move(other);
+}
+
+ImageView& ImageView::operator = (ImageView&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_imageView = other.m_imageView;
     m_info = std::move(other.m_info);
     other.m_imageView = VK_NULL_HANDLE;
+    return *this;
 }
 
 ImageView::~ImageView() {

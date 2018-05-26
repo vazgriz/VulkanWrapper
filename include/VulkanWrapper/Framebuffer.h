@@ -31,6 +31,7 @@ namespace vk {
         Framebuffer(const Framebuffer& other) = delete;
         Framebuffer& operator = (const Framebuffer& other) = delete;
         Framebuffer(Framebuffer&& other);
+        Framebuffer& operator = (Framebuffer&& other);
         ~Framebuffer();
 
         VkFramebuffer handle() const { return m_framebuffer; }

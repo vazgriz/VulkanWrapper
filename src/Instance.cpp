@@ -72,6 +72,10 @@ Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* 
 }
 
 Instance::Instance(Instance&& other) {
+    *this = std::move(other);
+}
+
+Instance& Instance::operator = (Instance&& other) {
     m_instance = other.m_instance;
     m_callbacks = other.m_callbacks;
     m_callbacksPtr = other.m_callbacksPtr;
@@ -82,6 +86,7 @@ Instance::Instance(Instance&& other) {
         m_info.applicationInfo = &m_appInfo;
     }
     other.m_instance = VK_NULL_HANDLE;
+    return *this;
 }
 
 void Instance::EnumeratePhysicalDevices() {

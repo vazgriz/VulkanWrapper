@@ -34,6 +34,7 @@ namespace vk {
         CommandPool(const CommandPool& other) = delete;
         CommandPool& operator = (const CommandPool& other) = delete;
         CommandPool(CommandPool&& other);
+        CommandPool& operator = (CommandPool&& other);
         ~CommandPool();
 
         VkCommandPool handle() const { return m_commandPool; }

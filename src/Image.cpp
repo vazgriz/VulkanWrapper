@@ -54,12 +54,17 @@ Image::~Image() {
 }
 
 Image::Image(Image&& other) {
+    *this = std::move(other);
+}
+
+Image& Image::operator = (Image&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_image = other.m_image;
     m_destructorEnabled = other.m_destructorEnabled;
     m_requirements = other.m_requirements;
     other.m_image = VK_NULL_HANDLE;
+    return *this;
 }
 
 void Image::bind(DeviceMemory& memory, size_t offset) {

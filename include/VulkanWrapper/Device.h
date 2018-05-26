@@ -45,6 +45,7 @@ namespace vk {
         Device(const Device& other) = delete;
         Device& operator = (const Device& other) = delete;
         Device(Device&& other);
+        Device& operator = (Device&& other);
         ~Device();
 
         const VkDevice& handle() const { return m_device; }

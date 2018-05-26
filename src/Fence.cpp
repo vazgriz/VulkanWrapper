@@ -30,9 +30,14 @@ Fence::~Fence() {
 }
 
 Fence::Fence(Fence&& other) {
+    *this = std::move(other);
+}
+
+Fence& Fence::operator = (Fence&& other) {
     m_fence = other.m_fence;
     m_info = std::move(other.m_info);
     other.m_fence = VK_NULL_HANDLE;
+    return *this;
 }
 
 VkResult Fence::wait(uint64_t timeout) const {

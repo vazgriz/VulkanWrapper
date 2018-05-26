@@ -24,6 +24,7 @@ namespace vk {
 
     class Pipeline {
     public:
+        Pipeline& operator = (Pipeline&& other);
         virtual ~Pipeline();
 
         VkPipeline handle() const { return m_pipeline; }

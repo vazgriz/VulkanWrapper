@@ -28,6 +28,7 @@ namespace vk {
         BufferView(const BufferView& other) = delete;
         BufferView& operator = (const BufferView& other) = delete;
         BufferView(BufferView&& other);
+        BufferView& operator = (BufferView&& other);
         ~BufferView();
 
         VkBufferView handle() const { return m_bufferView; }

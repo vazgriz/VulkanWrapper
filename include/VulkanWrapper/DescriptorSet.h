@@ -77,6 +77,7 @@ namespace vk {
         DescriptorSet(const DescriptorSet& other) = delete;
         DescriptorSet& operator = (const DescriptorSet& other) = delete;
         DescriptorSet(DescriptorSet&& other);
+        DescriptorSet& operator = (DescriptorSet&& other);
         ~DescriptorSet();
 
         VkDescriptorSet handle() const { return m_descriptorSet; }

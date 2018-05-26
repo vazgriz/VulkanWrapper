@@ -42,6 +42,7 @@ namespace vk {
         Instance(const Instance& other) = delete;
         Instance& operator = (const Instance& other) = delete;
         Instance(Instance&& other);
+        Instance& operator = (Instance&& other);
         ~Instance();
 
         VkInstance handle() const { return m_instance; }

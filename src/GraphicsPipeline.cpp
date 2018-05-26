@@ -217,3 +217,12 @@ GraphicsPipeline::GraphicsPipeline(Device& device, const GraphicsPipelineCreateI
 
     VKW_CHECK(vkCreateGraphicsPipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo(), device.instance().callbacks(), &m_pipeline));
 }
+
+GraphicsPipeline::GraphicsPipeline(GraphicsPipeline&& other) : Pipeline(std::move(other)) {
+    *this = std::move(other);
+}
+
+GraphicsPipeline& GraphicsPipeline::operator = (GraphicsPipeline&& other) {
+    m_info = std::move(other.m_info);
+    return *this;
+}

@@ -23,6 +23,7 @@ namespace vk {
         DeviceMemory(const DeviceMemory& other) = delete;
         DeviceMemory& operator & (const DeviceMemory& other) = delete;
         DeviceMemory(DeviceMemory&& other);
+        DeviceMemory& operator = (DeviceMemory&& other);
         ~DeviceMemory();
 
         VkDeviceMemory handle() const { return m_deviceMemory; }

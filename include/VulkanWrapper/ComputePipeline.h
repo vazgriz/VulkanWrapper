@@ -25,7 +25,8 @@ namespace vk {
         ComputePipeline(Device& device, const ComputePipelineCreateInfo& info);
         ComputePipeline(const ComputePipeline& other) = delete;
         ComputePipeline& operator = (const ComputePipeline& other) = delete;
-        ComputePipeline(ComputePipeline&& other) = default;
+        ComputePipeline(ComputePipeline&& other);
+        ComputePipeline& operator = (ComputePipeline&& other);
         //no destructor, handled by vk::Pipeline
 
         PipelineCreateFlags flags() const { return m_info.flags; }

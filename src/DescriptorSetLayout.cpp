@@ -48,11 +48,16 @@ DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayo
 }
 
 DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) {
+    *this = std::move(other);
+}
+
+DescriptorSetLayout& DescriptorSetLayout::operator = (DescriptorSetLayout&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_descriptorSetLayout = other.m_descriptorSetLayout;
     m_info = other.m_info;
     other.m_descriptorSetLayout = VK_NULL_HANDLE;
+    return *this;
 }
 
 DescriptorSetLayout::~DescriptorSetLayout() {

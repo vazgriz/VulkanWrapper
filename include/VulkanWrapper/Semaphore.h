@@ -19,6 +19,7 @@ namespace vk {
         Semaphore(const Semaphore& other) = delete;
         Semaphore& operator = (const Semaphore& other) = delete;
         Semaphore(Semaphore&& other);
+        Semaphore& operator = (Semaphore&& other);
         ~Semaphore();
 
         VkSemaphore handle() const { return m_sempahore; }

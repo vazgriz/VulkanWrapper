@@ -28,10 +28,15 @@ ShaderModule::ShaderModule(Device& device, const ShaderModuleCreateInfo& info) {
 }
 
 ShaderModule::ShaderModule(ShaderModule&& other) {
+    *this = std::move(other);
+}
+
+ShaderModule& ShaderModule::operator = (ShaderModule&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_shaderModule = other.m_shaderModule;
     other.m_shaderModule = VK_NULL_HANDLE;
+    return *this;
 }
 
 ShaderModule::~ShaderModule() {

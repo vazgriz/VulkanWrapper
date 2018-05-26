@@ -42,11 +42,16 @@ Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) {
 }
 
 Framebuffer::Framebuffer(Framebuffer&& other) {
+    *this = std::move(other);
+}
+
+Framebuffer& Framebuffer::operator = (Framebuffer&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_framebuffer = other.m_framebuffer;
     m_info = std::move(other.m_info);
     other.m_framebuffer = VK_NULL_HANDLE;
+    return *this;
 }
 
 Framebuffer::~Framebuffer() {

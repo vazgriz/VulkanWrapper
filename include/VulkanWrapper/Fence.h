@@ -21,6 +21,7 @@ namespace vk {
         Fence(const Fence& other) = delete;
         Fence& operator = (const Fence& other) = delete;
         Fence(Fence&& other);
+        Fence& operator = (Fence&& other);
         ~Fence();
 
         VkFence handle() const { return m_fence; }

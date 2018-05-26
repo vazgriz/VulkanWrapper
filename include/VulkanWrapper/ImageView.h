@@ -27,6 +27,7 @@ namespace vk {
         ImageView(const ImageView& other) = delete;
         ImageView& operator = (const ImageView& other) = delete;
         ImageView(ImageView&& other);
+        ImageView& operator = (ImageView&& other);
         ~ImageView();
 
         VkImageView handle() const { return m_imageView; }

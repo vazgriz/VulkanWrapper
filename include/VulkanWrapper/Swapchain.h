@@ -41,6 +41,7 @@ namespace vk {
         Swapchain(const Swapchain& other) = delete;
         Swapchain& operator = (const Swapchain& other) = delete;
         Swapchain(Swapchain&& other);
+        Swapchain& operator = (Swapchain&& other);
         ~Swapchain();
 
         VkSwapchainKHR handle() const { return m_swapchain; }

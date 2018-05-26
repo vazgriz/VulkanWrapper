@@ -40,6 +40,7 @@ namespace vk {
         DescriptorPool(const DescriptorPool& other) = delete;
         DescriptorPool& operator = (const DescriptorPool& other) = delete;
         DescriptorPool(DescriptorPool&& other);
+        DescriptorPool& operator = (DescriptorPool&& other);
         ~DescriptorPool();
 
         VkDescriptorPool handle() const { return m_descriptorPool; }

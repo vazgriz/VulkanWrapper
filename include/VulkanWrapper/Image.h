@@ -35,6 +35,7 @@ namespace vk {
         Image(const Image& image) = delete;
         Image& operator = (const Image& other) = delete;
         Image(Image&& other);
+        Image& operator = (Image&& other);
         ~Image();
 
         VkImage handle() const { return m_image; }

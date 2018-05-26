@@ -42,11 +42,16 @@ CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) {
 }
 
 CommandPool::CommandPool(CommandPool&& other) {
+    *this = std::move(other);
+}
+
+CommandPool& CommandPool::operator = (CommandPool&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_commandPool = other.m_commandPool;
     m_info = std::move(other.m_info);
     other.m_commandPool = VK_NULL_HANDLE;
+    return *this;
 }
 
 CommandPool::~CommandPool() {

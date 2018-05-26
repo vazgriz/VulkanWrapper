@@ -51,11 +51,16 @@ DescriptorPool::DescriptorPool(Device& device, const DescriptorPoolCreateInfo& i
 }
 
 DescriptorPool::DescriptorPool(DescriptorPool&& other) {
+    *this = std::move(other);
+}
+
+DescriptorPool& DescriptorPool::operator = (DescriptorPool&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_descriptorPool = other.m_descriptorPool;
     m_info = std::move(other.m_info);
     other.m_descriptorPool = VK_NULL_HANDLE;
+    return *this;
 }
 
 DescriptorPool::~DescriptorPool() {

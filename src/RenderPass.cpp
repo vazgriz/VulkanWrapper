@@ -54,11 +54,16 @@ RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) {
 }
 
 RenderPass::RenderPass(RenderPass&& other) {
+    *this = std::move(other);
+}
+
+RenderPass& RenderPass::operator = (RenderPass&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_renderPass = other.m_renderPass;
     m_info = std::move(other.m_info);
     other.m_renderPass = VK_NULL_HANDLE;
+    return *this;
 }
 
 RenderPass::~RenderPass() {

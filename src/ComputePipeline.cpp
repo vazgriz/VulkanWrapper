@@ -28,6 +28,15 @@ void ComputePipelineCreateInfo::marshal() const {
     m_info.basePipelineIndex = basePipelineIndex;
 }
 
+ComputePipeline::ComputePipeline(ComputePipeline&& other) : Pipeline(std::move(other)) {
+    *this = std::move(other);
+}
+
+ComputePipeline& ComputePipeline::operator = (ComputePipeline&& other) {
+    m_info = other.m_info;
+    return *this;
+}
+
 ComputePipeline::ComputePipeline(Device& device, const ComputePipelineCreateInfo& info) : Pipeline(device, *info.layout) {
     m_info = info;
     m_info.marshal();

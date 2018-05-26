@@ -52,12 +52,17 @@ Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) {
 }
 
 Swapchain::Swapchain(Swapchain&& other) {
+    *this = std::move(other);
+}
+
+Swapchain& Swapchain::operator = (Swapchain&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_swapchain = other.m_swapchain;
     m_info = std::move(other.m_info);
     m_images = std::move(other.m_images);
     other.m_swapchain = VK_NULL_HANDLE;
+    return *this;
 }
 
 Swapchain::~Swapchain() {

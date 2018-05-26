@@ -71,6 +71,7 @@ namespace vk {
         RenderPass(const RenderPass& other) = delete;
         RenderPass& operator = (const RenderPass& other) = delete;
         RenderPass(RenderPass&& other);
+        RenderPass& operator = (RenderPass&& other);
         ~RenderPass();
 
         VkRenderPass handle() const { return m_renderPass; }

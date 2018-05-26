@@ -41,6 +41,7 @@ namespace vk {
         DescriptorSetLayout(const DescriptorSetLayout& other) = delete;
         DescriptorSetLayout& operator = (const DescriptorSetLayout& other) = delete;
         DescriptorSetLayout(DescriptorSetLayout&& other);
+        DescriptorSetLayout& operator = (DescriptorSetLayout&& other);
         ~DescriptorSetLayout();
 
         VkDescriptorSetLayout handle() const { return m_descriptorSetLayout; }

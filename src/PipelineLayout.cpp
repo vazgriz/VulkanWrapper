@@ -60,12 +60,17 @@ PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& i
 }
 
 PipelineLayout::PipelineLayout(PipelineLayout&& other) {
+    *this = std::move(other);
+}
+
+PipelineLayout& PipelineLayout::operator = (PipelineLayout&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_pipelineLayout = other.m_pipelineLayout;
     m_info = std::move(other.m_info);
     m_layoutInfos = std::move(other.m_layoutInfos);
     other.m_pipelineLayout = VK_NULL_HANDLE;
+    return *this;
 }
 
 PipelineLayout::~PipelineLayout() {

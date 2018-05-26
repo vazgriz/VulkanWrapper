@@ -31,11 +31,16 @@ BufferView::BufferView(Device& device, const BufferViewCreateInfo& info) {
 }
 
 BufferView::BufferView(BufferView&& other) {
+    *this = std::move(other);
+}
+
+BufferView& BufferView::operator = (BufferView&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_bufferView = other.m_bufferView;
     m_info = std::move(other.m_info);
     other.m_bufferView = VK_NULL_HANDLE;
+    return *this;
 }
 
 BufferView::~BufferView() {

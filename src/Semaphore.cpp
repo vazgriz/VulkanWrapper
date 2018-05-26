@@ -26,11 +26,16 @@ Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) {
 }
 
 Semaphore::Semaphore(Semaphore&& other) {
+    *this = std::move(other);
+}
+
+Semaphore& Semaphore::operator = (Semaphore&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_sempahore = other.m_sempahore;
     m_info = std::move(other.m_info);
     other.m_sempahore = VK_NULL_HANDLE;
+    return *this;
 }
 
 Semaphore::~Semaphore() {

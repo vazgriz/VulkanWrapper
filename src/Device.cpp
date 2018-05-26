@@ -79,6 +79,10 @@ Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& inf
 }
 
 Device::Device(Device&& other) {
+    *this = std::move(other);
+}
+
+Device& Device::operator = (Device&& other) {
     m_instance = other.m_instance;
     m_instanceRef = other.m_instanceRef;
     m_physicalDevice = other.m_physicalDevice;
@@ -87,6 +91,7 @@ Device::Device(Device&& other) {
     m_info = std::move(other.m_info);
     m_queueMap = std::move(other.m_queueMap);
     other.m_device = VK_NULL_HANDLE;
+    return *this;
 }
 
 const std::vector<std::string>& Device::layers() const {

@@ -88,6 +88,7 @@ namespace vk {
         CommandBuffer(const CommandBuffer& other) = delete;
         CommandBuffer& operator = (const CommandBuffer& other) = delete;
         CommandBuffer(CommandBuffer&& other);
+        CommandBuffer& operator = (CommandBuffer&& other);
         ~CommandBuffer();
 
         VkCommandBuffer handle() const { return m_commandBuffer; }

@@ -41,11 +41,16 @@ Sampler::Sampler(Device& device, const SamplerCreateInfo& info) {
 }
 
 Sampler::Sampler(Sampler&& other) {
+    *this = std::move(other);
+}
+
+Sampler& Sampler::operator = (Sampler&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_sampler = other.m_sampler;
     m_info = std::move(other.m_info);
     other.m_sampler = VK_NULL_HANDLE;
+    return *this;
 }
 
 Sampler::~Sampler() {

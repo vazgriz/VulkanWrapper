@@ -33,12 +33,17 @@ Buffer::Buffer(Device& device, const BufferCreateInfo& info) {
 }
 
 Buffer::Buffer(Buffer&& other) {
+    *this = std::move(other);
+}
+
+Buffer& Buffer::operator = (Buffer&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_buffer = other.m_buffer;
     m_requirements = other.m_requirements;
     m_info = std::move(other.m_info);
     other.m_buffer = VK_NULL_HANDLE;
+    return *this;
 }
 
 Buffer::~Buffer() {

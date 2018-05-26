@@ -21,6 +21,7 @@ namespace vk {
         ShaderModule(const ShaderModule& other) = delete;
         ShaderModule& operator = (const ShaderModule& other) = delete;
         ShaderModule(ShaderModule&& other);
+        ShaderModule& operator = (ShaderModule&& other);
         ~ShaderModule();
 
         VkShaderModule handle() const { return m_shaderModule; }

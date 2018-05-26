@@ -27,6 +27,7 @@ namespace vk {
         Buffer(const Buffer& other) = delete;
         Buffer& operator = (const Buffer& other) = delete;
         Buffer(Buffer&& other);
+        Buffer& operator = (Buffer&& other);
         ~Buffer();
 
         VkBuffer handle() const { return m_buffer; }

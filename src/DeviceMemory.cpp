@@ -31,6 +31,10 @@ DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) {
 }
 
 DeviceMemory::DeviceMemory(DeviceMemory&& other) {
+    *this = std::move(other);
+}
+
+DeviceMemory& DeviceMemory::operator = (DeviceMemory&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_deviceMemory = other.m_deviceMemory;
@@ -39,6 +43,7 @@ DeviceMemory::DeviceMemory(DeviceMemory&& other) {
     m_mappingOffset = other.m_mappingOffset;
     m_mappingSize = other.m_mappingSize;
     other.m_deviceMemory = VK_NULL_HANDLE;
+    return *this;
 }
 
 DeviceMemory::~DeviceMemory() {

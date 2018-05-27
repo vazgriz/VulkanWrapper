@@ -266,7 +266,7 @@ public:
             if (graphicsFound && presentFound) break;
         }
 
-        return graphicsFound;
+        return graphicsFound && presentFound;
     }
 
     void pickPhysicalDevice() {

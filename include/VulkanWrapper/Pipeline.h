@@ -11,13 +11,22 @@ namespace vk {
     class Device;
     class ShaderModule;
 
+    class SpecializationInfo : public Info<VkSpecializationInfo> {
+    public:
+        std::vector<vk::SpecializationMapEntry> mapEntries;
+        size_t dataSize;
+        const void* data;
+
+        void marshal() const;
+    };
+
     class PipelineShaderStageCreateInfo : public Info<VkPipelineShaderStageCreateInfo> {
     public:
         PipelineShaderStageCreateFlags flags;
         ShaderStageFlags stage;
         const ShaderModule* module;
         std::string name;
-        const SpecializationInfo* specializationInfo;
+        SpecializationInfo* specializationInfo;
 
         void marshal() const;
     };

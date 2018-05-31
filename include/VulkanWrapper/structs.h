@@ -12,7 +12,6 @@ namespace vk {
     typedef VkOffset3D Offset3D;
     typedef VkSubresourceLayout SubresourceLayout;
     typedef VkSpecializationMapEntry SpecializationMapEntry;
-    typedef VkSpecializationInfo SpecializationInfo;
     typedef VkViewport Viewport;
     typedef VkOffset2D Offset2D;
     typedef VkExtent2D Extent2D;

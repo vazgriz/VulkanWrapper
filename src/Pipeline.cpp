@@ -5,6 +5,13 @@
 
 using namespace vk;
 
+void SpecializationInfo::marshal() const {
+    m_info.dataSize = dataSize;
+    m_info.pData = data;
+    m_info.mapEntryCount = static_cast<uint32_t>(mapEntries.size());
+    m_info.pMapEntries = mapEntries.data();
+}
+
 void PipelineShaderStageCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     if (next != nullptr) {
@@ -18,7 +25,11 @@ void PipelineShaderStageCreateInfo::marshal() const {
     m_info.stage = static_cast<VkShaderStageFlagBits>(stage);
     m_info.module = module->handle();
     m_info.pName = name.c_str();
-    m_info.pSpecializationInfo = specializationInfo;
+
+    if (specializationInfo != nullptr) {
+        specializationInfo->marshal();
+        m_info.pSpecializationInfo = specializationInfo->getInfo();
+    }
 }
 
 Pipeline::Pipeline(Device& device, const PipelineLayout& pipelineLayout) : m_layoutInfo(pipelineLayout) {

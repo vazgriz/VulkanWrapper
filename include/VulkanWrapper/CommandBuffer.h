@@ -126,6 +126,8 @@ namespace vk {
             ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
             ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers);
 
+        void pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data);
+
     private:
         VkCommandBuffer m_commandBuffer;
         VkCommandPool m_pool;

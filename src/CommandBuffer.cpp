@@ -257,3 +257,7 @@ void CommandBuffer::pipelineBarrier(
         bufferMemoryBarriers.size(), vkBufferMemoryBarriers.data(),
         imageMemoryBarriers.size(), vkImageMemoryBarriers.data());
 }
+
+void CommandBuffer::pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) {
+    vkCmdPushConstants(m_commandBuffer, pipelineLayout.handle(), static_cast<VkShaderStageFlags>(stageFlags), offset, size, data);
+}

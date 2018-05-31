@@ -6,7 +6,7 @@
 using namespace vk;
 
 void ComputePipelineCreateInfo::marshal() const {
-    m_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+    m_info.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
         m_info.pNext = next->info();

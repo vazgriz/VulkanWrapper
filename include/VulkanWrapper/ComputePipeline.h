@@ -22,6 +22,7 @@ namespace vk {
     };
 
     class ComputePipeline : public Pipeline {
+    public:
         ComputePipeline(Device& device, const ComputePipelineCreateInfo& info);
         ComputePipeline(const ComputePipeline& other) = delete;
         ComputePipeline& operator = (const ComputePipeline& other) = delete;

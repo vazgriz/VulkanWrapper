@@ -34,6 +34,8 @@ Fence::Fence(Fence&& other) {
 }
 
 Fence& Fence::operator = (Fence&& other) {
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
     m_fence = other.m_fence;
     m_info = std::move(other.m_info);
     other.m_fence = VK_NULL_HANDLE;

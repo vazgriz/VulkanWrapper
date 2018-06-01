@@ -9,8 +9,18 @@
 using namespace vk;
 
 void DescriptorImageInfo::marshal() const {
-    m_info.sampler = sampler->handle();
-    m_info.imageView = imageView->handle();
+    if (sampler != nullptr) {
+        m_info.sampler = sampler->handle();
+    } else {
+        m_info.sampler = VK_NULL_HANDLE;
+    }
+
+    if (imageView != nullptr) {
+        m_info.imageView = imageView->handle();
+    } else {
+        m_info.imageView = VK_NULL_HANDLE;
+    }
+
     m_info.imageLayout = static_cast<VkImageLayout>(imageLayout);
 }
 

@@ -261,3 +261,7 @@ void CommandBuffer::pipelineBarrier(
 void CommandBuffer::pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) {
     vkCmdPushConstants(m_commandBuffer, pipelineLayout.handle(), static_cast<VkShaderStageFlags>(stageFlags), offset, size, data);
 }
+
+void CommandBuffer::dispatch(uint32_t groupCountX, uint32_t groupCountY, uint32_t groupCountZ) const {
+    vkCmdDispatch(m_commandBuffer, groupCountX, groupCountY, groupCountZ);
+}

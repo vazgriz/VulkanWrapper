@@ -52,7 +52,11 @@ DeviceMemory::~DeviceMemory() {
 
 void* DeviceMemory::map(size_t offset, size_t size) {
     m_mappingOffset = offset;
-    m_mappingSize = size;
+    if (size == VK_WHOLE_SIZE) {
+        m_mappingSize = this->size();
+    } else {
+        m_mappingSize = size;
+    }
     vkMapMemory(m_device, m_deviceMemory, offset, size, 0, &m_mapping);
     return m_mapping;
 }

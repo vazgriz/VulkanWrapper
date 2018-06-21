@@ -19,7 +19,7 @@ PhysicalDeviceProperties::PhysicalDeviceProperties(VkPhysicalDeviceProperties pr
     deviceID = properties.deviceID;
     deviceType = static_cast<PhysicalDeviceType>(properties.deviceType);
     deviceName = properties.deviceName;
-    std::memcpy(&pipelineCacheUUID[VK_UUID_SIZE], properties.pipelineCacheUUID, VK_UUID_SIZE);
+    std::memcpy(&pipelineCacheUUID[0], properties.pipelineCacheUUID, VK_UUID_SIZE);
     limits = properties.limits;
     sparseProperties = properties.sparseProperties;
 }

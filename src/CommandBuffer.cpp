@@ -170,7 +170,7 @@ void CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uin
     vkCmdDrawIndexed(m_commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
 }
 
-void CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<Buffer>> buffers, ArrayProxy<const DeviceSize> offsets) const {
+void CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<const Buffer>> buffers, ArrayProxy<const DeviceSize> offsets) const {
     std::vector<VkBuffer> vkBuffers;
     vkBuffers.reserve(buffers.size());
     for (const Buffer& buffer : buffers) {
@@ -191,7 +191,7 @@ void CommandBuffer::bindDescriptorSets(
     PipelineBindPoint pipelineBindPoint,
     const PipelineLayout& pipelineLayout,
     uint32_t firstSet,
-    ArrayProxy<const std::reference_wrapper<DescriptorSet>> descriptorSets,
+    ArrayProxy<const std::reference_wrapper<const DescriptorSet>> descriptorSets,
     ArrayProxy<const uint32_t> dynamicOffsets) const
 {
     std::vector<VkDescriptorSet> vkSets;

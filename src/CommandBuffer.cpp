@@ -228,7 +228,7 @@ void CommandBuffer::pipelineBarrier(
     DependencyFlags dependencyFlags,
     ArrayProxy<const MemoryBarrier> memoryBarriers,
     ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
-    ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers)
+    ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers) const
 {
     std::vector<VkMemoryBarrier> vkMemoryBarriers;
     vkMemoryBarriers.reserve(memoryBarriers.size());
@@ -258,7 +258,7 @@ void CommandBuffer::pipelineBarrier(
         imageMemoryBarriers.size(), vkImageMemoryBarriers.data());
 }
 
-void CommandBuffer::pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) {
+void CommandBuffer::pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) const {
     vkCmdPushConstants(m_commandBuffer, pipelineLayout.handle(), static_cast<VkShaderStageFlags>(stageFlags), offset, size, data);
 }
 

@@ -124,9 +124,9 @@ namespace vk {
             DependencyFlags dependencyFlags,
             ArrayProxy<const MemoryBarrier> memoryBarriers,
             ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
-            ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers);
+            ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers) const;
 
-        void pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data);
+        void pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) const;
 
         void dispatch(uint32_t groupCountX, uint32_t groupCountY, uint32_t groupCountZ) const;
 

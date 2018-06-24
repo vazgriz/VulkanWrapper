@@ -610,7 +610,7 @@ public:
     void recordCommands() {
         vk::CommandBufferAllocateInfo allocInfo = {};
         allocInfo.commandPool = commandPool.get();
-        allocInfo.commandBufferCount = swapchain->images().size();
+        allocInfo.commandBufferCount = static_cast<uint32_t>(swapchain->images().size());
         allocInfo.level = vk::CommandBufferLevel::Primary;
 
         commandBuffers = vk::CommandPool::allocate(allocInfo);

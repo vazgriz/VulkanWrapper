@@ -16,6 +16,7 @@ namespace vk {
     class Image;
     class PipelineLayout;
     class DescriptorSet;
+    class Event;
 
     class CommandBufferInheritanceInfo : public Info<VkCommandBufferInheritanceInfo> {
     public:
@@ -129,6 +130,16 @@ namespace vk {
         void pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) const;
 
         void dispatch(uint32_t groupCountX, uint32_t groupCountY, uint32_t groupCountZ) const;
+
+        void setEvent(const Event& event, PipelineStageFlags stageMask);
+        void resetEvent(const Event& event, PipelineStageFlags stageMask);
+        void waitEvents(
+            ArrayProxy<const std::reference_wrapper<Event>> events,
+            PipelineStageFlags srcStageMask,
+            PipelineStageFlags dstStageMask,
+            ArrayProxy<const MemoryBarrier> memoryBarriers,
+            ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
+            ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers) const;
 
     private:
         VkCommandBuffer m_commandBuffer;

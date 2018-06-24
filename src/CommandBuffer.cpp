@@ -8,6 +8,7 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/PipelineLayout.h"
 #include "VulkanWrapper/DescriptorSet.h"
+#include "VulkanWrapper/Event.h"
 
 using namespace vk;
 
@@ -264,4 +265,55 @@ void CommandBuffer::pushConstants(vk::PipelineLayout& pipelineLayout, vk::Shader
 
 void CommandBuffer::dispatch(uint32_t groupCountX, uint32_t groupCountY, uint32_t groupCountZ) const {
     vkCmdDispatch(m_commandBuffer, groupCountX, groupCountY, groupCountZ);
+}
+
+void CommandBuffer::setEvent(const Event& event, PipelineStageFlags stageMask) {
+    vkCmdSetEvent(m_commandBuffer, event.handle(), static_cast<VkPipelineStageFlags>(stageMask));
+}
+
+void CommandBuffer::resetEvent(const Event& event, PipelineStageFlags stageMask) {
+    vkCmdResetEvent(m_commandBuffer, event.handle(), static_cast<VkPipelineStageFlags>(stageMask));
+}
+
+void CommandBuffer::waitEvents(
+    ArrayProxy<const std::reference_wrapper<Event>> events,
+    PipelineStageFlags srcStageMask,
+    PipelineStageFlags dstStageMask,
+    ArrayProxy<const MemoryBarrier> memoryBarriers,
+    ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
+    ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers) const
+{
+    std::vector<VkEvent> vkEvents;
+    vkEvents.reserve(events.size());
+    std::vector<VkMemoryBarrier> vkMemoryBarriers;
+    vkMemoryBarriers.reserve(memoryBarriers.size());
+    std::vector<VkBufferMemoryBarrier> vkBufferMemoryBarriers;
+    vkBufferMemoryBarriers.reserve(bufferMemoryBarriers.size());
+    std::vector<VkImageMemoryBarrier> vkImageMemoryBarriers;
+    vkImageMemoryBarriers.reserve(imageMemoryBarriers.size());
+
+    for (const Event& event : events) {
+        vkEvents.push_back(event.handle());
+    }
+
+    for (auto& memoryBarrier : memoryBarriers) {
+        memoryBarrier.marshal();
+        vkMemoryBarriers.push_back(*memoryBarrier.getInfo());
+    }
+
+    for (auto& bufferMemoryBarrier : bufferMemoryBarriers) {
+        bufferMemoryBarrier.marshal();
+        vkBufferMemoryBarriers.push_back(*bufferMemoryBarrier.getInfo());
+    }
+
+    for (auto& imageMemoryBarrier : imageMemoryBarriers) {
+        imageMemoryBarrier.marshal();
+        vkImageMemoryBarriers.push_back(*imageMemoryBarrier.getInfo());
+    }
+
+    vkCmdWaitEvents(m_commandBuffer, static_cast<uint32_t>(vkEvents.size()), vkEvents.data(),
+        static_cast<VkPipelineStageFlags>(srcStageMask), static_cast<VkPipelineStageFlags>(dstStageMask),
+        memoryBarriers.size(), vkMemoryBarriers.data(),
+        bufferMemoryBarriers.size(), vkBufferMemoryBarriers.data(),
+        imageMemoryBarriers.size(), vkImageMemoryBarriers.data());
 }

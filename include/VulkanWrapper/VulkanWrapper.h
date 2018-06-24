@@ -10,6 +10,7 @@
 #include "VulkanWrapper/Device.h"
 #include "VulkanWrapper/DeviceMemory.h"
 #include "VulkanWrapper/enums.h"
+#include "VulkanWrapper/Event.h"
 #include "VulkanWrapper/ExtensionProperties.h"
 #include "VulkanWrapper/Fence.h"
 #include "VulkanWrapper/Framebuffer.h"

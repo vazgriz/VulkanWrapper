@@ -223,6 +223,7 @@ GraphicsPipeline::GraphicsPipeline(GraphicsPipeline&& other) : Pipeline(std::mov
 }
 
 GraphicsPipeline& GraphicsPipeline::operator = (GraphicsPipeline&& other) {
+    Pipeline::operator =(std::move(other));
     m_info = std::move(other.m_info);
     return *this;
 }

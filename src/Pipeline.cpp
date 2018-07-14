@@ -38,10 +38,15 @@ Pipeline::Pipeline(Device& device, const PipelineLayout& pipelineLayout) : m_lay
 }
 
 Pipeline::Pipeline(Pipeline&& other) {
-    *this = std::move(other);
+    m_layoutInfo = std::move(other.m_layoutInfo);
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
+    m_pipeline = other.m_pipeline;
+    other.m_pipeline = VK_NULL_HANDLE;
 }
 
 Pipeline& Pipeline::operator = (Pipeline&& other) {
+    vkDestroyPipeline(m_device, m_pipeline, device().instance().callbacks());
     m_layoutInfo = std::move(other.m_layoutInfo);
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;

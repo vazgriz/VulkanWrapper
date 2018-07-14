@@ -33,6 +33,7 @@ ComputePipeline::ComputePipeline(ComputePipeline&& other) : Pipeline(std::move(o
 }
 
 ComputePipeline& ComputePipeline::operator = (ComputePipeline&& other) {
+    Pipeline::operator =(std::move(other));
     m_info = other.m_info;
     return *this;
 }

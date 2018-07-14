@@ -61,7 +61,7 @@ namespace vk {
         bool clipped() const { return m_info.clipped; }
         std::vector<Image>& images() { return m_images; }
 
-        uint32_t acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const;
+        vk::Result acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence, uint32_t& index) const;
 
     private:
         void getImages();

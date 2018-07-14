@@ -1145,7 +1145,8 @@ public:
             float totalElapsed = std::chrono::duration<float, std::chrono::seconds::period>(now - startTime).count();
             updateUniform(totalElapsed);
 
-            uint32_t index = swapchain->acquireNextImage(~0ull, imageAcquireSemaphore.get(), nullptr);
+            uint32_t index;
+            swapchain->acquireNextImage(~0ull, imageAcquireSemaphore.get(), nullptr, index);
 
             vk::SubmitInfo submitInfo = {};
             submitInfo.commandBuffers = { commandBuffers[index] };

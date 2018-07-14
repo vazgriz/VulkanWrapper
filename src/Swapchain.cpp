@@ -72,13 +72,16 @@ Swapchain::~Swapchain() {
     vkDestroySwapchainKHR(m_device->handle(), m_swapchain, device().instance().callbacks());
 }
 
-uint32_t Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence) const {
-    uint32_t index;
+vk::Result Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* semaphore, const Fence* fence, uint32_t& index) const {
     VkSemaphore vkSemaphore = semaphore == nullptr ? VK_NULL_HANDLE : semaphore->handle();
     VkFence vkFence = fence == nullptr ? VK_NULL_HANDLE : fence->handle();
-    VKW_CHECK(vkAcquireNextImageKHR(m_device->handle(), m_swapchain, timeout, vkSemaphore, vkFence, &index));
+    VkResult result = vkAcquireNextImageKHR(m_device->handle(), m_swapchain, timeout, vkSemaphore, vkFence, &index);
 
-    return index;
+    if (result < 0) {
+        VKW_CHECK(result);
+    } else {
+        return static_cast<vk::Result>(result);
+    }
 }
 
 void Swapchain::getImages() {

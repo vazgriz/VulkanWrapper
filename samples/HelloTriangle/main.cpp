@@ -671,7 +671,8 @@ public:
                 resizeFlag = false;
             }
 
-            uint32_t index = swapchain->acquireNextImage(~0ull, imageAcquireSemaphore.get(), nullptr);
+            uint32_t index;
+            swapchain->acquireNextImage(~0ull, imageAcquireSemaphore.get(), nullptr, index);
 
             vk::SubmitInfo submitInfo = {};
             submitInfo.commandBuffers = { commandBuffers[index] };

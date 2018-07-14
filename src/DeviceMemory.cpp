@@ -30,10 +30,17 @@ DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) {
 }
 
 DeviceMemory::DeviceMemory(DeviceMemory&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_deviceMemory = other.m_deviceMemory;
+    m_info = std::move(other.m_info);
+    m_mapping = other.m_mapping;
+    m_mappingOffset = other.m_mappingOffset;
+    m_mappingSize = other.m_mappingSize;
+    other.m_deviceMemory = VK_NULL_HANDLE;
 }
 
 DeviceMemory& DeviceMemory::operator = (DeviceMemory&& other) {
+    vkFreeMemory(m_device->handle(), m_deviceMemory, device().instance().callbacks());
     m_device = other.m_device;
     m_deviceMemory = other.m_deviceMemory;
     m_info = std::move(other.m_info);

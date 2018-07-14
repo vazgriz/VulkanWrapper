@@ -23,10 +23,14 @@ Event::Event(Device& device, const EventCreateInfo& info) {
 }
 
 Event::Event(Event&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_event = other.m_event;
+    m_info = other.m_info;
+    other.m_event = VK_NULL_HANDLE;
 }
 
 Event& Event::operator = (Event&& other) {
+    vkDestroyEvent(m_device->handle(), m_event, device().instance().callbacks());
     m_device = other.m_device;
     m_event = other.m_event;
     m_info = other.m_info;

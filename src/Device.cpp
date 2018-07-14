@@ -77,10 +77,16 @@ Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& inf
 }
 
 Device::Device(Device&& other) {
-    *this = std::move(other);
+    m_instance = other.m_instance;
+    m_physicalDevice = other.m_physicalDevice;
+    m_device = other.m_device;
+    m_info = std::move(other.m_info);
+    m_queueMap = std::move(other.m_queueMap);
+    other.m_device = VK_NULL_HANDLE;
 }
 
 Device& Device::operator = (Device&& other) {
+    vkDestroyDevice(m_device, instance().callbacks());
     m_instance = other.m_instance;
     m_physicalDevice = other.m_physicalDevice;
     m_device = other.m_device;

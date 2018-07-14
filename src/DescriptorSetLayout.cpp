@@ -47,10 +47,14 @@ DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayo
 }
 
 DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_descriptorSetLayout = other.m_descriptorSetLayout;
+    m_info = other.m_info;
+    other.m_descriptorSetLayout = VK_NULL_HANDLE;
 }
 
 DescriptorSetLayout& DescriptorSetLayout::operator = (DescriptorSetLayout&& other) {
+    vkDestroyDescriptorSetLayout(m_device->handle(), m_descriptorSetLayout, device().instance().callbacks());
     m_device = other.m_device;
     m_descriptorSetLayout = other.m_descriptorSetLayout;
     m_info = other.m_info;

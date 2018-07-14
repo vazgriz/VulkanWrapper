@@ -51,10 +51,15 @@ Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) {
 }
 
 Swapchain::Swapchain(Swapchain&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_swapchain = other.m_swapchain;
+    m_info = std::move(other.m_info);
+    m_images = std::move(other.m_images);
+    other.m_swapchain = VK_NULL_HANDLE;
 }
 
 Swapchain& Swapchain::operator = (Swapchain&& other) {
+    vkDestroySwapchainKHR(m_device->handle(), m_swapchain, device().instance().callbacks());
     m_device = other.m_device;
     m_swapchain = other.m_swapchain;
     m_info = std::move(other.m_info);

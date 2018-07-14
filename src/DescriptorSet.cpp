@@ -125,10 +125,17 @@ DescriptorSet::DescriptorSet(Device& device, DescriptorPool& pool, VkDescriptorS
 }
 
 DescriptorSet::DescriptorSet(DescriptorSet&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_deviceRef = other.m_deviceRef;
+    m_pool = other.m_pool;
+    m_descriptorSet = other.m_descriptorSet;
+    m_destructorEnabled = other.m_destructorEnabled;
+    m_layoutInfos = std::move(other.m_layoutInfos);
+    other.m_descriptorSet = VK_NULL_HANDLE;
 }
 
 DescriptorSet& DescriptorSet::operator = (DescriptorSet&& other) {
+    if (m_destructorEnabled) vkFreeDescriptorSets(m_device, m_pool->handle(), 1, &m_descriptorSet);
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_pool = other.m_pool;

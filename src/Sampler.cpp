@@ -40,10 +40,14 @@ Sampler::Sampler(Device& device, const SamplerCreateInfo& info) {
 }
 
 Sampler::Sampler(Sampler&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_sampler = other.m_sampler;
+    m_info = std::move(other.m_info);
+    other.m_sampler = VK_NULL_HANDLE;
 }
 
 Sampler& Sampler::operator = (Sampler&& other) {
+    vkDestroySampler(m_device->handle(), m_sampler, device().instance().callbacks());
     m_device = other.m_device;
     m_sampler = other.m_sampler;
     m_info = std::move(other.m_info);

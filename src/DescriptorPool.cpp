@@ -50,10 +50,14 @@ DescriptorPool::DescriptorPool(Device& device, const DescriptorPoolCreateInfo& i
 }
 
 DescriptorPool::DescriptorPool(DescriptorPool&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_descriptorPool = other.m_descriptorPool;
+    m_info = std::move(other.m_info);
+    other.m_descriptorPool = VK_NULL_HANDLE;
 }
 
 DescriptorPool& DescriptorPool::operator = (DescriptorPool&& other) {
+    vkDestroyDescriptorPool(m_device->handle(), m_descriptorPool, device().instance().callbacks());
     m_device = other.m_device;
     m_descriptorPool = other.m_descriptorPool;
     m_info = std::move(other.m_info);

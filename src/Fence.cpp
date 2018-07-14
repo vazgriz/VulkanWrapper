@@ -29,10 +29,14 @@ Fence::~Fence() {
 }
 
 Fence::Fence(Fence&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_fence = other.m_fence;
+    m_info = std::move(other.m_info);
+    other.m_fence = VK_NULL_HANDLE;
 }
 
 Fence& Fence::operator = (Fence&& other) {
+    vkDestroyFence(m_device->handle(), m_fence, device().instance().callbacks());
     m_device = other.m_device;
     m_fence = other.m_fence;
     m_info = std::move(other.m_info);

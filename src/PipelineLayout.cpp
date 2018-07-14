@@ -59,10 +59,15 @@ PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& i
 }
 
 PipelineLayout::PipelineLayout(PipelineLayout&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_pipelineLayout = other.m_pipelineLayout;
+    m_info = std::move(other.m_info);
+    m_layoutInfos = std::move(other.m_layoutInfos);
+    other.m_pipelineLayout = VK_NULL_HANDLE;
 }
 
 PipelineLayout& PipelineLayout::operator = (PipelineLayout&& other) {
+    vkDestroyPipelineLayout(m_device->handle(), m_pipelineLayout, device().instance().callbacks());
     m_device = other.m_device;
     m_pipelineLayout = other.m_pipelineLayout;
     m_info = std::move(other.m_info);

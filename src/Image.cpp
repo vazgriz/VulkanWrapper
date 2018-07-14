@@ -52,10 +52,15 @@ Image::~Image() {
 }
 
 Image::Image(Image&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_image = other.m_image;
+    m_destructorEnabled = other.m_destructorEnabled;
+    m_requirements = other.m_requirements;
+    other.m_image = VK_NULL_HANDLE;
 }
 
 Image& Image::operator = (Image&& other) {
+    if (m_destructorEnabled) vkDestroyImage(m_device->handle(), m_image, device().instance().callbacks());
     m_device = other.m_device;
     m_image = other.m_image;
     m_destructorEnabled = other.m_destructorEnabled;

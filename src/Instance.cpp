@@ -72,10 +72,20 @@ Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* 
 }
 
 Instance::Instance(Instance&& other) {
-    *this = std::move(other);
+    m_instance = other.m_instance;
+    m_callbacks = other.m_callbacks;
+    m_callbacksPtr = other.m_callbacksPtr;
+    m_physicalDevices = std::move(other.m_physicalDevices);
+    m_info = std::move(other.m_info);
+    if (m_info.applicationInfo != nullptr) {
+        m_appInfo = std::move(other.m_appInfo);
+        m_info.applicationInfo = &m_appInfo;
+    }
+    other.m_instance = VK_NULL_HANDLE;
 }
 
 Instance& Instance::operator = (Instance&& other) {
+    vkDestroyInstance(m_instance, callbacks());
     m_instance = other.m_instance;
     m_callbacks = other.m_callbacks;
     m_callbacksPtr = other.m_callbacksPtr;

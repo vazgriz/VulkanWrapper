@@ -31,10 +31,14 @@ ImageView::ImageView(Device& device, const ImageViewCreateInfo& info) {
 }
 
 ImageView::ImageView(ImageView&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_imageView = other.m_imageView;
+    m_info = std::move(other.m_info);
+    other.m_imageView = VK_NULL_HANDLE;
 }
 
 ImageView& ImageView::operator = (ImageView&& other) {
+    vkDestroyImageView(m_device->handle(), m_imageView, device().instance().callbacks());
     m_device = other.m_device;
     m_imageView = other.m_imageView;
     m_info = std::move(other.m_info);

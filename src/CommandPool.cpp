@@ -41,10 +41,14 @@ CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) {
 }
 
 CommandPool::CommandPool(CommandPool&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_commandPool = other.m_commandPool;
+    m_info = std::move(other.m_info);
+    other.m_commandPool = VK_NULL_HANDLE;
 }
 
 CommandPool& CommandPool::operator = (CommandPool&& other) {
+    vkDestroyCommandPool(m_device->handle(), m_commandPool, device().instance().callbacks());
     m_device = other.m_device;
     m_commandPool = other.m_commandPool;
     m_info = std::move(other.m_info);

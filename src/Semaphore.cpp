@@ -25,10 +25,14 @@ Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) {
 }
 
 Semaphore::Semaphore(Semaphore&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_sempahore = other.m_sempahore;
+    m_info = std::move(other.m_info);
+    other.m_sempahore = VK_NULL_HANDLE;
 }
 
 Semaphore& Semaphore::operator = (Semaphore&& other) {
+    vkDestroySemaphore(m_device->handle(), m_sempahore, device().instance().callbacks());
     m_device = other.m_device;
     m_sempahore = other.m_sempahore;
     m_info = std::move(other.m_info);

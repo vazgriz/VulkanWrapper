@@ -32,10 +32,15 @@ Buffer::Buffer(Device& device, const BufferCreateInfo& info) {
 }
 
 Buffer::Buffer(Buffer&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_buffer = other.m_buffer;
+    m_requirements = other.m_requirements;
+    m_info = std::move(other.m_info);
+    other.m_buffer = VK_NULL_HANDLE;
 }
 
 Buffer& Buffer::operator = (Buffer&& other) {
+    vkDestroyBuffer(m_device->handle(), m_buffer, device().instance().callbacks());
     m_device = other.m_device;
     m_buffer = other.m_buffer;
     m_requirements = other.m_requirements;

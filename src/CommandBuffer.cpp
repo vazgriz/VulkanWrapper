@@ -121,10 +121,15 @@ CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBu
 }
 
 CommandBuffer::CommandBuffer(CommandBuffer&& other) {
-    *this = std::move(other);
+    m_pool = other.m_pool;
+    m_commandBuffer = other.m_commandBuffer;
+    m_destructorEnabled = other.m_destructorEnabled;
+    m_level = other.m_level;
+    other.m_commandBuffer = VK_NULL_HANDLE;
 }
 
 CommandBuffer& CommandBuffer::operator = (CommandBuffer&& other) {
+    if (m_destructorEnabled) vkFreeCommandBuffers(pool().device().handle(), m_pool->handle(), 1, &m_commandBuffer);
     m_pool = other.m_pool;
     m_commandBuffer = other.m_commandBuffer;
     m_destructorEnabled = other.m_destructorEnabled;

@@ -27,10 +27,13 @@ ShaderModule::ShaderModule(Device& device, const ShaderModuleCreateInfo& info) {
 }
 
 ShaderModule::ShaderModule(ShaderModule&& other) {
-    *this = std::move(other);
+    m_device = other.m_device;
+    m_shaderModule = other.m_shaderModule;
+    other.m_shaderModule = VK_NULL_HANDLE;
 }
 
 ShaderModule& ShaderModule::operator = (ShaderModule&& other) {
+    vkDestroyShaderModule(m_device->handle(), m_shaderModule, device().instance().callbacks());
     m_device = other.m_device;
     m_shaderModule = other.m_shaderModule;
     other.m_shaderModule = VK_NULL_HANDLE;

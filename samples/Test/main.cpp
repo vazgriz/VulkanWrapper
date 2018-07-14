@@ -4,7 +4,7 @@
 
 int main() {
     auto layers = vk::Instance::availableLayers();
-    auto extensions = vk::Instance::availableExtensions(nullptr);
+    auto extensions = vk::Instance::availableExtensions();
 
     std::cout << layers.size() << " available layers\n";
     for (auto& layer : layers) {
@@ -16,7 +16,7 @@ int main() {
         std::cout << "    " << extension.extensionName << "\n";
     }
 
-    vk::InstanceCreateInfo info;
+    vk::InstanceCreateInfo info = {};
     info.enabledLayerNames = { "VK_LAYER_LUNARG_standard_validation" };
 
     vk::Instance instance(info);

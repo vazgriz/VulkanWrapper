@@ -64,10 +64,8 @@ Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& inf
     m_info.marshal();
 
     VKW_CHECK(vkCreateDevice(physicalDevice.handle(), m_info.getInfo(), physicalDevice.instance().callbacks(), &m_device));
-    m_instance = physicalDevice.instance().handle();
-    m_instanceRef = &physicalDevice.instance();
-    m_physicalDevice = physicalDevice.handle();
-    m_physicalDeviceRef = &physicalDevice;
+    m_instance = &physicalDevice.instance();
+    m_physicalDevice = &physicalDevice;
 
     getQueues(info);
 
@@ -84,9 +82,7 @@ Device::Device(Device&& other) {
 
 Device& Device::operator = (Device&& other) {
     m_instance = other.m_instance;
-    m_instanceRef = other.m_instanceRef;
     m_physicalDevice = other.m_physicalDevice;
-    m_physicalDeviceRef = other.m_physicalDeviceRef;
     m_device = other.m_device;
     m_info = std::move(other.m_info);
     m_queueMap = std::move(other.m_queueMap);

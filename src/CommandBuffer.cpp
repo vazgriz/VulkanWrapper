@@ -115,8 +115,7 @@ void ImageMemoryBarrier::marshal() const {
 
 CommandBuffer::CommandBuffer(CommandPool& commandPool, VkCommandBuffer commandBuffer, const CommandBufferAllocateInfo& info) {
     m_commandBuffer = commandBuffer;
-    m_pool = commandPool.handle();
-    m_poolRef = &commandPool;
+    m_pool = &commandPool;
     m_destructorEnabled = false;
     m_level = info.level;
 }
@@ -127,7 +126,6 @@ CommandBuffer::CommandBuffer(CommandBuffer&& other) {
 
 CommandBuffer& CommandBuffer::operator = (CommandBuffer&& other) {
     m_pool = other.m_pool;
-    m_poolRef = other.m_poolRef;
     m_commandBuffer = other.m_commandBuffer;
     m_destructorEnabled = other.m_destructorEnabled;
     m_level = other.m_level;
@@ -136,7 +134,7 @@ CommandBuffer& CommandBuffer::operator = (CommandBuffer&& other) {
 }
 
 CommandBuffer::~CommandBuffer() {
-    if (m_destructorEnabled) vkFreeCommandBuffers(pool().device().handle(), m_pool, 1, &m_commandBuffer);
+    if (m_destructorEnabled) vkFreeCommandBuffers(pool().device().handle(), m_pool->handle(), 1, &m_commandBuffer);
 }
 
 void CommandBuffer::begin(const CommandBufferBeginInfo& info) const {

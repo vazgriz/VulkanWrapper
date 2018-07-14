@@ -45,15 +45,14 @@ namespace vk {
         ~DescriptorSetLayout();
 
         VkDescriptorSetLayout handle() const { return m_descriptorSetLayout; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
 
         DescriptorSetLayoutCreateFlags flags() const { return m_info.flags; }
         const std::vector<DescriptorSetLayoutBinding> bindings() const { return m_info.bindings; }
 
     private:
         VkDescriptorSetLayout m_descriptorSetLayout;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
 
         DescriptorSetLayoutCreateInfo m_info;
     };

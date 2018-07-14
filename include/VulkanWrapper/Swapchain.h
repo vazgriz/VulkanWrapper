@@ -45,7 +45,7 @@ namespace vk {
         ~Swapchain();
 
         VkSwapchainKHR handle() const { return m_swapchain; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
         Surface& surface() const { return *m_info.surface; }
 
         Format format() const { return m_info.imageFormat; }
@@ -67,8 +67,7 @@ namespace vk {
         void getImages();
 
         VkSwapchainKHR m_swapchain;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
 
         SwapchainCreateInfo m_info;
 

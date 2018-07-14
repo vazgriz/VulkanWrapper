@@ -37,8 +37,7 @@ CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateCommandPool(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_commandPool));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 CommandPool::CommandPool(CommandPool&& other) {
@@ -47,7 +46,6 @@ CommandPool::CommandPool(CommandPool&& other) {
 
 CommandPool& CommandPool::operator = (CommandPool&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_commandPool = other.m_commandPool;
     m_info = std::move(other.m_info);
     other.m_commandPool = VK_NULL_HANDLE;
@@ -55,7 +53,7 @@ CommandPool& CommandPool::operator = (CommandPool&& other) {
 }
 
 CommandPool::~CommandPool() {
-    vkDestroyCommandPool(m_device, m_commandPool, device().instance().callbacks());
+    vkDestroyCommandPool(m_device->handle(), m_commandPool, device().instance().callbacks());
 }
 
 std::vector<CommandBuffer> CommandPool::allocate(const CommandBufferAllocateInfo& info) {

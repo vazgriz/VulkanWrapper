@@ -44,7 +44,7 @@ namespace vk {
         ~DescriptorPool();
 
         VkDescriptorPool handle() const { return m_descriptorPool; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
 
         DescriptorPoolCreateFlags flags() const { return m_info.flags; }
         uint32_t maxSets() const { return m_info.maxSets; }
@@ -54,8 +54,7 @@ namespace vk {
 
     private:
         VkDescriptorPool m_descriptorPool;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
 
         DescriptorPoolCreateInfo m_info;
     };

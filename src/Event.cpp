@@ -19,8 +19,7 @@ Event::Event(Device& device, const EventCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateEvent(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_event));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 Event::Event(Event&& other) {
@@ -29,7 +28,6 @@ Event::Event(Event&& other) {
 
 Event& Event::operator = (Event&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_event = other.m_event;
     m_info = other.m_info;
     other.m_event = VK_NULL_HANDLE;
@@ -37,11 +35,11 @@ Event& Event::operator = (Event&& other) {
 }
 
 Event::~Event() {
-    vkDestroyEvent(m_device, m_event, m_deviceRef->instance().callbacks());
+    vkDestroyEvent(m_device->handle(), m_event, device().instance().callbacks());
 }
 
 Result Event::getStatus() const {
-    VkResult result = vkGetEventStatus(m_device, m_event);
+    VkResult result = vkGetEventStatus(m_device->handle(), m_event);
     if (result == VK_EVENT_SET || result == VK_EVENT_RESET) {
         return static_cast<Result>(result);
     } else {
@@ -50,5 +48,5 @@ Result Event::getStatus() const {
 }
 
 void Event::reset() {
-    VKW_CHECK(vkResetEvent(m_device, m_event));
+    VKW_CHECK(vkResetEvent(m_device->handle(), m_event));
 }

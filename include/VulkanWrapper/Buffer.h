@@ -31,7 +31,7 @@ namespace vk {
         ~Buffer();
 
         VkBuffer handle() const { return m_buffer; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
 
         void bind(DeviceMemory& memory, size_t offset);
 
@@ -44,13 +44,12 @@ namespace vk {
         const std::vector<uint32_t>& queueFamilyIndices() const { return m_info.queueFamilyIndices; }
 
     private:
-        void getRequirements();
-
         VkBuffer m_buffer;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
 
         BufferCreateInfo m_info;
         MemoryRequirements m_requirements;
+
+        void getRequirements();
     };
 }

@@ -21,12 +21,11 @@ Fence::Fence(Device& device, const FenceCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateFence(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_fence));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 Fence::~Fence() {
-    vkDestroyFence(m_device, m_fence, device().instance().callbacks());
+    vkDestroyFence(m_device->handle(), m_fence, device().instance().callbacks());
 }
 
 Fence::Fence(Fence&& other) {
@@ -35,7 +34,6 @@ Fence::Fence(Fence&& other) {
 
 Fence& Fence::operator = (Fence&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_fence = other.m_fence;
     m_info = std::move(other.m_info);
     other.m_fence = VK_NULL_HANDLE;
@@ -43,7 +41,7 @@ Fence& Fence::operator = (Fence&& other) {
 }
 
 VkResult Fence::wait(uint64_t timeout) const {
-    return vkWaitForFences(m_device, 1, &m_fence, VK_TRUE, timeout);
+    return vkWaitForFences(m_device->handle(), 1, &m_fence, VK_TRUE, timeout);
 }
 
 VkResult Fence::wait(const Device& device, ArrayProxy<const Fence> fences, bool waitAll, uint64_t timeout) {
@@ -58,7 +56,7 @@ VkResult Fence::wait(const Device& device, ArrayProxy<const Fence> fences, bool 
 }
 
 void Fence::reset() {
-    VKW_CHECK(vkResetFences(m_device, 1, &m_fence));
+    VKW_CHECK(vkResetFences(m_device->handle(), 1, &m_fence));
 }
 
 void Fence::reset(const Device& device, ArrayProxy<Fence> fences) {

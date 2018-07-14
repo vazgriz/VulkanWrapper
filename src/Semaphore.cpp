@@ -21,8 +21,7 @@ Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateSemaphore(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sempahore));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 Semaphore::Semaphore(Semaphore&& other) {
@@ -31,7 +30,6 @@ Semaphore::Semaphore(Semaphore&& other) {
 
 Semaphore& Semaphore::operator = (Semaphore&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_sempahore = other.m_sempahore;
     m_info = std::move(other.m_info);
     other.m_sempahore = VK_NULL_HANDLE;
@@ -39,5 +37,5 @@ Semaphore& Semaphore::operator = (Semaphore&& other) {
 }
 
 Semaphore::~Semaphore() {
-    vkDestroySemaphore(m_device, m_sempahore, device().instance().callbacks());
+    vkDestroySemaphore(m_device->handle(), m_sempahore, device().instance().callbacks());
 }

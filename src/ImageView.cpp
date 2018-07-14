@@ -27,8 +27,7 @@ ImageView::ImageView(Device& device, const ImageViewCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateImageView(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_imageView));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 ImageView::ImageView(ImageView&& other) {
@@ -37,7 +36,6 @@ ImageView::ImageView(ImageView&& other) {
 
 ImageView& ImageView::operator = (ImageView&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_imageView = other.m_imageView;
     m_info = std::move(other.m_info);
     other.m_imageView = VK_NULL_HANDLE;
@@ -45,5 +43,5 @@ ImageView& ImageView::operator = (ImageView&& other) {
 }
 
 ImageView::~ImageView() {
-    vkDestroyImageView(m_device, m_imageView, device().instance().callbacks());
+    vkDestroyImageView(m_device->handle(), m_imageView, device().instance().callbacks());
 }

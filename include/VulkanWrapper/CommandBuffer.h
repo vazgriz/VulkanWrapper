@@ -93,7 +93,7 @@ namespace vk {
         ~CommandBuffer();
 
         VkCommandBuffer handle() const { return m_commandBuffer; }
-        CommandPool& pool() const { return *m_poolRef; }
+        CommandPool& pool() const { return *m_pool; }
         void setDestructorEnabled(bool value) { m_destructorEnabled = value; }
 
         void begin(const CommandBufferBeginInfo& info) const;
@@ -143,8 +143,7 @@ namespace vk {
 
     private:
         VkCommandBuffer m_commandBuffer;
-        VkCommandPool m_pool;
-        CommandPool* m_poolRef;
+        CommandPool* m_pool;
         bool m_destructorEnabled;
 
         CommandBufferLevel m_level;

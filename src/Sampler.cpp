@@ -36,8 +36,7 @@ Sampler::Sampler(Device& device, const SamplerCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateSampler(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sampler));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 Sampler::Sampler(Sampler&& other) {
@@ -46,7 +45,6 @@ Sampler::Sampler(Sampler&& other) {
 
 Sampler& Sampler::operator = (Sampler&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_sampler = other.m_sampler;
     m_info = std::move(other.m_info);
     other.m_sampler = VK_NULL_HANDLE;
@@ -54,5 +52,5 @@ Sampler& Sampler::operator = (Sampler&& other) {
 }
 
 Sampler::~Sampler() {
-    vkDestroySampler(m_device, m_sampler, device().instance().callbacks());
+    vkDestroySampler(m_device->handle(), m_sampler, device().instance().callbacks());
 }

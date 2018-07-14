@@ -23,12 +23,11 @@ namespace vk {
         ~Semaphore();
 
         VkSemaphore handle() const { return m_sempahore; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
 
     private:
         VkSemaphore m_sempahore;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
 
         SemaphoreCreateInfo m_info;
     };

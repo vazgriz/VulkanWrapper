@@ -43,8 +43,7 @@ DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayo
     m_info.marshal();
 
     VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) {
@@ -53,7 +52,6 @@ DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) {
 
 DescriptorSetLayout& DescriptorSetLayout::operator = (DescriptorSetLayout&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_descriptorSetLayout = other.m_descriptorSetLayout;
     m_info = other.m_info;
     other.m_descriptorSetLayout = VK_NULL_HANDLE;
@@ -61,5 +59,5 @@ DescriptorSetLayout& DescriptorSetLayout::operator = (DescriptorSetLayout&& othe
 }
 
 DescriptorSetLayout::~DescriptorSetLayout() {
-    vkDestroyDescriptorSetLayout(m_device, m_descriptorSetLayout, device().instance().callbacks());
+    vkDestroyDescriptorSetLayout(m_device->handle(), m_descriptorSetLayout, device().instance().callbacks());
 }

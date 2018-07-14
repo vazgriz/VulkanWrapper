@@ -26,8 +26,7 @@ Buffer::Buffer(Device& device, const BufferCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_buffer));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 
     getRequirements();
 }
@@ -38,7 +37,6 @@ Buffer::Buffer(Buffer&& other) {
 
 Buffer& Buffer::operator = (Buffer&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_buffer = other.m_buffer;
     m_requirements = other.m_requirements;
     m_info = std::move(other.m_info);
@@ -47,13 +45,13 @@ Buffer& Buffer::operator = (Buffer&& other) {
 }
 
 Buffer::~Buffer() {
-    vkDestroyBuffer(m_device, m_buffer, device().instance().callbacks());
+    vkDestroyBuffer(m_device->handle(), m_buffer, device().instance().callbacks());
 }
 
 void Buffer::getRequirements() {
-    vkGetBufferMemoryRequirements(m_device, m_buffer, &m_requirements);
+    vkGetBufferMemoryRequirements(m_device->handle(), m_buffer, &m_requirements);
 }
 
 void Buffer::bind(DeviceMemory& memory, size_t offset) {
-    vkBindBufferMemory(m_device, m_buffer, memory.handle(), offset);
+    vkBindBufferMemory(m_device->handle(), m_buffer, memory.handle(), offset);
 }

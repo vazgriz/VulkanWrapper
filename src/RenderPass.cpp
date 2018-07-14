@@ -49,8 +49,7 @@ RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) {
     m_info.marshal();
 
     VKW_CHECK(vkCreateRenderPass(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_renderPass));
-    m_device = device.handle();
-    m_deviceRef = &device;
+    m_device = &device;
 }
 
 RenderPass::RenderPass(RenderPass&& other) {
@@ -59,7 +58,6 @@ RenderPass::RenderPass(RenderPass&& other) {
 
 RenderPass& RenderPass::operator = (RenderPass&& other) {
     m_device = other.m_device;
-    m_deviceRef = other.m_deviceRef;
     m_renderPass = other.m_renderPass;
     m_info = std::move(other.m_info);
     other.m_renderPass = VK_NULL_HANDLE;
@@ -67,5 +65,5 @@ RenderPass& RenderPass::operator = (RenderPass&& other) {
 }
 
 RenderPass::~RenderPass() {
-    vkDestroyRenderPass(m_device, m_renderPass, device().instance().callbacks());
+    vkDestroyRenderPass(m_device->handle(), m_renderPass, device().instance().callbacks());
 }

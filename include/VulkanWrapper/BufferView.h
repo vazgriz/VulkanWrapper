@@ -32,7 +32,7 @@ namespace vk {
         ~BufferView();
 
         VkBufferView handle() const { return m_bufferView; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
 
         BufferViewCreateFlags flags() const { return m_info.flags; }
         Buffer& buffer() const { return *m_info.buffer; }
@@ -42,8 +42,7 @@ namespace vk {
 
     private:
         VkBufferView m_bufferView;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
 
         BufferViewCreateInfo m_info;
     };

@@ -23,15 +23,14 @@ namespace vk {
         ~Event();
 
         VkEvent handle() const { return m_event; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
 
         Result getStatus() const;
         void reset();
 
     private:
         VkEvent m_event;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
         EventCreateInfo m_info;
     };
 }

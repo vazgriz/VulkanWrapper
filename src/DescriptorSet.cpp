@@ -118,8 +118,7 @@ void CopyDescriptorSet::marshal() const {
 DescriptorSet::DescriptorSet(Device& device, DescriptorPool& pool, VkDescriptorSet descriptorSet, std::vector<DescriptorSetLayoutCreateInfo> layoutInfos) {
     m_device = device.handle();
     m_deviceRef = &device;
-    m_pool = pool.handle();
-    m_poolRef = &pool;
+    m_pool = &pool;
     m_descriptorSet = descriptorSet;
     m_destructorEnabled = false;
     m_layoutInfos = layoutInfos;
@@ -133,7 +132,6 @@ DescriptorSet& DescriptorSet::operator = (DescriptorSet&& other) {
     m_device = other.m_device;
     m_deviceRef = other.m_deviceRef;
     m_pool = other.m_pool;
-    m_poolRef = other.m_poolRef;
     m_descriptorSet = other.m_descriptorSet;
     m_destructorEnabled = other.m_destructorEnabled;
     m_layoutInfos = std::move(other.m_layoutInfos);
@@ -142,7 +140,7 @@ DescriptorSet& DescriptorSet::operator = (DescriptorSet&& other) {
 }
 
 DescriptorSet::~DescriptorSet() {
-    if (m_destructorEnabled) vkFreeDescriptorSets(m_device, m_pool, 1, &m_descriptorSet);
+    if (m_destructorEnabled) vkFreeDescriptorSets(m_device, m_pool->handle(), 1, &m_descriptorSet);
 }
 
 void DescriptorSet::update(const Device& device, ArrayProxy<const WriteDescriptorSet> writes, ArrayProxy<const CopyDescriptorSet> copies) {

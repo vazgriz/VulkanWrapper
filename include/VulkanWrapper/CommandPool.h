@@ -38,7 +38,7 @@ namespace vk {
         ~CommandPool();
 
         VkCommandPool handle() const { return m_commandPool; }
-        Device& device() const { return *m_deviceRef; }
+        Device& device() const { return *m_device; }
 
         CommandPoolCreateFlags flags() const { return m_info.flags; }
         uint32_t queueFamilyIndex() const { return m_info.queueFamilyIndex; }
@@ -47,8 +47,7 @@ namespace vk {
 
     private:
         VkCommandPool m_commandPool;
-        VkDevice m_device;
-        Device* m_deviceRef;
+        Device* m_device;
 
         CommandPoolCreateInfo m_info;
     };

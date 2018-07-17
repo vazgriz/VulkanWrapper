@@ -1,6 +1,7 @@
 #pragma once
 #include <vulkan/vulkan.h>
 #include <stdexcept>
+#include "VulkanWrapper/enums.h"
 
 #define VKW_CHECK(exp) {\
     VkResult result = exp;\
@@ -42,4 +43,9 @@ namespace vk {
             case -1000072003: return "Invalid external handle";
         }
     }
+
+    size_t getFormatSize(Format format);
+    size_t getFormatStencilSize(Format format);
+    bool isDepthFormat(Format format);
+    bool isDepthStencilFormat(Format format);
 }

@@ -104,7 +104,7 @@ namespace vk {
         void endRenderPass() const;
 
         void bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const std::reference_wrapper<const vk::Buffer>> buffers, ArrayProxy<const vk::DeviceSize> offsets) const;
-        void bindIndexBuffer(vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const;
+        void bindIndexBuffer(const vk::Buffer& buffer, vk::DeviceSize offset, vk::IndexType indexType) const;
         void bindPipeline(PipelineBindPoint pipelineBindPoint, const Pipeline& pipeline) const;
         void bindDescriptorSets(
             vk::PipelineBindPoint pipelineBindPoint,
@@ -115,9 +115,9 @@ namespace vk {
         void draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
         void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance) const;
 
-        void copyBuffer(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy);
-        void copyBufferToImage(Buffer& src, Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies);
-        void blitImage(Image& srcImage, vk::ImageLayout srcImageLayout, Image& dstImage, vk::ImageLayout dstImageLayout, ArrayProxy<const ImageBlit> regions, vk::Filter filter);
+        void copyBuffer(const Buffer& src, const Buffer& dst, ArrayProxy<const BufferCopy> copy);
+        void copyBufferToImage(const Buffer& src, const Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies);
+        void blitImage(const Image& srcImage, vk::ImageLayout srcImageLayout, const Image& dstImage, vk::ImageLayout dstImageLayout, ArrayProxy<const ImageBlit> regions, vk::Filter filter);
 
         void pipelineBarrier(
             PipelineStageFlags srcStageMask,
@@ -127,7 +127,7 @@ namespace vk {
             ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
             ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers) const;
 
-        void pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) const;
+        void pushConstants(const vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) const;
 
         void dispatch(uint32_t groupCountX, uint32_t groupCountY, uint32_t groupCountZ) const;
 

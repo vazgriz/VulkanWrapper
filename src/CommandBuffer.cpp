@@ -183,7 +183,7 @@ void CommandBuffer::bindVertexBuffers(uint32_t firstBinding, ArrayProxy<const st
     vkCmdBindVertexBuffers(m_commandBuffer, firstBinding, static_cast<uint32_t>(vkBuffers.size()), vkBuffers.data(), offsets.data());
 }
 
-void CommandBuffer::bindIndexBuffer(Buffer& buffer, DeviceSize offset, IndexType indexType) const {
+void CommandBuffer::bindIndexBuffer(const Buffer& buffer, DeviceSize offset, IndexType indexType) const {
     vkCmdBindIndexBuffer(m_commandBuffer, buffer.handle(), offset, static_cast<VkIndexType>(indexType));
 }
 
@@ -214,15 +214,15 @@ void CommandBuffer::bindDescriptorSets(
     );
 }
 
-void CommandBuffer::copyBuffer(Buffer& src, Buffer& dst, ArrayProxy<const BufferCopy> copy) {
+void CommandBuffer::copyBuffer(const Buffer& src, const Buffer& dst, ArrayProxy<const BufferCopy> copy) {
     vkCmdCopyBuffer(m_commandBuffer, src.handle(), dst.handle(), static_cast<uint32_t>(copy.size()), copy.data());
 }
 
-void CommandBuffer::copyBufferToImage(Buffer& src, Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies) {
+void CommandBuffer::copyBufferToImage(const Buffer& src, const Image& dst, ImageLayout dstLayout, ArrayProxy<const BufferImageCopy> copies) {
     vkCmdCopyBufferToImage(m_commandBuffer, src.handle(), dst.handle(), static_cast<VkImageLayout>(dstLayout), copies.size(), reinterpret_cast<const VkBufferImageCopy*>(copies.data()));
 }
 
-void CommandBuffer::blitImage(Image& srcImage, vk::ImageLayout srcImageLayout, Image& dstImage, vk::ImageLayout dstImageLayout, ArrayProxy<const ImageBlit> regions, vk::Filter filter) {
+void CommandBuffer::blitImage(const Image& srcImage, vk::ImageLayout srcImageLayout, const Image& dstImage, vk::ImageLayout dstImageLayout, ArrayProxy<const ImageBlit> regions, vk::Filter filter) {
     vkCmdBlitImage(m_commandBuffer, srcImage.handle(), static_cast<VkImageLayout>(srcImageLayout), dstImage.handle(), static_cast<VkImageLayout>(dstImageLayout), regions.size(), regions.data(), static_cast<VkFilter>(filter));
 }
 
@@ -262,7 +262,7 @@ void CommandBuffer::pipelineBarrier(
         imageMemoryBarriers.size(), vkImageMemoryBarriers.data());
 }
 
-void CommandBuffer::pushConstants(vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) const {
+void CommandBuffer::pushConstants(const vk::PipelineLayout& pipelineLayout, vk::ShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void* data) const {
     vkCmdPushConstants(m_commandBuffer, pipelineLayout.handle(), static_cast<VkShaderStageFlags>(stageFlags), offset, size, data);
 }
 

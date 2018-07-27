@@ -46,6 +46,8 @@ namespace vk {
 
     size_t getFormatSize(Format format);
     size_t getFormatStencilSize(Format format);
+    bool isColorFormat(Format format);
     bool isDepthFormat(Format format);
+    bool isStencilFormat(Format format);
     bool isDepthStencilFormat(Format format);
 }

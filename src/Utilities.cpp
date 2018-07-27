@@ -2,6 +2,7 @@
 
 size_t vk::getFormatSize(vk::Format format) {
     switch (format) {
+        default: throw std::runtime_error("Not supported");
         case vk::Format::Undefined: return 0;
         case vk::Format::R4G4_Unorm_Pack8: return 1;
         case vk::Format::R4G4B4A4_Unorm_Pack16: return 2;
@@ -207,12 +208,26 @@ size_t vk::getFormatStencilSize(vk::Format format) {
     }
 }
 
+bool vk::isColorFormat(vk::Format format) {
+    return !(isDepthFormat(format) || isStencilFormat(format));
+}
+
 bool vk::isDepthFormat(vk::Format format) {
     switch (format) {
         default: return false;
         case vk::Format::D16_Unorm:
         case vk::Format::X8_D24_Unorm_Pack32:
         case vk::Format::D32_Sfloat:
+        case vk::Format::D16_Unorm_S8_Uint:
+        case vk::Format::D24_Unorm_S8_Uint:
+        case vk::Format::D32_Sfloat_S8_Uint: return true;
+    }
+}
+
+bool vk::isStencilFormat(vk::Format format) {
+    switch (format) {
+        default: return false;
+        case vk::Format::S8_Uint:
         case vk::Format::D16_Unorm_S8_Uint:
         case vk::Format::D24_Unorm_S8_Uint:
         case vk::Format::D32_Sfloat_S8_Uint: return true;

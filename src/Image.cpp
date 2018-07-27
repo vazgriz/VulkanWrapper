@@ -56,6 +56,7 @@ Image::Image(Image&& other) {
     m_image = other.m_image;
     m_destructorEnabled = other.m_destructorEnabled;
     m_requirements = other.m_requirements;
+    m_info = std::move(other.m_info);
     other.m_image = VK_NULL_HANDLE;
 }
 
@@ -65,6 +66,7 @@ Image& Image::operator = (Image&& other) {
     m_image = other.m_image;
     m_destructorEnabled = other.m_destructorEnabled;
     m_requirements = other.m_requirements;
+    m_info = std::move(other.m_info);
     other.m_image = VK_NULL_HANDLE;
     return *this;
 }

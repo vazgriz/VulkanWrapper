@@ -78,7 +78,7 @@ vk::Result Swapchain::acquireNextImage(uint64_t timeout, const Semaphore* semaph
     VkResult result = vkAcquireNextImageKHR(m_device->handle(), m_swapchain, timeout, vkSemaphore, vkFence, &index);
 
     if (result < 0) {
-        VKW_CHECK(result);
+        throw std::runtime_error(vk::toString(result));
     } else {
         return static_cast<vk::Result>(result);
     }

@@ -141,6 +141,9 @@ namespace vk {
             ArrayProxy<const BufferMemoryBarrier> bufferMemoryBarriers,
             ArrayProxy<const ImageMemoryBarrier> imageMemoryBarriers) const;
 
+        void setViewport(uint32_t firstViewport, ArrayProxy<const Viewport> viewports);
+        void setScissor(uint32_t firstScissor, ArrayProxy<const Rect2D> scissors);
+
     private:
         VkCommandBuffer m_commandBuffer;
         CommandPool* m_pool;

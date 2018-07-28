@@ -320,3 +320,11 @@ void CommandBuffer::waitEvents(
         bufferMemoryBarriers.size(), vkBufferMemoryBarriers.data(),
         imageMemoryBarriers.size(), vkImageMemoryBarriers.data());
 }
+
+void CommandBuffer::setViewport(uint32_t firstViewport, ArrayProxy<const Viewport> viewports) {
+    vkCmdSetViewport(m_commandBuffer, firstViewport, viewports.size(), viewports.data());
+}
+
+void CommandBuffer::setScissor(uint32_t firstScissor, ArrayProxy<const Rect2D> scissors) {
+    vkCmdSetScissor(m_commandBuffer, firstScissor, scissors.size(), scissors.data());
+}

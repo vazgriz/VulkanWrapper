@@ -12,7 +12,7 @@ void SubpassDescription::marshal() const {
     m_info.colorAttachmentCount = static_cast<uint32_t>(colorAttachments.size());
     m_info.pColorAttachments = reinterpret_cast<const VkAttachmentReference*>(colorAttachments.data());
     m_info.pResolveAttachments = reinterpret_cast<const VkAttachmentReference*>(resolveAttachments.data());
-    m_info.pDepthStencilAttachment = reinterpret_cast<const VkAttachmentReference*>(depthStencilAttachments.data());
+    m_info.pDepthStencilAttachment = reinterpret_cast<const VkAttachmentReference*>(depthStencilAttachment);
     m_info.preserveAttachmentCount = static_cast<uint32_t>(preserveAttachments.size());
     m_info.pPreserveAttachments = preserveAttachments.data();
 }

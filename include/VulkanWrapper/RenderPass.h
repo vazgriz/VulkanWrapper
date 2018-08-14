@@ -32,7 +32,7 @@ namespace vk {
         std::vector<AttachmentReference> inputAttachments;
         std::vector<AttachmentReference> colorAttachments;
         std::vector<AttachmentReference> resolveAttachments;
-        std::vector<AttachmentReference> depthStencilAttachments;
+        const AttachmentReference* depthStencilAttachment;
         std::vector<uint32_t> preserveAttachments;
 
         void marshal() const;

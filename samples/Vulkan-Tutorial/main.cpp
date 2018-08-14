@@ -942,7 +942,7 @@ public:
         vk::SubpassDescription subpass = {};
         subpass.pipelineBindPoint = vk::PipelineBindPoint::Graphics;
         subpass.colorAttachments = { colorAttachmentRef };
-        subpass.depthStencilAttachments = { depthAttachmentRef };
+        subpass.depthStencilAttachment = &depthAttachmentRef;
 
         vk::RenderPassCreateInfo info = {};
         info.attachments = { colorAttachment, depthAttachment };

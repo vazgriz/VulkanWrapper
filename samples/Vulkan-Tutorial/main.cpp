@@ -985,8 +985,8 @@ public:
     }
 
     void createPipeline() {
-        vk::ShaderModule vertShader = createShader("shader.vert.spv");
-        vk::ShaderModule fragShader = createShader("shader.frag.spv");
+        vk::ShaderModule vertShader = createShader("shaders/shader.vert.spv");
+        vk::ShaderModule fragShader = createShader("shaders/shader.frag.spv");
 
         vk::PipelineShaderStageCreateInfo vertStage = {};
         vertStage.stage = vk::ShaderStageFlags::Vertex;

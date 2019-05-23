@@ -10,7 +10,7 @@ namespace vk {
     class Device;
     class DeviceMemory;
 
-    class BufferCreateInfo : public Info<VkBufferCreateInfo> {
+    class BufferCreateInfo : public InfoMixin<BufferCreateInfo, VkBufferCreateInfo> {
     public:
         BufferCreateFlags flags;
         DeviceSize size;
@@ -37,17 +37,17 @@ namespace vk {
 
         MemoryRequirements requirements() const { return m_requirements; }
 
-        BufferCreateFlags flags() const { return m_info.flags; }
-        size_t size() const { return m_info.size; }
-        BufferUsageFlags usage() const { return m_info.usage; }
-        SharingMode sharingMode() const { return m_info.sharingMode; }
-        const std::vector<uint32_t>& queueFamilyIndices() const { return m_info.queueFamilyIndices; }
+        BufferCreateFlags flags() const { return m_info.getInfo().flags; }
+        size_t size() const { return m_info.getInfo().size; }
+        BufferUsageFlags usage() const { return m_info.getInfo().usage; }
+        SharingMode sharingMode() const { return m_info.getInfo().sharingMode; }
+        const std::vector<uint32_t>& queueFamilyIndices() const { return m_info.getInfo().queueFamilyIndices; }
 
     private:
         VkBuffer m_buffer;
         Device* m_device;
 
-        BufferCreateInfo m_info;
+        InfoChain<BufferCreateInfo> m_info;
         MemoryRequirements m_requirements;
 
         void getRequirements();

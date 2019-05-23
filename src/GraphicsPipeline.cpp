@@ -213,9 +213,9 @@ void GraphicsPipelineCreateInfo::marshal() const {
 
 GraphicsPipeline::GraphicsPipeline(Device& device, const GraphicsPipelineCreateInfo& info) : Pipeline(device, *info.layout) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateGraphicsPipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo(), device.instance().callbacks(), &m_pipeline));
+    VKW_CHECK(vkCreateGraphicsPipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo().getInfo(), device.instance().callbacks(), &m_pipeline));
 }
 
 GraphicsPipeline::GraphicsPipeline(GraphicsPipeline&& other) : Pipeline(std::move(other)) {

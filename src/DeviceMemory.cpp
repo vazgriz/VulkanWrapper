@@ -19,9 +19,9 @@ void MemoryAllocateInfo::marshal() const {
 
 DeviceMemory::DeviceMemory(Device& device, const MemoryAllocateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkAllocateMemory(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_deviceMemory));
+    VKW_CHECK(vkAllocateMemory(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_deviceMemory));
     m_device = &device;
 
     m_mapping = nullptr;

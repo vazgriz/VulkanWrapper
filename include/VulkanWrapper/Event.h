@@ -8,7 +8,7 @@
 namespace vk {
     class Device;
 
-    class EventCreateInfo : public Info<VkEventCreateInfo> {
+    class EventCreateInfo : public InfoMixin<EventCreateInfo, VkEventCreateInfo> {
     public:
         void marshal() const;
     };
@@ -31,6 +31,6 @@ namespace vk {
     private:
         VkEvent m_event;
         Device* m_device;
-        EventCreateInfo m_info;
+        InfoChain<EventCreateInfo> m_info;
     };
 }

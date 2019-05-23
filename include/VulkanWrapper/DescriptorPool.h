@@ -14,7 +14,7 @@ namespace vk {
     class DescriptorSetLayout;
     class DescriptorPool;
 
-    class DescriptorSetAllocateInfo : public Info<VkDescriptorSetAllocateInfo> {
+    class DescriptorSetAllocateInfo : public InfoMixin<DescriptorSetAllocateInfo, VkDescriptorSetAllocateInfo> {
     public:
         const DescriptorPool* descriptorPool;
         std::vector<std::reference_wrapper<const DescriptorSetLayout>> setLayouts;
@@ -25,7 +25,7 @@ namespace vk {
         mutable std::vector<VkDescriptorSetLayout> m_layouts;
     };
 
-    class DescriptorPoolCreateInfo : public Info<VkDescriptorPoolCreateInfo> {
+    class DescriptorPoolCreateInfo : public InfoMixin<DescriptorPoolCreateInfo, VkDescriptorPoolCreateInfo> {
     public:
         DescriptorPoolCreateFlags flags;
         uint32_t maxSets;
@@ -46,9 +46,9 @@ namespace vk {
         VkDescriptorPool handle() const { return m_descriptorPool; }
         Device& device() const { return *m_device; }
 
-        DescriptorPoolCreateFlags flags() const { return m_info.flags; }
-        uint32_t maxSets() const { return m_info.maxSets; }
-        const std::vector<DescriptorPoolSize>& poolSizes() const { return m_info.poolSizes; }
+        DescriptorPoolCreateFlags flags() const { return m_info.getInfo().flags; }
+        uint32_t maxSets() const { return m_info.getInfo().maxSets; }
+        const std::vector<DescriptorPoolSize>& poolSizes() const { return m_info.getInfo().poolSizes; }
 
         std::vector<vk::DescriptorSet> allocate(const DescriptorSetAllocateInfo& info);
 
@@ -56,6 +56,6 @@ namespace vk {
         VkDescriptorPool m_descriptorPool;
         Device* m_device;
 
-        DescriptorPoolCreateInfo m_info;
+        InfoChain<DescriptorPoolCreateInfo> m_info;
     };
 }

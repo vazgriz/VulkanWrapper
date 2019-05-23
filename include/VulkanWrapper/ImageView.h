@@ -10,7 +10,7 @@ namespace vk {
     class Device;
     class Image;
 
-    class ImageViewCreateInfo : public Info<VkImageViewCreateInfo> {
+    class ImageViewCreateInfo : public InfoMixin<ImageViewCreateInfo, VkImageViewCreateInfo> {
     public:
         const Image* image;
         ImageViewType viewType;
@@ -33,16 +33,16 @@ namespace vk {
         VkImageView handle() const { return m_imageView; }
         Device& device() const { return *m_device; }
 
-        const Image& image() const { return *m_info.image; }
-        ImageViewType imageType() const { return m_info.viewType; }
-        Format format() const { return m_info.format; }
-        ComponentMapping components() const { return m_info.components; }
-        ImageSubresourceRange subresourceRange() const { return m_info.subresourceRange; }
+        const Image& image() const { return *m_info.getInfo().image; }
+        ImageViewType imageType() const { return m_info.getInfo().viewType; }
+        Format format() const { return m_info.getInfo().format; }
+        ComponentMapping components() const { return m_info.getInfo().components; }
+        ImageSubresourceRange subresourceRange() const { return m_info.getInfo().subresourceRange; }
 
     private:
         VkImageView m_imageView;
         Device* m_device;
 
-        ImageViewCreateInfo m_info;
+        InfoChain<ImageViewCreateInfo> m_info;
     };
 }

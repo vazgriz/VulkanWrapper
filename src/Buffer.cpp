@@ -9,7 +9,7 @@ void BufferCreateInfo::marshal() const {
     m_info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     if (next != nullptr) {
         next->marshal();
-        m_info.pNext = next->info();
+        m_info.pNext = next->nextInfo();
     } else {
         m_info.pNext = nullptr;
     }
@@ -23,9 +23,9 @@ void BufferCreateInfo::marshal() const {
 
 Buffer::Buffer(Device& device, const BufferCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_buffer));
+    VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_buffer));
     m_device = &device;
 
     getRequirements();

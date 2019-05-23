@@ -60,14 +60,14 @@ Instance::Instance(const InstanceCreateInfo& info, const VkAllocationCallbacks* 
     }
 
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    vkCreateInstance(m_info.getInfo(), this->callbacks(), &m_instance);
+    vkCreateInstance(m_info.getInfo().getInfo(), this->callbacks(), &m_instance);
 
     EnumeratePhysicalDevices();
-    if (m_info.applicationInfo != nullptr) {
-        m_appInfo = *m_info.applicationInfo;
-        m_info.applicationInfo = &m_appInfo;
+    if (m_info.getInfo().applicationInfo != nullptr) {
+        m_appInfo = *m_info.getInfo().applicationInfo;
+        m_info.getInfo().applicationInfo = &m_appInfo.getInfo();
     }
 }
 
@@ -77,9 +77,9 @@ Instance::Instance(Instance&& other) {
     m_callbacksPtr = other.m_callbacksPtr;
     m_physicalDevices = std::move(other.m_physicalDevices);
     m_info = std::move(other.m_info);
-    if (m_info.applicationInfo != nullptr) {
+    if (m_info.getInfo().applicationInfo != nullptr) {
         m_appInfo = std::move(other.m_appInfo);
-        m_info.applicationInfo = &m_appInfo;
+        m_info.getInfo().applicationInfo = &m_appInfo.getInfo();
     }
     other.m_instance = VK_NULL_HANDLE;
 }
@@ -91,9 +91,9 @@ Instance& Instance::operator = (Instance&& other) {
     m_callbacksPtr = other.m_callbacksPtr;
     m_physicalDevices = std::move(other.m_physicalDevices);
     m_info = std::move(other.m_info);
-    if (m_info.applicationInfo != nullptr) {
+    if (m_info.getInfo().applicationInfo != nullptr) {
         m_appInfo = std::move(other.m_appInfo);
-        m_info.applicationInfo = &m_appInfo;
+        m_info.getInfo().applicationInfo = &m_appInfo.getInfo();
     }
     other.m_instance = VK_NULL_HANDLE;
     return *this;

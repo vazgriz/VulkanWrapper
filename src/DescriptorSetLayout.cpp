@@ -40,16 +40,16 @@ void DescriptorSetLayoutCreateInfo::marshal() const {
 
 DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayoutCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
+    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
     m_device = &device;
 }
 
 DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) {
     m_device = other.m_device;
     m_descriptorSetLayout = other.m_descriptorSetLayout;
-    m_info = other.m_info;
+    m_info = std::move(other.m_info);
     other.m_descriptorSetLayout = VK_NULL_HANDLE;
 }
 
@@ -57,7 +57,7 @@ DescriptorSetLayout& DescriptorSetLayout::operator = (DescriptorSetLayout&& othe
     vkDestroyDescriptorSetLayout(m_device->handle(), m_descriptorSetLayout, device().instance().callbacks());
     m_device = other.m_device;
     m_descriptorSetLayout = other.m_descriptorSetLayout;
-    m_info = other.m_info;
+    m_info = std::move(other.m_info);
     other.m_descriptorSetLayout = VK_NULL_HANDLE;
     return *this;
 }

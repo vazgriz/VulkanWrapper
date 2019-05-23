@@ -40,7 +40,7 @@ namespace vk {
         mutable VkDescriptorBufferInfo m_info;
     };
 
-    class WriteDescriptorSet : public Info<VkWriteDescriptorSet> {
+    class WriteDescriptorSet : public InfoMixin<WriteDescriptorSet, VkWriteDescriptorSet> {
     public:
         const DescriptorSet* dstSet;
         uint32_t dstBinding;
@@ -58,7 +58,7 @@ namespace vk {
         mutable std::vector<VkBufferView> m_texelBufferView;
     };
 
-    class CopyDescriptorSet : public Info<VkCopyDescriptorSet> {
+    class CopyDescriptorSet : public InfoMixin<CopyDescriptorSet, VkCopyDescriptorSet> {
     public:
         const DescriptorSet* srcSet;
         uint32_t srcBinding;
@@ -86,7 +86,7 @@ namespace vk {
 
         void setDestructorEnabled(bool value) { m_destructorEnabled = value; }
 
-        std::vector<DescriptorSetLayoutCreateInfo> layoutInfos() const { return m_layoutInfos; }
+        const std::vector<InfoChain<DescriptorSetLayoutCreateInfo>>& layoutInfos() const { return m_layoutInfos; }
 
         static void update(const Device& device, ArrayProxy<const WriteDescriptorSet> writes, ArrayProxy<const CopyDescriptorSet> copies);
 
@@ -97,6 +97,6 @@ namespace vk {
         DescriptorPool* m_pool;
 
         bool m_destructorEnabled;
-        std::vector<DescriptorSetLayoutCreateInfo> m_layoutInfos;
+        std::vector<InfoChain<DescriptorSetLayoutCreateInfo>> m_layoutInfos;
     };
 }

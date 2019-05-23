@@ -10,7 +10,7 @@
 #include "VulkanWrapper/PhysicalDevice.h"
 
 namespace vk {
-    class ApplicationInfo : public Info<VkApplicationInfo> {
+    class ApplicationInfo : public InfoMixin<ApplicationInfo, VkApplicationInfo> {
     public:
         std::string applicationName;
         uint32_t applicationVersion;
@@ -21,7 +21,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class InstanceCreateInfo : public Info<VkInstanceCreateInfo> {
+    class InstanceCreateInfo : public InfoMixin<InstanceCreateInfo, VkInstanceCreateInfo> {
     public:
         void marshal() const;
 
@@ -49,8 +49,8 @@ namespace vk {
 
         const VkAllocationCallbacks* callbacks() const { return m_callbacksPtr; }
         const std::vector<PhysicalDevice>& physicalDevices() const { return m_physicalDevices; }
-        const std::vector<std::string>& layers() const { return m_info.enabledLayerNames; }
-        const std::vector<std::string>& extensions() const { return m_info.enabledExtensionNames; }
+        const std::vector<std::string>& layers() const { return m_info.getInfo().enabledLayerNames; }
+        const std::vector<std::string>& extensions() const { return m_info.getInfo().enabledExtensionNames; }
 
         static std::vector<LayerProperties> availableLayers();
         static std::vector<ExtensionProperties> availableExtensions(const std::string& layerName = "");
@@ -62,7 +62,7 @@ namespace vk {
         VkAllocationCallbacks* m_callbacksPtr = nullptr;
         std::vector<PhysicalDevice> m_physicalDevices;
 
-        ApplicationInfo m_appInfo;
-        InstanceCreateInfo m_info;
+        InfoChain<ApplicationInfo> m_appInfo;
+        InfoChain<InstanceCreateInfo> m_info;
     };
 }

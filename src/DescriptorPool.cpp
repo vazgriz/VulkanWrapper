@@ -43,9 +43,9 @@ void DescriptorPoolCreateInfo::marshal() const {
 
 DescriptorPool::DescriptorPool(Device& device, const DescriptorPoolCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateDescriptorPool(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorPool));
+    VKW_CHECK(vkCreateDescriptorPool(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_descriptorPool));
     m_device = &device;
 }
 

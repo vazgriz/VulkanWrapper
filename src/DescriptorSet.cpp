@@ -121,7 +121,11 @@ DescriptorSet::DescriptorSet(Device& device, DescriptorPool& pool, VkDescriptorS
     m_pool = &pool;
     m_descriptorSet = descriptorSet;
     m_destructorEnabled = false;
-    m_layoutInfos = layoutInfos;
+
+    m_layoutInfos.resize(layoutInfos.size());
+    for (size_t i = 0; i < m_layoutInfos.size(); i++) {
+        m_layoutInfos[i] = layoutInfos[i];
+    }
 }
 
 DescriptorSet::DescriptorSet(DescriptorSet&& other) {

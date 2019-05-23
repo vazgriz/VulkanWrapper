@@ -24,9 +24,9 @@ void ImageViewCreateInfo::marshal() const {
 
 ImageView::ImageView(Device& device, const ImageViewCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateImageView(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_imageView));
+    VKW_CHECK(vkCreateImageView(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_imageView));
     m_device = &device;
 }
 

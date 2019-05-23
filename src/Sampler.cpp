@@ -33,9 +33,9 @@ void SamplerCreateInfo::marshal() const {
 
 Sampler::Sampler(Device& device, const SamplerCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateSampler(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_sampler));
+    VKW_CHECK(vkCreateSampler(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_sampler));
     m_device = &device;
 }
 

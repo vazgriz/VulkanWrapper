@@ -10,7 +10,7 @@ namespace vk {
     class Device;
     class Sampler;
 
-    class DescriptorSetLayoutBinding : public Info<VkDescriptorSetLayoutBinding> {
+    class DescriptorSetLayoutBinding : public InfoMixin<DescriptorSetLayoutBinding, VkDescriptorSetLayoutBinding> {
     public:
         uint32_t binding;
         DescriptorType descriptorType;
@@ -24,7 +24,7 @@ namespace vk {
         mutable std::vector<VkSampler> m_samplers;
     };
 
-    class DescriptorSetLayoutCreateInfo : public Info<VkDescriptorSetLayoutCreateInfo> {
+    class DescriptorSetLayoutCreateInfo : public InfoMixin<DescriptorSetLayoutCreateInfo, VkDescriptorSetLayoutCreateInfo> {
     public:
         DescriptorSetLayoutCreateFlags flags;
         std::vector<DescriptorSetLayoutBinding> bindings;
@@ -47,13 +47,13 @@ namespace vk {
         VkDescriptorSetLayout handle() const { return m_descriptorSetLayout; }
         Device& device() const { return *m_device; }
 
-        DescriptorSetLayoutCreateFlags flags() const { return m_info.flags; }
-        const std::vector<DescriptorSetLayoutBinding> bindings() const { return m_info.bindings; }
+        DescriptorSetLayoutCreateFlags flags() const { return m_info.getInfo().flags; }
+        const std::vector<DescriptorSetLayoutBinding> bindings() const { return m_info.getInfo().bindings; }
 
     private:
         VkDescriptorSetLayout m_descriptorSetLayout;
         Device* m_device;
 
-        DescriptorSetLayoutCreateInfo m_info;
+        InfoChain<DescriptorSetLayoutCreateInfo> m_info;
     };
 }

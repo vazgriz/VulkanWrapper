@@ -8,7 +8,7 @@
 namespace vk {
     class Device;
 
-    class ShaderModuleCreateInfo : public Info<VkShaderModuleCreateInfo> {
+    class ShaderModuleCreateInfo : public InfoMixin<ShaderModuleCreateInfo, VkShaderModuleCreateInfo> {
     public:
         std::vector<char> code;
 

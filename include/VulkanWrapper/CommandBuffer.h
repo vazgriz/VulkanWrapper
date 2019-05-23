@@ -18,7 +18,7 @@ namespace vk {
     class DescriptorSet;
     class Event;
 
-    class CommandBufferInheritanceInfo : public Info<VkCommandBufferInheritanceInfo> {
+    class CommandBufferInheritanceInfo : public InfoMixin<CommandBufferInheritanceInfo, VkCommandBufferInheritanceInfo> {
     public:
         const RenderPass* renderPass;
         uint32_t subpass;
@@ -30,7 +30,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class CommandBufferBeginInfo : public Info<VkCommandBufferBeginInfo> {
+    class CommandBufferBeginInfo : public InfoMixin<CommandBufferBeginInfo, VkCommandBufferBeginInfo> {
     public:
         CommandBufferUsageFlags flags;
         const CommandBufferInheritanceInfo* inheritanceInfo;
@@ -38,7 +38,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class RenderPassBeginInfo : public Info<VkRenderPassBeginInfo> {
+    class RenderPassBeginInfo : public InfoMixin<RenderPassBeginInfo, VkRenderPassBeginInfo> {
     public:
         const RenderPass* renderPass;
         const Framebuffer* framebuffer;
@@ -48,7 +48,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class MemoryBarrier : public Info<VkMemoryBarrier> {
+    class MemoryBarrier : public InfoMixin<MemoryBarrier, VkMemoryBarrier> {
     public:
         AccessFlags srcAccessMask;
         AccessFlags dstAccessMask;
@@ -56,7 +56,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class BufferMemoryBarrier : public Info<VkBufferMemoryBarrier> {
+    class BufferMemoryBarrier : public InfoMixin<BufferMemoryBarrier, VkBufferMemoryBarrier> {
     public:
         AccessFlags srcAccessMask;
         AccessFlags dstAccessMask;
@@ -69,7 +69,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class ImageMemoryBarrier : public Info<VkImageMemoryBarrier> {
+    class ImageMemoryBarrier : public InfoMixin<ImageMemoryBarrier, VkImageMemoryBarrier> {
     public:
         AccessFlags srcAccessMask;
         AccessFlags dstAccessMask;

@@ -16,16 +16,16 @@ void EventCreateInfo::marshal() const {
 
 Event::Event(Device& device, const EventCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateEvent(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_event));
+    VKW_CHECK(vkCreateEvent(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_event));
     m_device = &device;
 }
 
 Event::Event(Event&& other) {
     m_device = other.m_device;
     m_event = other.m_event;
-    m_info = other.m_info;
+    m_info = std::move(other.m_info);
     other.m_event = VK_NULL_HANDLE;
 }
 
@@ -33,7 +33,7 @@ Event& Event::operator = (Event&& other) {
     vkDestroyEvent(m_device->handle(), m_event, device().instance().callbacks());
     m_device = other.m_device;
     m_event = other.m_event;
-    m_info = other.m_info;
+    m_info = std::move(other.m_info);
     other.m_event = VK_NULL_HANDLE;
     return *this;
 }

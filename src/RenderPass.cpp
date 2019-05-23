@@ -46,9 +46,9 @@ void RenderPassCreateInfo::marshal() const {
 
 RenderPass::RenderPass(Device& device, const RenderPassCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateRenderPass(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_renderPass));
+    VKW_CHECK(vkCreateRenderPass(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_renderPass));
     m_device = &device;
 }
 

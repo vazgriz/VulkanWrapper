@@ -12,7 +12,7 @@ namespace vk {
     class Fence;
     class Swapchain;
 
-    class SubmitInfo : public Info<VkSubmitInfo> {
+    class SubmitInfo : public InfoMixin<SubmitInfo, VkSubmitInfo> {
     public:
         std::vector<std::reference_wrapper<Semaphore>> waitSemaphores;
         std::vector<PipelineStageFlags> waitDstStageMask;
@@ -27,7 +27,7 @@ namespace vk {
         mutable std::vector<VkSemaphore> m_signalSemaphores;
     };
 
-    class PresentInfo : public Info<VkPresentInfoKHR> {
+    class PresentInfo : public InfoMixin<PresentInfo, VkPresentInfoKHR> {
     public:
         std::vector<std::reference_wrapper<vk::Semaphore>> waitSemaphores;
         std::vector<std::reference_wrapper<vk::Swapchain>> swapchains;

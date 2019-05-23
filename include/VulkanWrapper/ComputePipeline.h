@@ -10,7 +10,7 @@
 namespace vk {
     class Device;
 
-    class ComputePipelineCreateInfo : public Info<VkComputePipelineCreateInfo> {
+    class ComputePipelineCreateInfo : public InfoMixin<ComputePipelineCreateInfo, VkComputePipelineCreateInfo> {
     public:
         PipelineCreateFlags flags;
         PipelineShaderStageCreateInfo stage;
@@ -30,9 +30,9 @@ namespace vk {
         ComputePipeline& operator = (ComputePipeline&& other);
         //no destructor, handled by vk::Pipeline
 
-        PipelineCreateFlags flags() const { return m_info.flags; }
+        PipelineCreateFlags flags() const { return m_info.getInfo().flags; }
 
     private:
-        ComputePipelineCreateInfo m_info;
+        InfoChain<ComputePipelineCreateInfo> m_info;
     };
 }

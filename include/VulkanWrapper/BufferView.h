@@ -11,7 +11,7 @@ namespace vk {
     class Device;
     struct DeviceRef;
 
-    class BufferViewCreateInfo : public Info<VkBufferViewCreateInfo> {
+    class BufferViewCreateInfo : public InfoMixin<BufferViewCreateInfo, VkBufferViewCreateInfo> {
     public:
         BufferViewCreateFlags flags;
         Buffer* buffer;
@@ -34,16 +34,16 @@ namespace vk {
         VkBufferView handle() const { return m_bufferView; }
         Device& device() const { return *m_device; }
 
-        BufferViewCreateFlags flags() const { return m_info.flags; }
-        Buffer& buffer() const { return *m_info.buffer; }
-        Format format() const { return m_info.format; }
-        size_t offset() const { return m_info.offset; }
-        size_t range() const { return m_info.range; }
+        BufferViewCreateFlags flags() const { return m_info.getInfo().flags; }
+        Buffer& buffer() const { return *m_info.getInfo().buffer; }
+        Format format() const { return m_info.getInfo().format; }
+        size_t offset() const { return m_info.getInfo().offset; }
+        size_t range() const { return m_info.getInfo().range; }
 
     private:
         VkBufferView m_bufferView;
         Device* m_device;
 
-        BufferViewCreateInfo m_info;
+        InfoChain<BufferViewCreateInfo> m_info;
     };
 }

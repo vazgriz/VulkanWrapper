@@ -34,9 +34,9 @@ void CommandPoolCreateInfo::marshal() const {
 
 CommandPool::CommandPool(Device& device, const CommandPoolCreateInfo& info) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateCommandPool(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_commandPool));
+    VKW_CHECK(vkCreateCommandPool(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_commandPool));
     m_device = &device;
 }
 

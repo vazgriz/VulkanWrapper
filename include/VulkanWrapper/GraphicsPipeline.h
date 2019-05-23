@@ -12,7 +12,7 @@ namespace vk {
     class ShaderModule;
     class PipelineLayout;
 
-    class PipelineVertexInputStateCreateInfo : public Info<VkPipelineVertexInputStateCreateInfo> {
+    class PipelineVertexInputStateCreateInfo : public InfoMixin<PipelineVertexInputStateCreateInfo, VkPipelineVertexInputStateCreateInfo> {
     public:
         PipelineVertexInputStateCreateFlags flags;
         std::vector<VertexInputBindingDescription> vertexBindingDescriptions;
@@ -21,7 +21,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineInputAssemblyStateCreateInfo : public Info<VkPipelineInputAssemblyStateCreateInfo> {
+    class PipelineInputAssemblyStateCreateInfo : public InfoMixin<PipelineInputAssemblyStateCreateInfo, VkPipelineInputAssemblyStateCreateInfo> {
     public:
         PipelineInputAssemblyStateCreateFlags flags;
         PrimitiveTopology topology;
@@ -30,7 +30,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineTessellationStateCreateInfo : public Info<VkPipelineTessellationStateCreateInfo> {
+    class PipelineTessellationStateCreateInfo : public InfoMixin<PipelineTessellationStateCreateInfo, VkPipelineTessellationStateCreateInfo> {
     public:
         PipelineTessellationStateCreateFlags flags;
         uint32_t patchControlPoints;
@@ -38,7 +38,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineViewportStateCreateInfo : public Info<VkPipelineViewportStateCreateInfo> {
+    class PipelineViewportStateCreateInfo : public InfoMixin<PipelineViewportStateCreateInfo, VkPipelineViewportStateCreateInfo> {
     public:
         PipelineViewportStateCreateFlags flags;
         std::vector<Viewport> viewports;
@@ -47,7 +47,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineRasterizationStateCreateInfo : public Info<VkPipelineRasterizationStateCreateInfo> {
+    class PipelineRasterizationStateCreateInfo : public InfoMixin<PipelineRasterizationStateCreateInfo, VkPipelineRasterizationStateCreateInfo> {
     public:
         PipelineRasterizationStateCreateFlags flags;
         bool depthClampEnable;
@@ -64,7 +64,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineMultisampleStateCreateInfo : public Info<VkPipelineMultisampleStateCreateInfo> {
+    class PipelineMultisampleStateCreateInfo : public InfoMixin<PipelineMultisampleStateCreateInfo, VkPipelineMultisampleStateCreateInfo> {
     public:
         PipelineMultisampleStateCreateFlags flags;
         SampleCountFlags rasterizationSamples;
@@ -77,7 +77,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineDepthStencilStateCreateInfo : public Info<VkPipelineDepthStencilStateCreateInfo> {
+    class PipelineDepthStencilStateCreateInfo : public InfoMixin<PipelineDepthStencilStateCreateInfo, VkPipelineDepthStencilStateCreateInfo> {
     public:
         PipelineDepthStencilStateCreateFlags flags;
         bool depthTestEnable;
@@ -93,7 +93,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineColorBlendStateCreateInfo : public Info<VkPipelineColorBlendStateCreateInfo> {
+    class PipelineColorBlendStateCreateInfo : public InfoMixin<PipelineColorBlendStateCreateInfo, VkPipelineColorBlendStateCreateInfo> {
     public:
         PipelineColorBlendStateCreateFlags flags;
         bool logicOpEnable;
@@ -107,7 +107,7 @@ namespace vk {
         mutable std::vector<VkPipelineColorBlendAttachmentState> m_attachments;
     };
 
-    class PipelineDynamicStateCreateInfo : public Info<VkPipelineDynamicStateCreateInfo> {
+    class PipelineDynamicStateCreateInfo : public InfoMixin<PipelineDynamicStateCreateInfo, VkPipelineDynamicStateCreateInfo> {
     public:
         PipelineDynamicStateCreateFlags flags;
         std::vector<DynamicState> dynamicStates;
@@ -115,7 +115,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class GraphicsPipelineCreateInfo : public Info<VkGraphicsPipelineCreateInfo> {
+    class GraphicsPipelineCreateInfo : public InfoMixin<GraphicsPipelineCreateInfo, VkGraphicsPipelineCreateInfo> {
     public:
         PipelineCreateFlags flags;
         std::vector<PipelineShaderStageCreateInfo> stages;
@@ -149,9 +149,9 @@ namespace vk {
         GraphicsPipeline& operator = (GraphicsPipeline&& other);
         //no destructor, handled by vk::Pipeline
 
-        PipelineCreateFlags flags() const { return m_info.flags; }
+        PipelineCreateFlags flags() const { return m_info.getInfo().flags; }
 
     private:
-        GraphicsPipelineCreateInfo m_info;
+        InfoChain<GraphicsPipelineCreateInfo> m_info;
     };
 }

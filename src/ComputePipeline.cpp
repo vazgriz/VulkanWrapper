@@ -34,13 +34,13 @@ ComputePipeline::ComputePipeline(ComputePipeline&& other) : Pipeline(std::move(o
 
 ComputePipeline& ComputePipeline::operator = (ComputePipeline&& other) {
     Pipeline::operator =(std::move(other));
-    m_info = other.m_info;
+    m_info = std::move(other.m_info);
     return *this;
 }
 
 ComputePipeline::ComputePipeline(Device& device, const ComputePipelineCreateInfo& info) : Pipeline(device, *info.layout) {
     m_info = info;
-    m_info.marshal();
+    m_info.getInfo().marshal();
 
-    VKW_CHECK(vkCreateComputePipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo(), device.instance().callbacks(), &m_pipeline));
+    VKW_CHECK(vkCreateComputePipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo().getInfo(), device.instance().callbacks(), &m_pipeline));
 }

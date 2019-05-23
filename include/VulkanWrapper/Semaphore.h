@@ -8,7 +8,7 @@
 namespace vk {
     class Device;
 
-    class SemaphoreCreateInfo : public Info<VkSemaphoreCreateInfo> {
+    class SemaphoreCreateInfo : public InfoMixin<SemaphoreCreateInfo, VkSemaphoreCreateInfo> {
     public:
         void marshal() const;
     };
@@ -29,6 +29,6 @@ namespace vk {
         VkSemaphore m_sempahore;
         Device* m_device;
 
-        SemaphoreCreateInfo m_info;
+        InfoChain<SemaphoreCreateInfo> m_info;
     };
 }

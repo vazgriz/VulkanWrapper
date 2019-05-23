@@ -11,7 +11,7 @@ namespace vk {
     class Device;
     class ShaderModule;
 
-    class SpecializationInfo : public Info<VkSpecializationInfo> {
+    class SpecializationInfo : public InfoMixin<SpecializationInfo, VkSpecializationInfo> {
     public:
         std::vector<vk::SpecializationMapEntry> mapEntries;
         size_t dataSize;
@@ -20,7 +20,7 @@ namespace vk {
         void marshal() const;
     };
 
-    class PipelineShaderStageCreateInfo : public Info<VkPipelineShaderStageCreateInfo> {
+    class PipelineShaderStageCreateInfo : public InfoMixin<PipelineShaderStageCreateInfo, VkPipelineShaderStageCreateInfo> {
     public:
         PipelineShaderStageCreateFlags flags;
         ShaderStageFlags stage;

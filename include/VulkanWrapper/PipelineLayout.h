@@ -20,7 +20,7 @@ namespace vk {
         std::vector<PushConstantRange> pushConstantRanges;
     };
 
-    class PipelineLayoutCreateInfo : public Info<VkPipelineLayoutCreateInfo> {
+    class PipelineLayoutCreateInfo : public InfoMixin<PipelineLayoutCreateInfo, VkPipelineLayoutCreateInfo> {
     public:
         std::vector<std::reference_wrapper<const DescriptorSetLayout>> setLayouts;
         std::vector<PushConstantRange> pushConstantRanges;
@@ -44,13 +44,13 @@ namespace vk {
         Device& device() const { return *m_device; }
 
         const std::vector<DescriptorSetLayoutCreateInfo>& layoutInfos() const { return m_layoutInfos; }
-        const std::vector<PushConstantRange>& pushConstantRanges() const { return m_info.pushConstantRanges; }
+        const std::vector<PushConstantRange>& pushConstantRanges() const { return m_info.getInfo().pushConstantRanges; }
 
     private:
         VkPipelineLayout m_pipelineLayout;
         Device* m_device;
 
-        PipelineLayoutCreateInfo m_info;
+        InfoChain<PipelineLayoutCreateInfo> m_info;
         std::vector<DescriptorSetLayoutCreateInfo> m_layoutInfos;
     };
 }

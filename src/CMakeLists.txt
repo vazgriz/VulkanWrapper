@@ -2,33 +2,62 @@ cmake_minimum_required(VERSION 3.9)
 project(VulkanWrapper)
 
 add_library(VulkanWrapper
+    ../include/VulkanWrapper/VulkanWrapper.h
+    ../include/VulkanWrapper/Instance.h
     Instance.cpp
+    ../include/VulkanWrapper/Surface.h
     Surface.cpp
+    ../include/VulkanWrapper/PhysicalDevice.h
     PhysicalDevice.cpp
+    ../include/VulkanWrapper/Device.h
     Device.cpp
+    ../include/VulkanWrapper/Queue.h
     Queue.cpp
+    ../include/VulkanWrapper/Swapchain.h
     Swapchain.cpp
+    ../include/VulkanWrapper/Semaphore.h
     Semaphore.cpp
+    ../include/VulkanWrapper/Event.h
     Event.cpp
+    ../include/VulkanWrapper/Fence.h
     Fence.cpp
+    ../include/VulkanWrapper/CommandBuffer.h
     CommandBuffer.cpp
+    ../include/VulkanWrapper/CommandPool.h
     CommandPool.cpp
+    ../include/VulkanWrapper/RenderPass.h
     RenderPass.cpp
+    ../include/VulkanWrapper/Image.h
     Image.cpp
+    ../include/VulkanWrapper/ImageView.h
     ImageView.cpp
+    ../include/VulkanWrapper/Framebuffer.h
     Framebuffer.cpp
+    ../include/VulkanWrapper/ShaderModule.h
     ShaderModule.cpp
+    ../include/VulkanWrapper/DescriptorSetLayout.h
     DescriptorSetLayout.cpp
+    ../include/VulkanWrapper/PipelineLayout.h
     PipelineLayout.cpp
+    ../include/VulkanWrapper/Pipeline.h
     Pipeline.cpp
+    ../include/VulkanWrapper/GraphicsPipeline.h
     GraphicsPipeline.cpp
+    ../include/VulkanWrapper/ComputePipeline.h
     ComputePipeline.cpp
+    ../include/VulkanWrapper/DeviceMemory.h
     DeviceMemory.cpp
+    ../include/VulkanWrapper/Buffer.h
     Buffer.cpp
+    ../include/VulkanWrapper/Sampler.h
     Sampler.cpp
+    ../include/VulkanWrapper/DescriptorPool.h
     DescriptorPool.cpp
+    ../include/VulkanWrapper/DescriptorSet.h
     DescriptorSet.cpp
+    ../include/VulkanWrapper/BufferView.h
     BufferView.cpp
+    ../include/VulkanWrapper/Utilities.h
     Utilities.cpp
 )
 target_include_directories(VulkanWrapper PUBLIC "$ENV{VK_SDK_PATH}/include" "${CMAKE_SOURCE_DIR}/include")

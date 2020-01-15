@@ -35,16 +35,23 @@ Image::Image(Device& device, const ImageCreateInfo& info) {
 
     VKW_CHECK(vkCreateImage(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_image));
     m_device = &device;
-
     m_destructorEnabled = true;
+
     getRequirements();
 }
 
-Image::Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor) {
+Image::Image(Device& device, VkImage image, bool enableDestructor, const ImageCreateInfo* info) {
+    if (info == nullptr) {
+        m_info = {};
+    } else {
+        m_info = *info;
+    }
+
     m_device = &device;
-    m_info = info;
     m_image = image;
     m_destructorEnabled = enableDestructor;
+
+    getRequirements();
 }
 
 Image::~Image() {

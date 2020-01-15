@@ -24,6 +24,7 @@ namespace vk {
     class Buffer {
     public:
         Buffer(Device& device, const BufferCreateInfo& info);
+        Buffer(Device& device, VkBuffer handle, bool enableDestructor, const BufferCreateInfo* info = nullptr);
         Buffer(const Buffer& other) = delete;
         Buffer& operator = (const Buffer& other) = delete;
         Buffer(Buffer&& other);
@@ -32,6 +33,7 @@ namespace vk {
 
         VkBuffer handle() const { return m_buffer; }
         Device& device() const { return *m_device; }
+        void setInfo(const BufferCreateInfo& info) { m_info = info; }
 
         void bind(DeviceMemory& memory, size_t offset);
 
@@ -46,6 +48,7 @@ namespace vk {
     private:
         VkBuffer m_buffer;
         Device* m_device;
+        bool m_destructorEnabled;
 
         InfoChain<BufferCreateInfo> m_info;
         MemoryRequirements m_requirements;

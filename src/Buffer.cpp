@@ -27,6 +27,21 @@ Buffer::Buffer(Device& device, const BufferCreateInfo& info) {
 
     VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_buffer));
     m_device = &device;
+    m_destructorEnabled = true;
+
+    getRequirements();
+}
+
+Buffer::Buffer(Device& device, VkBuffer handle, bool enableDestructor, const BufferCreateInfo* info) {
+    if (info == nullptr) {
+        m_info = {};
+    } else {
+        m_info = *info;
+    }
+
+    m_device = &device;
+    m_buffer = handle;
+    m_destructorEnabled = enableDestructor;
 
     getRequirements();
 }
@@ -50,7 +65,7 @@ Buffer& Buffer::operator = (Buffer&& other) {
 }
 
 Buffer::~Buffer() {
-    vkDestroyBuffer(m_device->handle(), m_buffer, device().instance().callbacks());
+    if (m_destructorEnabled) vkDestroyBuffer(m_device->handle(), m_buffer, device().instance().callbacks());
 }
 
 void Buffer::getRequirements() {

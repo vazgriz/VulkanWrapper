@@ -31,7 +31,7 @@ namespace vk {
     class Image {
     public:
         Image(Device& device, const ImageCreateInfo& info);
-        Image(Device& device, VkImage image, const ImageCreateInfo& info, bool enableDestructor);
+        Image(Device& device, VkImage image, bool enableDestructor, const ImageCreateInfo* info = nullptr);
         Image(const Image& image) = delete;
         Image& operator = (const Image& other) = delete;
         Image(Image&& other);
@@ -40,6 +40,7 @@ namespace vk {
 
         VkImage handle() const { return m_image; }
         Device& device() const { return *m_device; }
+        void setInfo(const ImageCreateInfo& info) { m_info = info; }
 
         ImageCreateFlags flags() const { return m_info.getInfo().flags; }
         ImageType imageType() const { return m_info.getInfo().imageType; }

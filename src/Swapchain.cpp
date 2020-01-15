@@ -104,7 +104,6 @@ void Swapchain::getImages() {
 
     m_images.reserve(images.size());
     for (auto image : images) {
-
-        m_images.emplace_back(device(), image, info, false);
+        m_images.emplace_back(device(), image, false, &info);
     }
 }

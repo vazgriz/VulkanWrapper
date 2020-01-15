@@ -705,6 +705,10 @@ public:
                 frames = 0;
             }
         }
+
+        for (auto& fence : fences) {
+            fence.wait();
+        }
     }
 };
 

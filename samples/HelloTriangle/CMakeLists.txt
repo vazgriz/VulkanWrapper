@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.9)
 project(HelloTriangle)
 
-add_custom_command(OUTPUT hello.frag
+add_custom_command(OUTPUT hello.frag.spv
 	COMMAND ${GLSL_COMPILER} ${PROJECT_SOURCE_DIR}/hello.frag -o ${PROJECT_BINARY_DIR}/hello.frag.spv
 	DEPENDS hello.frag)
 
-add_custom_command(OUTPUT hello.vert
+add_custom_command(OUTPUT hello.vert.spv
 	COMMAND ${GLSL_COMPILER} ${PROJECT_SOURCE_DIR}/hello.vert -o ${PROJECT_BINARY_DIR}/hello.vert.spv
 	DEPENDS hello.vert)
 

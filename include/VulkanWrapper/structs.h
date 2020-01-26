@@ -26,7 +26,6 @@ namespace vk {
     typedef VkDrawIndirectCommand DrawIndirectCommand;
     typedef VkDisplayModeParametersKHR DisplayModeParameters;
     typedef VkSampleMask SampleMask;
-    typedef VkImageBlit ImageBlit;
 
     struct ComponentMapping {
         ComponentSwizzle r;
@@ -131,5 +130,12 @@ namespace vk {
         ImageSubresourceLayers imageSubresource;
         Offset3D imageOffset;
         Extent3D imageExtent;
+    };
+
+    struct ImageBlit {
+        ImageSubresourceLayers srcSubresource;
+        Offset3D srcOffsets[2];
+        ImageSubresourceLayers dstSubresource;
+        Offset3D dstOffsets[2];
     };
 }

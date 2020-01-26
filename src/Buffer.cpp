@@ -49,6 +49,7 @@ Buffer::Buffer(Device& device, VkBuffer handle, bool enableDestructor, const Buf
 Buffer::Buffer(Buffer&& other) {
     m_device = other.m_device;
     m_buffer = other.m_buffer;
+    m_destructorEnabled = other.m_destructorEnabled;
     m_requirements = other.m_requirements;
     m_info = std::move(other.m_info);
     other.m_buffer = VK_NULL_HANDLE;

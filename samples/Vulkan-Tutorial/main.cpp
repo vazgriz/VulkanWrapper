@@ -605,13 +605,13 @@ public:
             vk::ImageBlit blit = {};
             blit.srcOffsets[0] = { 0, 0, 0 };
             blit.srcOffsets[1] = { mipWidth, mipHeight, 1 };
-            blit.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+            blit.srcSubresource.aspectMask = vk::ImageAspectFlags::Color;
             blit.srcSubresource.mipLevel = i - 1;
             blit.srcSubresource.baseArrayLayer = 0;
             blit.srcSubresource.layerCount = 1;
             blit.dstOffsets[0] = { 0, 0, 0 };
             blit.dstOffsets[1] = { mipWidth / 2, mipHeight / 2, 1 };
-            blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+            blit.dstSubresource.aspectMask = vk::ImageAspectFlags::Color;
             blit.dstSubresource.mipLevel = i;
             blit.dstSubresource.baseArrayLayer = 0;
             blit.dstSubresource.layerCount = 1;
@@ -919,7 +919,7 @@ public:
         colorAttachment.loadOp = vk::AttachmentLoadOp::Clear;
         colorAttachment.storeOp = vk::AttachmentStoreOp::Store;
         colorAttachment.initialLayout = vk::ImageLayout::Undefined;
-        colorAttachment.finalLayout = vk::ImageLayout::PresentSrcKhr;
+        colorAttachment.finalLayout = vk::ImageLayout::PresentSrcKHR;
 
         vk::AttachmentDescription depthAttachment = {};
         depthAttachment.format = depthFormat;

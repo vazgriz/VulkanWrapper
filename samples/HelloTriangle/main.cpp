@@ -478,7 +478,7 @@ public:
         colorAttachment.loadOp = vk::AttachmentLoadOp::Clear;
         colorAttachment.storeOp = vk::AttachmentStoreOp::Store;
         colorAttachment.initialLayout = vk::ImageLayout::Undefined;
-        colorAttachment.finalLayout = vk::ImageLayout::PresentSrcKhr;
+        colorAttachment.finalLayout = vk::ImageLayout::PresentSrcKHR;
 
         vk::AttachmentReference colorAttachmentRef = {};
         colorAttachmentRef.attachment = 0;

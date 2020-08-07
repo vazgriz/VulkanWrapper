@@ -1,4 +1,4 @@
-//auto generated on 03/18/2018 9:15:50 PM
+//auto generated on 8/7/2020 3:26:34 PM
 #pragma once
 
 namespace vk {
@@ -41,52 +41,52 @@ namespace vk {
         ReverseSubtract = 2,
         Min = 3,
         Max = 4,
-        ZeroExt = 1000148000,
-        SrcExt = 1000148001,
-        DstExt = 1000148002,
-        SrcOverExt = 1000148003,
-        DstOverExt = 1000148004,
-        SrcInExt = 1000148005,
-        DstInExt = 1000148006,
-        SrcOutExt = 1000148007,
-        DstOutExt = 1000148008,
-        SrcAtopExt = 1000148009,
-        DstAtopExt = 1000148010,
-        XorExt = 1000148011,
-        MultiplyExt = 1000148012,
-        ScreenExt = 1000148013,
-        OverlayExt = 1000148014,
-        DarkenExt = 1000148015,
-        LightenExt = 1000148016,
-        ColordodgeExt = 1000148017,
-        ColorburnExt = 1000148018,
-        HardlightExt = 1000148019,
-        SoftlightExt = 1000148020,
-        DifferenceExt = 1000148021,
-        ExclusionExt = 1000148022,
-        InvertExt = 1000148023,
-        InvertRgbExt = 1000148024,
-        LineardodgeExt = 1000148025,
-        LinearburnExt = 1000148026,
-        VividlightExt = 1000148027,
-        LinearlightExt = 1000148028,
-        PinlightExt = 1000148029,
-        HardmixExt = 1000148030,
-        HslHueExt = 1000148031,
-        HslSaturationExt = 1000148032,
-        HslColorExt = 1000148033,
-        HslLuminosityExt = 1000148034,
-        PlusExt = 1000148035,
-        PlusClampedExt = 1000148036,
-        PlusClampedAlphaExt = 1000148037,
-        PlusDarkerExt = 1000148038,
-        MinusExt = 1000148039,
-        MinusClampedExt = 1000148040,
-        ContrastExt = 1000148041,
-        InvertOvgExt = 1000148042,
-        RedExt = 1000148043,
-        GreenExt = 1000148044,
-        BlueExt = 1000148045,
+        ZeroEXT = 1000148000,
+        SrcEXT = 1000148001,
+        DstEXT = 1000148002,
+        SrcOverEXT = 1000148003,
+        DstOverEXT = 1000148004,
+        SrcInEXT = 1000148005,
+        DstInEXT = 1000148006,
+        SrcOutEXT = 1000148007,
+        DstOutEXT = 1000148008,
+        SrcAtopEXT = 1000148009,
+        DstAtopEXT = 1000148010,
+        XorEXT = 1000148011,
+        MultiplyEXT = 1000148012,
+        ScreenEXT = 1000148013,
+        OverlayEXT = 1000148014,
+        DarkenEXT = 1000148015,
+        LightenEXT = 1000148016,
+        ColordodgeEXT = 1000148017,
+        ColorburnEXT = 1000148018,
+        HardlightEXT = 1000148019,
+        SoftlightEXT = 1000148020,
+        DifferenceEXT = 1000148021,
+        ExclusionEXT = 1000148022,
+        InvertEXT = 1000148023,
+        InvertRgbEXT = 1000148024,
+        LineardodgeEXT = 1000148025,
+        LinearburnEXT = 1000148026,
+        VividlightEXT = 1000148027,
+        LinearlightEXT = 1000148028,
+        PinlightEXT = 1000148029,
+        HardmixEXT = 1000148030,
+        HslHueEXT = 1000148031,
+        HslSaturationEXT = 1000148032,
+        HslColorEXT = 1000148033,
+        HslLuminosityEXT = 1000148034,
+        PlusEXT = 1000148035,
+        PlusClampedEXT = 1000148036,
+        PlusClampedAlphaEXT = 1000148037,
+        PlusDarkerEXT = 1000148038,
+        MinusEXT = 1000148039,
+        MinusClampedEXT = 1000148040,
+        ContrastEXT = 1000148041,
+        InvertOvgEXT = 1000148042,
+        RedEXT = 1000148043,
+        GreenEXT = 1000148044,
+        BlueEXT = 1000148045,
     };
 
     enum class BorderColor {
@@ -98,21 +98,99 @@ namespace vk {
         IntOpaqueWhite = 5,
     };
 
-    enum class FramebufferCreateFlags {
+    enum class FramebufferCreateFlags : uint32_t {
         None = 0,
     };
+
+    inline FramebufferCreateFlags operator | (FramebufferCreateFlags a, FramebufferCreateFlags b) {
+        return static_cast<FramebufferCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline FramebufferCreateFlags& operator |= (FramebufferCreateFlags& a, FramebufferCreateFlags b) {
+        a = static_cast<FramebufferCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline FramebufferCreateFlags operator & (FramebufferCreateFlags a, FramebufferCreateFlags b) {
+        return static_cast<FramebufferCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline FramebufferCreateFlags& operator &= (FramebufferCreateFlags& a, FramebufferCreateFlags& b) {
+        a = static_cast<FramebufferCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (FramebufferCreateFlags& a, FramebufferCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (FramebufferCreateFlags& a, FramebufferCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
 
     enum class QueryPoolCreateFlags {
         None = 0,
     };
 
-    enum class RenderPassCreateFlags {
+    enum class RenderPassCreateFlags : uint32_t {
         None = 0,
     };
 
-    enum class SamplerCreateFlags {
+    inline RenderPassCreateFlags operator | (RenderPassCreateFlags a, RenderPassCreateFlags b) {
+        return static_cast<RenderPassCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline RenderPassCreateFlags& operator |= (RenderPassCreateFlags& a, RenderPassCreateFlags b) {
+        a = static_cast<RenderPassCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline RenderPassCreateFlags operator & (RenderPassCreateFlags a, RenderPassCreateFlags b) {
+        return static_cast<RenderPassCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline RenderPassCreateFlags& operator &= (RenderPassCreateFlags& a, RenderPassCreateFlags& b) {
+        a = static_cast<RenderPassCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (RenderPassCreateFlags& a, RenderPassCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (RenderPassCreateFlags& a, RenderPassCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class SamplerCreateFlags : uint32_t {
         None = 0,
     };
+
+    inline SamplerCreateFlags operator | (SamplerCreateFlags a, SamplerCreateFlags b) {
+        return static_cast<SamplerCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline SamplerCreateFlags& operator |= (SamplerCreateFlags& a, SamplerCreateFlags b) {
+        a = static_cast<SamplerCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline SamplerCreateFlags operator & (SamplerCreateFlags a, SamplerCreateFlags b) {
+        return static_cast<SamplerCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SamplerCreateFlags& operator &= (SamplerCreateFlags& a, SamplerCreateFlags& b) {
+        a = static_cast<SamplerCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SamplerCreateFlags& a, SamplerCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SamplerCreateFlags& a, SamplerCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
 
     enum class PipelineCacheHeaderVersion {
         One = 1,
@@ -122,9 +200,35 @@ namespace vk {
         None = 0,
     };
 
-    enum class PipelineCacheCreateFlags {
+    enum class PipelineCacheCreateFlags : uint32_t {
         None = 0,
     };
+
+    inline PipelineCacheCreateFlags operator | (PipelineCacheCreateFlags a, PipelineCacheCreateFlags b) {
+        return static_cast<PipelineCacheCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline PipelineCacheCreateFlags& operator |= (PipelineCacheCreateFlags& a, PipelineCacheCreateFlags b) {
+        a = static_cast<PipelineCacheCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline PipelineCacheCreateFlags operator & (PipelineCacheCreateFlags a, PipelineCacheCreateFlags b) {
+        return static_cast<PipelineCacheCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PipelineCacheCreateFlags& operator &= (PipelineCacheCreateFlags& a, PipelineCacheCreateFlags& b) {
+        a = static_cast<PipelineCacheCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PipelineCacheCreateFlags& a, PipelineCacheCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PipelineCacheCreateFlags& a, PipelineCacheCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
 
     enum class PipelineDepthStencilStateCreateFlags {
         None = 0,
@@ -162,9 +266,35 @@ namespace vk {
         None = 0,
     };
 
-    enum class PipelineShaderStageCreateFlags {
+    enum class PipelineShaderStageCreateFlags : uint32_t {
         None = 0,
     };
+
+    inline PipelineShaderStageCreateFlags operator | (PipelineShaderStageCreateFlags a, PipelineShaderStageCreateFlags b) {
+        return static_cast<PipelineShaderStageCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline PipelineShaderStageCreateFlags& operator |= (PipelineShaderStageCreateFlags& a, PipelineShaderStageCreateFlags b) {
+        a = static_cast<PipelineShaderStageCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline PipelineShaderStageCreateFlags operator & (PipelineShaderStageCreateFlags a, PipelineShaderStageCreateFlags b) {
+        return static_cast<PipelineShaderStageCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PipelineShaderStageCreateFlags& operator &= (PipelineShaderStageCreateFlags& a, PipelineShaderStageCreateFlags& b) {
+        a = static_cast<PipelineShaderStageCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PipelineShaderStageCreateFlags& a, PipelineShaderStageCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PipelineShaderStageCreateFlags& a, PipelineShaderStageCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
 
     enum class DescriptorSetLayoutCreateFlags : uint32_t {
         None = 0,
@@ -204,9 +334,35 @@ namespace vk {
         None = 0,
     };
 
-    enum class DeviceQueueCreateFlags {
+    enum class DeviceQueueCreateFlags : uint32_t {
         None = 0,
     };
+
+    inline DeviceQueueCreateFlags operator | (DeviceQueueCreateFlags a, DeviceQueueCreateFlags b) {
+        return static_cast<DeviceQueueCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline DeviceQueueCreateFlags& operator |= (DeviceQueueCreateFlags& a, DeviceQueueCreateFlags b) {
+        a = static_cast<DeviceQueueCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline DeviceQueueCreateFlags operator & (DeviceQueueCreateFlags a, DeviceQueueCreateFlags b) {
+        return static_cast<DeviceQueueCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DeviceQueueCreateFlags& operator &= (DeviceQueueCreateFlags& a, DeviceQueueCreateFlags& b) {
+        a = static_cast<DeviceQueueCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DeviceQueueCreateFlags& a, DeviceQueueCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DeviceQueueCreateFlags& a, DeviceQueueCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
 
     enum class BufferCreateFlags : uint32_t {
         None = 0,
@@ -512,6 +668,8 @@ namespace vk {
         UniformBufferDynamic = 8,
         StorageBufferDynamic = 9,
         InputAttachment = 10,
+        InlineUniformBlockEXT = 1000138000,
+        AccelerationStructureKHR = 1000165000,
     };
 
     enum class DeviceCreateFlags {
@@ -528,8 +686,13 @@ namespace vk {
         StencilCompareMask = 6,
         StencilWriteMask = 7,
         StencilReference = 8,
-        ViewportWScalingNv = 1000087000,
-        DiscardRectangleExt = 1000099000,
+        ViewportWScalingNV = 1000087000,
+        DiscardRectangleEXT = 1000099000,
+        SampleLocationsEXT = 1000143000,
+        ViewportShadingRatePaletteNV = 1000164004,
+        ViewportCoarseSampleOrderNV = 1000164006,
+        ExclusiveScissorNV = 1000205001,
+        LineStippleEXT = 1000259000,
     };
 
     enum class FenceCreateFlags : uint32_t {
@@ -567,7 +730,7 @@ namespace vk {
         Fill = 0,
         Line = 1,
         Point = 2,
-        FillRectangleNv = 1000153000,
+        FillRectangleNV = 1000153000,
     };
 
     enum class Format {
@@ -756,14 +919,28 @@ namespace vk {
         Astc_12x10_SrgbBlock = 182,
         Astc_12x12_UnormBlock = 183,
         Astc_12x12_SrgbBlock = 184,
-        Pvrtc1_2Bpp_UnormBlockImg = 1000054000,
-        Pvrtc1_4Bpp_UnormBlockImg = 1000054001,
-        Pvrtc2_2Bpp_UnormBlockImg = 1000054002,
-        Pvrtc2_4Bpp_UnormBlockImg = 1000054003,
-        Pvrtc1_2Bpp_SrgbBlockImg = 1000054004,
-        Pvrtc1_4Bpp_SrgbBlockImg = 1000054005,
-        Pvrtc2_2Bpp_SrgbBlockImg = 1000054006,
-        Pvrtc2_4Bpp_SrgbBlockImg = 1000054007,
+        Pvrtc1_2Bpp_UnormBlockIMG = 1000054000,
+        Pvrtc1_4Bpp_UnormBlockIMG = 1000054001,
+        Pvrtc2_2Bpp_UnormBlockIMG = 1000054002,
+        Pvrtc2_4Bpp_UnormBlockIMG = 1000054003,
+        Pvrtc1_2Bpp_SrgbBlockIMG = 1000054004,
+        Pvrtc1_4Bpp_SrgbBlockIMG = 1000054005,
+        Pvrtc2_2Bpp_SrgbBlockIMG = 1000054006,
+        Pvrtc2_4Bpp_SrgbBlockIMG = 1000054007,
+        Astc_4x4_SfloatBlockEXT = 1000066000,
+        Astc_5x4_SfloatBlockEXT = 1000066001,
+        Astc_5x5_SfloatBlockEXT = 1000066002,
+        Astc_6x5_SfloatBlockEXT = 1000066003,
+        Astc_6x6_SfloatBlockEXT = 1000066004,
+        Astc_8x5_SfloatBlockEXT = 1000066005,
+        Astc_8x6_SfloatBlockEXT = 1000066006,
+        Astc_8x8_SfloatBlockEXT = 1000066007,
+        Astc_10x5_SfloatBlockEXT = 1000066008,
+        Astc_10x6_SfloatBlockEXT = 1000066009,
+        Astc_10x8_SfloatBlockEXT = 1000066010,
+        Astc_10x10_SfloatBlockEXT = 1000066011,
+        Astc_12x10_SfloatBlockEXT = 1000066012,
+        Astc_12x12_SfloatBlockEXT = 1000066013,
     };
 
     enum class FormatFeatureFlags : uint32_t {
@@ -893,13 +1070,16 @@ namespace vk {
         TransferSrcOptimal = 6,
         TransferDstOptimal = 7,
         Preinitialized = 8,
-        PresentSrcKhr = 1000001002,
-        SharedPresentKhr = 1000111000,
+        PresentSrcKHR = 1000001002,
+        SharedPresentKHR = 1000111000,
+        ShadingRateOptimalNV = 1000164003,
+        FragmentDensityMapOptimalEXT = 1000218000,
     };
 
     enum class ImageTiling {
         Optimal = 0,
         Linear = 1,
+        DrmFormatModifierEXT = 1000158000,
     };
 
     enum class ImageType {
@@ -946,6 +1126,36 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
+    enum class ImageViewCreateFlags : uint32_t {
+        None = 0,
+    };
+
+    inline ImageViewCreateFlags operator | (ImageViewCreateFlags a, ImageViewCreateFlags b) {
+        return static_cast<ImageViewCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline ImageViewCreateFlags& operator |= (ImageViewCreateFlags& a, ImageViewCreateFlags b) {
+        a = static_cast<ImageViewCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline ImageViewCreateFlags operator & (ImageViewCreateFlags a, ImageViewCreateFlags b) {
+        return static_cast<ImageViewCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ImageViewCreateFlags& operator &= (ImageViewCreateFlags& a, ImageViewCreateFlags& b) {
+        a = static_cast<ImageViewCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ImageViewCreateFlags& a, ImageViewCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ImageViewCreateFlags& a, ImageViewCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ImageViewType {
         _1D = 0,
         _2D = 1,
@@ -964,6 +1174,8 @@ namespace vk {
     enum class IndexType {
         Uint16 = 0,
         Uint32 = 1,
+        NoneKHR = 1000165000,
+        Uint8_EXT = 1000265000,
     };
 
     enum class LogicOp {
@@ -1109,6 +1321,7 @@ namespace vk {
     enum class PipelineBindPoint {
         Graphics = 0,
         Compute = 1,
+        RayTracingKHR = 1000165000,
     };
 
     enum class PipelineCreateFlags : uint32_t {
@@ -1268,6 +1481,13 @@ namespace vk {
         Occlusion = 0,
         PipelineStatistics = 1,
         Timestamp = 2,
+        Reserved_8 = 1000023008,
+        Reserved_4 = 1000024004,
+        TransformFeedbackStreamEXT = 1000028004,
+        PerformanceQueryKHR = 1000116000,
+        AccelerationStructureCompactedSizeKHR = 1000165000,
+        AccelerationStructureSerializationSizeKHR = 1000150000,
+        PerformanceQueryINTEL = 1000210000,
     };
 
     enum class QueueFlags : uint32_t {
@@ -1328,15 +1548,23 @@ namespace vk {
         ErrorTooManyObjects = -10,
         ErrorFormatNotSupported = -11,
         ErrorFragmentedPool = -12,
-        ErrorSurfaceLostKhr = -1000000000,
-        ErrorNativeWindowInUseKhr = -1000000001,
-        SuboptimalKhr = 1000001003,
-        ErrorOutOfDateKhr = -1000001004,
-        ErrorIncompatibleDisplayKhr = -1000003001,
-        ErrorValidationFailedExt = -1000011001,
-        ErrorInvalidShaderNv = -1000012000,
-        ErrorOutOfPoolMemoryKhr = -1000069000,
-        ErrorInvalidExternalHandleKhr = -1000072003,
+        ErrorUnknown = -13,
+        ErrorSurfaceLostKHR = -1000000000,
+        ErrorNativeWindowInUseKHR = -1000000001,
+        SuboptimalKHR = 1000001003,
+        ErrorOutOfDateKHR = -1000001004,
+        ErrorIncompatibleDisplayKHR = -1000003001,
+        ErrorValidationFailedEXT = -1000011001,
+        ErrorInvalidShaderNV = -1000012000,
+        ErrorIncompatibleVersionKHR = -1000150000,
+        ErrorInvalidDrmFormatModifierPlaneLayoutEXT = -1000158000,
+        ErrorNotPermittedEXT = -1000174001,
+        ErrorFullScreenExclusiveModeLostEXT = -1000255000,
+        ThreadIdleKHR = 1000268000,
+        ThreadDoneKHR = 1000268001,
+        OperationDeferredKHR = 1000268002,
+        OperationNotDeferredKHR = 1000268003,
+        ErrorPipelineCompileRequiredEXT = 1000297000,
     };
 
     enum class ShaderStageFlags : uint32_t {
@@ -1502,136 +1730,274 @@ namespace vk {
         MemoryBarrier = 46,
         LoaderInstanceCreateInfo = 47,
         LoaderDeviceCreateInfo = 48,
-        SwapchainCreateInfoKhr = 1000001000,
-        PresentInfoKhr = 1000001001,
-        DisplayModeCreateInfoKhr = 1000002000,
-        DisplaySurfaceCreateInfoKhr = 1000002001,
-        DisplayPresentInfoKhr = 1000003000,
-        XlibSurfaceCreateInfoKhr = 1000004000,
-        XcbSurfaceCreateInfoKhr = 1000005000,
-        WaylandSurfaceCreateInfoKhr = 1000006000,
-        MirSurfaceCreateInfoKhr = 1000007000,
-        AndroidSurfaceCreateInfoKhr = 1000008000,
-        Win32_SurfaceCreateInfoKhr = 1000009000,
-        DebugReportCallbackCreateInfoExt = 1000011000,
-        PipelineRasterizationStateRasterizationOrderAmd = 1000018000,
-        DebugMarkerObjectNameInfoExt = 1000022000,
-        DebugMarkerObjectTagInfoExt = 1000022001,
-        DebugMarkerMarkerInfoExt = 1000022002,
-        DedicatedAllocationImageCreateInfoNv = 1000026000,
-        DedicatedAllocationBufferCreateInfoNv = 1000026001,
-        DedicatedAllocationMemoryAllocateInfoNv = 1000026002,
-        TextureLodGatherFormatPropertiesAmd = 1000041000,
-        RenderPassMultiviewCreateInfoKhx = 1000053000,
-        PhysicalDeviceMultiviewFeaturesKhx = 1000053001,
-        PhysicalDeviceMultiviewPropertiesKhx = 1000053002,
-        ExternalMemoryImageCreateInfoNv = 1000056000,
-        ExportMemoryAllocateInfoNv = 1000056001,
-        ImportMemory_Win32_HandleInfoNv = 1000057000,
-        ExportMemory_Win32_HandleInfoNv = 1000057001,
-        Win32_KeyedMutexAcquireReleaseInfoNv = 1000058000,
-        PhysicalDeviceFeatures_2_Khr = 1000059000,
-        PhysicalDeviceProperties_2_Khr = 1000059001,
-        FormatProperties_2_Khr = 1000059002,
-        ImageFormatProperties_2_Khr = 1000059003,
-        PhysicalDeviceImageFormatInfo_2_Khr = 1000059004,
-        QueueFamilyProperties_2_Khr = 1000059005,
-        PhysicalDeviceMemoryProperties_2_Khr = 1000059006,
-        SparseImageFormatProperties_2_Khr = 1000059007,
-        PhysicalDeviceSparseImageFormatInfo_2_Khr = 1000059008,
-        MemoryAllocateFlagsInfoKhx = 1000060000,
-        BindBufferMemoryInfoKhx = 1000060001,
-        BindImageMemoryInfoKhx = 1000060002,
-        DeviceGroupRenderPassBeginInfoKhx = 1000060003,
-        DeviceGroupCommandBufferBeginInfoKhx = 1000060004,
-        DeviceGroupSubmitInfoKhx = 1000060005,
-        DeviceGroupBindSparseInfoKhx = 1000060006,
-        DeviceGroupPresentCapabilitiesKhx = 1000060007,
-        ImageSwapchainCreateInfoKhx = 1000060008,
-        BindImageMemorySwapchainInfoKhx = 1000060009,
-        AcquireNextImageInfoKhx = 1000060010,
-        DeviceGroupPresentInfoKhx = 1000060011,
-        DeviceGroupSwapchainCreateInfoKhx = 1000060012,
-        ValidationFlagsExt = 1000061000,
-        ViSurfaceCreateInfoNn = 1000062000,
-        PhysicalDeviceGroupPropertiesKhx = 1000070000,
-        DeviceGroupDeviceCreateInfoKhx = 1000070001,
-        PhysicalDeviceExternalImageFormatInfoKhr = 1000071000,
-        ExternalImageFormatPropertiesKhr = 1000071001,
-        PhysicalDeviceExternalBufferInfoKhr = 1000071002,
-        ExternalBufferPropertiesKhr = 1000071003,
-        PhysicalDeviceIdPropertiesKhr = 1000071004,
-        ExternalMemoryBufferCreateInfoKhr = 1000072000,
-        ExternalMemoryImageCreateInfoKhr = 1000072001,
-        ExportMemoryAllocateInfoKhr = 1000072002,
-        ImportMemory_Win32_HandleInfoKhr = 1000073000,
-        ExportMemory_Win32_HandleInfoKhr = 1000073001,
-        Memory_Win32_HandlePropertiesKhr = 1000073002,
-        MemoryGet_Win32_HandleInfoKhr = 1000073003,
-        ImportMemoryFdInfoKhr = 1000074000,
-        MemoryFdPropertiesKhr = 1000074001,
-        MemoryGetFdInfoKhr = 1000074002,
-        Win32_KeyedMutexAcquireReleaseInfoKhr = 1000075000,
-        PhysicalDeviceExternalSemaphoreInfoKhr = 1000076000,
-        ExternalSemaphorePropertiesKhr = 1000076001,
-        ExportSemaphoreCreateInfoKhr = 1000077000,
-        ImportSemaphore_Win32_HandleInfoKhr = 1000078000,
-        ExportSemaphore_Win32_HandleInfoKhr = 1000078001,
-        D3D12_FenceSubmitInfoKhr = 1000078002,
-        SemaphoreGet_Win32_HandleInfoKhr = 1000078003,
-        ImportSemaphoreFdInfoKhr = 1000079000,
-        SemaphoreGetFdInfoKhr = 1000079001,
-        PhysicalDevicePushDescriptorPropertiesKhr = 1000080000,
-        PhysicalDevice_16Bit_StorageFeaturesKhr = 1000083000,
-        PresentRegionsKhr = 1000084000,
-        DescriptorUpdateTemplateCreateInfoKhr = 1000085000,
-        ObjectTableCreateInfoNvx = 1000086000,
-        IndirectCommandsLayoutCreateInfoNvx = 1000086001,
-        CmdProcessCommandsInfoNvx = 1000086002,
-        CmdReserveSpaceForCommandsInfoNvx = 1000086003,
-        DeviceGeneratedCommandsLimitsNvx = 1000086004,
-        DeviceGeneratedCommandsFeaturesNvx = 1000086005,
-        PipelineViewportWScalingStateCreateInfoNv = 1000087000,
-        Surface_Capabilities2_Ext = 1000090000,
-        DisplayPowerInfoExt = 1000091000,
-        DeviceEventInfoExt = 1000091001,
-        DisplayEventInfoExt = 1000091002,
-        SwapchainCounterCreateInfoExt = 1000091003,
-        PresentTimesInfoGoogle = 1000092000,
-        PhysicalDeviceMultiviewPerViewAttributesPropertiesNvx = 1000097000,
-        PipelineViewportSwizzleStateCreateInfoNv = 1000098000,
-        PhysicalDeviceDiscardRectanglePropertiesExt = 1000099000,
-        PipelineDiscardRectangleStateCreateInfoExt = 1000099001,
-        HdrMetadataExt = 1000105000,
-        SharedPresentSurfaceCapabilitiesKhr = 1000111000,
-        PhysicalDeviceExternalFenceInfoKhr = 1000112000,
-        ExternalFencePropertiesKhr = 1000112001,
-        ExportFenceCreateInfoKhr = 1000113000,
-        ImportFence_Win32_HandleInfoKhr = 1000114000,
-        ExportFence_Win32_HandleInfoKhr = 1000114001,
-        FenceGet_Win32_HandleInfoKhr = 1000114002,
-        ImportFenceFdInfoKhr = 1000115000,
-        FenceGetFdInfoKhr = 1000115001,
-        PhysicalDeviceSurfaceInfo_2_Khr = 1000119000,
-        SurfaceCapabilities_2_Khr = 1000119001,
-        SurfaceFormat_2_Khr = 1000119002,
-        PhysicalDeviceVariablePointerFeaturesKhr = 1000120000,
-        IosSurfaceCreateInfoMvk = 1000122000,
-        MacosSurfaceCreateInfoMvk = 1000123000,
-        MemoryDedicatedRequirementsKhr = 1000127000,
-        MemoryDedicatedAllocateInfoKhr = 1000127001,
-        PhysicalDeviceSamplerFilterMinmaxPropertiesExt = 1000130000,
-        SamplerReductionModeCreateInfoExt = 1000130001,
-        BufferMemoryRequirementsInfo_2_Khr = 1000146000,
-        ImageMemoryRequirementsInfo_2_Khr = 1000146001,
-        ImageSparseMemoryRequirementsInfo_2_Khr = 1000146002,
-        MemoryRequirements_2_Khr = 1000146003,
-        SparseImageMemoryRequirements_2_Khr = 1000146004,
-        PhysicalDeviceBlendOperationAdvancedFeaturesExt = 1000148000,
-        PhysicalDeviceBlendOperationAdvancedPropertiesExt = 1000148001,
-        PipelineColorBlendAdvancedStateCreateInfoExt = 1000148002,
-        PipelineCoverageToColorStateCreateInfoNv = 1000149000,
-        PipelineCoverageModulationStateCreateInfoNv = 1000152000,
+        SwapchainCreateInfoKHR = 1000001000,
+        PresentInfoKHR = 1000001001,
+        DeviceGroupPresentCapabilitiesKHR = 1000060007,
+        ImageSwapchainCreateInfoKHR = 1000060008,
+        BindImageMemorySwapchainInfoKHR = 1000060009,
+        AcquireNextImageInfoKHR = 1000060010,
+        DeviceGroupPresentInfoKHR = 1000060011,
+        DeviceGroupSwapchainCreateInfoKHR = 1000060012,
+        DisplayModeCreateInfoKHR = 1000002000,
+        DisplaySurfaceCreateInfoKHR = 1000002001,
+        DisplayPresentInfoKHR = 1000003000,
+        XlibSurfaceCreateInfoKHR = 1000004000,
+        XcbSurfaceCreateInfoKHR = 1000005000,
+        WaylandSurfaceCreateInfoKHR = 1000006000,
+        AndroidSurfaceCreateInfoKHR = 1000008000,
+        Win32_SurfaceCreateInfoKHR = 1000009000,
+        NativeBufferANDROID = 1000010000,
+        SwapchainImageCreateInfoANDROID = 1000010001,
+        PhysicalDevicePresentationPropertiesANDROID = 1000010002,
+        DebugReportCallbackCreateInfoEXT = 1000011000,
+        PipelineRasterizationStateRasterizationOrderAMD = 1000018000,
+        DebugMarkerObjectNameInfoEXT = 1000022000,
+        DebugMarkerObjectTagInfoEXT = 1000022001,
+        DebugMarkerMarkerInfoEXT = 1000022002,
+        DedicatedAllocationImageCreateInfoNV = 1000026000,
+        DedicatedAllocationBufferCreateInfoNV = 1000026001,
+        DedicatedAllocationMemoryAllocateInfoNV = 1000026002,
+        PhysicalDeviceTransformFeedbackFeaturesEXT = 1000028000,
+        PhysicalDeviceTransformFeedbackPropertiesEXT = 1000028001,
+        PipelineRasterizationStateStreamCreateInfoEXT = 1000028002,
+        ImageViewHandleInfoNVX = 1000030000,
+        TextureLodGatherFormatPropertiesAMD = 1000041000,
+        StreamDescriptorSurfaceCreateInfoGGP = 1000049000,
+        PhysicalDeviceCornerSampledImageFeaturesNV = 1000050000,
+        ExternalMemoryImageCreateInfoNV = 1000056000,
+        ExportMemoryAllocateInfoNV = 1000056001,
+        ImportMemory_Win32_HandleInfoNV = 1000057000,
+        ExportMemory_Win32_HandleInfoNV = 1000057001,
+        Win32_KeyedMutexAcquireReleaseInfoNV = 1000058000,
+        ValidationFlagsEXT = 1000061000,
+        ViSurfaceCreateInfoNN = 1000062000,
+        PhysicalDeviceTextureCompressionAstcHdrFeaturesEXT = 1000066000,
+        ImageViewAstcDecodeModeEXT = 1000067000,
+        PhysicalDeviceAstcDecodeFeaturesEXT = 1000067001,
+        ImportMemory_Win32_HandleInfoKHR = 1000073000,
+        ExportMemory_Win32_HandleInfoKHR = 1000073001,
+        Memory_Win32_HandlePropertiesKHR = 1000073002,
+        MemoryGet_Win32_HandleInfoKHR = 1000073003,
+        ImportMemoryFdInfoKHR = 1000074000,
+        MemoryFdPropertiesKHR = 1000074001,
+        MemoryGetFdInfoKHR = 1000074002,
+        Win32_KeyedMutexAcquireReleaseInfoKHR = 1000075000,
+        ImportSemaphore_Win32_HandleInfoKHR = 1000078000,
+        ExportSemaphore_Win32_HandleInfoKHR = 1000078001,
+        D3D12_FenceSubmitInfoKHR = 1000078002,
+        SemaphoreGet_Win32_HandleInfoKHR = 1000078003,
+        ImportSemaphoreFdInfoKHR = 1000079000,
+        SemaphoreGetFdInfoKHR = 1000079001,
+        PhysicalDevicePushDescriptorPropertiesKHR = 1000080000,
+        CommandBufferInheritanceConditionalRenderingInfoEXT = 1000081000,
+        PhysicalDeviceConditionalRenderingFeaturesEXT = 1000081001,
+        ConditionalRenderingBeginInfoEXT = 1000081002,
+        PresentRegionsKHR = 1000084000,
+        PipelineViewportWScalingStateCreateInfoNV = 1000087000,
+        SurfaceCapabilities_2_EXT = 1000090000,
+        DisplayPowerInfoEXT = 1000091000,
+        DeviceEventInfoEXT = 1000091001,
+        DisplayEventInfoEXT = 1000091002,
+        SwapchainCounterCreateInfoEXT = 1000091003,
+        PresentTimesInfoGOOGLE = 1000092000,
+        PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX = 1000097000,
+        PipelineViewportSwizzleStateCreateInfoNV = 1000098000,
+        PhysicalDeviceDiscardRectanglePropertiesEXT = 1000099000,
+        PipelineDiscardRectangleStateCreateInfoEXT = 1000099001,
+        PhysicalDeviceConservativeRasterizationPropertiesEXT = 1000101000,
+        PipelineRasterizationConservativeStateCreateInfoEXT = 1000101001,
+        PhysicalDeviceDepthClipEnableFeaturesEXT = 1000102000,
+        PipelineRasterizationDepthClipStateCreateInfoEXT = 1000102001,
+        HdrMetadataEXT = 1000105000,
+        SharedPresentSurfaceCapabilitiesKHR = 1000111000,
+        ImportFence_Win32_HandleInfoKHR = 1000114000,
+        ExportFence_Win32_HandleInfoKHR = 1000114001,
+        FenceGet_Win32_HandleInfoKHR = 1000114002,
+        ImportFenceFdInfoKHR = 1000115000,
+        FenceGetFdInfoKHR = 1000115001,
+        PhysicalDevicePerformanceQueryFeaturesKHR = 1000116000,
+        PhysicalDevicePerformanceQueryPropertiesKHR = 1000116001,
+        QueryPoolPerformanceCreateInfoKHR = 1000116002,
+        PerformanceQuerySubmitInfoKHR = 1000116003,
+        AcquireProfilingLockInfoKHR = 1000116004,
+        PerformanceCounterKHR = 1000116005,
+        PerformanceCounterDescriptionKHR = 1000116006,
+        PhysicalDeviceSurfaceInfo_2_KHR = 1000119000,
+        SurfaceCapabilities_2_KHR = 1000119001,
+        SurfaceFormat_2_KHR = 1000119002,
+        DisplayProperties_2_KHR = 1000121000,
+        DisplayPlaneProperties_2_KHR = 1000121001,
+        DisplayModeProperties_2_KHR = 1000121002,
+        DisplayPlaneInfo_2_KHR = 1000121003,
+        DisplayPlaneCapabilities_2_KHR = 1000121004,
+        IosSurfaceCreateInfoMVK = 1000122000,
+        MacosSurfaceCreateInfoMVK = 1000123000,
+        DebugUtilsObjectNameInfoEXT = 1000128000,
+        DebugUtilsObjectTagInfoEXT = 1000128001,
+        DebugUtilsLabelEXT = 1000128002,
+        DebugUtilsMessengerCallbackDataEXT = 1000128003,
+        DebugUtilsMessengerCreateInfoEXT = 1000128004,
+        AndroidHardwareBufferUsageANDROID = 1000129000,
+        AndroidHardwareBufferPropertiesANDROID = 1000129001,
+        AndroidHardwareBufferFormatPropertiesANDROID = 1000129002,
+        ImportAndroidHardwareBufferInfoANDROID = 1000129003,
+        MemoryGetAndroidHardwareBufferInfoANDROID = 1000129004,
+        ExternalFormatANDROID = 1000129005,
+        PhysicalDeviceInlineUniformBlockFeaturesEXT = 1000138000,
+        PhysicalDeviceInlineUniformBlockPropertiesEXT = 1000138001,
+        WriteDescriptorSetInlineUniformBlockEXT = 1000138002,
+        DescriptorPoolInlineUniformBlockCreateInfoEXT = 1000138003,
+        SampleLocationsInfoEXT = 1000143000,
+        RenderPassSampleLocationsBeginInfoEXT = 1000143001,
+        PipelineSampleLocationsStateCreateInfoEXT = 1000143002,
+        PhysicalDeviceSampleLocationsPropertiesEXT = 1000143003,
+        MultisamplePropertiesEXT = 1000143004,
+        PhysicalDeviceBlendOperationAdvancedFeaturesEXT = 1000148000,
+        PhysicalDeviceBlendOperationAdvancedPropertiesEXT = 1000148001,
+        PipelineColorBlendAdvancedStateCreateInfoEXT = 1000148002,
+        PipelineCoverageToColorStateCreateInfoNV = 1000149000,
+        BindAccelerationStructureMemoryInfoKHR = 1000165006,
+        WriteDescriptorSetAccelerationStructureKHR = 1000165007,
+        AccelerationStructureBuildGeometryInfoKHR = 1000150000,
+        AccelerationStructureCreateGeometryTypeInfoKHR = 1000150001,
+        AccelerationStructureDeviceAddressInfoKHR = 1000150002,
+        AccelerationStructureGeometryAabbsDataKHR = 1000150003,
+        AccelerationStructureGeometryInstancesDataKHR = 1000150004,
+        AccelerationStructureGeometryTrianglesDataKHR = 1000150005,
+        AccelerationStructureGeometryKHR = 1000150006,
+        AccelerationStructureInfoKHR = 1000150007,
+        AccelerationStructureMemoryRequirementsInfoKHR = 1000150008,
+        AccelerationStructureVersionKHR = 1000150009,
+        CopyAccelerationStructureInfoKHR = 1000150010,
+        CopyAccelerationStructureToMemoryInfoKHR = 1000150011,
+        CopyMemoryToAccelerationStructureInfoKHR = 1000150012,
+        PhysicalDeviceRayTracingFeaturesKHR = 1000150013,
+        PhysicalDeviceRayTracingPropertiesKHR = 1000150014,
+        RayTracingPipelineCreateInfoKHR = 1000150015,
+        RayTracingShaderGroupCreateInfoKHR = 1000150016,
+        AccelerationStructureCreateInfoKHR = 1000150017,
+        RayTracingPipelineInterfaceCreateInfoKHR = 1000150018,
+        PipelineCoverageModulationStateCreateInfoNV = 1000152000,
+        PhysicalDeviceShaderSmBuiltinsFeaturesNV = 1000154000,
+        PhysicalDeviceShaderSmBuiltinsPropertiesNV = 1000154001,
+        DrmFormatModifierPropertiesListEXT = 1000158000,
+        DrmFormatModifierPropertiesEXT = 1000158001,
+        PhysicalDeviceImageDrmFormatModifierInfoEXT = 1000158002,
+        ImageDrmFormatModifierListCreateInfoEXT = 1000158003,
+        ImageDrmFormatModifierExplicitCreateInfoEXT = 1000158004,
+        ImageDrmFormatModifierPropertiesEXT = 1000158005,
+        ValidationCacheCreateInfoEXT = 1000160000,
+        ShaderModuleValidationCacheCreateInfoEXT = 1000160001,
+        PipelineViewportShadingRateImageStateCreateInfoNV = 1000164000,
+        PhysicalDeviceShadingRateImageFeaturesNV = 1000164001,
+        PhysicalDeviceShadingRateImagePropertiesNV = 1000164002,
+        PipelineViewportCoarseSampleOrderStateCreateInfoNV = 1000164005,
+        RayTracingPipelineCreateInfoNV = 1000165000,
+        AccelerationStructureCreateInfoNV = 1000165001,
+        GeometryNV = 1000165003,
+        GeometryTrianglesNV = 1000165004,
+        GeometryAabbNV = 1000165005,
+        AccelerationStructureMemoryRequirementsInfoNV = 1000165008,
+        PhysicalDeviceRayTracingPropertiesNV = 1000165009,
+        RayTracingShaderGroupCreateInfoNV = 1000165011,
+        AccelerationStructureInfoNV = 1000165012,
+        PhysicalDeviceRepresentativeFragmentTestFeaturesNV = 1000166000,
+        PipelineRepresentativeFragmentTestStateCreateInfoNV = 1000166001,
+        PhysicalDeviceImageViewImageFormatInfoEXT = 1000170000,
+        FilterCubicImageViewImageFormatPropertiesEXT = 1000170001,
+        DeviceQueueGlobalPriorityCreateInfoEXT = 1000174000,
+        ImportMemoryHostPointerInfoEXT = 1000178000,
+        MemoryHostPointerPropertiesEXT = 1000178001,
+        PhysicalDeviceExternalMemoryHostPropertiesEXT = 1000178002,
+        PhysicalDeviceShaderClockFeaturesKHR = 1000181000,
+        PipelineCompilerControlCreateInfoAMD = 1000183000,
+        CalibratedTimestampInfoEXT = 1000184000,
+        PhysicalDeviceShaderCorePropertiesAMD = 1000185000,
+        DeviceMemoryOverallocationCreateInfoAMD = 1000189000,
+        PhysicalDeviceVertexAttributeDivisorPropertiesEXT = 1000190000,
+        PipelineVertexInputDivisorStateCreateInfoEXT = 1000190001,
+        PhysicalDeviceVertexAttributeDivisorFeaturesEXT = 1000190002,
+        PresentFrameTokenGGP = 1000191000,
+        PipelineCreationFeedbackCreateInfoEXT = 1000192000,
+        PhysicalDeviceComputeShaderDerivativesFeaturesNV = 1000201000,
+        PhysicalDeviceMeshShaderFeaturesNV = 1000202000,
+        PhysicalDeviceMeshShaderPropertiesNV = 1000202001,
+        PhysicalDeviceFragmentShaderBarycentricFeaturesNV = 1000203000,
+        PhysicalDeviceShaderImageFootprintFeaturesNV = 1000204000,
+        PipelineViewportExclusiveScissorStateCreateInfoNV = 1000205000,
+        PhysicalDeviceExclusiveScissorFeaturesNV = 1000205002,
+        CheckpointDataNV = 1000206000,
+        QueueFamilyCheckpointPropertiesNV = 1000206001,
+        PhysicalDeviceShaderIntegerFunctions_2_FeaturesINTEL = 1000209000,
+        QueryPoolCreateInfoINTEL = 1000210000,
+        InitializePerformanceApiInfoINTEL = 1000210001,
+        PerformanceMarkerInfoINTEL = 1000210002,
+        PerformanceStreamMarkerInfoINTEL = 1000210003,
+        PerformanceOverrideInfoINTEL = 1000210004,
+        PerformanceConfigurationAcquireInfoINTEL = 1000210005,
+        PhysicalDevicePciBusInfoPropertiesEXT = 1000212000,
+        DisplayNativeHdrSurfaceCapabilitiesAMD = 1000213000,
+        SwapchainDisplayNativeHdrCreateInfoAMD = 1000213001,
+        ImagepipeSurfaceCreateInfoFUCHSIA = 1000214000,
+        MetalSurfaceCreateInfoEXT = 1000217000,
+        PhysicalDeviceFragmentDensityMapFeaturesEXT = 1000218000,
+        PhysicalDeviceFragmentDensityMapPropertiesEXT = 1000218001,
+        RenderPassFragmentDensityMapCreateInfoEXT = 1000218002,
+        PhysicalDeviceSubgroupSizeControlPropertiesEXT = 1000225000,
+        PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = 1000225001,
+        PhysicalDeviceSubgroupSizeControlFeaturesEXT = 1000225002,
+        PhysicalDeviceShaderCoreProperties_2_AMD = 1000227000,
+        PhysicalDeviceCoherentMemoryFeaturesAMD = 1000229000,
+        PhysicalDeviceMemoryBudgetPropertiesEXT = 1000237000,
+        PhysicalDeviceMemoryPriorityFeaturesEXT = 1000238000,
+        MemoryPriorityAllocateInfoEXT = 1000238001,
+        SurfaceProtectedCapabilitiesKHR = 1000239000,
+        PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV = 1000240000,
+        PhysicalDeviceBufferDeviceAddressFeaturesEXT = 1000244000,
+        BufferDeviceAddressCreateInfoEXT = 1000244002,
+        PhysicalDeviceToolPropertiesEXT = 1000245000,
+        ValidationFeaturesEXT = 1000247000,
+        PhysicalDeviceCooperativeMatrixFeaturesNV = 1000249000,
+        CooperativeMatrixPropertiesNV = 1000249001,
+        PhysicalDeviceCooperativeMatrixPropertiesNV = 1000249002,
+        PhysicalDeviceCoverageReductionModeFeaturesNV = 1000250000,
+        PipelineCoverageReductionStateCreateInfoNV = 1000250001,
+        FramebufferMixedSamplesCombinationNV = 1000250002,
+        PhysicalDeviceFragmentShaderInterlockFeaturesEXT = 1000251000,
+        PhysicalDeviceYcbcrImageArraysFeaturesEXT = 1000252000,
+        SurfaceFullScreenExclusiveInfoEXT = 1000255000,
+        SurfaceCapabilitiesFullScreenExclusiveEXT = 1000255002,
+        SurfaceFullScreenExclusive_Win32_InfoEXT = 1000255001,
+        HeadlessSurfaceCreateInfoEXT = 1000256000,
+        PhysicalDeviceLineRasterizationFeaturesEXT = 1000259000,
+        PipelineRasterizationLineStateCreateInfoEXT = 1000259001,
+        PhysicalDeviceLineRasterizationPropertiesEXT = 1000259002,
+        PhysicalDeviceIndexType_Uint8_FeaturesEXT = 1000265000,
+        DeferredOperationInfoKHR = 1000268000,
+        PhysicalDevicePipelineExecutablePropertiesFeaturesKHR = 1000269000,
+        PipelineInfoKHR = 1000269001,
+        PipelineExecutablePropertiesKHR = 1000269002,
+        PipelineExecutableInfoKHR = 1000269003,
+        PipelineExecutableStatisticKHR = 1000269004,
+        PipelineExecutableInternalRepresentationKHR = 1000269005,
+        PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT = 1000276000,
+        PhysicalDeviceDeviceGeneratedCommandsPropertiesNV = 1000277000,
+        GraphicsShaderGroupCreateInfoNV = 1000277001,
+        GraphicsPipelineShaderGroupsCreateInfoNV = 1000277002,
+        IndirectCommandsLayoutTokenNV = 1000277003,
+        IndirectCommandsLayoutCreateInfoNV = 1000277004,
+        GeneratedCommandsInfoNV = 1000277005,
+        GeneratedCommandsMemoryRequirementsInfoNV = 1000277006,
+        PhysicalDeviceDeviceGeneratedCommandsFeaturesNV = 1000277007,
+        PhysicalDeviceTexelBufferAlignmentFeaturesEXT = 1000281000,
+        PhysicalDeviceTexelBufferAlignmentPropertiesEXT = 1000281001,
+        CommandBufferInheritanceRenderPassTransformInfoQCOM = 1000282000,
+        RenderPassTransformBeginInfoQCOM = 1000282001,
+        PipelineLibraryCreateInfoKHR = 1000290000,
+        PhysicalDevicePipelineCreationCacheControlFeaturesEXT = 1000297000,
+        PhysicalDeviceDiagnosticsConfigFeaturesNV = 1000300000,
+        DeviceDiagnosticsConfigCreateInfoNV = 1000300001,
+        ReservedQCOM = 1000309000,
     };
 
     enum class SystemAllocationScope {
@@ -1656,7 +2022,7 @@ namespace vk {
     enum class Filter {
         Nearest = 0,
         Linear = 1,
-        CubicImg = 1000015000,
+        CubicIMG = 1000015000,
     };
 
     enum class SamplerMipmapMode {
@@ -1906,22 +2272,24 @@ namespace vk {
         DescriptorSet = 23,
         Framebuffer = 24,
         CommandPool = 25,
-        SurfaceKhr = 1000000000,
-        SwapchainKhr = 1000001000,
-        DisplayKhr = 1000002000,
-        DisplayModeKhr = 1000002001,
-        DebugReportCallbackExt = 1000011000,
-        DescriptorUpdateTemplateKhr = 1000085000,
-        ObjectTableNvx = 1000086000,
-        IndirectCommandsLayoutNvx = 1000086001,
+        SurfaceKHR = 1000000000,
+        SwapchainKHR = 1000001000,
+        DisplayKHR = 1000002000,
+        DisplayModeKHR = 1000002001,
+        DebugReportCallbackEXT = 1000011000,
+        DebugUtilsMessengerEXT = 1000128000,
+        AccelerationStructureKHR = 1000165000,
+        ValidationCacheEXT = 1000160000,
+        PerformanceConfigurationINTEL = 1000210000,
+        DeferredOperationKHR = 1000268000,
+        IndirectCommandsLayoutNV = 1000277000,
     };
 
     enum class IndirectCommandsLayoutUsageFlags : uint32_t {
         None = 0,
-        UnorderedSequences = 1,
-        SparseSequences = 2,
-        EmptyExecutions = 4,
-        IndexedSequences = 8,
+        ExplicitPreprocess = 1,
+        IndexedSequences = 2,
+        UnorderedSequences = 4,
     };
 
     inline IndirectCommandsLayoutUsageFlags operator | (IndirectCommandsLayoutUsageFlags a, IndirectCommandsLayoutUsageFlags b) {
@@ -1951,59 +2319,49 @@ namespace vk {
     }
 
     enum class IndirectCommandsTokenType {
-        Pipeline = 0,
-        DescriptorSet = 1,
+        ShaderGroup = 0,
+        StateFlags = 1,
         IndexBuffer = 2,
         VertexBuffer = 3,
         PushConstant = 4,
         DrawIndexed = 5,
         Draw = 6,
-        Dispatch = 7,
+        DrawTasks = 7,
     };
 
-    enum class ObjectEntryUsageFlags : uint32_t {
+    enum class IndirectStateFlags : uint32_t {
         None = 0,
-        Graphics = 1,
-        Compute = 2,
+        Frontface = 1,
     };
 
-    inline ObjectEntryUsageFlags operator | (ObjectEntryUsageFlags a, ObjectEntryUsageFlags b) {
-        return static_cast<ObjectEntryUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
+    inline IndirectStateFlags operator | (IndirectStateFlags a, IndirectStateFlags b) {
+        return static_cast<IndirectStateFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ObjectEntryUsageFlags& operator |= (ObjectEntryUsageFlags& a, ObjectEntryUsageFlags b) {
-        a = static_cast<ObjectEntryUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
+    inline IndirectStateFlags& operator |= (IndirectStateFlags& a, IndirectStateFlags b) {
+        a = static_cast<IndirectStateFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
 
-    inline ObjectEntryUsageFlags operator & (ObjectEntryUsageFlags a, ObjectEntryUsageFlags b) {
-        return static_cast<ObjectEntryUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    inline IndirectStateFlags operator & (IndirectStateFlags a, IndirectStateFlags b) {
+        return static_cast<IndirectStateFlags>(static_cast<int>(a) & static_cast<int>(b));
     }
 
-    inline ObjectEntryUsageFlags& operator &= (ObjectEntryUsageFlags& a, ObjectEntryUsageFlags& b) {
-        a = static_cast<ObjectEntryUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    inline IndirectStateFlags& operator &= (IndirectStateFlags& a, IndirectStateFlags& b) {
+        a = static_cast<IndirectStateFlags>(static_cast<int>(a) & static_cast<int>(b));
         return a;
     }
 
-    inline bool operator == (ObjectEntryUsageFlags& a, ObjectEntryUsageFlags& b) {
+    inline bool operator == (IndirectStateFlags& a, IndirectStateFlags& b) {
         return static_cast<int>(a) == static_cast<int>(b);
     }
 
-    inline bool operator != (ObjectEntryUsageFlags& a, ObjectEntryUsageFlags& b) {
+    inline bool operator != (IndirectStateFlags& a, IndirectStateFlags& b) {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ObjectEntryType {
-        DescriptorSet = 0,
-        Pipeline = 1,
-        IndexBuffer = 2,
-        VertexBuffer = 3,
-        PushConstant = 4,
-    };
-
     enum class DescriptorUpdateTemplateType {
         DescriptorSet = 0,
-        PushDescriptors = 1,
     };
 
     enum class ViewportCoordinateSwizzle {
@@ -2052,6 +2410,11 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
+    enum class PointClippingBehavior {
+        AllClipPlanes = 0,
+        UserClipPlanesOnly = 1,
+    };
+
     enum class CoverageModulationMode {
         None = 0,
         Rgb = 1,
@@ -2059,22 +2422,672 @@ namespace vk {
         Rgba = 3,
     };
 
+    enum class CoverageReductionMode {
+        Merge = 0,
+        Truncate = 1,
+    };
+
+    enum class ValidationCacheHeaderVersion {
+        One = 1,
+    };
+
+    enum class ShaderInfoType {
+        Statistics = 0,
+        Binary = 1,
+        Disassembly = 2,
+    };
+
+    enum class QueueGlobalPriority {
+        Low = 128,
+        Medium = 256,
+        High = 512,
+        Realtime = 1024,
+    };
+
+    enum class TimeDomain {
+        Device = 0,
+        ClockMonotonic = 1,
+        ClockMonotonicRaw = 2,
+        QueryPerformanceCounter = 3,
+    };
+
+    enum class ConservativeRasterizationMode {
+        Disabled = 0,
+        Overestimate = 1,
+        Underestimate = 2,
+    };
+
+    enum class ResolveModeFlags : uint32_t {
+        None = 0,
+        SampleZero = 1,
+        Average = 2,
+        Min = 4,
+        Max = 8,
+    };
+
+    inline ResolveModeFlags operator | (ResolveModeFlags a, ResolveModeFlags b) {
+        return static_cast<ResolveModeFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline ResolveModeFlags& operator |= (ResolveModeFlags& a, ResolveModeFlags b) {
+        a = static_cast<ResolveModeFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline ResolveModeFlags operator & (ResolveModeFlags a, ResolveModeFlags b) {
+        return static_cast<ResolveModeFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ResolveModeFlags& operator &= (ResolveModeFlags& a, ResolveModeFlags& b) {
+        a = static_cast<ResolveModeFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ResolveModeFlags& a, ResolveModeFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ResolveModeFlags& a, ResolveModeFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class DescriptorBindingFlags : uint32_t {
+        None = 0,
+        UpdateAfterBind = 1,
+        UpdateUnusedWhilePending = 2,
+        PartiallyBound = 4,
+        VariableDescriptorCount = 8,
+    };
+
+    inline DescriptorBindingFlags operator | (DescriptorBindingFlags a, DescriptorBindingFlags b) {
+        return static_cast<DescriptorBindingFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline DescriptorBindingFlags& operator |= (DescriptorBindingFlags& a, DescriptorBindingFlags b) {
+        a = static_cast<DescriptorBindingFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline DescriptorBindingFlags operator & (DescriptorBindingFlags a, DescriptorBindingFlags b) {
+        return static_cast<DescriptorBindingFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DescriptorBindingFlags& operator &= (DescriptorBindingFlags& a, DescriptorBindingFlags& b) {
+        a = static_cast<DescriptorBindingFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DescriptorBindingFlags& a, DescriptorBindingFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DescriptorBindingFlags& a, DescriptorBindingFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class ConditionalRenderingFlags : uint32_t {
+        None = 0,
+        Inverted = 1,
+    };
+
+    inline ConditionalRenderingFlags operator | (ConditionalRenderingFlags a, ConditionalRenderingFlags b) {
+        return static_cast<ConditionalRenderingFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline ConditionalRenderingFlags& operator |= (ConditionalRenderingFlags& a, ConditionalRenderingFlags b) {
+        a = static_cast<ConditionalRenderingFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline ConditionalRenderingFlags operator & (ConditionalRenderingFlags a, ConditionalRenderingFlags b) {
+        return static_cast<ConditionalRenderingFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ConditionalRenderingFlags& operator &= (ConditionalRenderingFlags& a, ConditionalRenderingFlags& b) {
+        a = static_cast<ConditionalRenderingFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ConditionalRenderingFlags& a, ConditionalRenderingFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ConditionalRenderingFlags& a, ConditionalRenderingFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class SemaphoreType {
+        Binary = 0,
+        Timeline = 1,
+    };
+
+    enum class GeometryFlags : uint32_t {
+        None = 0,
+        Opaque = 1,
+        NoDuplicateAnyHitInvocation = 2,
+    };
+
+    inline GeometryFlags operator | (GeometryFlags a, GeometryFlags b) {
+        return static_cast<GeometryFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline GeometryFlags& operator |= (GeometryFlags& a, GeometryFlags b) {
+        a = static_cast<GeometryFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline GeometryFlags operator & (GeometryFlags a, GeometryFlags b) {
+        return static_cast<GeometryFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline GeometryFlags& operator &= (GeometryFlags& a, GeometryFlags& b) {
+        a = static_cast<GeometryFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (GeometryFlags& a, GeometryFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (GeometryFlags& a, GeometryFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class GeometryInstanceFlags : uint32_t {
+        None = 0,
+        TriangleFacingCullDisable = 1,
+        TriangleFrontCounterclockwise = 2,
+        ForceOpaque = 4,
+        ForceNoOpaque = 8,
+    };
+
+    inline GeometryInstanceFlags operator | (GeometryInstanceFlags a, GeometryInstanceFlags b) {
+        return static_cast<GeometryInstanceFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline GeometryInstanceFlags& operator |= (GeometryInstanceFlags& a, GeometryInstanceFlags b) {
+        a = static_cast<GeometryInstanceFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline GeometryInstanceFlags operator & (GeometryInstanceFlags a, GeometryInstanceFlags b) {
+        return static_cast<GeometryInstanceFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline GeometryInstanceFlags& operator &= (GeometryInstanceFlags& a, GeometryInstanceFlags& b) {
+        a = static_cast<GeometryInstanceFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (GeometryInstanceFlags& a, GeometryInstanceFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (GeometryInstanceFlags& a, GeometryInstanceFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class BuildAccelerationStructureFlags : uint32_t {
+        None = 0,
+        AllowUpdate = 1,
+        AllowCompaction = 2,
+        PreferFastTrace = 4,
+        PreferFastBuild = 8,
+        LowMemory = 16,
+    };
+
+    inline BuildAccelerationStructureFlags operator | (BuildAccelerationStructureFlags a, BuildAccelerationStructureFlags b) {
+        return static_cast<BuildAccelerationStructureFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline BuildAccelerationStructureFlags& operator |= (BuildAccelerationStructureFlags& a, BuildAccelerationStructureFlags b) {
+        a = static_cast<BuildAccelerationStructureFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline BuildAccelerationStructureFlags operator & (BuildAccelerationStructureFlags a, BuildAccelerationStructureFlags b) {
+        return static_cast<BuildAccelerationStructureFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline BuildAccelerationStructureFlags& operator &= (BuildAccelerationStructureFlags& a, BuildAccelerationStructureFlags& b) {
+        a = static_cast<BuildAccelerationStructureFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (BuildAccelerationStructureFlags& a, BuildAccelerationStructureFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (BuildAccelerationStructureFlags& a, BuildAccelerationStructureFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class CopyAccelerationStructureMode {
+        Clone = 0,
+        Compact = 1,
+        Serialize = 2,
+        Deserialize = 3,
+    };
+
+    enum class AccelerationStructureType {
+        TopLevel = 0,
+        BottomLevel = 1,
+    };
+
+    enum class GeometryType {
+        Triangles = 0,
+        Aabbs = 1,
+        Instances = 1000150000,
+    };
+
+    enum class RayTracingShaderGroupType {
+        General = 0,
+        TrianglesHitGroup = 1,
+        ProceduralHitGroup = 2,
+    };
+
+    enum class AccelerationStructureMemoryRequirementsType {
+        Object = 0,
+        BuildScratch = 1,
+        UpdateScratch = 2,
+    };
+
+    enum class AccelerationStructureBuildType {
+        Host = 0,
+        Device = 1,
+        HostOrDevice = 2,
+    };
+
+    enum class MemoryOverallocationBehavior {
+        Default = 0,
+        Allowed = 1,
+        Disallowed = 2,
+    };
+
+    enum class Scope {
+        Device = 1,
+        Workgroup = 2,
+        Subgroup = 3,
+        QueueFamily = 5,
+    };
+
+    enum class ComponentType {
+        Float16_ = 0,
+        Float32_ = 1,
+        Float64_ = 2,
+        Sint8_ = 3,
+        Sint16_ = 4,
+        Sint32_ = 5,
+        Sint64_ = 6,
+        Uint8_ = 7,
+        Uint16_ = 8,
+        Uint32_ = 9,
+        Uint64_ = 10,
+    };
+
+    enum class DeviceDiagnosticsConfigFlags : uint32_t {
+        None = 0,
+        EnableShaderDebugInfo = 1,
+        EnableResourceTracking = 2,
+        EnableAutomaticCheckpoints = 4,
+    };
+
+    inline DeviceDiagnosticsConfigFlags operator | (DeviceDiagnosticsConfigFlags a, DeviceDiagnosticsConfigFlags b) {
+        return static_cast<DeviceDiagnosticsConfigFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline DeviceDiagnosticsConfigFlags& operator |= (DeviceDiagnosticsConfigFlags& a, DeviceDiagnosticsConfigFlags b) {
+        a = static_cast<DeviceDiagnosticsConfigFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline DeviceDiagnosticsConfigFlags operator & (DeviceDiagnosticsConfigFlags a, DeviceDiagnosticsConfigFlags b) {
+        return static_cast<DeviceDiagnosticsConfigFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DeviceDiagnosticsConfigFlags& operator &= (DeviceDiagnosticsConfigFlags& a, DeviceDiagnosticsConfigFlags& b) {
+        a = static_cast<DeviceDiagnosticsConfigFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DeviceDiagnosticsConfigFlags& a, DeviceDiagnosticsConfigFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DeviceDiagnosticsConfigFlags& a, DeviceDiagnosticsConfigFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class PipelineCreationFeedbackFlags : uint32_t {
+        None = 0,
+        Valid = 1,
+        ApplicationPipelineCacheHit = 2,
+        BasePipelineAcceleration = 4,
+    };
+
+    inline PipelineCreationFeedbackFlags operator | (PipelineCreationFeedbackFlags a, PipelineCreationFeedbackFlags b) {
+        return static_cast<PipelineCreationFeedbackFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline PipelineCreationFeedbackFlags& operator |= (PipelineCreationFeedbackFlags& a, PipelineCreationFeedbackFlags b) {
+        a = static_cast<PipelineCreationFeedbackFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline PipelineCreationFeedbackFlags operator & (PipelineCreationFeedbackFlags a, PipelineCreationFeedbackFlags b) {
+        return static_cast<PipelineCreationFeedbackFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PipelineCreationFeedbackFlags& operator &= (PipelineCreationFeedbackFlags& a, PipelineCreationFeedbackFlags& b) {
+        a = static_cast<PipelineCreationFeedbackFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PipelineCreationFeedbackFlags& a, PipelineCreationFeedbackFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PipelineCreationFeedbackFlags& a, PipelineCreationFeedbackFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class PerformanceCounterScope {
+        CommandBuffer = 0,
+        RenderPass = 1,
+        Command = 2,
+    };
+
+    enum class PerformanceCounterUnit {
+        Generic = 0,
+        Percentage = 1,
+        Nanoseconds = 2,
+        Bytes = 3,
+        BytesPerSecond = 4,
+        Kelvin = 5,
+        Watts = 6,
+        Volts = 7,
+        Amps = 8,
+        Hertz = 9,
+        Cycles = 10,
+    };
+
+    enum class PerformanceCounterStorage {
+        Int32_ = 0,
+        Int64_ = 1,
+        Uint32_ = 2,
+        Uint64_ = 3,
+        Float32_ = 4,
+        Float64_ = 5,
+    };
+
+    enum class PerformanceCounterDescriptionFlags : uint32_t {
+        None = 0,
+        PerformanceImpacting = 1,
+        ConcurrentlyImpacted = 2,
+    };
+
+    inline PerformanceCounterDescriptionFlags operator | (PerformanceCounterDescriptionFlags a, PerformanceCounterDescriptionFlags b) {
+        return static_cast<PerformanceCounterDescriptionFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline PerformanceCounterDescriptionFlags& operator |= (PerformanceCounterDescriptionFlags& a, PerformanceCounterDescriptionFlags b) {
+        a = static_cast<PerformanceCounterDescriptionFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline PerformanceCounterDescriptionFlags operator & (PerformanceCounterDescriptionFlags a, PerformanceCounterDescriptionFlags b) {
+        return static_cast<PerformanceCounterDescriptionFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PerformanceCounterDescriptionFlags& operator &= (PerformanceCounterDescriptionFlags& a, PerformanceCounterDescriptionFlags& b) {
+        a = static_cast<PerformanceCounterDescriptionFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PerformanceCounterDescriptionFlags& a, PerformanceCounterDescriptionFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PerformanceCounterDescriptionFlags& a, PerformanceCounterDescriptionFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class AcquireProfilingLockFlags : uint32_t {
+        None = 0,
+    };
+
+    inline AcquireProfilingLockFlags operator | (AcquireProfilingLockFlags a, AcquireProfilingLockFlags b) {
+        return static_cast<AcquireProfilingLockFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline AcquireProfilingLockFlags& operator |= (AcquireProfilingLockFlags& a, AcquireProfilingLockFlags b) {
+        a = static_cast<AcquireProfilingLockFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline AcquireProfilingLockFlags operator & (AcquireProfilingLockFlags a, AcquireProfilingLockFlags b) {
+        return static_cast<AcquireProfilingLockFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline AcquireProfilingLockFlags& operator &= (AcquireProfilingLockFlags& a, AcquireProfilingLockFlags& b) {
+        a = static_cast<AcquireProfilingLockFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (AcquireProfilingLockFlags& a, AcquireProfilingLockFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (AcquireProfilingLockFlags& a, AcquireProfilingLockFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class SemaphoreWaitFlags : uint32_t {
+        None = 0,
+        Any = 1,
+    };
+
+    inline SemaphoreWaitFlags operator | (SemaphoreWaitFlags a, SemaphoreWaitFlags b) {
+        return static_cast<SemaphoreWaitFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline SemaphoreWaitFlags& operator |= (SemaphoreWaitFlags& a, SemaphoreWaitFlags b) {
+        a = static_cast<SemaphoreWaitFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline SemaphoreWaitFlags operator & (SemaphoreWaitFlags a, SemaphoreWaitFlags b) {
+        return static_cast<SemaphoreWaitFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SemaphoreWaitFlags& operator &= (SemaphoreWaitFlags& a, SemaphoreWaitFlags& b) {
+        a = static_cast<SemaphoreWaitFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SemaphoreWaitFlags& a, SemaphoreWaitFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SemaphoreWaitFlags& a, SemaphoreWaitFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class PerformanceConfigurationType {
+        CommandQueueMetricsDiscoveryActivated = 0,
+    };
+
+    enum class QueryPoolSamplingMode {
+        Manual = 0,
+    };
+
+    enum class PerformanceOverrideType {
+        NullHardware = 0,
+        FlushGpuCaches = 1,
+    };
+
+    enum class PerformanceParameterType {
+        HwCountersSupported = 0,
+        StreamMarkerValidBits = 1,
+    };
+
+    enum class PerformanceValueType {
+        Uint32_ = 0,
+        Uint64_ = 1,
+        Float = 2,
+        Bool = 3,
+        String = 4,
+    };
+
+    enum class LineRasterizationMode {
+        Default = 0,
+        Rectangular = 1,
+        Bresenham = 2,
+        RectangularSmooth = 3,
+    };
+
+    enum class ShaderModuleCreateFlags : uint32_t {
+        None = 0,
+    };
+
+    inline ShaderModuleCreateFlags operator | (ShaderModuleCreateFlags a, ShaderModuleCreateFlags b) {
+        return static_cast<ShaderModuleCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline ShaderModuleCreateFlags& operator |= (ShaderModuleCreateFlags& a, ShaderModuleCreateFlags b) {
+        a = static_cast<ShaderModuleCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline ShaderModuleCreateFlags operator & (ShaderModuleCreateFlags a, ShaderModuleCreateFlags b) {
+        return static_cast<ShaderModuleCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ShaderModuleCreateFlags& operator &= (ShaderModuleCreateFlags& a, ShaderModuleCreateFlags& b) {
+        a = static_cast<ShaderModuleCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ShaderModuleCreateFlags& a, ShaderModuleCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ShaderModuleCreateFlags& a, ShaderModuleCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class PipelineCompilerControlFlags : uint32_t {
+        None = 0,
+    };
+
+    inline PipelineCompilerControlFlags operator | (PipelineCompilerControlFlags a, PipelineCompilerControlFlags b) {
+        return static_cast<PipelineCompilerControlFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline PipelineCompilerControlFlags& operator |= (PipelineCompilerControlFlags& a, PipelineCompilerControlFlags b) {
+        a = static_cast<PipelineCompilerControlFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline PipelineCompilerControlFlags operator & (PipelineCompilerControlFlags a, PipelineCompilerControlFlags b) {
+        return static_cast<PipelineCompilerControlFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline PipelineCompilerControlFlags& operator &= (PipelineCompilerControlFlags& a, PipelineCompilerControlFlags& b) {
+        a = static_cast<PipelineCompilerControlFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (PipelineCompilerControlFlags& a, PipelineCompilerControlFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (PipelineCompilerControlFlags& a, PipelineCompilerControlFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class ShaderCorePropertiesFlags : uint32_t {
+        None = 0,
+    };
+
+    inline ShaderCorePropertiesFlags operator | (ShaderCorePropertiesFlags a, ShaderCorePropertiesFlags b) {
+        return static_cast<ShaderCorePropertiesFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline ShaderCorePropertiesFlags& operator |= (ShaderCorePropertiesFlags& a, ShaderCorePropertiesFlags b) {
+        a = static_cast<ShaderCorePropertiesFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline ShaderCorePropertiesFlags operator & (ShaderCorePropertiesFlags a, ShaderCorePropertiesFlags b) {
+        return static_cast<ShaderCorePropertiesFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ShaderCorePropertiesFlags& operator &= (ShaderCorePropertiesFlags& a, ShaderCorePropertiesFlags& b) {
+        a = static_cast<ShaderCorePropertiesFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ShaderCorePropertiesFlags& a, ShaderCorePropertiesFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ShaderCorePropertiesFlags& a, ShaderCorePropertiesFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class ToolPurposeFlags : uint32_t {
+        None = 0,
+        Validation = 1,
+        Profiling = 2,
+        Tracing = 4,
+        AdditionalFeatures = 8,
+        ModifyingFeatures = 16,
+    };
+
+    inline ToolPurposeFlags operator | (ToolPurposeFlags a, ToolPurposeFlags b) {
+        return static_cast<ToolPurposeFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline ToolPurposeFlags& operator |= (ToolPurposeFlags& a, ToolPurposeFlags b) {
+        a = static_cast<ToolPurposeFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline ToolPurposeFlags operator & (ToolPurposeFlags a, ToolPurposeFlags b) {
+        return static_cast<ToolPurposeFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline ToolPurposeFlags& operator &= (ToolPurposeFlags& a, ToolPurposeFlags& b) {
+        a = static_cast<ToolPurposeFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (ToolPurposeFlags& a, ToolPurposeFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (ToolPurposeFlags& a, ToolPurposeFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
     enum class ColorSpace {
         SrgbNonlinear = 0,
-        Display_P3_NonlinearExt = 1000104001,
-        ExtendedSrgbLinearExt = 1000104002,
-        Dci_P3_LinearExt = 1000104003,
-        Dci_P3_NonlinearExt = 1000104004,
-        Bt709_LinearExt = 1000104005,
-        Bt709_NonlinearExt = 1000104006,
-        Bt2020_LinearExt = 1000104007,
-        Hdr10_St2084_Ext = 1000104008,
-        DolbyvisionExt = 1000104009,
-        Hdr10_HlgExt = 1000104010,
-        AdobergbLinearExt = 1000104011,
-        AdobergbNonlinearExt = 1000104012,
-        PassThroughExt = 1000104013,
-        ExtendedSrgbNonlinearExt = 1000104014,
+        Display_P3_NonlinearEXT = 1000104001,
+        ExtendedSrgbLinearEXT = 1000104002,
+        Display_P3_LinearEXT = 1000104003,
+        Dci_P3_NonlinearEXT = 1000104004,
+        Bt709_LinearEXT = 1000104005,
+        Bt709_NonlinearEXT = 1000104006,
+        Bt2020_LinearEXT = 1000104007,
+        Hdr10_St2084_EXT = 1000104008,
+        DolbyvisionEXT = 1000104009,
+        Hdr10_HlgEXT = 1000104010,
+        AdobergbLinearEXT = 1000104011,
+        AdobergbNonlinearEXT = 1000104012,
+        PassThroughEXT = 1000104013,
+        ExtendedSrgbNonlinearEXT = 1000104014,
+        DisplayNativeAMD = 1000213000,
     };
 
     enum class CompositeAlphaFlags : uint32_t {
@@ -2257,12 +3270,13 @@ namespace vk {
         CommandPool = 25,
         SurfaceKhr = 26,
         SwapchainKhr = 27,
-        DebugReportCallbackExt = 28,
+        DebugReportCallbackEXT = 28,
         DisplayKhr = 29,
         DisplayModeKhr = 30,
-        ObjectTableNvx = 31,
-        IndirectCommandsLayoutNvx = 32,
-        DescriptorUpdateTemplateKhr = 1000085000,
+        ValidationCacheEXT = 33,
+        SamplerYcbcrConversion = 1000156000,
+        DescriptorUpdateTemplate = 1000085000,
+        AccelerationStructureKhr = 1000165000,
     };
 
     enum class RasterizationOrder {
@@ -2342,10 +3356,27 @@ namespace vk {
         Shaders = 1,
     };
 
-    enum class ExternalMemoryHandleTypeFlagsKHR : uint32_t {
+    enum class ValidationFeatureEnable {
+        GpuAssisted = 0,
+        GpuAssistedReserveBindingSlot = 1,
+        BestPractices = 2,
+        DebugPrintf = 3,
+    };
+
+    enum class ValidationFeatureDisable {
+        All = 0,
+        Shaders = 1,
+        ThreadSafety = 2,
+        ApiParameters = 3,
+        ObjectLifetimes = 4,
+        CoreChecks = 5,
+        UniqueHandles = 6,
+    };
+
+    enum class ExternalMemoryHandleTypeFlags : uint32_t {
         None = 0,
         OpaqueFd = 1,
-        Opaque_Win32_ = 2,
+        Opaque_Win32 = 2,
         Opaque_Win32_Kmt = 4,
         D3D11_Texture = 8,
         D3D11_TextureKmt = 16,
@@ -2353,69 +3384,69 @@ namespace vk {
         D3D12_Resource = 64,
     };
 
-    inline ExternalMemoryHandleTypeFlagsKHR operator | (ExternalMemoryHandleTypeFlagsKHR a, ExternalMemoryHandleTypeFlagsKHR b) {
-        return static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
+    inline ExternalMemoryHandleTypeFlags operator | (ExternalMemoryHandleTypeFlags a, ExternalMemoryHandleTypeFlags b) {
+        return static_cast<ExternalMemoryHandleTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalMemoryHandleTypeFlagsKHR& operator |= (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR b) {
-        a = static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
+    inline ExternalMemoryHandleTypeFlags& operator |= (ExternalMemoryHandleTypeFlags& a, ExternalMemoryHandleTypeFlags b) {
+        a = static_cast<ExternalMemoryHandleTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
 
-    inline ExternalMemoryHandleTypeFlagsKHR operator & (ExternalMemoryHandleTypeFlagsKHR a, ExternalMemoryHandleTypeFlagsKHR b) {
-        return static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    inline ExternalMemoryHandleTypeFlags operator & (ExternalMemoryHandleTypeFlags a, ExternalMemoryHandleTypeFlags b) {
+        return static_cast<ExternalMemoryHandleTypeFlags>(static_cast<int>(a) & static_cast<int>(b));
     }
 
-    inline ExternalMemoryHandleTypeFlagsKHR& operator &= (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR& b) {
-        a = static_cast<ExternalMemoryHandleTypeFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    inline ExternalMemoryHandleTypeFlags& operator &= (ExternalMemoryHandleTypeFlags& a, ExternalMemoryHandleTypeFlags& b) {
+        a = static_cast<ExternalMemoryHandleTypeFlags>(static_cast<int>(a) & static_cast<int>(b));
         return a;
     }
 
-    inline bool operator == (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR& b) {
+    inline bool operator == (ExternalMemoryHandleTypeFlags& a, ExternalMemoryHandleTypeFlags& b) {
         return static_cast<int>(a) == static_cast<int>(b);
     }
 
-    inline bool operator != (ExternalMemoryHandleTypeFlagsKHR& a, ExternalMemoryHandleTypeFlagsKHR& b) {
+    inline bool operator != (ExternalMemoryHandleTypeFlags& a, ExternalMemoryHandleTypeFlags& b) {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
-    enum class ExternalMemoryFeatureFlagsKHR : uint32_t {
+    enum class ExternalMemoryFeatureFlags : uint32_t {
         None = 0,
         DedicatedOnly = 1,
         Exportable = 2,
         Importable = 4,
     };
 
-    inline ExternalMemoryFeatureFlagsKHR operator | (ExternalMemoryFeatureFlagsKHR a, ExternalMemoryFeatureFlagsKHR b) {
-        return static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
+    inline ExternalMemoryFeatureFlags operator | (ExternalMemoryFeatureFlags a, ExternalMemoryFeatureFlags b) {
+        return static_cast<ExternalMemoryFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
     }
 
-    inline ExternalMemoryFeatureFlagsKHR& operator |= (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR b) {
-        a = static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) | static_cast<int>(b));
+    inline ExternalMemoryFeatureFlags& operator |= (ExternalMemoryFeatureFlags& a, ExternalMemoryFeatureFlags b) {
+        a = static_cast<ExternalMemoryFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
         return a;
     }
 
-    inline ExternalMemoryFeatureFlagsKHR operator & (ExternalMemoryFeatureFlagsKHR a, ExternalMemoryFeatureFlagsKHR b) {
-        return static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    inline ExternalMemoryFeatureFlags operator & (ExternalMemoryFeatureFlags a, ExternalMemoryFeatureFlags b) {
+        return static_cast<ExternalMemoryFeatureFlags>(static_cast<int>(a) & static_cast<int>(b));
     }
 
-    inline ExternalMemoryFeatureFlagsKHR& operator &= (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
-        a = static_cast<ExternalMemoryFeatureFlagsKHR>(static_cast<int>(a) & static_cast<int>(b));
+    inline ExternalMemoryFeatureFlags& operator &= (ExternalMemoryFeatureFlags& a, ExternalMemoryFeatureFlags& b) {
+        a = static_cast<ExternalMemoryFeatureFlags>(static_cast<int>(a) & static_cast<int>(b));
         return a;
     }
 
-    inline bool operator == (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
+    inline bool operator == (ExternalMemoryFeatureFlags& a, ExternalMemoryFeatureFlags& b) {
         return static_cast<int>(a) == static_cast<int>(b);
     }
 
-    inline bool operator != (ExternalMemoryFeatureFlagsKHR& a, ExternalMemoryFeatureFlagsKHR& b) {
+    inline bool operator != (ExternalMemoryFeatureFlags& a, ExternalMemoryFeatureFlags& b) {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
     enum class ExternalSemaphoreHandleTypeFlags : uint32_t {
         None = 0,
         OpaqueFd = 1,
-        Opaque_Win32_ = 2,
+        Opaque_Win32 = 2,
         Opaque_Win32_Kmt = 4,
         D3D12_Fence = 8,
         SyncFd = 16,
@@ -2513,7 +3544,7 @@ namespace vk {
     enum class ExternalFenceHandleTypeFlags : uint32_t {
         None = 0,
         OpaqueFd = 1,
-        Opaque_Win32_ = 2,
+        Opaque_Win32 = 2,
         Opaque_Win32_Kmt = 4,
         SyncFd = 8,
     };
@@ -2781,6 +3812,67 @@ namespace vk {
         return static_cast<int>(a) != static_cast<int>(b);
     }
 
+    enum class SubgroupFeatureFlags : uint32_t {
+        None = 0,
+        Basic = 1,
+        Vote = 2,
+        Arithmetic = 4,
+        Ballot = 8,
+        Shuffle = 16,
+        ShuffleRelative = 32,
+        Clustered = 64,
+        Quad = 128,
+    };
+
+    inline SubgroupFeatureFlags operator | (SubgroupFeatureFlags a, SubgroupFeatureFlags b) {
+        return static_cast<SubgroupFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline SubgroupFeatureFlags& operator |= (SubgroupFeatureFlags& a, SubgroupFeatureFlags b) {
+        a = static_cast<SubgroupFeatureFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline SubgroupFeatureFlags operator & (SubgroupFeatureFlags a, SubgroupFeatureFlags b) {
+        return static_cast<SubgroupFeatureFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SubgroupFeatureFlags& operator &= (SubgroupFeatureFlags& a, SubgroupFeatureFlags& b) {
+        a = static_cast<SubgroupFeatureFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SubgroupFeatureFlags& a, SubgroupFeatureFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SubgroupFeatureFlags& a, SubgroupFeatureFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class TessellationDomainOrigin {
+        UpperLeft = 0,
+        LowerLeft = 1,
+    };
+
+    enum class SamplerYcbcrModelConversion {
+        RgbIdentity = 0,
+        YcbcrIdentity = 1,
+        Ycbcr_709 = 2,
+        Ycbcr_601 = 3,
+        Ycbcr_2020 = 4,
+    };
+
+    enum class SamplerYcbcrRange {
+        ItuFull = 0,
+        ItuNarrow = 1,
+    };
+
+    enum class ChromaLocation {
+        CositedEven = 0,
+        Midpoint = 1,
+    };
+
     enum class SamplerReductionMode {
         WeightedAverage = 0,
         Min = 1,
@@ -2792,6 +3884,198 @@ namespace vk {
         Disjoint = 1,
         Conjoint = 2,
     };
+
+    enum class DebugUtilsMessageSeverityFlags : uint32_t {
+        None = 0,
+        Verbose = 1,
+        Info = 16,
+        Warning = 256,
+        Error = 4096,
+    };
+
+    inline DebugUtilsMessageSeverityFlags operator | (DebugUtilsMessageSeverityFlags a, DebugUtilsMessageSeverityFlags b) {
+        return static_cast<DebugUtilsMessageSeverityFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline DebugUtilsMessageSeverityFlags& operator |= (DebugUtilsMessageSeverityFlags& a, DebugUtilsMessageSeverityFlags b) {
+        a = static_cast<DebugUtilsMessageSeverityFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline DebugUtilsMessageSeverityFlags operator & (DebugUtilsMessageSeverityFlags a, DebugUtilsMessageSeverityFlags b) {
+        return static_cast<DebugUtilsMessageSeverityFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DebugUtilsMessageSeverityFlags& operator &= (DebugUtilsMessageSeverityFlags& a, DebugUtilsMessageSeverityFlags& b) {
+        a = static_cast<DebugUtilsMessageSeverityFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DebugUtilsMessageSeverityFlags& a, DebugUtilsMessageSeverityFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DebugUtilsMessageSeverityFlags& a, DebugUtilsMessageSeverityFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class DebugUtilsMessageTypeFlags : uint32_t {
+        None = 0,
+        General = 1,
+        Validation = 2,
+        Performance = 4,
+    };
+
+    inline DebugUtilsMessageTypeFlags operator | (DebugUtilsMessageTypeFlags a, DebugUtilsMessageTypeFlags b) {
+        return static_cast<DebugUtilsMessageTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline DebugUtilsMessageTypeFlags& operator |= (DebugUtilsMessageTypeFlags& a, DebugUtilsMessageTypeFlags b) {
+        a = static_cast<DebugUtilsMessageTypeFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline DebugUtilsMessageTypeFlags operator & (DebugUtilsMessageTypeFlags a, DebugUtilsMessageTypeFlags b) {
+        return static_cast<DebugUtilsMessageTypeFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline DebugUtilsMessageTypeFlags& operator &= (DebugUtilsMessageTypeFlags& a, DebugUtilsMessageTypeFlags& b) {
+        a = static_cast<DebugUtilsMessageTypeFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (DebugUtilsMessageTypeFlags& a, DebugUtilsMessageTypeFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (DebugUtilsMessageTypeFlags& a, DebugUtilsMessageTypeFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class FullScreenExclusive {
+        Default = 0,
+        Allowed = 1,
+        Disallowed = 2,
+        ApplicationControlled = 3,
+    };
+
+    enum class ShaderFloatControlsIndependence {
+        _32_Only = 0,
+        All = 1,
+        None = 2,
+    };
+
+    enum class SwapchainImageUsageFlags : uint32_t {
+        None = 0,
+        Shared = 1,
+    };
+
+    inline SwapchainImageUsageFlags operator | (SwapchainImageUsageFlags a, SwapchainImageUsageFlags b) {
+        return static_cast<SwapchainImageUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline SwapchainImageUsageFlags& operator |= (SwapchainImageUsageFlags& a, SwapchainImageUsageFlags b) {
+        a = static_cast<SwapchainImageUsageFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline SwapchainImageUsageFlags operator & (SwapchainImageUsageFlags a, SwapchainImageUsageFlags b) {
+        return static_cast<SwapchainImageUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SwapchainImageUsageFlags& operator &= (SwapchainImageUsageFlags& a, SwapchainImageUsageFlags& b) {
+        a = static_cast<SwapchainImageUsageFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SwapchainImageUsageFlags& a, SwapchainImageUsageFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SwapchainImageUsageFlags& a, SwapchainImageUsageFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
+
+    enum class VendorId {
+        VIV = 0x10001,
+        VSI = 0x10002,
+        Kazan = 0x10003,
+        Codeplay = 0x10004,
+    };
+
+    enum class DriverId {
+        AmdProprietary = 1,
+        AmdOpenSource = 2,
+        MesaRadv = 3,
+        NvidiaProprietary = 4,
+        IntelProprietaryWindows = 5,
+        IntelOpenSourceMESA = 6,
+        ImaginationProprietary = 7,
+        QualcommProprietary = 8,
+        ArmProprietary = 9,
+        GoogleSwiftshader = 10,
+        GgpProprietary = 11,
+        BroadcomProprietary = 12,
+    };
+
+    enum class ShadingRatePaletteEntry {
+        NoInvocations = 0,
+        _16_InvocationsPerPixel = 1,
+        _8_InvocationsPerPixel = 2,
+        _4_InvocationsPerPixel = 3,
+        _2_InvocationsPerPixel = 4,
+        _1_InvocationPerPixel = 5,
+        _1_InvocationPer_2X1_Pixels = 6,
+        _1_InvocationPer_1X2_Pixels = 7,
+        _1_InvocationPer_2X2_Pixels = 8,
+        _1_InvocationPer_4X2_Pixels = 9,
+        _1_InvocationPer_2X4_Pixels = 10,
+        _1_InvocationPer_4X4_Pixels = 11,
+    };
+
+    enum class CoarseSampleOrderType {
+        Default = 0,
+        Custom = 1,
+        PixelMajor = 2,
+        SampleMajor = 3,
+    };
+
+    enum class PipelineExecutableStatisticFormat {
+        Bool32_ = 0,
+        Int64_ = 1,
+        Uint64_ = 2,
+        Float64_ = 3,
+    };
+
+    enum class SemaphoreCreateFlags : uint32_t {
+        None = 0,
+    };
+
+    inline SemaphoreCreateFlags operator | (SemaphoreCreateFlags a, SemaphoreCreateFlags b) {
+        return static_cast<SemaphoreCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline SemaphoreCreateFlags& operator |= (SemaphoreCreateFlags& a, SemaphoreCreateFlags b) {
+        a = static_cast<SemaphoreCreateFlags>(static_cast<int>(a) | static_cast<int>(b));
+        return a;
+    }
+
+    inline SemaphoreCreateFlags operator & (SemaphoreCreateFlags a, SemaphoreCreateFlags b) {
+        return static_cast<SemaphoreCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline SemaphoreCreateFlags& operator &= (SemaphoreCreateFlags& a, SemaphoreCreateFlags& b) {
+        a = static_cast<SemaphoreCreateFlags>(static_cast<int>(a) & static_cast<int>(b));
+        return a;
+    }
+
+    inline bool operator == (SemaphoreCreateFlags& a, SemaphoreCreateFlags& b) {
+        return static_cast<int>(a) == static_cast<int>(b);
+    }
+
+    inline bool operator != (SemaphoreCreateFlags& a, SemaphoreCreateFlags& b) {
+        return static_cast<int>(a) != static_cast<int>(b);
+    }
 
 }
 

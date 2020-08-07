@@ -188,14 +188,14 @@ size_t vk::getFormatSize(vk::Format format) {
         case vk::Format::Astc_12x10_SrgbBlock: return 16;
         case vk::Format::Astc_12x12_UnormBlock: return 16;
         case vk::Format::Astc_12x12_SrgbBlock: return 16;
-        case vk::Format::Pvrtc1_2Bpp_UnormBlockImg: throw std::runtime_error("Not supported");
-        case vk::Format::Pvrtc1_4Bpp_UnormBlockImg: throw std::runtime_error("Not supported");
-        case vk::Format::Pvrtc2_2Bpp_UnormBlockImg: throw std::runtime_error("Not supported");
-        case vk::Format::Pvrtc2_4Bpp_UnormBlockImg: throw std::runtime_error("Not supported");
-        case vk::Format::Pvrtc1_2Bpp_SrgbBlockImg: throw std::runtime_error("Not supported");
-        case vk::Format::Pvrtc1_4Bpp_SrgbBlockImg: throw std::runtime_error("Not supported");
-        case vk::Format::Pvrtc2_2Bpp_SrgbBlockImg: throw std::runtime_error("Not supported");
-        case vk::Format::Pvrtc2_4Bpp_SrgbBlockImg: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc1_2Bpp_UnormBlockIMG: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc1_4Bpp_UnormBlockIMG: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc2_2Bpp_UnormBlockIMG: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc2_4Bpp_UnormBlockIMG: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc1_2Bpp_SrgbBlockIMG: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc1_4Bpp_SrgbBlockIMG: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc2_2Bpp_SrgbBlockIMG: throw std::runtime_error("Not supported");
+        case vk::Format::Pvrtc2_4Bpp_SrgbBlockIMG: throw std::runtime_error("Not supported");
     }
 }
 

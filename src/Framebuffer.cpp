@@ -34,9 +34,9 @@ void FramebufferCreateInfo::marshal() const {
 
 Framebuffer::Framebuffer(Device& device, const FramebufferCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateFramebuffer(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_framebuffer));
+    VKW_CHECK(vkCreateFramebuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_framebuffer));
     m_device = &device;
 }
 

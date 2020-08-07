@@ -30,9 +30,9 @@ namespace vk {
         ComputePipeline& operator = (ComputePipeline&& other);
         //no destructor, handled by vk::Pipeline
 
-        PipelineCreateFlags flags() const { return m_info.getInfo().flags; }
+        PipelineCreateFlags flags() const { return m_info.flags; }
 
     private:
-        InfoChain<ComputePipelineCreateInfo> m_info;
+        ComputePipelineCreateInfo m_info;
     };
 }

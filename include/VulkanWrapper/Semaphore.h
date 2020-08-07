@@ -29,6 +29,6 @@ namespace vk {
         VkSemaphore m_sempahore;
         Device* m_device;
 
-        InfoChain<SemaphoreCreateInfo> m_info;
+        SemaphoreCreateInfo m_info;
     };
 }

@@ -34,16 +34,16 @@ namespace vk {
         VkBufferView handle() const { return m_bufferView; }
         Device& device() const { return *m_device; }
 
-        BufferViewCreateFlags flags() const { return m_info.getInfo().flags; }
-        Buffer& buffer() const { return *m_info.getInfo().buffer; }
-        Format format() const { return m_info.getInfo().format; }
-        size_t offset() const { return m_info.getInfo().offset; }
-        size_t range() const { return m_info.getInfo().range; }
+        BufferViewCreateFlags flags() const { return m_info.flags; }
+        Buffer& buffer() const { return *m_info.buffer; }
+        Format format() const { return m_info.format; }
+        size_t offset() const { return m_info.offset; }
+        size_t range() const { return m_info.range; }
 
     private:
         VkBufferView m_bufferView;
         Device* m_device;
 
-        InfoChain<BufferViewCreateInfo> m_info;
+        BufferViewCreateInfo m_info;
     };
 }

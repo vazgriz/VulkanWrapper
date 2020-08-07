@@ -61,19 +61,13 @@ void DeviceCreateInfo::marshal() const {
 
 Device::Device(const PhysicalDevice& physicalDevice, const DeviceCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateDevice(physicalDevice.handle(), m_info.getInfo().getInfo(), physicalDevice.instance().callbacks(), &m_device));
+    VKW_CHECK(vkCreateDevice(physicalDevice.handle(), m_info.getInfo(), physicalDevice.instance().callbacks(), &m_device));
     m_instance = &physicalDevice.instance();
     m_physicalDevice = &physicalDevice;
 
     getQueues(info);
-
-    if (m_info.getInfo().enabledFeatures != nullptr) {
-        m_features = *m_info.getInfo().enabledFeatures;
-    } else {
-        m_features = {};
-    }
 }
 
 Device::Device(Device&& other) {

@@ -33,16 +33,16 @@ namespace vk {
         VkImageView handle() const { return m_imageView; }
         Device& device() const { return *m_device; }
 
-        const Image& image() const { return *m_info.getInfo().image; }
-        ImageViewType imageType() const { return m_info.getInfo().viewType; }
-        Format format() const { return m_info.getInfo().format; }
-        ComponentMapping components() const { return m_info.getInfo().components; }
-        ImageSubresourceRange subresourceRange() const { return m_info.getInfo().subresourceRange; }
+        const Image& image() const { return *m_info.image; }
+        ImageViewType imageType() const { return m_info.viewType; }
+        Format format() const { return m_info.format; }
+        ComponentMapping components() const { return m_info.components; }
+        ImageSubresourceRange subresourceRange() const { return m_info.subresourceRange; }
 
     private:
         VkImageView m_imageView;
         Device* m_device;
 
-        InfoChain<ImageViewCreateInfo> m_info;
+        ImageViewCreateInfo m_info;
     };
 }

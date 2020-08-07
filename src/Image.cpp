@@ -31,9 +31,9 @@ void ImageCreateInfo::marshal() const {
 
 Image::Image(Device& device, const ImageCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateImage(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_image));
+    VKW_CHECK(vkCreateImage(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_image));
     m_device = &device;
     m_destructorEnabled = true;
 

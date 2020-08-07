@@ -37,17 +37,17 @@ namespace vk {
         VkFramebuffer handle() const { return m_framebuffer; }
         Device& device() const { return *m_device; }
 
-        FramebufferCreateFlags flags() const { return m_info.getInfo().flags; }
-        RenderPass& renderPass() const { return *m_info.getInfo().renderPass; }
-        const std::vector<std::reference_wrapper<const ImageView>> attachments() const { return m_info.getInfo().attachments; }
-        uint32_t width() const { return m_info.getInfo().width; }
-        uint32_t height() const { return m_info.getInfo().height; }
-        uint32_t layers() const { return m_info.getInfo().layers; }
+        FramebufferCreateFlags flags() const { return m_info.flags; }
+        RenderPass& renderPass() const { return *m_info.renderPass; }
+        const std::vector<std::reference_wrapper<const ImageView>> attachments() const { return m_info.attachments; }
+        uint32_t width() const { return m_info.width; }
+        uint32_t height() const { return m_info.height; }
+        uint32_t layers() const { return m_info.layers; }
 
     private:
         VkFramebuffer m_framebuffer;
         Device* m_device;
 
-        InfoChain<FramebufferCreateInfo> m_info;
+        FramebufferCreateInfo m_info;
     };
 }

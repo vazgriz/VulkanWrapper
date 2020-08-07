@@ -86,7 +86,7 @@ namespace vk {
 
         void setDestructorEnabled(bool value) { m_destructorEnabled = value; }
 
-        const std::vector<InfoChain<DescriptorSetLayoutCreateInfo>>& layoutInfos() const { return m_layoutInfos; }
+        const std::vector<DescriptorSetLayoutCreateInfo>& layoutInfos() const { return m_layoutInfos; }
 
         static void update(const Device& device, ArrayProxy<const WriteDescriptorSet> writes, ArrayProxy<const CopyDescriptorSet> copies);
 
@@ -97,6 +97,6 @@ namespace vk {
         DescriptorPool* m_pool;
 
         bool m_destructorEnabled;
-        std::vector<InfoChain<DescriptorSetLayoutCreateInfo>> m_layoutInfos;
+        std::vector<DescriptorSetLayoutCreateInfo> m_layoutInfos;
     };
 }

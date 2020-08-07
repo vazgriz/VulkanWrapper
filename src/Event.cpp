@@ -16,9 +16,9 @@ void EventCreateInfo::marshal() const {
 
 Event::Event(Device& device, const EventCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateEvent(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_event));
+    VKW_CHECK(vkCreateEvent(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_event));
     m_device = &device;
 }
 

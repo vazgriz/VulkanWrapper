@@ -31,6 +31,6 @@ namespace vk {
     private:
         VkEvent m_event;
         Device* m_device;
-        InfoChain<EventCreateInfo> m_info;
+        EventCreateInfo m_info;
     };
 }

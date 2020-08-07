@@ -44,13 +44,13 @@ namespace vk {
         Device& device() const { return *m_device; }
 
         const std::vector<DescriptorSetLayoutCreateInfo>& layoutInfos() const { return m_layoutInfos; }
-        const std::vector<PushConstantRange>& pushConstantRanges() const { return m_info.getInfo().pushConstantRanges; }
+        const std::vector<PushConstantRange>& pushConstantRanges() const { return m_info.pushConstantRanges; }
 
     private:
         VkPipelineLayout m_pipelineLayout;
         Device* m_device;
 
-        InfoChain<PipelineLayoutCreateInfo> m_info;
+        PipelineLayoutCreateInfo m_info;
         std::vector<DescriptorSetLayoutCreateInfo> m_layoutInfos;
     };
 }

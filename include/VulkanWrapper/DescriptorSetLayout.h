@@ -47,13 +47,13 @@ namespace vk {
         VkDescriptorSetLayout handle() const { return m_descriptorSetLayout; }
         Device& device() const { return *m_device; }
 
-        DescriptorSetLayoutCreateFlags flags() const { return m_info.getInfo().flags; }
-        const std::vector<DescriptorSetLayoutBinding> bindings() const { return m_info.getInfo().bindings; }
+        DescriptorSetLayoutCreateFlags flags() const { return m_info.flags; }
+        const std::vector<DescriptorSetLayoutBinding> bindings() const { return m_info.bindings; }
 
     private:
         VkDescriptorSetLayout m_descriptorSetLayout;
         Device* m_device;
 
-        InfoChain<DescriptorSetLayoutCreateInfo> m_info;
+        DescriptorSetLayoutCreateInfo m_info;
     };
 }

@@ -43,27 +43,27 @@ namespace vk {
         VkSampler handle() const { return m_sampler; }
         Device& device() const { return *m_device; }
 
-        SamplerCreateFlags flags() const { return m_info.getInfo().flags; }
-        Filter magFilter() const { return m_info.getInfo().magFilter; }
-        Filter minFilter() const { return m_info.getInfo().minFilter; }
-        SamplerMipmapMode mipmapMode() const { return m_info.getInfo().mipmapMode; }
-        SamplerAddressMode addressModeU() const { return m_info.getInfo().addressModeU; }
-        SamplerAddressMode addressModeV() const { return m_info.getInfo().addressModeV; }
-        SamplerAddressMode addressModeW() const { return m_info.getInfo().addressModeW; }
-        float mipLodBias() const { return m_info.getInfo().mipLodBias; }
-        bool anisotropyEnable() const { return m_info.getInfo().anisotropyEnable; }
-        float maxAnisotropy() const { return m_info.getInfo().maxAnisotropy; }
-        bool compareEnable() const { return m_info.getInfo().compareEnable; }
-        CompareOp compareOp() const { return m_info.getInfo().compareOp; }
-        float minLod() const { return m_info.getInfo().minLod; }
-        float maxLod() const { return m_info.getInfo().maxLod; }
-        BorderColor borderColor() const { return m_info.getInfo().borderColor; }
-        bool unnormalizedCoordinates() const { return m_info.getInfo().unnormalizedCoordinates; }
+        SamplerCreateFlags flags() const { return m_info.flags; }
+        Filter magFilter() const { return m_info.magFilter; }
+        Filter minFilter() const { return m_info.minFilter; }
+        SamplerMipmapMode mipmapMode() const { return m_info.mipmapMode; }
+        SamplerAddressMode addressModeU() const { return m_info.addressModeU; }
+        SamplerAddressMode addressModeV() const { return m_info.addressModeV; }
+        SamplerAddressMode addressModeW() const { return m_info.addressModeW; }
+        float mipLodBias() const { return m_info.mipLodBias; }
+        bool anisotropyEnable() const { return m_info.anisotropyEnable; }
+        float maxAnisotropy() const { return m_info.maxAnisotropy; }
+        bool compareEnable() const { return m_info.compareEnable; }
+        CompareOp compareOp() const { return m_info.compareOp; }
+        float minLod() const { return m_info.minLod; }
+        float maxLod() const { return m_info.maxLod; }
+        BorderColor borderColor() const { return m_info.borderColor; }
+        bool unnormalizedCoordinates() const { return m_info.unnormalizedCoordinates; }
 
     private:
         VkSampler m_sampler;
         Device* m_device;
 
-        InfoChain<SamplerCreateInfo> m_info;
+        SamplerCreateInfo m_info;
     };
 }

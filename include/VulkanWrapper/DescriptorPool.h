@@ -46,9 +46,9 @@ namespace vk {
         VkDescriptorPool handle() const { return m_descriptorPool; }
         Device& device() const { return *m_device; }
 
-        DescriptorPoolCreateFlags flags() const { return m_info.getInfo().flags; }
-        uint32_t maxSets() const { return m_info.getInfo().maxSets; }
-        const std::vector<DescriptorPoolSize>& poolSizes() const { return m_info.getInfo().poolSizes; }
+        DescriptorPoolCreateFlags flags() const { return m_info.flags; }
+        uint32_t maxSets() const { return m_info.maxSets; }
+        const std::vector<DescriptorPoolSize>& poolSizes() const { return m_info.poolSizes; }
 
         std::vector<vk::DescriptorSet> allocate(const DescriptorSetAllocateInfo& info);
 
@@ -56,6 +56,6 @@ namespace vk {
         VkDescriptorPool m_descriptorPool;
         Device* m_device;
 
-        InfoChain<DescriptorPoolCreateInfo> m_info;
+        DescriptorPoolCreateInfo m_info;
     };
 }

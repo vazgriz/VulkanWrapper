@@ -52,10 +52,10 @@ namespace vk {
         Instance& instance() const { return *m_instance; }
         const PhysicalDevice& physicalDevice() { return *m_physicalDevice; }
 
-        DeviceCreateFlags flags() const { return m_info.getInfo().flags; }
-        const std::vector<DeviceQueueCreateInfo> queueCreateInfos() const { return m_info.getInfo().queueCreateInfos; }
+        DeviceCreateFlags flags() const { return m_info.flags; }
+        const std::vector<DeviceQueueCreateInfo> queueCreateInfos() const { return m_info.queueCreateInfos; }
         const std::vector<std::string>& layers() const;	//Devices layers are deprecated. Returns instance layers
-        const std::vector<std::string>& extensions() const { return m_info.getInfo().enabledExtensionNames; }
+        const std::vector<std::string>& extensions() const { return m_info.enabledExtensionNames; }
         const PhysicalDeviceFeatures& features() { return m_features; }
 
         const Queue& getQueue(uint32_t familyIndex, uint32_t queueIndex) const;
@@ -68,7 +68,7 @@ namespace vk {
         VkDevice m_device;
         Instance* m_instance;
         const PhysicalDevice* m_physicalDevice;
-        InfoChain<DeviceCreateInfo> m_info;
+        DeviceCreateInfo m_info;
 
         std::unordered_map<uint32_t, std::vector<Queue>> m_queueMap;
         PhysicalDeviceFeatures m_features;

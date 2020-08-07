@@ -40,9 +40,9 @@ void DescriptorSetLayoutCreateInfo::marshal() const {
 
 DescriptorSetLayout::DescriptorSetLayout(Device& device, const DescriptorSetLayoutCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
+    VKW_CHECK(vkCreateDescriptorSetLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_descriptorSetLayout));
     m_device = &device;
 }
 

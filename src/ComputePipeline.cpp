@@ -40,7 +40,7 @@ ComputePipeline& ComputePipeline::operator = (ComputePipeline&& other) {
 
 ComputePipeline::ComputePipeline(Device& device, const ComputePipelineCreateInfo& info) : Pipeline(device, *info.layout) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateComputePipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo().getInfo(), device.instance().callbacks(), &m_pipeline));
+    VKW_CHECK(vkCreateComputePipelines(device.handle(), VK_NULL_HANDLE, 1, m_info.getInfo(), device.instance().callbacks(), &m_pipeline));
 }

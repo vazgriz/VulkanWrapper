@@ -23,9 +23,9 @@ void BufferCreateInfo::marshal() const {
 
 Buffer::Buffer(Device& device, const BufferCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_buffer));
+    VKW_CHECK(vkCreateBuffer(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_buffer));
     m_device = &device;
     m_destructorEnabled = true;
 

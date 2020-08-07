@@ -149,9 +149,9 @@ namespace vk {
         GraphicsPipeline& operator = (GraphicsPipeline&& other);
         //no destructor, handled by vk::Pipeline
 
-        PipelineCreateFlags flags() const { return m_info.getInfo().flags; }
+        PipelineCreateFlags flags() const { return m_info.flags; }
 
     private:
-        InfoChain<GraphicsPipelineCreateInfo> m_info;
+        GraphicsPipelineCreateInfo m_info;
     };
 }

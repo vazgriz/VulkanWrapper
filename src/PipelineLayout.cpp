@@ -44,13 +44,13 @@ void PipelineLayoutCreateInfo::marshal() const {
 
 PipelineLayout::PipelineLayout(Device& device, const PipelineLayoutCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreatePipelineLayout(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_pipelineLayout));
+    VKW_CHECK(vkCreatePipelineLayout(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_pipelineLayout));
     m_device = &device;
 
-    m_layoutInfos.reserve(m_info.getInfo().setLayouts.size());
-    for (const DescriptorSetLayout& layout : m_info.getInfo().setLayouts) {
+    m_layoutInfos.reserve(m_info.setLayouts.size());
+    for (const DescriptorSetLayout& layout : m_info.setLayouts) {
         DescriptorSetLayoutCreateInfo layoutInfo = {};
         layoutInfo.bindings = layout.bindings();
         layoutInfo.flags = layout.flags();

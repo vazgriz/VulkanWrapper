@@ -42,9 +42,9 @@ void SwapchainCreateInfo::marshal() const {
 
 Swapchain::Swapchain(Device& device, const SwapchainCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateSwapchainKHR(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_swapchain));
+    VKW_CHECK(vkCreateSwapchainKHR(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_swapchain));
     m_device = &device;
 
     getImages();

@@ -27,7 +27,7 @@ namespace vk {
         VkFence handle() const { return m_fence; }
         Device& device() const { return *m_device; }
 
-        FenceCreateFlags flags() const { return m_info.getInfo().flags; }
+        FenceCreateFlags flags() const { return m_info.flags; }
 
         VkResult wait(uint64_t timeout = ~0ull) const;
         static VkResult wait(const Device& device, ArrayProxy<const Fence> fences, bool waitAll, uint64_t timeout = ~0ull);
@@ -39,6 +39,6 @@ namespace vk {
         VkFence m_fence;
         Device* m_device;
 
-        InfoChain<FenceCreateInfo> m_info;
+        FenceCreateInfo m_info;
     };
 }

@@ -18,9 +18,9 @@ void FenceCreateInfo::marshal() const {
 
 Fence::Fence(Device& device, const FenceCreateInfo& info) {
     m_info = info;
-    m_info.getInfo().marshal();
+    m_info.marshal();
 
-    VKW_CHECK(vkCreateFence(device.handle(), m_info.getInfo().getInfo(), device.instance().callbacks(), &m_fence));
+    VKW_CHECK(vkCreateFence(device.handle(), m_info.getInfo(), device.instance().callbacks(), &m_fence));
     m_device = &device;
 }
 

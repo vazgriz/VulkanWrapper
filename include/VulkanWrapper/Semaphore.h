@@ -7,10 +7,39 @@
 
 namespace vk {
     class Device;
+    class Semaphore;
 
     class SemaphoreCreateInfo : public InfoMixin<SemaphoreCreateInfo, VkSemaphoreCreateInfo> {
     public:
         void marshal() const;
+    };
+
+    class SemaphoreTypeCreateInfo : public InfoMixin<SemaphoreTypeCreateInfo, VkSemaphoreTypeCreateInfo> {
+    public:
+        void marshal() const;
+
+        SemaphoreType semaphoreType;
+        uint64_t initialValue;
+    };
+
+    class TimelineSemaphoreSubmitInfo : public InfoMixin<TimelineSemaphoreSubmitInfo, VkTimelineSemaphoreSubmitInfo> {
+    public:
+        void marshal() const;
+
+        std::vector<uint64_t> waitSemaphoreValues;
+        std::vector<uint64_t> signalSemaphoreValues;
+    };
+
+    class SemaphoreWaitInfo : public InfoMixin<SemaphoreWaitInfo, VkSemaphoreWaitInfo> {
+    public:
+        void marshal() const;
+
+        SemaphoreWaitFlags flags;
+        std::vector<std::reference_wrapper<Semaphore>> semaphores;
+        std::vector<uint64_t> values;
+
+    private:
+        mutable std::vector<VkSemaphore> m_semaphores;
     };
 
     class Semaphore {
@@ -24,6 +53,8 @@ namespace vk {
 
         VkSemaphore handle() const { return m_sempahore; }
         Device& device() const { return *m_device; }
+
+        static vk::Result wait(vk::Device& device, vk::SemaphoreWaitInfo& info, uint64_t timeout);
 
     private:
         VkSemaphore m_sempahore;

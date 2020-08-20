@@ -30,6 +30,13 @@ void DeviceCreateInfo::marshal() const {
     m_extensions.clear();
 
     m_info.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = next->info();
+    } else {
+        m_info.pNext = nullptr;
+    }
+
     m_info.flags = static_cast<VkDeviceCreateFlags>(flags);
 
     m_queueInfos.reserve(queueCreateInfos.size());

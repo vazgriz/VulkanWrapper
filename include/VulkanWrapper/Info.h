@@ -21,6 +21,7 @@ namespace vk {
         Info* clone() const override { return new T(*dynamic_cast<const T*>(this)); }
         const void* info() const override { return &m_info; }
         const VK_T* getInfo() const { return &m_info; }
+        VK_T* getMutableInfo() { return &m_info; }
 
     protected:
         mutable VK_T m_info;

@@ -2,6 +2,18 @@
 
 using namespace vk;
 
+void PhysicalDeviceFeatures2::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+    features11.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES;
+    features12.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES;
+
+    m_info.pNext = &features11;
+    features11.pNext = &features12;
+    features12.pNext = nullptr;
+
+    memcpy(&m_info.features, &features, sizeof(VkPhysicalDeviceFeatures));
+}
+
 MemoryType::MemoryType(VkMemoryType type) {
     propertyFlags = static_cast<MemoryPropertyFlags>(type.propertyFlags);
     heapIndex = type.heapIndex;
@@ -51,7 +63,8 @@ void PhysicalDevice::getProperties() {
 }
 
 void PhysicalDevice::getFeatures() {
-    vkGetPhysicalDeviceFeatures(m_physicalDevice, &m_features);
+    m_features.marshal();
+    vkGetPhysicalDeviceFeatures2(m_physicalDevice, m_features.getMutableInfo());
 }
 
 void PhysicalDevice::getQueueFamilies() {

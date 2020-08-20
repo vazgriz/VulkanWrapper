@@ -14,6 +14,15 @@ namespace vk {
     class Instance;
     class Surface;
 
+    class PhysicalDeviceFeatures2 : public InfoMixin<PhysicalDeviceFeatures2, VkPhysicalDeviceFeatures2> {
+    public:
+        PhysicalDeviceFeatures features;
+        mutable PhysicalDeviceVulkan11Features features11;
+        mutable PhysicalDeviceVulkan12Features features12;
+
+        void marshal() const;
+    };
+
     struct MemoryType {
         MemoryPropertyFlags propertyFlags;
         uint32_t heapIndex;
@@ -66,7 +75,7 @@ namespace vk {
         Instance& instance() const { return *m_instanceRef; }
 
         const PhysicalDeviceProperties& properties() const { return m_properties; }
-        const PhysicalDeviceFeatures& features() const { return m_features; }
+        const PhysicalDeviceFeatures2& features() const { return m_features; }
         const std::vector<QueueFamilyProperties>& queueFamilies() const { return m_families; }
         const std::vector<LayerProperties>& availableLayers() const { return m_layers; }
         const std::vector<ExtensionProperties>& availableExtensions(const std::string& layerName = "") const { return m_extensionMap.at(layerName); }
@@ -92,7 +101,7 @@ namespace vk {
         Instance* m_instanceRef;
         VkPhysicalDevice m_physicalDevice;
         PhysicalDeviceProperties m_properties;
-        PhysicalDeviceFeatures m_features;
+        PhysicalDeviceFeatures2 m_features;
         std::vector<QueueFamilyProperties> m_families;
         std::vector<LayerProperties> m_layers;
         std::unordered_map<std::string, std::vector<ExtensionProperties>> m_extensionMap;

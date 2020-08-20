@@ -5,6 +5,8 @@
 namespace vk {
     typedef VkDeviceSize DeviceSize;
     typedef VkPhysicalDeviceFeatures PhysicalDeviceFeatures;
+    typedef VkPhysicalDeviceVulkan11Features PhysicalDeviceVulkan11Features;
+    typedef VkPhysicalDeviceVulkan12Features PhysicalDeviceVulkan12Features;
     typedef VkExtent3D Extent3D;
     typedef VkPhysicalDeviceLimits PhysicalDeviceLimits;
     typedef VkPhysicalDeviceSparseProperties PhysicalDeviceSparseProperties;

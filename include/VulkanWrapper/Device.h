@@ -7,10 +7,10 @@
 #include "VulkanWrapper/enums.h"
 #include "VulkanWrapper/Utilities.h"
 #include "VulkanWrapper/structs.h"
+#include "VulkanWrapper/PhysicalDevice.h"
 
 namespace vk {
     class Instance;
-    class PhysicalDevice;
     class Queue;
 
     class DeviceQueueCreateInfo : public InfoMixin<DeviceQueueCreateInfo, VkDeviceQueueCreateInfo> {
@@ -56,7 +56,7 @@ namespace vk {
         const std::vector<DeviceQueueCreateInfo> queueCreateInfos() const { return m_info.queueCreateInfos; }
         const std::vector<std::string>& layers() const;	//Devices layers are deprecated. Returns instance layers
         const std::vector<std::string>& extensions() const { return m_info.enabledExtensionNames; }
-        const PhysicalDeviceFeatures& features() { return m_features; }
+        const PhysicalDeviceFeatures2& features() { return m_features; }
 
         const Queue& getQueue(uint32_t familyIndex, uint32_t queueIndex) const;
 
@@ -71,6 +71,6 @@ namespace vk {
         DeviceCreateInfo m_info;
 
         std::unordered_map<uint32_t, std::vector<Queue>> m_queueMap;
-        PhysicalDeviceFeatures m_features;
+        PhysicalDeviceFeatures2 m_features;
     };
 }

@@ -51,8 +51,7 @@ void SemaphoreWaitInfo::marshal() const {
     if (next != nullptr) {
         next->marshal();
         m_info.pNext = next->info();
-    }
-    else {
+    } else {
         m_info.pNext = nullptr;
     }
 
@@ -66,6 +65,19 @@ void SemaphoreWaitInfo::marshal() const {
 
     m_info.pSemaphores = m_semaphores.data();
     m_info.pValues = values.data();
+}
+
+void SemaphoreSignalInfo::marshal() const {
+    m_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO;
+    if (next != nullptr) {
+        next->marshal();
+        m_info.pNext = next->info();
+    } else {
+        m_info.pNext = nullptr;
+    }
+
+    m_info.semaphore = semaphore->handle();
+    m_info.value = value;
 }
 
 Semaphore::Semaphore(Device& device, const SemaphoreCreateInfo& info) {
@@ -101,4 +113,10 @@ vk::Result Semaphore::wait(vk::Device& device, vk::SemaphoreWaitInfo& info, uint
 
     VkResult result = vkWaitSemaphores(device.handle(), info.getInfo(), timeout);
     return static_cast<vk::Result>(result);
+}
+
+void Semaphore::signal(vk::Device& device, vk::SemaphoreSignalInfo& info) {
+    info.marshal();
+
+    VKW_CHECK(vkSignalSemaphore(device.handle(), info.getInfo()));
 }

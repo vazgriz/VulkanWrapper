@@ -42,6 +42,14 @@ namespace vk {
         mutable std::vector<VkSemaphore> m_semaphores;
     };
 
+    class SemaphoreSignalInfo : public InfoMixin<SemaphoreSignalInfo, VkSemaphoreSignalInfo> {
+    public:
+        void marshal() const;
+
+        Semaphore* semaphore;
+        uint64_t value;
+    };
+
     class Semaphore {
     public:
         Semaphore(Device& device, const SemaphoreCreateInfo& info);
@@ -55,6 +63,7 @@ namespace vk {
         Device& device() const { return *m_device; }
 
         static vk::Result wait(vk::Device& device, vk::SemaphoreWaitInfo& info, uint64_t timeout);
+        static void signal(vk::Device& device, vk::SemaphoreSignalInfo& info);
 
     private:
         VkSemaphore m_sempahore;

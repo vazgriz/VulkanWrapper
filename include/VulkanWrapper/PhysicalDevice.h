@@ -21,6 +21,7 @@ namespace vk {
         mutable PhysicalDeviceVulkan12Features features12;
 
         void marshal() const;
+        void unmarshal();
     };
 
     struct MemoryType {

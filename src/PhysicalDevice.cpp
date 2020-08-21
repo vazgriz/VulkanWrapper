@@ -14,6 +14,10 @@ void PhysicalDeviceFeatures2::marshal() const {
     memcpy(&m_info.features, &features, sizeof(VkPhysicalDeviceFeatures));
 }
 
+void PhysicalDeviceFeatures2::unmarshal()  {
+    memcpy(&features, &m_info.features, sizeof(VkPhysicalDeviceFeatures));
+}
+
 MemoryType::MemoryType(VkMemoryType type) {
     propertyFlags = static_cast<MemoryPropertyFlags>(type.propertyFlags);
     heapIndex = type.heapIndex;
@@ -65,6 +69,7 @@ void PhysicalDevice::getProperties() {
 void PhysicalDevice::getFeatures() {
     m_features.marshal();
     vkGetPhysicalDeviceFeatures2(m_physicalDevice, m_features.getMutableInfo());
+    m_features.unmarshal();
 }
 
 void PhysicalDevice::getQueueFamilies() {
